@@ -1,0 +1,275 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+
+    #add-btn{
+      text-align: center;
+      color: aqua;
+      background-color: rgb(201, 184, 184);
+      font-size: 15px;
+      padding: 5px;
+      width: 300px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius:20px!important;
+
+    }
+		input,select{
+      background-color: rgb(106, 240, 240);
+      color: black;
+			width: 300px!important;
+			border-radius: 20px!important;
+		}
+		form{
+			margin: 20px auto;
+			width: 300px;
+			height: 200px;
+			text-align: center;
+		}
+		select{
+			height:10px;
+		}
+		button{
+			width: 240px;
+			border-radius: 0px!important;
+		}
+            h3{
+            text-align: center;
+            color: blue;
+            }
+            .table{
+            width: 1000px;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            margin-left: 120px;
+            }
+            .table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            }
+            .table th,
+            .table td {
+            padding: 12px 15px;
+            }
+            .table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+
+        .a1:link, a:visited {
+        background-color: #e7a09a;
+        color: black;
+        padding: 4px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius:25px;
+        }
+
+        .a1:hover {
+        background-color: rgb(204, 163, 163);
+        }
+
+    
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- <a class="navbar-brand" href="#" style="margin-left: 40px;">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+
+                                                <!-- Homeo Bhagwat Gita  -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 80px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Homeo Bhagavad Gita
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'quote' %}">Causative Factors </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'Gnm_Sbs_Conflicts' %}"> Organs and Conflicts </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'book' %}"> Medicine Essence</a>
+                </div>
+              </li>
+
+                                                    <!-- New CASE  -->
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'newcase' %}" style="margin-left: 20px;">New Case <span class="sr-only">(current)</span></a>
+            </li>
+
+                                                       <!-- Medicine -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Medicine
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'allroom' %}">All Medicine </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'addmedicine' %}"> Add Medicine</a>                
+              </li>
+
+
+
+                                                <!-- STAFF  -->
+
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'allstaff' %}">All Staff</a>                
+              </div>
+            </li>
+
+                            <!-- CERTIFICATE  -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Certificate
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item"  href="{% url 'addpatient' %}">Bill Invoice</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'previous_issued_invoice' %}">Previous Issued Invoices</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'addcertificate' %}">Other Certificates</a></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'previous_issued_certificate' %}">Previous Issued Certificates</a>               
+               </div>
+            </li>
+
+                                <!-- PRICING -->
+            
+            <li class="nav-item">
+              <a class="nav-link" style="margin-left: 20px;" href="{% url 'pricing' %}">Doctor Fees</a>
+            </li>
+
+                                     <!-- COLLECTION  -->
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Today's Collections
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'dombivali_collection' %}"> Dombivali Branch </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'mulund_collection' %}"> Mulund Branch</a>              
+                </div>
+            </li>
+
+                            <!-- DIAGNOSIS HISTORY  -->
+
+            <li class="nav-item">
+              <a class="nav-link" style="margin-left: 20px;" href="{% url 'diagnosis_history' %}">Diagnosis History</a>
+            </li>
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+
+        <br>
+
+        <form action="{% url 'Gnm_Sbs_Conflicts' %}" method="POST" role="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group">
+                  {{ form }}
+                  <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default" id="add-btn"><i class="fa fa-plus" aria-hidden="true"></i>ADD</button>
+                  </span>
+                </div>
+            </div>
+        </form>
+        <form action="{% url 'Gnm_Sbs_Conflicts' %}" method="get">
+            <input
+              type="search"
+              name="q"
+              placeholder="Search by name or quote..."
+              class="form-control"
+            />
+          </form>
+          <h3>List Of All Symptoms </h3>
+        <table class="table">
+            <thead>
+              <tr>
+            
+                <th scope="col">Organs</th>
+                <th scope="col">Biological conflicts</th>
+                <th scope="col">Actions</th>
+        
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for item in  quote %}
+              <tr>
+               
+                <td>{{item.Organs}}</td>
+                <td>{{ item.Conflicts }}</td>
+                <td><a  class="a1" href="{% url 'delete_organs' id=item.id %}"><i class="fa fa-trash" aria-hidden="true"></i>Delete</a></td>
+              </tr>
+              {%  endfor %} 
+              </tbody>
+              </table>
+    
+    
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+  
+</body>
+</html>

@@ -1,0 +1,20 @@
+
+    {% for medicines in orders_list %}
+     
+       
+       BRANCH :{{medicines.0.branch}}
+       VENDOR :{{medicines.0.vendors}} {{medicines.0.vendors.mobile_number}}
+       ORDER DATE :  {{medicines.0.order_date|date:"d F,Y"}}
+       DELIVER BY :     {{medicines.0.expected_delivery_date|date:"d F,Y"}}
+
+      
+       ORDER MEDICINES :   
+        {% for medicine in medicines %}
+                
+        {{forloop.counter}}.   {{medicine.order_medicine}}  ({{medicine.potency}}) {{medicine.pack}} - {{medicine.ordered_quantity}}
+        
+        {% endfor %}
+        
+       
+    {% endfor %}
+

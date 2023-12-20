@@ -1,0 +1,24 @@
+
+
+
+
+Vendor Name:    {{vendor_data.vendor_name}} 
+
+Vendor Contact Number: {{vendor_data.mobile_number}} 
+
+Email: {{vendor_data.email}} 
+
+Medicine Orders : 
+
+{% for med in med_data  %}
+ {{forloop.counter}}.   {{med.ordered_med}} ({{med.ordered_med.potency}}) {{med.ordered_med.pack}} - {{med.ordered_med.order_quantity}} 
+{% endfor %}
+
+
+
+Order Delivery: {{med_data.0.ordered_med.order_delivery_date|date:"d F, Y"}} 
+
+Thank You,
+Wings Classical Homeopathy
+
+

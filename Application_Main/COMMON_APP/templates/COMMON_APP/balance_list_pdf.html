@@ -1,0 +1,80 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Balance List PDF</title>
+    <style>
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        table, th, td {
+            border: 1px solid black;
+            
+        }
+    
+        th, td {
+            padding: 9px; /* Add space around the content of table cells */
+            
+            font-size: 14px;
+        }
+    </style>
+   
+
+  </head>
+
+  <body>
+    
+<main role="main" class="container">
+   
+
+  <div class="jumbotron">
+    
+
+    <span style="font-size:40px; text-align:center;">Balance List {{branch}}</span>
+
+    <table class="table" >    
+        <thead>       
+            <tr  >
+            <th>COUNT</th>
+              <th>PATIENT NAME</th>                              
+              <th>PATIENT CASE PAPER</th>
+              <th>CONTACT NUMBER</th>              
+              <th>APPOINTMENT TYPE</th>
+              <th>DATE</th>
+              <th>BALANCE AMOUNT</th>                            
+            </tr>
+        </thead>
+        {% for balance,appointment in zipped_list %}
+        <tr>
+            <td  style="text-align:center;" >{{forloop.counter}} .</td>
+            <td >{{balance.patient.name}}</td>
+            <td >{{balance.patient.case}}</td>
+            <td > {{balance.patient.phone}}</td>
+            <td >{{appointment.stat}}</td>
+            <td >{{appointment.date}}</td>
+            <td style="text-align:center;"><b>Rs {{balance.balance_amt}}</b></td>
+           
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+  </div>
+	
+</main>
+
+</body>
+</html>
+
+

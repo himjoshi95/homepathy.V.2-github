@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+	#box {
+      display: none;
+      background-color: white;
+      color: black;
+      width: 300px;
+      height: 32px;
+    }
+	</style>
+	</head>
+<body>
+    {% include "nav.html" %}
+
+ <br>
+ 
+ <div class="col-sm-5">
+	 <div class="container">
+	  <div class="row">
+        
+		 <div class="col-sm-5">
+		 <h4 class="mb-3">CASE NO:</h4><button class="btn btn-primary" id="hello">{{patient.case}}</button>
+		 
+		 </div> 
+		 <div class="col-sm-5">
+		   <h4 class="mb-3">NAME:</h4><button class="btn btn-primary" id="hello">{{patient.name}}</button>
+		   
+		   </div>
+           
+		 </div>
+		 </div></div></div>
+       
+         <div class="container mt-5">
+		 <div>
+            <button type="submit" class="btn btn-danger"> <a href="# "></a> Payment </button>
+        </div>
+		<br>
+        <!-- <p>Today's Amount : <h1> Rs {{x}} </h1></p><br> -->
+		<p>Balance Dues:</p><h1> Rs {{bal_amt}}</h1><br>
+		<!-- <p>Total Amount to be paid:</p><h1> Rs {{ total_clearance }}</h1><br> -->
+		<h5>Select an option:</h5><br>
+		
+		<form action="{% url 'pay_balance' id=patient.id %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+		<div>
+		  <input type="radio" id="hide" name="example" value="hide" checked />
+		  <label for="hide">Cash</label>
+		</div>
+	
+		<div>
+		  <input type="radio" id="show" name="example" value="show" />
+		  <label for="show">Online</label>
+		</div>
+	
+		<!-- <div id="box">Box is now shown</div> -->
+
+
+
+		<!-- <input type="radio" id="html1" name="fav_language" value="HTML" checked="checked">
+		<label for="html">Cash</label>
+		<input type="radio" id="html2" name="fav_language" value="HTML">
+		<label for="html">Online</label><br><br> -->
+		<br>
+		<h3>Amount Paid:</h3>
+		<input type="text" id="id_email" maxlength="75" required="True" class="required"
+		value="" name="email" placeholder="Rs"><br><br>
+		<div id="box">
+		<h3>Transaction Details:</h3>
+		<input type="text" id="id_email1" maxlength="75" class="required"
+		value="" name="email1" placeholder="Enter Details">
+		</div>
+		<br><br><hr>
+
+		
+			<div class="container">
+				<button style="width: 25%; " type="submit" class="btn btn-success" value='True'>DONE</button></div>
+	
+		</form>
+	
+
+        <!-- <label for="potency" style="margin: 50px;">Patients status</label>
+                  <select id="potency" name="potency">
+                      <option value="select">Select</option>
+                      <option value="Q">Old Patient</option>
+                      <option value="3X">New Patient</option>                                           
+                    </select> -->
+		<br>
+        <!-- <label for="potency" style="margin: 50px;">Mode of Payment</label>
+				<select id="potency" name="potency">
+					<option value="select">Select</option>
+					<option value="Cash">Cash</option>
+					<option value="Online">Online</option>
+					
+					
+				  </select>
+				  -->
+
+                  
+    </div>
+
+
+<script>const box = document.getElementById('box');
+
+	function handleRadioClick() {
+	  if (document.getElementById('show').checked) {
+		box.style.display = 'block';
+	  } else {
+		box.style.display = 'none';
+	  }
+	}
+	
+	const radioButtons = document.querySelectorAll('input[name="example"]');
+	radioButtons.forEach(radio => {
+	  radio.addEventListener('click', handleRadioClick);
+	});</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

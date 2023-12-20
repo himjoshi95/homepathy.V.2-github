@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+	#box {
+      display: none;
+      background-color: white;
+      color: black;
+      width: 300px;
+      height: 32px;
+    }
+
+	.grand1 {
+		background-color: yellow;
+		font-size: 20px;
+
+	}
+	body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+	  margin: 0;
+}    
+	</style>
+	<script>
+		function myFunction() {
+        var x = document.getElementById("total").value;
+		var y = document.getElementById("id_courier_amount").value;
+		var total = parseInt(x) + parseInt(y)
+		
+		
+
+        document.getElementById("grand").innerHTML = "Grand Total Amount : Rs "+total;
+		
+    }
+	</script>
+	</head>
+<body>
+    {% include "nav.html" %}
+
+ <br>
+ 
+ <div class="col-sm-5">
+	 <div class="container">
+	  <div class="row">
+        
+		 <div class="col-sm-5">
+		 <h4 class="mb-3">CASE NO:</h4><button class="btn btn-primary" id="hello">{{patient.case}}</button>
+		 
+		 </div> 
+		 <div class="col-sm-5">
+		   <h4 class="mb-3">NAME:</h4><button class="btn btn-primary" id="hello">{{patient.name}}</button>
+		   <p style=" margin-left:600px; font-size:22px;padding: 10px; border: 2px solid lightblue;width:310px; background:lightblue; color:#041E42;"><b>Next Visit: &nbsp; {{next_visit|date:"d M , Y"}}</b> </p>
+
+		   </div>
+		   
+           
+		 </div>
+		 </div></div></div>
+       
+         <div class="container mt-5">
+		 <div>
+            <button type="submit" class="btn btn-danger"> <a href="# "></a> Payment </button>
+        </div>
+		<br>
+        <p style="color: antiquewhite;">Today's Amount : <h1 style="color: antiquewhite;"> Rs {{x}} </h1></p><br>
+		<p style="color: antiquewhite;">Balance Dues:</p><h1 style="color: antiquewhite;"> Rs {{bal}}</h1><br>
+		<label for="total" style="color: antiquewhite;"><b style="color: antiquewhite;">Amount to be paid:</b> <h1 style="color: antiquewhite;"> Rs {{ total_clearance }}</h1></label><br>
+		<input type="hidden" readonly="True" id="total" name="total" value="{{ total_clearance }}" checked />
+		<!-- <p id="grand" class="grand1"></p> -->
+		<!-- <p>Total Amount to be paid:</p><h1> Rs {{ total_clearance }}</h1><br>
+		<h5>Select an option:</h5><br> -->
+		
+		<form action="{% url 'hr_status' id=id %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div>
+			{% if app_stat == 'Courier Medicine' %}	
+			
+			{{form.patient}}<br><br>
+			<label style="color:antiquewhite"><h5>Courier Amount:</h5></label><br>
+			{{form.courier_amount}}<br><br>
+			<h5 style="color:antiquewhite">Please Click on Grand Total to Calculate Final Amount.</h5><br>
+			<button style="width: 20%; " type="submit" class="btn btn-warning" value='True' onclick="myFunction()">Grand Total</button><br><br>
+			<label style="color:antiquewhite"><h5>Address:</h5></label><br>
+			{{form.address}}<br><br>
+			<label style="color:antiquewhite"><h5>Email:</h5></label><br>
+			{{form.email}}
+			{% endif %}
+		</div>
+		<br><br>
+		<h4 style="color: antiquewhite;">Mode of Payment:</h4>
+		<div>
+		  <input type="radio" id="hide" name="example" value="hide" checked />
+		  <label style="color: antiquewhite;"for="hide">Cash</label>
+		</div>
+	
+		<div>
+		  <input type="radio" id="show" name="example" value="show" />
+		  <label  style="color: antiquewhite;"for="show">Online</label>
+		</div>
+		<p style="font-size: 20px" id="grand" class="grand1"></p>
+		<!-- <div id="box">Box is now shown</div> -->
+
+
+
+		<!-- <input type="radio" id="html1" name="fav_language" value="HTML" checked="checked">
+		<label for="html">Cash</label>
+		<input type="radio" id="html2" name="fav_language" value="HTML">
+		<label for="html">Online</label><br><br> -->
+		<br>
+		<h3 style="color: antiquewhite;">Amount Paid:</h3>
+		<input type="text" id="id_email" maxlength="75" required="True" class="required"
+		value="" name="Email" placeholder="Rs"><br><br>		
+		<div id="box">
+		<h3>Transaction Details:</h3>
+		<input type="text" id="id_email1" maxlength="75" class="required"
+		value="" name="Email1" placeholder="Enter Details">
+		</div>
+		<br>
+		
+		
+		<br><br>
+		<!-- <input type="text" readonly="True" id="total1" name="total" value="{{ total_clearance }}" checked /> -->
+		<!-- {% if app_stat == 'Courier Medicine' %}
+			<h1>Courier:</h1>
+			
+			{{form.patient}}<br><br>
+			<label>Courier Amount:</label><br>
+			{{form.courier_amount}}<br><br>
+			<button style="width: 20%; " type="submit" class="btn btn-warning" value='True' onclick="myFunction()">Grand Total</button><br><br>
+			<label>Address:</label><br>
+			{{form.address}}<br><br>
+			<label>Email:</label><br>
+			{{form.email}}
+			{% endif %} -->
+			
+		<hr>
+			<div class="container">
+				<button style="width: 25%; " type="submit" class="btn btn-success" value='True'>DONE</button></div>
+	
+		</form>
+	
+
+       
+		<br>
+       
+
+                  
+    </div>
+
+
+<script>const box = document.getElementById('box');
+
+	function handleRadioClick() {
+	  if (document.getElementById('show').checked) {
+		box.style.display = 'block';
+	  } else {
+		box.style.display = 'none';
+	  }
+	}
+	
+	const radioButtons = document.querySelectorAll('input[name="example"]');
+	radioButtons.forEach(radio => {
+	  radio.addEventListener('click', handleRadioClick);
+	});</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

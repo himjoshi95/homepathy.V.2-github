@@ -1,0 +1,151 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v3.8.6" />
+    <title>Place Order Stock</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <style>
+      @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+      body {
+        background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+        background-size: 100%;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet" />
+    <!-- Select2 CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {% include 'nav.html' %}
+
+    <main role="main" class="container">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="jumbotron">
+        <a href="{% url 'place_order_stock' pk %}" class="btn btn-primary"
+          ><i class="fa fa-angle-double-left"></i> Go Back</a
+        >
+
+      
+
+        <div class="header">Orders Placed</div>
+        <br>
+        <form method='POST' action=''>{% csrf_token %}
+
+          {{form|crispy}}
+          <p style="color:red;">(Please Select Stock Name from the list you want to Search)</p> 
+            <input type="submit" style="width:500px;" class="btn btn-primary" value='Search'/>
+            <a href="{% url 'order_placed_vendor_stockinfo' pk %}" class="btn btn-dark" style="width:500px; margin-left:20px;text-decoration:none;">Refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
+        </form>
+        <hr />
+        <br>
+
+
+        {% if order_details %}
+
+        <div class="display_table">
+          <table class="table">
+            <tr>
+              <th>STOCK NAME</th>
+              <th>ORDERED QUANTITY</th>
+              <th>DATE OF ORDER</th>
+              <th>DATE OF ORDER DELIVERY</th>
+              <th>DELIVERY STATUS</th>
+            </tr>
+            {% for order in order_details %} {% if order.email_placed_flag %}
+            <tr style="font-size: 15px">
+              <td>{{order.stock_order}}</td>
+              <td>{{order.order_quantity}} &nbsp; {{order.unit}}</td>
+              <td>{{order.order_timestamp|date:"d F, Y"}}</td>
+              <td>{{order.order_delivery_date|date:"d F, Y"}}</td>
+              {% if order.order_received_flag %}
+              <td>
+                <a href="{% url 'mark_stock_delivered' order.id %}" class="btn btn-success btn-block">Delivered <i class="fa fa-calendar-check-o" style="font-size:20px; float:right;"></i></a>
+              </td>
+              {% else %}
+              <td>
+                <a
+                  href="{% url 'mark_stock_delivered' order.id %}"
+                  class="btn btn-primary btn-block"
+                  >Mark Delivered <i class="fa fa-exchange" style="font-size:20px; float:right;" ></i></a
+                >
+              </td>
+              {% endif %}
+            </tr>
+            {% endif %} {% endfor %}
+          </table>
+        </div>
+        {% else %}
+
+        <p
+          style="
+            width: 400px;
+            height: 50px;
+            background: white;
+            text-align: center;
+            font-size: 30px;
+            margin-left: 300px;
+            margin-top: 50px;
+            border: 1px solid black;
+          "
+        >
+          No Orders Placed
+        </p>
+        {%endif%}
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      $("#id_stock_order").select2();
+
+    </script>
+  </body>
+</html>

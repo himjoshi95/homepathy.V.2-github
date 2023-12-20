@@ -1,0 +1,345 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medicine List</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: #DCDCDC;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:#DCDCDC;
+        }
+        .reorder{
+          background-color: #DCDCDC;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: white;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        
+        .select2-selection--multiple:before {
+            content: "";
+            position: absolute;
+            right: 7px;
+            top: 42%;
+            border-top: 5px solid #888;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+        }
+
+        .box {
+          width: 200px; /* Adjust the width as needed */
+          height: 50px; /* Adjust the height as needed */
+          border: 1px solid #000; /* Add a border */
+          padding: 10px; /* Add padding inside the box */
+          text-align: center; /* Center-align the text horizontally */
+          background-color: #f0f0f0; /* Background color for the box */
+          margin-left: 400px;
+      }
+      
+        
+        
+
+
+
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+
+    
+
+   
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+<br><br><br>
+  <div  class="jumbotron">
+
+    <a href="{% url 'medicine_order_history' %}" class="btn btn-primary">Medicine Order History &nbsp;<i class="fa fa-address-card"></i></a>
+
+	<div class="header">{{header}}</div>
+    <div class="header">Reorder Medicine</div>
+    <p style="font-size:18px;"><b>Today : {{today|date:"d F Y"}}</b></p>
+    <hr>  
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        
+	<div  class="display_table" >
+
+    {% comment %} {% if not vendor_medicine_list %} {% endcomment %}
+    
+    
+    <table  class='table'>
+        <thead>
+          <tr>
+            {% comment %} <th>COUNT</th> {% endcomment %}
+            <th>MEDICINE</th> 
+            {% comment %} <th>Reorder</th> {% endcomment %}
+            <th>POTENCY</th>           
+            <th>CURRENT VENDOR</th>
+            <th>PACK</th> 
+            <th>SELECT VENDORS</th>
+          <th style="display:none;">MEDICINE</th> 
+          <th style="display:none;">POTENCY</th>           
+          <th>QUANTITY</th> 
+          <th>DATE OF DELIVERY</th>   
+          <th></th>        		
+          </tr>
+        </thead>
+        {% for item1,item2,item3 in zipped_three %}
+        {% if item1 != none and item2 == none %}
+
+        {% if item1.reorder_level == 50 %}
+        
+        <tr style="line-height:25.5px; background:	#FA8072;">
+            {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+            <td>{{item1.medicine}}</td>
+            {% comment %} <td>{{item1.reorder_level}}</td> {% endcomment %}
+            <td>{{item1.potency}}</td>
+            <td>{{item1.vendor}}</td>
+            <td>{{item3.pack}}</td>
+            <td>{{item3.vendor_order}}</td>
+          <td style="display:none;">{{item3.medicine_order}}</td>
+          <td style="display:none;">{{item3.potency}}</td>
+          <td>{{item3.order_quantity}}</td>  
+          <td>{{item3.order_delivery_date}}</td>
+          {% if item1.order_status %}
+          <td><a href="{% url 'remove_reorder_medicine' item1.id %}"><img src="{% static 'images/del.png' %}" width="20" height="20"></a> </td>
+          {% endif %}          
+        </tr> 
+        {% else %} 
+        <tr style="line-height:25.5px;">
+          {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+          <td>{{item1.medicine}}</td>
+          {% comment %} <td>{{item1.reorder_level}}</td> {% endcomment %}
+          <td>{{item1.potency}}</td>
+          <td>{{item1.vendor}}</td>
+          <td>{{item3.pack}}</td>
+          <td>{{item3.vendor_order}}</td>
+        <td style="display:none;">{{item3.medicine_order}}</td>
+        <td style="display:none;">{{item3.potency}}</td>
+        <td>{{item3.order_quantity}}</td>  
+        <td>{{item3.order_delivery_date}}</td>
+        {% if item1.order_status %}
+        <td><a href="{% url 'remove_reorder_medicine' item1.id %}"><img src="{% static 'images/del.png' %}" width="20" height="20"></a> </td>
+        {% endif %}          
+      </tr> 
+        {% endif %}
+            
+         {% endif %}
+        {% endfor %}
+    </table> 
+    <input style=" float:right;" type="submit" class="btn btn-success" value="Add Orders">  
+    
+    {% comment %} {% else %}
+
+    <div class="box">
+      <p><b>All Orders Placed</b></p>
+  </div>
+
+
+    {% endif %} {% endcomment %}
+    
+    <br><br>
+    
+</div>
+</form> 
+ 
+
+<!--End of display table-->
+
+<hr>
+
+<br><br>
+
+<hr>
+    {% if vendor_medicine_list %}
+    <div class="header">Medicine Orders</div>   
+
+      <table  class='table'>
+          <thead>
+            <tr>
+              {% comment %} <th>COUNT</th>                         {% endcomment %}
+              <th> VENDORS</th> 
+            {% comment %} <th>EMAIL ADDRESS</th> {% endcomment %}
+              <th>ORDERS</th>  
+              <th>DATE OF ORDER</th> 
+              <th>DATE OF DELIVERY</th>
+              <th>MAIL ORDER DETAILS</th>              
+                      		
+            </tr>
+          </thead>
+          
+          {% for item1,item2 in vendor_medicine_list %}
+          <tr >
+              {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+              <td>{{item1}}</td>
+              {% comment %} <td>{{item1.email}}</td> {% endcomment %}
+              <td>
+                <table style="margin: 0 auto;" border="1">
+                  <tr style="background:#0077c0; color:white;">
+                    <td>Medicine</td>
+                    <td>Potency</td>
+                    <td>Pack</td>
+                    <td>Ordered Quantity</td>
+                  </tr>
+                {% for i in item2 %}
+                <tr>
+                   <td>{{i.ordered_med}}</td>
+                    <td>{{i.ordered_med.potency}}</td>
+                     <td>{{i.ordered_med.pack}}</td> 
+                     <td>{{i.ordered_med.order_quantity}} </td>
+                    </tr>{% endfor %}
+                  </table>
+                </td>       
+              <td>{{item2.0.ordered_med.order_timestamp|date:"d F, Y"}}</td>    
+              <td>{{item2.0.ordered_med.order_delivery_date|date:"d F, Y"}}</td>
+              {% if item2.0.email_status %}
+              <td><a href="{% url 'vendor_med_mail' item1.id %}" class="btn btn-success">Mail Sent &nbsp; <i class="fa fa-check-square-o"></i></a></td> 
+
+              {% else %}
+              <td><a href="{% url 'vendor_med_mail' item1.id %}" class="btn btn-info">Send Mail &nbsp; <i class="fa fa-envelope"></i></a></td> 
+              {% endif %}
+            </tr>
+          
+          
+          {% endfor %}
+      </table>
+
+      
+
+    {% endif %}    
+  
+
+    <a href="/del-test-med-orders/" class="btn btn-outline-danger" style=" margin-top:50px;float:right;color:red;text-decoration:none;font-size:20px;"> DELETE <img src="{% static 'images/del.png' %}" width="25" height="25"></a>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+</div>
+
+ 
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            {% for form in formset %}
+            var formId = '{{ form.prefix }}';
+           /* console.log(formId);*/            
+            $('#id_'+formId+'-vendor_order').select2({placeholder:"                            Select Here                       "});            
+            {% endfor %}
+        });
+    </script>
+
+
+</body>
+</html>

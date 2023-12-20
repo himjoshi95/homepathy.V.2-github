@@ -1,0 +1,154 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Add Stock</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+        body {
+            background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+            background-size: 100%;
+          } 
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+    </style>
+    <!-- Custom styles for this template -->
+	<link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+
+
+       <!-- Select2 CDN -->
+       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+<br>
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+  <div class="jumbotron">
+    <h1 class="header"> {{title}}</h1> 
+    <p style="color:blue;"><b>Vendor Name:</b> {{vendor_data.vendor_name}}</p>
+    <p style="color:blue;"><b>Vendor Contact Number:</b> {{vendor_data.mobile_number}}</p>
+    <hr>
+
+    {% if title == main_one %}
+    <a style="float:right; margin-bottom:15px; font-size:16px;" href="{% url 'vendor_stock_list' %}" class="btn btn-outline-primary"> Vendor's List <i class="fa fa-plus" aria-hidden="true"></i></a>
+    {% endif %}
+    {% if title == main %}
+    <a style="float:right; margin-bottom:15px; font-size:16px;" href="/add-stock-name/" class="btn btn-outline-primary">Add Stock Name <i class="fa fa-plus" aria-hidden="true"></i></a>
+    {% endif %}
+
+
+    <form method='POST' id="personForm" data-cities-url="{% url 'ajax_load_products' %}" >{% csrf_token %}
+		{{form|crispy}}
+        <input type="submit" value='Save'/>
+    </form>
+
+
+  </div>
+
+  {% if title == main_product %}
+  <div class="jumbotron">
+    <h1 class="header">Medicine Details</h1>
+
+    <div class="display_table">
+      <table class='table'>
+          <thead>
+            <tr>
+              <th>COUNT</th>
+              <th>MEDICINE NAME</th> 
+              <th>POTENCY</th>           
+           
+            </tr>
+          </thead>
+        {% for instance in queryset %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{instance.medicine}}</td>
+          <td>{{instance.potency}}</td>
+        </tr>     
+        {% endfor %}
+      </table>
+
+
+  </div>
+  {% endif %}
+</main>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  $("#id_stock_name").select2();
+  $("#id_vendor").select2();
+  $("#id_product_name").select2();
+  $("#id_vendor_category").select2();
+  $("#id_medicine").select2();
+  $("#id_potency").select2();
+
+</script>
+<script>
+  $("#id_vendor").change(function () {
+      const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      const vendorId = $(this).val();  // get the selected vendor ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+          data: {
+              'vendor_id': vendorId       // add the vendor id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+              $("#id_stock_name").html(data);  // replace the contents of the stock_name input with the data that came from the server
+              /*
+
+              let html_data = '<option value="">---------</option>';
+              data.forEach(function (stock_name) {
+                  html_data += `<option value="${stock_name.id}">${stock_name.name}</option>`
+              });
+              console.log(html_data);
+              $("#id_stock_name").html(html_data);
+
+              */
+          }
+      });
+
+  });
+</script>
+
+</body>
+</html>

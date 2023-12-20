@@ -1,0 +1,84 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>EMAIL STOCK VENDOR</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <style> 
+
+table, th, td {
+    border:1px solid black;
+  }
+  body {
+    background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+    background-size: 100%;
+  } 
+  </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% comment %} {% include 'nav.html' %}  {% endcomment %}
+    <br><br>
+<div class="container">
+    <div class="jumbotron">
+
+    <h1 class="header">Mailing Details</h1><hr>
+
+    <h4>Order Date: {{order_details.order_timestamp|date:"d F, Y"}} </h4>
+
+    <table style="width:100%">
+        <tr>
+          <td>Vendor's Name</td>
+          <td>{{order_details.medicine_order.vendor}}</td>
+          
+        </tr>
+        <tr>
+          <td>Vendor's Contact Number</td>
+          <td>{{order_details.medicine_order.vendor.mobile_number}}</td>
+          
+        </tr>
+        <tr>
+          <td>Vendor Email</td>
+          <td>{{order_details.medicine_order.vendor.email}}</td>
+         
+        </tr>
+        <tr>
+            <td>Medicine Name Ordered</td>
+            <td>{{order_details.medicine_order.medicine}} ({{order_details.medicine_order.potency}})</td>
+           
+          </tr>
+
+          <tr>
+            <td>Ordered Quantity</td>
+            <td>{{order_details.order_quantity}} {{order_details.unit}}</td>
+           
+          </tr>
+
+          <tr>
+            <td>Order Delivery Due Date</td>
+            <td>{{order_details.order_delivery_date|date:"d F, Y"}}</td>
+           
+          </tr>
+
+      </table>
+    </div>
+</div>
+
+   
+
+</body>
+</html>

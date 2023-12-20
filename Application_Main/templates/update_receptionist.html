@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Update Receptionist</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		body {
+			background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+      background-size: 100%;
+			
+			}
+		
+		
+		select{
+			height:40px;
+            width: 425px!important;
+			border-radius: 5px!important;
+		}
+		button{
+			width: 200px;
+			border-radius: 10px!important;
+      margin-left: 100px;
+		}
+		.already{
+			margin-left: 50px;
+	  
+		  }
+		  .form-label:after {
+			content:" *";
+			color: red;
+		  }
+	</style>
+</head>
+<body>
+
+
+  {% include "nav.html" %}
+ 
+  <section class="h-100 h-custom" >
+	<div class="container py-5 h-100">
+		{% if messages %}
+	{% for message in messages %}
+	<div class="success-msg">
+		<i class="fa fa-check"></i>
+	   {{ message}}
+	</div>
+	{% endfor %}
+{% endif %}
+	  <div class="row d-flex justify-content-center align-items-center h-100">
+		<div class="col-lg-8 col-xl-6">
+		  <div class="card rounded-3">
+			
+			<div class="card-body p-4 p-md-5">
+			  <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Update Receptionist's Details</h2>
+			  
+  
+			  <form action="{% url 'update_receptionist' id=userdata.id %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+
+                <label class="form-label" for="form3Example1q">Full Name</label>
+				 <input type="text" name="name" placeholder="Full Name" required="" class="form-control" value="{{ userdata.name }}"><br>
+
+				 <label class="form-label" for="form3Example1q">Contact Number</label>
+				 <input type="tel" name="phone" placeholder="Phone Number" required="" class="form-control" value="{{ userdata.phone }}"><br>
+
+				 <label class="form" for="form3Example1q">Email Address</label> 
+				 <input type="email" name="email" placeholder="Email" required="" class="form-control" value="{{ userdata.email }}"><br>
+				 
+				 <label class="form" for="form3Example1q">Address</label> 
+				 <input type="text" name="address" placeholder="Age" required="" class="form-control" value="{{ userdata.address }}"><br>
+				  
+				 <label class="form" for="form3Example1q">Branch</label> 
+				 <input type="text" name="branch" placeholder="Branch" required="" class="form-control" value="{{ userdata.branch }}"><br>
+			
+				 <br>
+			  <button type="submit" class="btn btn-primary">Update</button>
+			</form>
+			
+			 
+			</div>
+			
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+
+
+
+
+
+<!--JS Library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

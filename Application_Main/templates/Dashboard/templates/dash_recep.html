@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+    <style type="text/css">
+        .container{
+    margin-top: 30px;
+    }     
+    img{
+        border-radius: 58%;
+    }
+    .plussign::after {
+    content: "\2795";
+
+    }
+    </style>
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">RECEPTIONIST DETAILS</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    
+    <label for="name"><h4>Name </h4></label><br>
+    <input type="text" class="form-control" placeholder="Name"  name="name" value="{{ obj.name }}">
+
+    <br>
+    <label for="phone"><h4>Phone</h4></label><br>
+    <input type="text" class="form-control"  placeholder="Phone"  name="phone" value="{{ obj.phone}}">
+    <br>   
+    <label for="email"><h4>Email</h4></label><br>
+    <input type="text" class="form-control" placeholder="Email"  name="email" value="{{ obj.email }}">
+    <br>
+    <label for="branch"><h4>Branch</h4></label><br>
+    <input type="text" class="form-control" placeholder="Email"  name="branch" value="{{ obj.branch }}">
+    <br>
+    <label for="username"><h4>Username</h4></label><br>
+    <input readonly type="text" class="form-control" placeholder="Username"  name="username" value="{{ obj.username }}">
+    <br>  
+    <label for="recep_image"><h4>Profile Image</h4></label><br>
+    <input type="file" name="recep_image" accept="image/*" id="recep_image" value = "Upload">
+    {% if obj.recep_image %}
+    <div class="row">
+    <div class="col-sm-4">
+	<div class="card m-2">
+	<img src="{{obj.recep_image.url}}"  width="150" height="110" border="5" >            
+	</div>
+    </div>
+    </div>
+    {% endif %}
+    <br><br><br>
+
+    <button type="submit" class=" form-control btn btn-success" >Update</button>
+</form>
+<br>
+<br>
+<br>
+
+
+
+   
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

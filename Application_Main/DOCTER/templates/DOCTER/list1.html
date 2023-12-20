@@ -1,0 +1,75 @@
+{% extends "base.html" %}{% load jsignature_filters %}
+<style>
+  #border {
+      position: relative;
+      text-align: center;
+      margin-top: 300px !important;
+      border: 2px solid black;
+      }
+  
+  </style>
+{% block content %}
+  <!-- <h1>List</h1> -->
+  <!-- <br>
+  
+  <a href="{% url 'create' %}"  class="btn btn-primary ">Create Presciptions</a>
+  <br> -->
+  <br>
+  <br>
+  <ul>
+    {% for obj in datas %}
+      <li>
+        <dl>
+          <!-- <dt>Raw data (from db)</dt> -->
+          <!-- <dd>{{ obj.signature }}</dd> -->
+          <dt><h4>Date and Time </h4>{{obj.signature_date}}</dt>
+          <br>
+          {% if s2 == 'appointmentDashboar' %}
+          <p></p>
+          {% else %}
+          <a href="{% url 'update' obj.pk %}" class="btn btn-success">
+            Update
+          </a>
+          <a href="{% url 'delete' obj.pk %}" class="btn btn-danger">
+            Delete
+          </a>
+          <a href="{% url 'list1_pdf' obj.pk %}" class="btn btn-warning">
+            Generate PDF
+          </a>
+          {% endif %}<br><br>
+          <dd>
+            <div class="container text-center" id="border">
+              <div class="row justify-content-center">
+               <div class="border">
+            <img src="{{ obj.signature|signature_base64 }}" alt="{{ obj }}" />
+               </div></div></div>           
+            
+          </dd>
+          <br>
+          <hr>
+          <br>
+        </dl>
+      </li>
+    {% endfor %}
+  </ul>
+ <br>
+ <br>
+ <hr>
+ <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}

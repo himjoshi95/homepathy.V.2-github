@@ -1,0 +1,62 @@
+
+
+
+
+    
+        
+        Hi {{gen.patientid.name}}, thank you for visiting us.
+        Case Paper NO. {{gen.patientid.case}} 
+        Next Visit: {{next_visit|date:" d M, Y"}}
+
+        
+        
+
+        Appointment Details: Dated({{today|date:" d M, Y"}})
+        
+        Medicine duration: {{duration}}
+
+        Medicine Charges today :  Rs {{med_charges}} 
+
+        {% if other_medicine != 0  %}
+
+        Other Medicines today : Rs {{other_medicine}}
+
+        {% endif %}
+
+       
+
+        {% if gen.patient_new_old == "True" %}
+
+        Consultation Charges(only this time): Rs {{consultation_charges}} 
+
+
+        {% endif %}
+
+        
+
+
+
+        Bill today(Dated: {{today|date:"d M,Y"}}) : Rs {{bill_today}} 
+
+        {% if previous_balance != 0 %}
+
+
+        Previous Balance Dues as of now : Rs {{previous_balance}}  
+
+        {% endif %}
+    
+        Total Amount To be paid : Rs {{bill_today|add:previous_balance}}   
+
+        Amount Paid Today : Rs {{amount_paid_today}} 
+
+    
+        Balance Dues after today's Payment : Rs {{new_balance}}
+
+        Warm Regards,
+        Wings Classical Homeopathy
+
+
+    
+
+
+

@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">BILL INVOICE</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br><br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+    <select name="patient" required id="id_patientid" class="form-control">
+        <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+        {% for d in data %}
+        <option  value="{{ d.pk }}">{{ d.case }} </option>    
+        {% endfor %}    
+    </select>
+    <br><br><br>
+    <label for="diagnose"><h4>Diagnose </h4></label><br>
+    <input type="text" required="True" class="form-control" placeholder="Diagnose" id="diagnose" name="diagnose">
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+<br>
+<br>
+<br>
+   <a href="{% url 'bills' id=case_id %}" class="btn btn-primary btn-lg float-right">Next</a>         
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

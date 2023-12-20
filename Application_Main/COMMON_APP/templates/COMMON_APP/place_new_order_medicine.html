@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/placeorder.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+<style>
+   
+</style>
+
+</head>
+<body>
+    <main role="main" >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+       
+            <div style="  background: white;border: solid 3px #337ab7; padding: 10px;;font-family: helvetica;
+            color: #337ab7;
+            font-size: 50px;
+            text-align: center;
+            width: 1100px;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+             " >Place New Order</div>
+            
+       
+        <div> 
+            
+
+            <form method="post" class="formset-one">
+                {% csrf_token %}
+               
+
+                {{ formset.management_form }}
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order Items</th>
+                            <th>Pack</th>
+                            <th>Vendors</th>
+                            <th>Ordered Quantity</th>
+                            <th>Expected Delivery Date</th>
+                                    
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in formset %}
+
+                            <tr  style="line-height:25.5px; " data-order-id="{{medicine.id}}">
+                                <td >{{ form.order_items }} </td>
+                                <td >{{ form.pack }}</td>
+                                <td >{{ form.vendors }}</td>                          
+                                <td >{{ form.ordered_quantity }}</td>   
+                                <td >{{ form.expected_delivery_date }}</td> 
+                            </tr>
+                          
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <input type="submit"  value="Submit Orders">
+                
+              </form>
+
+
+              
+            <br><br>
+            
+
+        
+             
+            
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+        {% for form in formset %}
+        var formId = '{{ form.prefix }}';
+       /* console.log(formId);*/            
+        $('#id_'+formId+'-vendors').select2({placeholder:" Select Vendors"});            
+        {% endfor %}
+    });
+
+    
+
+ // Function to set the default date to today
+ function setDefaultDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    // Get all input elements with the name "receive_date"
+    var dateInputs = document.querySelectorAll('input[name="receive_date"]');
+
+    // Set the default date for each input element
+    dateInputs.forEach(function(input) {
+        input.value = today;
+    });
+}
+
+// Call the function when the page loads
+window.onload = setDefaultDate;
+
+
+
+
+</script>    
+</body>
+</html>

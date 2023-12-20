@@ -1,0 +1,273 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>MDoctor Dashboard</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style type="text/css">
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+
+      *{
+        padding: 0;
+        margin: 0;
+        box-sizing:border-box;
+      }
+
+      .nav1{
+        width:100%;
+        height:710px;
+        margin: 25px auto;        
+        border-radius: 5px;
+        overflow:hidden;
+      }
+
+      .aside1{
+        width: 22%;
+        height: 100%;
+        background: #000d33;
+        float:left;
+      }
+
+      .aside1 h1 img{
+        width: 51px;
+        float: left;
+      }
+
+      .aside1 h1 span{
+        font-size: 15px;
+        line-height: 50px;
+        margin-left: 6px;
+        color: white;
+      }
+
+      .aside1 ul{
+        padding : 5px 0 5px 30px;
+      }
+
+      .aside1 ul li{
+        list-style:none;
+        font-weight: bold;
+        margin: 20px auto;
+        position: relative;
+        overflow:hidden;
+        max-height: 35px; 
+        line-height: 35px;
+        transition: 1s;
+        text-transform: capitalize;
+      }
+
+      .aside1 ul:first-child li{
+        max-height: 50px;
+      }
+
+      .aside1 ul li:hover{
+        background: #d1d1d173;
+      }
+
+      .aside1 ul:first-child li:hover{
+        background:none;
+      }
+
+      .aside1 ul li a{
+        text-decoration: none;
+        color: whitesmoke;
+      }
+
+      .aside1 ul li a i{
+        width: 30px;
+        padding: 5px;
+        margin-left:10px;
+      }
+
+      .aside1 ul li a i.fa-angle-down{
+        position: absolute;
+        right: 0 ;
+        top : 5px;
+        transition: 0.5s;
+      }
+
+      .aside1 ul li a i.fa-angle-right{
+        position: absolute;
+        right: 0 ;
+        top : 5px;
+        transition: 0.5s;
+      }
+
+      .aside1 ul li>ul{
+        padding: 1px;
+        margin: 0 0 0 20px;
+      }
+
+      .aside1 ul li>ul li{
+        height: 25px;
+        line-height: 20px;
+        font-size: 15px;
+        padding: 1px 1px 1px 20px;
+        font-weight: normal;
+        border-left: 1px solid #fff0f0;
+        margin: 5px;
+        color: #fff0f0;
+        cursor:pointer;
+      }
+
+      .aside1 ul li>ul li a,
+      .aside1 ul li: target>ul li{
+        background: transparent;
+      }
+      .aside1 ul li:target{
+        max-height: 300px;
+        border-radius: 5px 0px 0px 5px;
+      }
+      .aside1 ul li:target a{
+        color: #444;
+        display: inherit;
+        background: white;
+      }
+      .aside1 ul li:target a i.fa-angle-down{
+        transform: rotate(90deg);
+        top: 10px;
+      }
+      .aside1 ul li:target:hover{
+        background: initial;
+      }          
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    {% include 'nav.html' %} 
+    <hr>  
+      <nav class="nav1">
+        <aside  id="mySidenav" class="aside1">
+          <ul>
+            <li><a href="#"><h1 style="color:white;"><span>DASHBOARD</span></h1></a></li>
+          </ul>
+
+          <ul>
+            <li id="home">
+              <a href="#home">
+                <i class="fa fa-home"></i>
+                <span>Medicine</span>
+                <i class="fa fa-angle-down"></i>
+              </a>            
+              <ul>
+                <li><a href="/list_medicine/"><p>Medicine List</p></a></li>
+                <li><a href="/add_medicine/"><p>Add Medicine</p></a></li>
+               
+              </ul>           
+            </li>
+          
+
+          
+            <li id="ecom">
+              <a href="#ecom">
+                <i class="fa fa-shopping-cart"></i>
+                <span> Staff</span>
+                <i class="fa fa-angle-down"></i>
+              </a>            
+              <ul>
+                <li><a href="{% url 'allstaff' %}"><p>All Staff</p></a></li>
+               
+              </ul>           
+            </li>
+            <li id="comp">
+              <a href="#comp">
+                <i class="fa fa-diamond"></i>
+                <span>Certificate</span>
+                <i class="fa fa-angle-down"></i>
+              </a>            
+              <ul>
+                <li><a href="{% url 'addpatient' %}"><p>Bill Invoice</p></a></li>
+                <li><a href="{% url 'previous_issued_invoice' %}"><p>Previous Issued Invoices</p></a></li>
+                <li><a href="{% url 'addcertificate' %}"><p>Other Certificates</p></a></li>
+                <li><a href="{% url 'previous_issued_certificate' %}"><p>Previous Issued Certificates</p></a></li>
+              </ul>           
+            </li>
+            <li id="chart">
+              <a href="{% url 'pricing' %}">
+                <i class="fa fa-line-chart"></i>
+                <span>Doctor Fees</span>
+                <i class="fa fa-angle-right"></i>
+              </a> 
+                       
+            </li>
+            <li id="user">
+              <a href="#user">
+                <i class="fa fa-users"></i>
+                <span> Today's Collections</span>
+                <i class="fa fa-angle-down"></i>
+              </a>            
+              <ul>
+                <li><a href="{% url 'dombivali_collection' %}"><p>Dombivali Branch</p></a></li>
+                <li><a href="{% url 'mulund_collection' %}"><p> Mulund Branch</p></a></li>
+              
+              </ul>           
+            </li>
+           
+            <li id="even">
+              <a href="{% url 'diagnosis_history' %}">
+                <i class="fa fa-calendar-check-o"></i>
+                <span>Diagnosis History</span>
+                <i class="fa fa-angle-right"></i>
+              </a>     
+                       
+            </li>
+          </ul>
+        </aside>
+
+<header class="header_one"> 
+    <div class="banner">
+        <h6></h6>
+        <div class="details">
+            <main role="main" class="container">
+            <div class="jumbotron">
+
+                <div class="header">Welcome to Dashboard</div>
+                <hr>
+
+                <img  style="margin-left:30px;"src="{% static 'images/dashboard_img.jpeg' %}" width="800" height="500">
+
+
+
+            </div>
+        </main>
+
+
+        </div>
+
+    </div>
+
+
+  
+<header>
+</nav>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WingsHomeoPathy</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' %}">
+    <link href="{% static 'https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css' %}">
+    <link rel="stylesheet" href="{% static 'https://unpkg.com/aos@next/dist/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/clash-display.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+
+	<style type="text/css">
+		.container {
+			margin-top: 70px;
+		}
+		img{
+			width: 100%;
+			height: auto;
+		}
+		h2{
+			padding-top: 50px;
+		}
+		p{
+			font-size: 17px!important;
+		}
+		.hilight{
+			font-size:15px;
+			text-shadow: 10in;
+		
+		}
+	</style>
+</head>
+<body>
+
+
+<!--<div class="container">
+	<div class="row">
+	 <div class="col-sm-6 ">
+{% load static %}
+<img src="{% static './pexels.jpg' %}" alt="My image">
+  </div>
+		<div class="col"-sm-6>
+			<h2>Welcome to Wings Classical HomeoCare</h2>
+			<p class="lead">Mission
+				To create awareness among the masses regarding the importance of holistic principles to enhance one’s wellbeing.
+				<br>
+				To introduce and to promote the holistic principles in the existing health care practices.
+				<br>To encourage people to actively participate in their own health by giving proper importance to one’s psychological, emotional and spiritual status..
+.</p>		</div>
+
+	</div>
+</div>
+-->
+
+{% block content %}
+
+
+<style>
+	.hero{
+		background-color: url(../static/images/wings.mp4)
+	}
+
+	/* FONTS */
+@import url(../css/clash-display.css);
+
+/* VARIABLES */
+:root {
+    --c-dark: black;
+    --c-brand: #4e57d4;
+    --c-brand-light: #6970dd;
+    --c-brand-rgb: 78, 87, 212;
+    --c-body: #727272;
+    --font-base: "ClashDisplay", sans-serif;
+    --box-shadow: 0px 15px 25px rgba(0,0,0,0.08);
+    --transition: all 0.5s ease;
+}
+
+/* RESET & HELPERS */
+body {
+    font-family: var(--font-base);
+    line-height: 1.7;
+    color: var(--c-body);
+}
+
+h1, h2, h3,h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+    color: var(--c-dark);
+}
+
+a {
+    text-decoration: none;
+    color: var(--c-brand);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--c-brand-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.section-padding {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.theme-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+/* IMAGE ZOOM */
+.image-zoom {
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.image-zoom-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.image-zoom-wrapper img{
+     transition: var(--transition);
+}
+
+.image-zoom:hover .image-zoom-wrapper img {
+    transform: scale(1.1);
+}
+
+
+/* NAVBAR */
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--c-dark);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--c-brand);
+}
+
+
+/* BTN */
+.btn {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px 24px;
+}
+
+.btn-brand {
+    background-color: var(--c-brand);
+    border-color: var(--c-brand);
+    color: white;
+}
+
+.btn-brand:hover {
+    background-color: var(--c-brand-light);
+    border-color: var(--c-brand-light);
+    color: white;
+}
+
+
+/* HERO */
+#hero{
+	
+	background-color: #4e57d4;
+	
+}
+
+
+/* SECTION TITLE */
+.section-title {
+    margin-bottom:60px;
+}
+
+.section-title .line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin: 16px auto 24px auto;
+}
+
+.section-title p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* ICONBOX */
+.iconbox {
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--c-brand-rgb), 0.1);
+    color: var(--c-brand);
+    font-size: 34px;
+    flex: none;
+}
+
+/* SERVICE */
+.service {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.service::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background:rgb(116, 224, 224);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: var(--transition);
+}
+
+
+.service:hover::after {
+    width: 100%;
+    height: 100%;
+    background: var(--c-brand);
+    z-index: -1;
+}
+
+.service:hover h5,
+.service:hover p {
+    color:rgb(12, 145, 145);
+}
+
+.service:hover .iconbox {
+    background-color: rgba(195, 233, 183, 0.2);
+    color: white;
+}
+
+/* COUNTER */
+#counter {
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(../images/counter.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+/* PORTFOLIO */
+.portfolio-item .iconbox {
+    background-color: var(--c-brand);
+    color: rgb(149, 230, 146);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.portfolio-item:hover .iconbox {
+    opacity: 1;
+    top: 50%;
+}
+
+/* REVIEW */
+.review small {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--c-brand);
+}
+
+.review-head {
+    position: relative;
+}
+
+.review-head::after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: -14px;
+    background-color: white;
+    transform: rotate(45deg);
+}
+
+/* TEAM */
+.team-member-content {
+    background-color: var(--c-brand);
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    width: calc(100% - 50px);
+    transform: translateX(-50%);
+    padding: 24px;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.team-member:hover .team-member-content {
+    opacity: 1;
+    bottom: 24px;
+}
+
+/* CONTACT */
+#contact {
+    position: relative;
+    z-index: 2;
+}
+
+#contact::after {
+    content: "";
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(../images/counter.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#contact .form-control {
+    border-radius: 0;
+}
+
+#contact .form-control:focus {
+    box-shadow: none;
+    border-color: var(--c-brand);
+}
+
+/* FOOTER */
+footer {
+    padding-top: 120px;
+}
+
+.footer-top {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+footer li,
+footer p,
+footer a {
+    color: rgba(255,255,255,0.7);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .line {
+    width: 40px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 100px;
+}
+
+.social-icons a:hover {
+    background-color: var(--c-brand);
+    color: white;
+}
+/* .card{
+	background-color: rgba(240, 12, 50, 0.897);
+	width: 300px;
+	height: 150px;
+	align-items: center;
+	position: relative;
+	padding:5px ;
+	margin-left:350px ;
+	border-radius:5px;
+} */
+#w1{
+	color: rgb(0, 0, 0);
+	font-size: 25px;
+	transition: all;
+	transform: none;
+	font-weight:bold;
+	margin: 5px;
+}
+.w2{
+	font-size: 15px;
+	font-weight: 15px;
+	font-style:italic;
+	border-style: hidden;
+	color: beige;	
+}
+.w3{
+	font-style: italic;
+	font-weight: 15px;
+}
+.img{
+	width: 50px;
+	height: 50px;
+}
+
+.w5{
+	font-style:italic;
+	font-size: 15px;
+	font-family: sans-serif;
+}
+/* .vdo{
+	background-color: url(../static/images/wings.mp4);
+	height:500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width:1400px;
+} */
+.vdo{
+
+
+	width: 100%;
+	margin-top:-60px;
+	background-size: cover;
+
+}
+.dr1{
+	align-items: center;
+	font-size:25px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+}
+
+.dr2{
+	align-items: center;
+	font-size:20px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+	color: blue;
+}
+
+.branch{
+	color: #4e57d4;
+	margin: 10px;
+	font-family: sans-serif;
+	font-weight: 15px;
+	font-style: italic;
+	background-color: rgb(197, 226, 226);
+	border-radius: 10px;
+
+}
+#services,#team,#about,#hero,#portfolio{
+	background-image: url(../static/images/wings_img3.jpg);
+}
+p{
+	color: black;
+}
+
+
+
+.myaccordion {
+  max-width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.myaccordion .card,
+.myaccordion .card:last-child .card-header {
+  border: none;
+}
+
+.myaccordion .card-header {
+  border-bottom-color: #EDEFF0;
+  background: transparent;
+}
+
+.myaccordion .fa-stack {
+  font-size: 18px;
+}
+
+.myaccordion .btn {
+  width: 100%;
+  font-weight: bold;
+  color: #004987;
+  padding: 0;
+}
+
+.myaccordion .btn-link:hover,
+.myaccordion .btn-link:focus {
+  text-decoration: none;
+}
+
+.myaccordion li + li {
+  margin-top: 10px;
+}
+</style>
+<section id="hero" class="min-vh-100 d-flex align-items-center text-center">
+	<div class="container">
+        <br>
+		<div>
+
+			<div>
+				<video class="vdo" preload="auto" control loop autoplay muted><source src="../static/images/wings.mp4" type="video/mp4"></video>
+				
+			
+			</div>
+		</div>
+        <br><br>  
+        <!-- <h5 class="display-4 fw-semibold">{{date}}</h5>               -->
+	</div>    
+</section>
+
+<!-- <script type="text/javaScript">
+window.setTimeout(function () {
+    location.href = "http://127.0.0.1:8000/display_home/(%3FPDIS.*)";
+}, 60000); // refresh/redirect after 20 seconds.
+</script> -->
+
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	<script src="{% static 'assests/js/main.js' %}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+	<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock content  %}
+
+
+
+
+
+
+
+
+
+<!--JS Library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="static/js/main.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

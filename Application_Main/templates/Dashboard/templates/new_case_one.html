@@ -1,0 +1,285 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+    .th,.td{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        
+                        }
+
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        background-color: whitesmoke;
+        width: 110px;
+        height: 500px;
+        overflow: auto;
+        }
+        tfoot{
+            
+            border-top: 5px solid  lightblue;
+        }
+        .form-label:after {
+    content:" *";
+    color: red;
+  }
+    
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light col-lg-12 col-12 p-0">
+      <!-- <a class="navbar-brand" href="#" style="margin-left: 40px;">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+                                              <!-- Homeo Bhagwat Gita  -->
+          {% comment %} <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 80px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Homeo Bhagavad Gita
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'quote' %}">Causative Factors </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'Gnm_Sbs_Conflicts' %}"> Organs and Conflicts </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'book' %}"> Medicine Essence</a>
+              </div>
+            </li> {% endcomment %}
+
+                                                  <!-- New CASE  -->
+          {% comment %} <li class="nav-item active">
+            <a class="nav-link"  href="{% url 'newcase' %}" style="margin-left: 20px;">New Case <span class="sr-only">(current)</span></a>
+          </li> {% endcomment %}
+          <li class="nav-item active">
+            <a class="nav-link btn" style=" margin-left: 150px;" href="{% url 'new_case_one' %}" style="margin-left: 30px;">New Case <span class="sr-only">(current)</span></a>
+          </li>
+
+                                                     <!-- Medicine -->
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Medicine
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/list_medicine/">Medicine List </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/add_medicine/"> Add Medicine</a>                
+            </li>
+
+
+
+                                              <!-- STAFF  -->
+
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Staff
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'allstaff' %}">All Staff</a>                
+            </div>
+          </li>
+
+                          <!-- CERTIFICATE  -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Certificate
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item"  href="{% url 'addpatient' %}">Bill Invoice</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'previous_issued_invoice' %}">Previous Issued Invoices</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'addcertificate' %}">Other Certificates</a></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'previous_issued_certificate' %}">Previous Issued Certificates</a>               
+             </div>
+          </li>
+
+                              <!-- PRICING -->
+          
+          <li class="nav-item">
+            <a class="nav-link" style="margin-left: 20px;" href="{% url 'pricing' %}">Doctor Fees</a>
+          </li>
+
+                                   <!-- COLLECTION  -->
+
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Today's Collections
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'dombivali_collection' %}"> Dombivali Branch </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'mulund_collection' %}"> Mulund Branch</a>              
+              </div>
+          </li>
+
+                          <!-- DIAGNOSIS HISTORY  -->
+
+          <li class="nav-item">
+            <a class="nav-link" style="margin-left: 20px;" href="{% url 'diagnosis_history' %}">Diagnosis History</a>
+          </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+
+   <div class="container" style="margin-top: 30px;">
+    <div class="mt-2">     
+        <!-- <h1 class="card-title float-left mt-2" style="color: antiquewhite;" >NEW CASE</h1>  -->
+       
+        <!-- <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a> -->
+    </div>
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+      
+       
+
+       <div class="container">
+        <h1 style="margin-top: 20px; color: antiquewhite;">Start taking New Case: </h1>
+        <hr> 
+        <br>
+        <table class="" >
+            <thead style="height: 50px;">
+              <tr class = "bg-primary" >        
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px; height: 60px;" scope="col">Select Patient Case Paper Number</th>
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Case Paper No.</th>                  
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" style="width: 80px">
+                    <div style="width: 600px;">
+                    <form class="px-md-2" action="" method="POST">
+                        {% csrf_token %}             
+
+                            <div class="form-group" style="margin-left: 20px;">
+                                <p  style=" font-size: 20px; margin-bottom: 40px;" class="form-label" align="left">Patient Case Paper Number</p>
+                                
+                                <select name="patient" required id="id_patientid" class="form-control">
+                                  <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+                                  {% for d in data %}
+                                  <option  value="{{ d.pk }}">{{ d.case }} </option>    
+                                  {% endfor %}    
+                              </select>
+                              <p style="margin-left: 50px; margin-top: 30px; font-size: 17px; color: red;"> PS: &nbsp; Please select a Patient before you proceed for New Case</p>
+                            </div>
+                        <br>                
+                      
+                        <br><br>
+                        <button type="submit" style="margin-left: 10px;" class="btn btn-primary"> + Add</button>
+                        
+          
+                      </form> 
+                      <br>
+                    </div>  
+                </td>  
+                
+                <td>
+                    <div class="ex3" style="width: 300px; font-size: 20px;">
+                 
+                    {% for d in data %}
+                    <a href="#" style="margin-top: 4px; margin-left: 35px; text-decoration:none; font-size: 18px;">{{d.case}}<hr style="margin-top: 1px; margin-bottom: 1px;"></a>
+                   
+                        {% endfor %}
+                    </div>
+                </td>
+                  
+              </tr>
+          </tbody>          
+          <tfoot>
+            <tr class="table-light">
+                <td style="width: 700px; height: 50px; font-size: 17px;">
+                  <a href="{% url 'past_history_newone' case_id=case_id %}" style="margin-left: 2px; text-decoration:none; color: green; "><b>Present Complaints</b></a> |
+                  <a href="{% url 'chief_complaints_newone' case_id=case_id %}" style="text-decoration:none;"><b>Chief Complaints</b></a>  |
+                  <a href="{% url 'patient_history_newone' case_id=case_id %}" style="text-decoration:none;"><b>Past History</b> </a> |
+                  <a href="{% url 'personal_history_newone' case_id=case_id %}" style="text-decoration:none; color: brown;"><b>Personal History</b> </a>|
+                  <a href="{% url 'family_medical_newone' case_id=case_id %}" style="text-decoration:none; color: red;"><b>Family Medical HO</b></a> |
+                  <a href="{% url 'mental_causative_newone' case_id=case_id %}" style="text-decoration:none;"><b>Mental Causative Factor</b></a>|  
+                  <a href="{% url 'mental_personality_newone' case_id=case_id %}" style="text-decoration:none; color:black;"><b>Mental Personality Character</b></a>|
+                  <a href="{% url 'bms_newone' case_id=case_id %}" style="text-decoration:none; color: purple;"><b>Brief Mind Symptoms</b></a>|
+                  <a href="{% url 'thermal_newone' case_id=case_id %}" style="text-decoration:none; color: orange;"><b>Thermal Reaction</b></a>|
+                  <a href="{% url 'miasm_examination_newone' case_id=case_id %}" style="text-decoration:none; color: olive;"><b>Miasm</b></a>|
+                  <a href="{% url 'newcase_final_report' case_id=case_id %}" style="text-decoration:none;"><b>Generate Report</b></a> |
+                  <a href="{% url 'gen_pdf_new' pk=case_id %}" style="text-decoration:none; color:red;"><b>Generate PDF <i style="color:red;" class="fa fa-download"></i></b></a>
+                  
+                </td>
+                <td >
+                  
+                   </td> 
+            </tr>
+          </tfoot>
+          </table>
+       </div>
+       <br><br>    
+
+
+   </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script>
+        $(document).ready(function () {
+            $('#id_patientid').select2();
+    
+        });
+    </script>
+  
+</body>
+</html>

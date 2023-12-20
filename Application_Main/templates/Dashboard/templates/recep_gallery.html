@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">UPLOADED DOCUMENTS - {{obj.name}}</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<div class="row">
+    {% for x in img %}
+    <div class="col-sm-4">
+        <div class="card m-2">
+        <img src="{{x.images.url}}" alt="  " class = "card-img-top" height="200px" onclick="myFunction(this);">
+        <h6>Date: {{ x.date|date:"d M, Y" }}</h6>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+<div class="container">
+    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+    <img id="expandedImg" style="width:100%">
+    <div id="imgtext"></div>
+    </div>
+   
+</div></div></div>
+<br><br><br><br>
+
+<script>
+    function myFunction(imgs) {
+      var expandImg = document.getElementById("expandedImg");
+      var imgText = document.getElementById("imgtext");
+      expandImg.src = imgs.src;
+      imgText.innerHTML = imgs.alt;
+      expandImg.parentElement.style.display = "block";
+    }
+    </script>
+{% endblock %}
+
+

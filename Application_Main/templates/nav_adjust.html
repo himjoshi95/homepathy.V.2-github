@@ -1,0 +1,45 @@
+
+{% load static %}
+
+<header class="header">
+    <a href="#" class="logo"><i class="fa fa-hotel"></i> Wings Classical Homeopathy</a>
+
+    <nav class="navbar">
+        {% if user == None %}
+        
+        <a href="/">Home</a>
+
+        {% else %}
+        {% if status and user == 'DASH'%}
+        {% else %}
+        <a href="{% url 'dashboard' user=user %}">Home</a>
+
+        {% endif %}
+     {% endif %}
+     {% if not status %}
+        <a href="/register">Register</a>
+        <a href="/login1">Login</a>
+    {% endif %}
+
+    {% if status and user == "R" %}
+
+    <a href="{% url 'receptionist_dashboard' user=user %}">DashBoard</a>
+    <a href="/logout">Logout</a>
+    {% endif %}
+
+    {% if status and user == "P" %}
+
+    <a  href="{% url 'patient_appointment' user=user %}">Appointments </a>
+    <a href="{% url 'profile' user=user %}">Profile </a>
+    <a  href="{% url 'images'  %}">Upload Records </a>
+    <a  href="/logout">Logout </a>
+
+    {% endif %}
+
+
+    
+    </nav>
+    <div id="menu-btn" class="fas fa-bars"></div>    
+
+</header>
+

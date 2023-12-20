@@ -1,0 +1,533 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/placeorder.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+<style>
+    .modaltwo {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content-two {
+        background-color: #fefefe;
+        margin: 2% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 80%; /* 80% of the width */
+        border-radius: 5px;
+    }
+
+    .modalthree {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content-three {
+        background-color: #fefefe;
+        margin: 1% auto; /* 15% from the top and centered */
+        padding: 3px;
+        border: 1px solid #888;
+        width: 90%; /* 80% of the width */
+        border-radius: 5px;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 2% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 90%; /* 80% of the width */
+    }
+
+</style>
+
+</head>
+<body>
+    <main role="main" >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+       
+            <div style="  background: white;border: solid 3px #337ab7; padding: 10px;;font-family: helvetica;
+            color: #337ab7;
+            font-size: 50px;
+            text-align: center;
+            width: 800px;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+            margin-left:300px; " >Place Order</div>
+            
+       
+        <div> 
+            <button  id="openPopup" style="margin-left:20px;margin-bottom:20px; font-size:18px;">Place New Order</button>
+            
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+                    <iframe src="{% url 'place_new_order_medicine' %}" width="100%" height="550"></iframe>
+                </div>
+            </div>
+
+            <form method="post" class="formset-one">
+                {% csrf_token %}
+               
+
+                {{ formset.management_form }}
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order Items</th>
+                            <th>Pack</th>
+                            <th>Vendors</th>
+                            <th>Ordered Quantity</th>
+                            <th>Expected Delivery Date</th>
+                            <th>Remove</th>        
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicine,form in zipped_one %}
+
+                        {% if medicine.reorder_level == 1 %}
+                            <tr  style="line-height:25.5px; background:	#FA8072;" data-order-id="{{medicine.id}}">
+                                <td >{{ form.order_items }} </td>
+                                <td >{{ form.pack }}</td>
+                                <td >{{ form.vendors }}</td>                          
+                                <td >{{ form.ordered_quantity }}</td>   
+                                <td >{{ form.expected_delivery_date }}</td> 
+                                <td ><button class="remove-order">Remove</button></td>                              
+                            </tr>
+                        {% else %}
+                        <tr data-order-id="{{medicine.id}}">
+                            
+                             <td>{{ form.order_items }} </td>
+                             <td>{{ form.pack }}</td>
+                             <td>{{ form.vendors }}</td>                          
+                             <td>{{ form.ordered_quantity }}</td>   
+                             <td>{{ form.expected_delivery_date }}</td> 
+                             <td><button class="remove-order">Remove</button></td>                              
+                         </tr>
+
+                         {% endif %}
+
+                         {% empty %}
+                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="font-size: 28px; color: blue; margin-left: 100px; " ><b>Orders Placed For Medicines below Reorder LEVEL</b></td>
+                        </tr>
+
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <input type="submit"  value="Submit Orders">
+                
+              </form>
+
+
+              
+            <br><br>
+            <div style="  background: white;border: solid 3px #337ab7; padding: 10px;;font-family: helvetica;
+            color: #337ab7;
+            font-size: 50px;
+            text-align: center;
+            width: 800px;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+            margin-left:300px;
+            margin-top:100px; " >Order Details </div>
+
+        </div>
+        <div class="jumbotron">
+
+           
+            <br><br>
+            <input type="text" id="vendor-filter" placeholder="Search by Vendor">
+        <table class="table" id="order-table">
+            <thead>
+                <tr >
+                    <th style="text-align:center;">Serial No.</th>
+                    <th style="text-align:center;">Vendor</th>
+                    <th style="text-align:center;">Bill</th> 
+                    <th style="text-align:center;">Order Items</th>  
+                    {% comment %} <th style="text-align:center;">Bill</th>   {% endcomment %}
+                    <th style="text-align:center;">Order Date</th>
+                    <th style="text-align:center;">Expected Delivery Date</th>  
+                    <th style="text-align:center;">Order Status</th>  
+                    <th style="text-align:center;">Doctor's Approval</th>  
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for medicines in orders_list %}
+
+                <tr data-order-id="{{medicine.id}}">
+                    <td style="text-align:center;">{{forloop.counter}}</td>
+                     <td style="text-align:center;">{{medicines.0.vendor}}<br><br> {{medicines.0.vendor.mobile_number}}<b>(M)</b></td>
+
+                     {% if medicines.last.order_receive_flag %}
+                     <td style="text-align:center;">
+ 
+                         <button class="openPopupthree" data-med-id="{{medicines.last.id}}"> View </button>
+                     <div id="myModalthree" class="modalthree">
+                         <div class="modal-content-three">
+                             <span class="closethree"><button style="float:right;"> <i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                             <iframe src="{% url 'view_bill_medicines' medicines.last.id %}" width="100%" height="550"></iframe>
+                        </div>
+                     </div>   
+                     </td>  
+                     {% else %}
+ 
+                     <td style="text-align:center;">
+ 
+                     <button class="openPopuptwo " data-stock-id="{{medicines.last.id}}">Upload +</button>
+                     <div id="myModaltwo" class="modaltwo">
+                         <div class="modal-content-two">
+                             <span class="closetwo"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                             <iframe src="{% url 'upload_bills_medicine' medicines.last.id %}" width="100%" height="500"></iframe>
+
+                            </div>
+                     </div>  
+                     </td>  
+                     {% endif %}
+                   
+                    
+                     <td style="text-align:center; width:250px;" >
+                        <table class="inner-table" id="order-table" >
+                            <thead>
+                                <tr >
+                                    <th style="text-align:center;">Serial No.</th>
+                                    <th style="text-align:center;">Medicine</th>
+                                    <th style="text-align:center;">Pack</th>                                    
+                                    <th style="text-align:center;">Ordered Quantity</th> 
+                                    <th style="text-align:center;" >Received Quantity</th> 
+
+                                    {% if medicines.last.order_receive_flag %}
+                                    <th style="text-align:center;">Balance<th>
+
+                                    {% endif %}
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicine in medicines %}                                
+
+                                <tr>
+                                    <td style="text-align:center;">{{forloop.counter}}</td>
+                                    <td style="text-align:center;">{{medicine.order.order_items}}</td>
+                                    <td style="text-align:center;">{{medicine.order.pack}}</td>
+                                    <td style="text-align:center;">{{medicine.order.ordered_quantity}}</td>
+                                    {% if medicine.order_receive_flag %}
+                                    <td style="text-align:center;">{{medicine.received_quantity}}</td> 
+                                    {% else %}
+                                    <td >
+
+                                        <form class="formset" action="{% url 'receive_order_medicines' medicine.id %}" method="post">
+                                             {% csrf_token %}
+                                            <input type="number" id="order_received" name="order_received" placeholder="Received Quantity" value="{{medicine.received_quantity}}">
+                                            <br><br>
+                                            <label>Received Date:</label>
+                                             <input type="date" name="receive_date" name="receive_date" id="receive_date" >
+                                             <br><br>
+                                            <input type="submit"  style="font-size:15px;"class="btn btn-danger btn-sm" value="Receive Order ">  
+                                          
+                                        </form>
+                                    </td>
+                                {% endif %}
+
+                                {% if medicines.last.order_receive_flag %}
+                                    {% if medicine.order_balance == 0 %}
+                                    <td style="text-align:center;">{{medicine.order_balance}}</td>
+                                    {% else %}
+                                    <td  style="font-size:14px; text-align:center; color:red; border: solid 3px red; padding: 3px; "><b>ORDER BAL. </b></td>
+                                    {% endif %}
+                                {% endif %}
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    </td>
+                    
+                    
+                    <td style="text-align:center;">{{medicines.0.order.order_date|date:"d F,Y"}}</td>                       
+                     <td style="text-align:center;">{{medicines.0.order.expected_delivery_date|date:"d F,Y"}}</td> 
+                     {% if medicines.last.order_receive_flag %}
+                     <td style="width:200px;"><p style="font-size:14px; text-align:center; color:green; border: solid 3px green; padding: 6px;  "><b>RECEIVED <i class="fa fa-check-circle" style="font-size:20px;"></i></b></p></td>
+                     {% else %}
+                     <td style="width:200px;" ><p style="font-size:14px; text-align:center; color:red; border: solid 3px red; padding: 6px; "><b>PENDING <i class="fa fa-clock-o" style="font-size:20px" aria-hidden="true"></i></b></p></td>
+                     {% endif %}
+
+                     {% if medicines.last.is_approved %}
+                     <td><p style="text-align:center; color:green;  "><b><i class="fa fa-check-circle" style="font-size:30px;"></i></b></p></td>
+                     {% else %}
+                     <td ><p style="text-align:center; color:red;  "><b><i class="fa fa-clock-o" style="font-size:30px" aria-hidden="true"></i></b></p></td>
+
+                     {% endif %}
+                                                 
+                 </tr> 
+                 
+                 {% empty %}
+                 <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="font-size: 30px; color: blue; margin-left: 100px; " ><b>No Orders Placed Today</b></td>
+                </tr>
+
+                 {% endfor %}    
+
+              
+            </tbody>
+        </table>
+    </div>
+
+        
+             
+            
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    // Function to get the CSRF token from cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === name + '=') {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $(document).ready(function() {
+        // Add a click event handler for the "Remove" button
+        $('.remove-order').on('click', function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            var order_id = row.data('order-id');
+
+            // Get the CSRF token
+            var csrftoken = getCookie('csrftoken');
+
+            // Send an AJAX request with the CSRF token
+            $.ajax({
+                type: 'POST',
+                url: '{% url "remove_order" %}',
+                data: {
+                    order_id: order_id
+                },
+                headers: {
+                    'X-CSRFToken': csrftoken // Include the CSRF token in the request headers
+                },
+                success: function(response) {
+                    row.remove();
+                    alert(response.message);
+                },
+                error: function(response) {
+                    alert(response.responseJSON.message);
+                }
+            });
+        });
+
+        // ... Rest of your JavaScript code ...
+        $(document).ready(function() {
+            {% for medicine,form in zipped_one %}
+            var formId = '{{ form.prefix }}';
+           /* console.log(formId);*/            
+            $('#id_'+formId+'-vendors').select2({placeholder:" Select Vendors"});            
+            {% endfor %}
+        });
+    });
+
+    // JavaScript to open and close the PLACE NEW ORDER modal
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("openPopup");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
+
+        // JavaScript to open and close the modal for Upload BILL
+        var modaltwo = document.getElementById('myModaltwo');
+        var btntwo = document.getElementsByClassName("openPopuptwo");
+        var spantwo = document.getElementsByClassName("closetwo")[0];
+    
+        for (var i = 0; i < btntwo.length; i++) {
+            btntwo[i].onclick = function() {
+                var stockId = this.getAttribute("data-stock-id");
+                var iframe = document.querySelector("#myModaltwo iframe");
+                var url = "{% url 'upload_bills_medicine' 9999 %}".replace('9999', stockId); // Replace a placeholder with the actual stock ID
+
+                iframe.src = url;
+                modaltwo.style.display = "block";
+             }
+        }
+    
+        spantwo.onclick = function() {
+            modaltwo.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modaltwo) {
+                modaltwo.style.display = "none";
+            }
+        }
+    
+
+         // JavaScript to open and close the modal for VIEW BILL
+         var modalthree = document.getElementById('myModalthree');
+         var btnthree = document.getElementsByClassName("openPopupthree");
+         var spanthree = document.getElementsByClassName("closethree")[0];
+ 
+         for (var i = 0; i < btnthree.length; i++) {
+             btnthree[i].onclick = function() {
+                 var stockId = this.getAttribute("data-med-id");
+                 var iframe = document.querySelector("#myModalthree iframe");
+                 var url = "{% url 'view_bill_medicines' 9999 %}".replace('9999', stockId); // Replace a placeholder with the actual stock ID
+
+                 iframe.src = url;
+                 modalthree.style.display = "block";
+             }
+         }
+ 
+         spanthree.onclick = function() {
+         modalthree.style.display = "none";
+         }
+ 
+         window.onclick = function(event) {
+         if (event.target == modalthree) {
+             modalthree.style.display = "none";
+         }
+         }
+
+        
+  //Search 
+  $(document).ready(function() {
+    // Reference the input field and the table
+    var vendorFilterInput = $('#vendor-filter');
+    var orderTable = $('#order-table');
+
+    // Add an event listener for the input field
+    vendorFilterInput.on('input', function() {
+        var searchText = vendorFilterInput.val().toLowerCase();
+
+        // Iterate through the table rows and hide/show based on the search text
+        orderTable.find('tbody tr').each(function() {
+            var vendorCell = $(this).find('td:nth-child(2)');
+            var vendorText = vendorCell.text().toLowerCase();
+
+            if (vendorText.includes(searchText)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});       
+
+ // Function to set the default date to today
+ function setDefaultDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    // Get all input elements with the name "receive_date"
+    var dateInputs = document.querySelectorAll('input[name="receive_date"]');
+
+    // Set the default date for each input element
+    dateInputs.forEach(function(input) {
+        input.value = today;
+    });
+}
+
+// Call the function when the page loads
+window.onload = setDefaultDate;
+
+
+
+
+</script>    
+</body>
+</html>

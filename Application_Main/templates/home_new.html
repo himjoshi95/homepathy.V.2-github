@@ -1,0 +1,980 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' %}">
+    <link href="{% static 'https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css' %}">
+    <link rel="stylesheet" href="{% static 'https://unpkg.com/aos@next/dist/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/clash-display.css' %}">
+	
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href = "https://unpkg.com/swiper@7/swiper-bundle.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <title>Home Page</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    {% include "nav.html" %}
+
+    {% block content %}
+
+    <style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+
+        
+		:root{
+			--primary: #0077b6;
+			--secondary: #48cae4;
+			--black: #333;
+			--white: #fff;
+			--box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+		}
+		
+        @media (max-width:900px){*{
+			font-family: 'Poppins', sans-serif;
+			margin: 0; padding: 0;
+			box-sizing: border-box;
+			outline: none; border: none;
+			text-decoration: none;
+			text-transform: capitalize;
+			transition: .2s linear;
+		}
+    }
+		
+    
+    @media (max-width:900px){html{
+			font-size: 100%;
+			overflow-x: hidden;
+			scroll-padding-top: 9rem;
+			scroll-behavior: smooth;
+		
+		}
+		
+		html::-webkit-scrollbar{
+			width: .8rem;
+		}
+		
+		html::-webkit-scrollbar-track{
+			background: transparent;
+		}
+		
+		html::-webkit-scrollbar-thumb{
+			background: var(--primary);
+			border-radius: .5rem;
+		}
+
+    }
+
+    @media (max-width:900px){
+		section{
+			padding: 5rem 7%;
+			
+		}
+    }
+    @media (max-width:900px){
+		.heading{
+			font-size: 50px;
+			color: black;
+			text-align: center;		
+			margin-bottom: 3rem;
+		}
+    }
+		
+    @media (max-width:900px){
+		.btn{
+			display: inline-block;
+			margin-top: 1rem;
+			padding: 1rem 3rem;
+			background:  var(--primary);
+			border-radius: .5rem;
+			color: var(--white);
+			font-size: 1.7rem;
+			cursor: pointer;
+		}
+		
+		.btn:hover{
+			background: var(--secondary);
+		}
+
+    }
+
+    .btn{
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 1rem 3rem;
+        background:  var(--primary);
+        border-radius: .5rem;
+        color: var(--white);
+        font-size: 1.7rem;
+        cursor: pointer;
+    }
+    
+    .btn:hover{
+        background: var(--secondary);
+    }
+		
+
+.container {
+			margin-top: 90px;
+		}
+        @media (max-width:900px){
+        .container {
+			margin-top: 90px;
+		}}
+        @media (max-width:900px){
+        img{
+			width: 100%;
+			height: auto;
+		}
+    }
+
+    @media (max-width:900px){
+		h2{
+			padding-top: 50px;
+		}
+    }
+
+    @media (max-width:900px){
+		p{
+			font-size: 17px!important;
+		}
+    }
+
+    @media (max-width:900px){
+		.hilight{
+			font-size:15px;
+			text-shadow: 10in;
+		
+		}
+    }
+
+    @media (max-width:900px){
+        :root {
+            --c-dark: black;
+            --c-brand: #4e57d4;
+            --c-brand-light: #6970dd;
+            --c-brand-rgb: 78, 87, 212;
+            --c-body: #727272;
+            --font-base: "ClashDisplay", sans-serif;
+            --box-shadow: 0px 15px 25px rgba(0,0,0,0.08);
+            --transition: all 0.5s ease;
+            }
+
+        }
+		
+        @media (max-width:900px){
+.hero{
+		background-color: url(../static/images/wings.mp4)
+	}
+}
+
+    @import url(../css/clash-display.css);
+
+    
+.vdo{
+        width: 95%;
+        margin-top:-60px;
+        background-size: cover;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width:900px){
+    .btn {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px 24px;
+}
+    }
+
+    .btn {
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        border-radius: 0;
+        padding: 10px 24px;
+    }
+
+    
+    @media (max-width:900px){
+body {
+  background:url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+  font-family: var(--font-base);
+    line-height: 1.7;
+    color: black;
+}
+    }
+    body {
+        background:url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        font-family: var(--font-base);
+          line-height: 1.7;
+          color: black;
+      }
+
+
+      @media (max-width:900px){
+.btn-brand {
+    background-color: var(--c-brand);
+    border-color: var(--c-brand);
+    color: white;
+}
+      }
+
+      @media (max-width:900px){
+.btn-brand:hover {
+    background-color: var(--c-brand-light);
+    border-color: var(--c-brand-light);
+    color: white;
+}
+      }
+
+
+      @media (max-width:900px){
+h1, h2, h3,h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+    color: var(--c-dark);
+}
+      }
+
+      
+a {
+    text-decoration: none;
+    color: var(--c-brand);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--c-brand-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width:900px){
+.section-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+}
+
+.theme-shadow {
+    box-shadow: var(--box-shadow);
+}
+
+/* IMAGE ZOOM */
+.image-zoom {
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.image-zoom-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.image-zoom-wrapper img{
+     transition: var(--transition);
+}
+
+.image-zoom:hover .image-zoom-wrapper img {
+    transform: scale(1.1);
+}
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--c-dark);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--c-brand);
+}
+@media (max-width:900px){
+.section-title {
+    margin-bottom:60px;
+}
+
+.section-title .line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin: 16px auto 24px auto;
+}
+
+.section-title p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+}
+
+
+.iconbox {
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--c-brand-rgb), 0.1);
+    color: var(--c-brand);
+    font-size: 34px;
+    flex: none;
+}
+.service {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.service::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    background:rgb(116, 224, 224);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: var(--transition);
+}
+
+
+.service:hover::after {
+    width: 100%;
+    height: 100%;
+    background: var(--c-brand);
+    z-index: -1;
+}
+
+.service:hover h5,
+.service:hover p {
+    color:rgb(12, 145, 145);
+}
+
+.service:hover .iconbox {
+    background-color: rgba(195, 233, 183, 0.2);
+    color: white;
+}
+#counter {
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(../images/counter.jpg);
+    background-position: center;
+    background-size: cover;
+}
+/* PORTFOLIO */
+.portfolio-item .iconbox {
+    background-color: var(--c-brand);
+    color: rgb(149, 230, 146);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.portfolio-item:hover .iconbox {
+    opacity: 1;
+    top: 50%;
+}
+.review small {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--c-brand);
+}
+
+.review-head {
+    position: relative;
+}
+
+.review-head::after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: -14px;
+    background-color: white;
+    transform: rotate(45deg);
+}
+
+.team-member-content {
+    background-color: var(--c-brand);
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    width: calc(100% - 50px);
+    transform: translateX(-50%);
+    padding: 24px;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.team-member:hover .team-member-content {
+    opacity: 1;
+    bottom: 24px;
+}
+#contact {
+    position: relative;
+    z-index: 2;
+}
+
+#contact::after {
+    content: "";
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(rgba(var(--c-brand-rgb), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(../images/counter.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#contact .form-control {
+    border-radius: 0;
+}
+
+#contact .form-control:focus {
+    box-shadow: none;
+    border-color: var(--c-brand);
+}
+/* FOOTER */
+footer {
+    padding-top: 2px;
+}
+
+.footer-top {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+footer li,
+footer p,
+footer a {
+    color: rgba(255,255,255,0.7);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .line {
+    width: 40px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 100px;
+}
+
+.social-icons a:hover {
+    background-color: var(--c-brand);
+    color: white;
+}
+
+#w1{
+	color: rgb(0, 0, 0);
+	font-size: 25px;
+	transition: all;
+	transform: none;
+	font-weight:bold;
+	margin: 5px;
+}
+.w2{
+	font-size: 15px;
+	font-weight: 15px;
+	font-style:italic;
+	border-style: hidden;
+	color: beige;	
+}
+.w3{
+	font-style: italic;
+	font-weight: 15px;
+}
+.img{
+	width: 50px;
+	height: 50px;
+}
+
+.w5{
+	font-style:italic;
+	font-size: 15px;
+	font-family: sans-serif;
+}
+.dr1{
+	align-items: center;
+	font-size:25px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+}
+
+.dr2{
+	align-items: center;
+	font-size:20px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+	color: blue;
+}
+
+.branch{
+	color: #4e57d4;
+	margin: 10px;
+	font-family: sans-serif;
+	font-weight: 15px;
+	font-style: italic;
+	background-color: rgb(197, 226, 226);
+	border-radius: 10px;
+
+}
+
+p{
+	color: black;
+}
+
+
+.myaccordion {
+  max-width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.myaccordion .card,
+.myaccordion .card:last-child .card-header {
+  border: none;
+}
+
+.myaccordion .card-header {
+  border-bottom-color: #EDEFF0;
+  background: transparent;
+}
+
+.myaccordion .fa-stack {
+  font-size: 18px;
+}
+
+.myaccordion .btn {
+  width: 100%;
+  font-weight: bold;
+  color: #004987;
+  padding: 0;
+}
+
+.myaccordion .btn-link:hover,
+.myaccordion .btn-link:focus {
+  text-decoration: none;
+}
+
+.myaccordion li + li {
+  margin-top: 10px;
+}
+
+/* rooms */
+
+.room .slide{
+    background: var(--white);
+    border: .1rem solid rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 4rem;
+}
+
+.room .slide .image{
+    height: 25rem;
+    width: 110%;
+    padding: 2rem;
+    overflow: hidden;
+    position:relative;
+}
+
+.room .slide .image img{
+    width: 95%;
+    height: 100%;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+.room .slide .image .price{
+    position: absolute;
+    top: 2.5rem; left: 2.5rem;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 1.7rem;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    /* text-transform: lowercase; */
+
+}
+
+.room .slide .image .fa-shopping-cart{
+    position: absolute;
+    top: 2.5rem; right: 2.5rem;
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    text-align: center;
+    font-size: 2rem;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 50%;
+}
+
+.room .slide .image .fa-shopping-cart:hover{
+    background: var(--secondary);
+    color: var(--white);
+}
+
+.room .slide .content{
+    padding: 2rem;
+    padding-top: 0;
+}
+
+.room .slide .content h3{
+    font-size: 2.5rem;
+    color: var(--black);
+}
+
+.room .slide .content p{
+    font-size: 1.6rem;
+    color: #666;
+    padding: .5rem 0;
+    line-height: 1.5;
+}
+
+.room .slide .content .stars{
+    padding: 1rem 0;
+}
+
+.room .slide .content .stars i{
+    font-size:  1.7rem;
+    color: var(--primary);
+}
+/* end */
+
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.plan {
+    background-color: #C0C0C0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 40px;
+    width: 300px;
+    border: solid 5px white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.img2{
+    height: 30px;
+    width : 30px;
+}
+
+.call {
+    font-size: 18px;
+}
+
+
+
+    </style>
+
+    <div style="margin-left:50px;">
+
+	
+		<div class = "container">
+		<video class="vdo" preload="auto" control loop autoplay muted><source src="../static/images/wings.mp4" type="video/mp4"></video>
+		</div>
+
+		<div class="container">
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-12 text-center" data-aos="fade-down" data-aos-delay="50">
+					<div class="section-title">
+						<h5 class="display-4 fw-semibold">For Appointments</h5>
+						<div class="line"></div>
+						<span style="font-size:28px;"> " Call Us "</span>
+						<div class="container1">
+							{% for b in branch %}                           
+                           
+							 <div class="plan">
+								<div style=" font-size:20px;  background: #AFDBF5;border: solid 3px white; padding: 20px;border-radius:5px; width:230px;"><b>{{b.branch_name}}</b></div>
+								<div class="line"></div>
+                                <ul >
+									<li ><h4> <img class="img2" src="{% static 'images/phone.png' %}" > {{b.contact_number_one}}</h4></li>
+									{% if b.contact_number_two %}
+									<li style="font-size:20px;"><h4>{{b.contact_number_two}}</h4></li>
+									{% endif %}									
+								</ul>								
+							</div>	 
+                            {% endfor %}
+													
+						</div>
+                        <h4 id="visite"  data-aos="fade-right" style="text-decoration-style:italic; color: black;">To Visit Us<span class="w5">&nbsp;&nbsp;&nbsp;<i class='fa fa-hand-point-right' style='font-size:48px;color:red'></i>  click the Link  </span> &nbsp;&nbsp;<a href="https://www.wingshomeopathy.com/" class="btn btn-brand me-2"> Wings Classical Homeopathy</a></h4>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	
+
+	<main role="main" class="container" >
+	<div class="jumbotron" >
+		<div class="row">
+			<div class="col-12 text-center" data-aos="fade-down" data-aos-delay="50">
+				<div class="section-title">
+					<h5 class="display-4 fw-semibold">About Doctor</h5>
+					<div class="line"></div>
+					<p>" Service to the Patient is Service to Nation "</p>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-between align-items-center">
+			<div class="col-lg-6" data-aos="fade-down" data-aos-delay="50">
+				<img src="{% static '/images/Dr_santosh_yadav.png' %}" alt="My image">
+				<h3 class="dr1">Dr. Santosh K Yadav</h1>
+				<h3 class="dr2">M.D. (Homeopathy)</h3>
+				<h3 class="dr2">Ph.D.(Homeopathy)</h3>
+			</div>
+			<div data-aos="fade-down" data-aos-delay="150" class="col-lg-5">
+				<h4>About Dr. Santosh K Yadav</h4>
+				<p class="mt-3 mb-4" style="color: black;"><b>Dr. Santosh K Yadav is a consultant homeopathic doctor is flourishing homeopathic clinical practice in Dombivali and Mulund <span class="year">since 2000</span>. All across India patient consulting him from various state and world wide. he is known too thousands of patients as a kind and lively homeopathy doctor.</b>
+					<br><br>
+				   <b> He is president of Wings medical foundation.
+					He completed his BHMS (Bachelor of Homeopathic Medicine & Surgery) from Amravati university and done his post graduation( M.D Homoeopathy ) from aurangabad university.He also done Ph.D. in Homoeopathy field .</b>
+				</p>
+			</div>
+		</div>
+	</div>
+</main>
+   
+<!-- room -->
+
+<main role="main" class="container">
+<div class="room jumbotron" id="room" >
+
+	
+		<div class="row">
+			<div class="col-12 text-center" data-aos="fade-down" data-aos-delay="50">
+				<div class="section-title">
+					<h1 class="display-4 fw-semibold">Our Portfolio</h1>
+					<div class="line"></div>
+				</div>
+			</div>
+		</div>
+    <div class="swiper room-slider">
+
+        <div class="swiper-wrapper">
+
+			{% for d in data %}
+            <div class="swiper-slide slide">
+                <div class="image">
+                    <img src="{{d.images.url}}" alt="">
+                </div>                
+            </div>
+			{% endfor %}
+           
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+<!-- end -->
+</main>
+
+</div>
+
+<footer class="bg-dark">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-3 col-sm-6">                   
+                    <div class="line"></div>
+                    <p>" Service To Patient is Service To Nation "</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa fa-whatsapp" aria-hidden="true" background_color="blue" color="blue"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h6 class="mb-0 text-white">SERVICES</h6>
+                    <p>All Types Of Chronic Diseases.
+                    <div class="line"></div>
+                    
+                </div>
+                
+                <div class="col-lg-3 col-sm-6">
+                    <h6 class="mb-0 text-white">DOMBIVALI  Branch-1</h6>
+                    <div class="line"></div>
+                    <ul>
+                        <li>Address	:	102, "Sanvi Appartment", 1st Floor,
+                            Near Shiv Sena Office, Gupte Road, Dombivali (W).</li>
+                        <li>Time	:<div>	9.30 am to 2 pm </div> 
+                            <div> 5.30 pm to 10 pm.</div>
+                        <li>Tel	:	<div>0251 - 2492081 / 2484950</div>
+                            Mobile	:<div>+91-8080899990, +91 9892064974</div>
+                            Email	:<div>	wingshomeopathy@gmail.com</div>
+                            <div>Visit Us : <a href="www.wingshomeopathy.com">www.wingshomeopathy.com</a></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <h6 class="mb-0 text-white">MULUND  Branch-2</h6>
+                    <div class="line"></div>
+                    <ul>
+                        <li>Address	:	Kapeesh Mall, Shop No. 17 ,18, 19, & 20, 1st Floor, M.G. Road,
+                            Near Mulund Railway Station, Mulund (W).</li>
+                        <li>Time	:	<div>2.30 pm to 5 pm.</div>
+                            <div>Sunday- 10.30 am to 4.30 pm.<div>
+                                <div style="color: yellow;">Thursday -Closed</div>
+                            </li>
+                        <li>Tel	:<div>	022 - 25628989</div> 
+                            Mobile	:<div>	+91-8080848403, +91 9892064974</div>
+                            Email	:<div>	wingshomeopathy@gmail.com</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-auto">
+                    <p class="mb-0">© Copyright Wings Classical Homeopathy. All Rights Reserved.</p>
+                </div>
+                <div class="col-auto">
+                    <p class="mb-0">Designed with 💜 By <a href="https://www.snteducation.com/">Snt Super Net Technology Munirka Delhi(New)</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--Remember to change to https in production-->
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<script>
+	var swiper = new Swiper(".room-slider",{
+		spaceBetween: 20,
+		grabCursor:true,
+		loop:true,
+		centeredSlides:true,
+		autoplay:{
+			delay: 1500,
+			disableOnInteraction: false,
+		},
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		pagination: {
+			el: ".swiper-pagination",
+			clickable: true,
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: 1,
+			},
+			768: {
+				slidesPerView: 2,
+			},
+			991: {
+				slidesPerView: 3,
+			},
+		},
+	});
+	
+</script>
+
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	<script src="{% static 'assests/js/main.js' %}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    
+
+	<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    
+</body>
+</html>

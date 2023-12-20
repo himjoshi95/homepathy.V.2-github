@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Presciption Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    } 
+    body {
+  background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+}  
+	</style>
+	</head>
+<body>
+    {% include "nav.html" %}
+
+ <br>
+ <br>
+ 
+ <div class="container">
+    <h1 style="color: antiquewhite;">Balance History</h1> 
+    <div class="row">
+      <div class="col-sm-12">
+        <hr>
+        <br><br>
+        
+        <h3 style="color: antiquewhite;">Enter Case PaperNo.</h3>
+ <form>
+    <div class="input-group input-group-sm mb-2 mt-4">
+        <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+        <br><br>
+        <button class="btn btn-dark"><i class="fa fa-search"></i> SEARCH</button>
+        <a href="{% url 'doc_balance'  %}" class="btn btn-success" style="margin-top: 10pt; width: 100%;"><i class="fa fa-refresh" aria-hidden="true" placeholder="Refresh"> Refresh</i></a>
+    </div>
+</form>
+<br><br>
+{% if data %}
+ 
+<hr class = 'primary'>
+<table class="table" style="width:100%">
+    <thead class="table-dark"> 
+  
+      <tr>
+        <th style="text-align:center" scope="col"><b>Case PaperNo.</b></th>
+        <th style="text-align:center" scope="col">Name</th>
+        <th style="text-align:center" scope="col">Balance Amount (Rs)</th>
+        <th style="text-align:center" scope="col">Status</th>
+        <!-- <th style="text-align:center"scope="col">Pay Balance Amount</th> -->
+    </tr>
+</thead>
+<tbody>
+    
+    <tr>
+        <td style="text-align:center; color: antiquewhite; font-size: 20px;"><b>{{ data.patient.case }}</b></td>
+        <td style="text-align:center ; color: antiquewhite; font-size: 20px;"><b>{{ data.patient.name }}</b></td>        
+        {% if data.balance_amt == 0 %}
+        <td style="text-align:center ; color: antiquewhite; font-size: 20px; "><b>No Dues</b></td>
+        <td style="text-align:center ; color: antiquewhite; font-size: 20px;"><b>{{status_medicine.stat}}</b></td>
+        {% else %}
+        <td style="text-align:center ; color: antiquewhite; font-size: 20px;"><b>{{ data.balance_amt }}</b></td>
+        <td style="text-align:center ; color: antiquewhite; font-size: 20px;"><b>{{status_medicine.stat}}</b></td>
+        <!-- <td style="text-align:center"><a href="{% url 'pay_balance' id=data.patient.id %}" class="btn btn-outline-success">
+            Pay
+          </a></td> -->
+        {% endif %}
+    </tr>
+    
+</tbody>
+</table>
+{% elif data == '' %}
+<h1></h1>
+{% else %}
+<br><br>
+<h1>No Previous Collection History</h1>
+{% endif %}
+
+<br><br><br>
+</div></div></div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

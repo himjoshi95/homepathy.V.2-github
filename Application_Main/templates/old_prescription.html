@@ -1,0 +1,86 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		input,select{
+			width: 300px!important;
+			border-radius: 0px!important;
+		}
+		form{
+			margin: 50px auto;
+			width: 300px;
+			height: 450px;
+			text-align: center;
+		}
+		select{
+			height:30px;
+		}
+		button{
+			width: 140px;
+			border-radius: 0px!important;
+			margin-top: 20px;
+		}
+					body {
+			background: url("/static/images/home_img.jpg") 100% 0 no-repeat fixed;
+			
+			}
+	</style>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+ {% include "nav.html" %}
+
+ <div class="container">
+    <!-- <div class="py-5 text-center bg-secondary text-white"> -->
+      <div class=" py-5 text-center alert">
+        <h1 class="mb-3" style="color:antiquewhite">Upload Case Paper Images</h1>
+        <br>
+        <br>
+		<div class="container">
+		
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-success" role="alert">
+					<i class="fa fa-check"></i>	
+				   {{ message}}
+				</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+		<br>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+           
+            <label>{{field.label}}</label>    
+            <div class="col-sm-8">
+                {{ field }}
+            </div>
+        </div>           
+            {% endfor %}         
+            <input type="Submit" class="btn btn-danger" value = "Upload">
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+<script>
+  $(document).ready(function () {
+      $('#id_patient').select2();
+
+  });
+</script>
+</body>
+
+
+</html>
+
+

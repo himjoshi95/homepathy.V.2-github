@@ -1,0 +1,548 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Mental Causative Factor</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       
+        <h3>A </h3>
+        
+
+    <div class="row">
+        <div class="col-12">
+
+        <div class="container">
+        <ul style=" column-count: 5; column-gap: 2rem; list-style: none;">
+        <input type="checkbox"  id="vehicle1" name="abandonment" value="Abandonment">
+        <label for="vehicle1" > <p>Abandonment</p>  </label><br>       
+
+        
+        <input type="checkbox" id="vehicle2" name="abusive_husband" value="Abusive Husband">
+        <label for="vehicle2" > <p>Abusive Husband</p>  </label><br>
+        
+        <input type="checkbox" id="vehicle1" name="abusive_parents" value="Abusive Parents">
+        <label for="vehicle1" > <p>Abusive Parents</p>  </label><br>
+
+        <input type="checkbox" id="vehicle1" name="after_anger" value="After Anger">
+        <label for="vehicle1" > <p>After Anger</p>  </label><br>
+
+        <input type="checkbox" id="vehicle1" name="anticipation" value="Anticipation">
+        <label for="vehicle1" > <p>Anticipation</p>  </label><br>
+
+        <input type="checkbox" id="vehicle1" name="anxiety" value="Anxiety">
+        <label for="vehicle1" > <p>Anxiety</p>  </label><br>
+
+        <input type="checkbox" id="vehicle1" name="abused_by_punishment" value="Abused By Punishment">
+        <label for="vehicle1" > <p>Abused By Punishment</p>  </label><br>
+
+        <input type="checkbox" id="vehicle1" name="apprehends" value="Apprehends">
+        <label for="vehicle1" > <p>Apprehends</p>  </label><br>
+        
+        </ul>
+
+        
+        <h3>B </h3>
+        <ul style=" column-count: 5; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="bad_tragedies" value="Bad Tragedies">
+            <label for="vehicle1" > <p>Bad Tragedies</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="bereavement" value="Bereavement">
+            <label for="vehicle1" > <p>Bereavement</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="boredom" value="Boredom">
+            <label for="vehicle1" > <p>Boredom</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="business" value="Business">
+            <label for="vehicle1" > <p>Business</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="blows" value="Blows">
+            <label for="vehicle1" > <p>Blows</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="beatings" value="Beatings">
+            <label for="vehicle1" > <p>Beatings</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="bad_news" value="Bad News">
+            <label for="vehicle1" > <p>Bad News</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="bored" value="Bored">
+            <label for="vehicle1" > <p>Bored</p>  </label><br>
+        
+        
+        </ul>
+        
+        <h3>C </h3>
+        <ul style=" column-count: 5; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="contradiction" value="Contradiction">
+            <label for="vehicle1" > <p>Contradiction</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="criticism" value="Criticism">
+            <label for="vehicle1" > <p>Criticism</p>  </label><br>
+        </ul>
+        
+        <h3>D </h3>
+        <ul style=" column-count: 5; column-gap: 2rem; list-style: none;">            
+
+            <input type="checkbox"  id="vehicle1" name="deceived_friendship" value="Deceived Friendship">
+            <label for="vehicle1" > <p>Deceived Friendship</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="depressing_emotion" value="Depressing Emotion">
+            <label for="vehicle1" > <p>Depressing Emotion</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="disagreement" value="Disagreement">
+            <label for="vehicle1" > <p>Disagreement</p>  </label><br>            
+
+        </ul>
+
+        <ul style=" column-count: 5; column-gap: 2rem; list-style: none;">
+        <input type="checkbox"  id="vehicle1" name="discord_chief" value="Discord between Chief and Subordinate">
+            <label for="vehicle1" ><p>Discords between Chief and Subordinate</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="discord_friends" value="Discords between Friends">
+            <label for="vehicle1" ><p>Discords between Friends</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="discord_parents_children" value="Discords between Parents and Childrens">
+            <label for="vehicle1" ><p>Discords between Parents and Childrens</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="domination_colonisation" value="Domination,Foreign Colonisation Culture">
+            <label for="vehicle1" ><p>Domination,Foreign Colonisation Culture</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="domination_parental" value="Domination Parental">
+            <label for="vehicle1" ><p>Domination Parental</p>  </label><br>          
+
+        </ul>
+        <ul style=" column-count: 4; column-gap: 2rem; list-style: none;">
+        <input type="checkbox"  id="vehicle1" name="domination" value="Domination">
+            <label for="vehicle1" > <p>Domination</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="demand_fullfillment" value="Demands not Fullfillments">
+            <label for="vehicle1" > <p>Demands not Fullfillments</p>  </label><br>
+        </ul>
+       
+        <h3>E </h3>
+
+        <ul style=" column-count: 4; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="embarrassment" value="Embarrassment">
+            <label for="vehicle1" > <p>Embarrassment</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="excitement" value="Excitement/Unusual">
+            <label for="vehicle1" > <p>Excitement/Unusual</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="emotional" value="Emotional">
+            <label for="vehicle1" > <p>Emotional</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="excitement_business" value="Excitement in Business">
+            <label for="vehicle1" > <p>Excitement in Business </p>  </label><br>  
+        </ul>
+
+        
+        <h3>F </h3>
+        <ul style=" column-count: 4; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="fail_business" value="Failure in Business">
+            <label for="vehicle1" > <p>Failure in Business</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="failure" value="Failure">
+            <label for="vehicle1" > <p>Failure</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="fear" value="Fear">
+            <label for="vehicle1" > <p>Fear</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="feeling_controlled" value="Feelings Controlled">
+            <label for="vehicle1" > <p>Feelings Controlled</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="friendship_deceived" value="Friendship(Deceived)">
+            <label for="vehicle1" > <p>Friendship(Deceived)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="fright" value="Fright">
+            <label for="vehicle1" > <p>Fright</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="frustration" value="Frustration">
+            <label for="vehicle1" > <p>Frustration</p>  </label><br>          
+        </ul>
+        
+        <h3>G </h3>
+        <ul style=" column-count: 4; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="grief_long_drawn" value="Grief(Long Drawn)">
+            <label for="vehicle1" > <p>Grief(Long Drawn)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="grudges" value="Grudges">
+            <label for="vehicle1" > <p>Grudges</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="guilt_trapped" value="Guilt/Trapped">
+            <label for="vehicle1" > <p>Guilt/Trapped</p>  </label><br>       
+        </ul>
+        
+        <h3>H </h3>
+        <ul style=" column-count: 4; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="honour_wounded" value="Honour(Wounded)">
+            <label for="vehicle1" > <p>Honour(Wounded)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="humiliation" value="Humiliation">
+            <label for="vehicle1" > <p>Humiliation</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="humiliation_criticised" value="Humiliation(Being Criticised)">
+            <label for="vehicle1" > <p>Humiliation(Being Criticised)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="horrible_stories" value="Horrible Stories">
+            <label for="vehicle1" > <p>Horrible Stories</p>  </label><br>
+        
+        
+        </ul>
+        
+        <h3>I </h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="indulgence" value="Indulgence">
+            <label for="vehicle1" > <p>Indulgence</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="insecurity_children" value="Insecurity in Childrens Need of Care">
+            <label for="vehicle1" > <p>Insecurity in Childrens Need of Care</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="isolation" value="Isolation">
+            <label for="vehicle1" > <p>Isolation</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="introvert" value="Introvert">
+            <label for="vehicle1" > <p>Introvert</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="irritable" value="Irritable">
+            <label for="vehicle1" > <p>Irritable</p>  </label><br>
+        
+        
+        </ul>
+
+        
+        <h3>J </h3>
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+        
+            <input type="checkbox"  id="vehicle1" name="jealous_professional" value="Jealous(Professional)">
+            <label for="vehicle1" > <p>Jealous(Professional)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="joy" value="Joy">
+            <label for="vehicle1" > <p>Joy</p>  </label><br>
+        
+        </ul>
+
+        
+        <h3>L </h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="loss_familiar" value="Loss of Familiar Ground">
+            <label for="vehicle1" > <p>Loss of Familiar Ground</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="loss_wealth" value="Loss of Wealth,Relation">
+            <label for="vehicle1" > <p>Loss of Wealth,Relation</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="love_conditional" value="Love Conditional">
+            <label for="vehicle1" > <p>Love Conditional</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="loss_possession" value="Loss of Possession">
+            <label for="vehicle1" > <p>Loss of Possession</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="love_unhappy" value="Love Unhappy">
+            <label for="vehicle1" > <p>Love Unhappy</p>  </label><br>
+        
+        
+        </ul>
+
+        
+        <h3>M </h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="mental_exertion" value="Mental Overexertion">
+            <label for="vehicle1" > <p>Mental Overexertion</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="maltreatment_child" value="Maltreatment in Childhood">
+            <label for="vehicle1" > <p>Maltreatment in Childhood</p>  </label><br>       
+        
+        </ul>
+
+        <h3>N</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="neat_clean" value="Neat(Clean)">
+            <label for="vehicle1" > <p>Neat(Clean)</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="negative_pess" value="Negative(Pessimistic)">
+            <label for="vehicle1" > <p>Negative(Pessimistic)</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="need_protect" value="Need For Protection">
+            <label for="vehicle1" > <p>Need For Protection</p>  </label><br> 
+        
+        </ul>
+
+        <h3>O</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="overstrain_mental" value="Overstrain Mental or Physical">
+            <label for="vehicle1" > <p>Overstrain Mental or Physical</p>  </label><br>
+
+                 
+        </ul>
+
+        <h3>P</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="parental_arguement" value="Parental Argument">
+            <label for="vehicle1" > <p>Parental Argument</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="parental_control" value="Parental Control">
+            <label for="vehicle1" > <p>Parental Control</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="parental_violence" value="Parental Violence/Argument">
+            <label for="vehicle1" > <p>Parental Violence/Argument</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="parental_fit" value="Parental Passion Of Fit">
+            <label for="vehicle1" > <p>Parental Passion Of Fit</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="past_history_dominate" value="Past History Of Dominating Mother,Parents">
+            <label for="vehicle1" > <p>Past History Of Dominating Mother,Parents</p>  </label><br> 
+
+            
+        
+        </ul>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="perform_pressure" value="Perform To Pressure">
+            <label for="vehicle1" > <p>Perform To Pressure</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="pride" value="Pride">
+            <label for="vehicle1" > <p>Pride</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="prolonged_unhappy" value="Prolonged History Of Unhappiness">
+            <label for="vehicle1" > <p>Prolonged History Of Unhappiness</p>  </label><br>   
+            
+        
+        </ul>
+
+        <h3>Q</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="quarrel" value="Quarrel">
+            <label for="vehicle1" > <p>Quarrel</p>  </label><br>   
+            
+        
+        </ul>
+
+        <h3>R</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="rejection" value="Rejection">
+            <label for="vehicle1" > <p>Rejection</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="reproaches" value="Reproaches">
+            <label for="vehicle1" > <p>Reproaches</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="reserved_displeasure" value="Reserved Displeasure">
+            <label for="vehicle1" > <p>Reserved Displeasure</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="rudeness_children" value="Rudeness Of Naughty Childrens">
+            <label for="vehicle1" > <p>Rudeness Of Naughty Childrens</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="restrictions" value="Restrictions">
+            <label for="vehicle1" > <p>Restrictions</p>  </label><br> 
+
+            
+        
+        </ul>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="rudeness_others" value="Rudeness Of Others">
+            <label for="vehicle1" > <p>Rudeness Of Others</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="reverse_fortune" value="Reverse Of Fortune">
+            <label for="vehicle1" > <p>Reverse Of Fortune</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="ridicule" value="Ridicule">
+            <label for="vehicle1" > <p>Ridicule</p>  </label><br>   
+            
+        
+        </ul>
+
+
+        <h3>S</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="scorned" value="Scorned">
+            <label for="vehicle1" > <p>Scorned</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="seperation" value="Seperation">
+            <label for="vehicle1" > <p>Seperation</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="shame" value="Shame">
+            <label for="vehicle1" > <p>Shame</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="socio_cultural" value="Socio-Cultural Stress">
+            <label for="vehicle1" > <p>Socio-Cultural Stress</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="stress" value="Stress">
+            <label for="vehicle1" > <p>Stress</p>  </label><br> 
+            
+
+            <input type="checkbox"  id="vehicle1" name="stress_public" value="Stress of Public Performence">
+            <label for="vehicle1" > <p>Stress of Public Performence</p>  </label><br>            
+        
+        </ul> 
+
+
+        <h3>T</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="alcoholic_father" value="Tettors of an Alcohic Father">
+            <label for="vehicle1" > <p>Tettors of an Alcohic Father</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="witness_violence" value="Terror of Witnessing a Violence">
+            <label for="vehicle1" > <p>Terror of Witnessing a Violence</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="terror_wars" value="Terrors of Wars">
+            <label for="vehicle1" > <p>Terrors of Wars</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="traumetic_childhood" value="Traumetic Childhood">
+            <label for="vehicle1" > <p>Traumetic Childhood</p>  </label><br> 
+            
+        </ul> 
+
+        <h3>U</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="ugly" value="Ugly">
+            <label for="vehicle1" > <p>Ugly</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="unlovable" value="Unlovable">
+            <label for="vehicle1" > <p>Unlovable</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="unfullfillment" value="Unfullfillment">
+            <label for="vehicle1" > <p>Unfullfillment</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="unwanted" value="Unwanted">
+            <label for="vehicle1" > <p>Unwanted</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="unpleasant_news" value="Unpleasants News">
+            <label for="vehicle1" > <p>Unpleasants News</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="unpredicted_mood_father" value="Unpredicted Mood Of Father">
+            <label for="vehicle1" > <p>Unpredicted Mood Of Father</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="unloved" value="Unloved">
+            <label for="vehicle1" > <p>Unloved</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="unusual_office" value="Unusual Change In Office/Home">
+            <label for="vehicle1" > <p>Unusual Change In Office/Home</p>  </label><br>
+        
+        </ul>
+
+
+
+        <h3>W</h3>
+
+        <ul style=" column-count: 3; column-gap: 2rem; list-style: none;">
+
+            <input type="checkbox"  id="vehicle1" name="worry" value="Worry">
+            <label for="vehicle1" > <p>Worry</p>  </label><br>
+
+            <input type="checkbox"  id="vehicle1" name="wounded_sensitivity" value="Wounded(Sensitivity To Redicule)">
+            <label for="vehicle1" > <p>Wounded(Sensitivity To Redicule)</p>  </label><br>  
+            
+            <input type="checkbox"  id="vehicle1" name="wounded_honour" value="Wounded Honour">
+            <label for="vehicle1" > <p>Wounded Honour</p>  </label><br> 
+
+            <input type="checkbox"  id="vehicle1" name="wounded_pride" value="Wounded Pride">
+            <label for="vehicle1" > <p>Wounded Pride</p>  </label><br>            
+        
+        </ul>
+
+
+            </div>
+        </div>
+    </div>
+
+        
+        <br><br><br>
+          
+       
+            <button type="submit" class="btn btn-success bt-lg" value='True'>Next Question</button>
+
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

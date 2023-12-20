@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apointments Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+	body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+	  margin: 0;
+}
+.content{
+	background: white;
+}
+	</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ <br>
+    <div class="col-sm-5">
+        <div class="container">
+         <div class="row">
+            <div class="col-sm-5">
+            <h4 class="mb-3" style="color: antiquewhite;">CASE NO:</h4><button class="btn btn-primary" id="hello">{{pat.case}}</button>            
+            </div>
+            <div class="col-sm-5">
+              <h4 class="mb-3"  style="color: antiquewhite;">NAME:</h4><button class="btn btn-primary" id="hello">{{pat.name}}</button>              
+            </div>
+            <hr>              
+            </div>            
+            </div>
+        </div></div>
+            
+            <hr>
+ <div class="container mt-5">
+ <h2 class="text-center alert alert-danger">Repeat Medicine</h2>
+
+ <div class="container content">
+	<div class="row">
+		<div class="col-sm-12">
+			<form class="form-inline" method="post" action="">
+				{% csrf_token %}
+				
+				<label for="diagnose" style="margin: 50px;">Diagnose:</label>
+				<input type="text" required="True" class="form-control" placeholder="" id="diagnose" name="diagnose" value="{{med.diagnose}}">
+				<label for="medicine" style="margin: 50px;">Medicine:</label>
+                
+				<input type="text" style="margin: 30px;" required="True" class="form-control" placeholder="Medicine Name" id="medicine" name="medicine" value="{{ med.medicine }}">
+				<!-- <label for="medicine">Potency:</label> -->
+                <!-- <input type="text" style="margin: 20px;" required="True" class="form-control" placeholder="Potency" id="potency" name="potency" value="{{ med.potency }}"> -->
+                
+                <label for="potency" style="margin: 30px;">Potency:</label>
+				<select required="True" id="potency" name="potency">
+					<option value="{{med.potency}}">{{med.potency}}</option>
+					<option disabled value>-- Select -- </option>
+					<option value="Q">Q</option>
+					<option value="3X">3X</option>
+					<option value="6X">6X</option>
+					<option value="6">6</option>
+					<option value="30">30</option>
+					<option value="200">200</option>
+					<option value="1 M">1 M</option>
+					<option value="10 M">10 M</option>
+					<option value="0/1">0/1</option>
+					<option value="0/2">0/2</option>
+					<option value="0/3">0/3</option>
+					<option value="0/4">0/4</option>
+					<option value="0/5">0/5</option>
+					<option value="0/6">0/6</option>
+					<option value="0/7">0/7</option>
+					<option value="0/8">0/8</option>
+					<option value="0/9">0/9</option>
+					<option value="0/10">0/10</option>
+					<option value="0/11">0/11</option>
+					<option value="0/12">0/12</option>
+					<option value="0/13">0/13</option>
+					<option value="0/14">0/14</option>
+					<option value="0/15">0/15</option>
+					<option value="0/16">0/16</option>
+				  </select>
+				  <label for="start_date" style="margin: 50px;">Start Date:</label>
+				  <select required="True" id="start_date" name="start_date">
+					<!-- <option value="{{med.start_date}}">{{med.start_date}}</option>
+					<option disabled value>-- Select -- </option> -->
+					<option disabled selected value> -- Select -- </option>
+					<option value="Today">Today</option>					
+					<option value="2nd Day">2nd Day</option>
+					<option value="3rd Day">3rd Day</option>
+					<option value="4th Day">4th Day</option>
+					<option value="5th Day">5th Day</option>
+					<option value="6th Day">6th Day</option>
+					<option value="7th Day">7th Day</option>
+					<option value="10th Day">10th Day</option>
+					<option value="15th Day">15th Day</option>
+					<option value="20th Days">20th Day</option>
+					<option value="25th Day">25th Day</option>
+					<option value="30th Day">30th Day</option>
+					<option value="45th Day">45th Day</option>
+					<option value="60th Day">60th Day</option>						
+				  </select>
+				<label for="duration"  style="margin: 50px;">Duration:</label>
+				<select required="True" id="duration" name="duration">
+					<option disabled selected value> -- Select -- </option>
+					<option value="7 Days">7 Days</option>
+					<option value="15 Days">15 Days</option>
+					<!-- <option value="14 Days">14 Days</option> -->
+					<option value="21 Days">21 Days</option>
+					<option value="30 Days">30 Days</option>
+					<!-- <option value="1 Month">1 Month</option> -->
+					<option value="45 Days">45 Days</option>
+					<option value="2 Months">2 Months</option>
+					<option value="3 Months">3 Months</option>
+					<!-- <option value="4 Months">4 Months</option> -->
+					<!-- <option value="5 Months">5 Months</option> -->
+					<!-- <option value="6 Months">6 Months</option> -->
+				  </select>	
+				<button type="submit" class=" form-control btn btn-primary" style="margin: 50px;">Submit</button>
+			
+			  </form>
+			</div>
+	  	
+	</div>
+		
+	  </div>
+	</div>
+	</div>
+
+
+
+
+ </div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>
+
+ 

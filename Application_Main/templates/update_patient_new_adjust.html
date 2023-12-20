@@ -1,0 +1,415 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Patient</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">  
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+       
+        
+        .form-label:after {
+            content:" *";
+            color: red;
+          }
+          button{
+                width: 200px;
+                height:40px;
+                border-radius: 10px!important;
+                margin-left: 0px;
+                color:white;
+                font-weight:bolder;
+                background:#3498db;
+                font-size:15px;
+                margin-left: 110px;
+                }
+            .already{
+              margin-left:80px;
+              font-size:12px;
+        
+            }
+        
+            .sidenav {
+                height:85vh;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: lightblue;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+                margin-top:56px;
+                border-radius: 5px;
+               
+              }
+              
+              .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size:20px;
+                color:black;
+                display: block;
+                transition: 0.3s;
+              }
+              
+             
+              
+              .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 2px;
+                font-size: 20px;
+                
+              }
+              
+              @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+                .sidenav a {font-size: 18px;}
+              }
+        
+              /* Style the sidenav links and the dropdown button */
+        .sidenav a, .dropdown-btn {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: 1px solid black;
+        display: block;
+        border: none;
+        background: none;
+        width:100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+        margin-top:10px;
+        margin-bottom:10px;
+        }
+        
+        /* On mouse-over */
+        .sidenav a:hover, .dropdown-btn:hover {
+        color: #f1f1f1;
+        background-color: #20B5AD;
+        
+        }
+        
+        /* Add an active class to the active dropdown button */
+        
+        
+        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+        .dropdown-container {
+        display: none;
+        background-color:  #5b5b5d;
+        padding-left: 8px;
+        }
+        
+        /* Optional: Style the caret down icon */
+        .fa-caret-down {
+        float: right;
+        padding-right: 8px;
+        }
+        .fa-caret-right {
+        float: right;
+        padding-right: 8px;
+        }
+        
+            select{
+                height:30px;
+                width: 460px!important;
+                border-radius: 5px!important;
+                border: 1px solid black;
+            }
+        
+            @media (max-width: 768px){
+                select{
+                    height:30px;
+                    width: 330px!important;
+                    border-radius: 5px!important;
+                    border: 1px solid black;
+                }
+                button{
+                    width: 200px;
+                    height:40px;
+                    border-radius: 10px!important;
+                    margin-left: 0px;
+                    color:white;
+                    font-weight:bolder;
+                    background:#3498db;
+                    font-size:15px;
+                    margin-left: 50px;
+                    }
+                .already{
+                  margin-left:20px;
+                  font-size:12px;
+            
+                }
+            
+        
+            }
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        
+</head>
+
+<body>
+    {% include 'nav_adjust.html' %}
+    <br><br><br><br><br>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'receptionist_dashboard' user=user %}">Dashboard <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'recep_register_patient' user=user %}">Register Patient <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>        
+        <a href="{% url 'patients_details' user=user %}">Patients Details <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'create_appointment' user=user %}">Create Appointments<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'appointment_details' user=user %}">General Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'repeat_medicicne' user=user %}">Repeat Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'courier_medicicne' user=user %}">Courier Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        {% comment %} <a href="{% url 'online_consultation' user=user %}">Online Consultation</a> {% endcomment %}
+        <a href="{% url 'old_prescription' user=user %}">Upload Old Case Paper<i class="fa fa-caret-right"></i></a>
+    </div>
+      <span style="font-size:20px;cursor:pointer" onclick="openNav()"><p style="margin-top:10px; padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776; </b></p></span>
+
+    <div class=container>
+      {% if messages %}
+		{% for message in messages %}
+		<div class="success">
+			<i class="fa fa-bell"></i>
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+    </div>
+  <br>
+  <section class="home" id="home">
+  <div class="card-app" >
+    
+    <span class="heading-new" >Update Patient Details</span>
+    <div class="line-new"></div>
+    <br><br>
+    <form class="px-md-2" form action="{% url 'update_patient' id=data.id %}" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="form-outline mb-4">
+
+          <label  for="form3Example1q">Patient's Image</label>                   
+         
+          {% if data.patient_images %}
+          <div class="row">
+          <div class="col-sm-4">
+              <div class="card m-2">
+              <img src="{{data.patient_images.url}}" alt=" " class = "card-img-top" height="200px">            
+              </div>
+          </div>
+          </div>
+          {% else %}
+          <p>Please upload a Profile Photo</p>
+          {% endif %}
+          <input type="file" name="patient_images" multiple="" accept="image/*" required="" id="id_images" multiple value = "Upload"> 
+          <br><br>
+        <label class="form-label" for="form3Example1q">Username</label>
+        <input type="text" id="form3Example1q"  name="username" placeholder="Username" required="" class="form-control" value="{{ data.usern }}"/>
+        <br>
+        <label class="form-label" for="form3Example1q">Case Paper No.</label>
+        <input type="text" name="case" required="" class="form-control"  placeholder="Cases" value="{{ data.case }}">
+        <br>
+        <label class="form-label" for="form3Example1q">Name</label>
+        <input type="text" id="form3Example1q" name="name" placeholder="Full Name" required="" class="form-control" value="{{ data.name }}"/>
+        <br>
+        <label class="form-label" for="form3Example1q">Age</label>
+        
+       
+        <input id="form3Example1q"  type="number"  name="age" placeholder="Age" required="" class="form-control" value="{{ data.age }}"> 
+       
+        <br> 
+        <div class="form-group">
+          <p  class="form-label1" align="left">Gender</p>
+          
+     <select  name="gender" >
+      {% if data.gender %}
+      <option  name="{{data.gender }}" >{{ data.gender }}</option>
+      <option   disabled>Select Gender</option>
+                 <option  name="Male" >Male </option>
+                 <option  name="Female">Female</option>
+                 <option  name="Transgender">Transgender</option>
+      {% else %} 
+               
+      <option selected   name="{{data.gender }}">Select Gender</option>
+                 <option  name="Male" >Male </option>
+                 <option  name="Female">Female</option>
+                 <option  name="Transgender">Transgender</option>
+      {% endif %}
+                 </select><br>
+      </div>
+      <br> 
+      <label  for="form3Example1q">Height</label>
+      {% if data.height %}
+        <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control" value="{{ data.height }}" />
+       {% else %}
+       <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control"  />
+       {% endif %}
+        <br>
+        <label  for="form3Example1q">Weight (kgs)</label>
+        {% if data.weight == 'None' or not data.weight %} 
+        <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control"  />
+        {% else %}
+        <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control" value="{{ data.weight }}"  />
+        {% endif %}
+        <br>
+        <label class="form-label1" for="form3Example1q">Address</label>
+        <textarea class="form-control" name="address"  placeholder="Address" value="{{ data.address }}" placeholder="Address">{{ data.address }}</textarea>
+        <br>                  
+        <label class="form-label" for="form3Example1q">Phone Number</label>
+        <input type="text" id="form3Example1q" name="phone" placeholder="Phone Number" required="" class="form-control" value="{{ data.phone }}" />
+        <br>
+        <label class="" for="form3Example1q">Alternative Phone Number</label>
+        <input type="text" id="form3Example1q" name="alt_number" placeholder="Alternative Number if any"  class="form-control" value="{{ data.alternative_number }}" />
+        <br>
+        <label class="form" for="form3Example1q">Email Address</label>
+        <input type="email" id="form3Example1q"  name="email" placeholder="Email" required="" class="form-control" value="{{ data.email }}"> 
+        <br>
+        
+        <label class="" for="form3Example1q">Qualification</label>
+        {% if data.qualification == 'None' or not data.qualification %}
+        <input type="text" id="form3Example1q" name="qualification" placeholder="Mention here"  class="form-control"  />
+        {% else %} 
+        <input type="text" id="form3Example1q" name="qualification" placeholder="Mention here"  class="form-control" value="{{ data.qualification }}" />
+
+        {% endif %}
+        <br>
+        <label class="" for="form3Example1q">Occupation</label>
+        {% if data.occupation == 'None' or not data.occupation %}
+        <input type="text" id="form3Example1q" name="occupation" placeholder="Mention here"  class="form-control"  />
+        {% else %}
+        <input type="text" id="form3Example1q" name="occupation" placeholder="Mention here"  class="form-control" value="{{ data.occupation }}" />
+        {% endif %}
+        <br>
+        <label>Dietry Preference</label>
+        <select  name="dietry" >
+          {% if data.dietry_preference %}
+          <option  name="{{data.dietry_preference }}" >{{ data.dietry_preference }}</option>
+          <option   disabled>Select Dietry Preference</option>
+                     <option  name="Vegetarian" >Vegetarian </option>
+                     <option  name="Non-Vegetarian">Non-Vegetarian</option>
+                     <option  name="Egg">Egg</option>
+          {% else %}   
+                
+          <option selected  name="{{data.dietry_preference }}"  >Select Dietry Preference</option>
+                     <option  name="Vegetarian" >Vegetarian </option>
+                     <option  name="Non-Vegetarian">Non-Vegetarian</option>
+                     <option  name="Egg">Egg</option>
+          {% endif %}
+                     </select>
+                     <br><br>
+
+                     <label>Marital Status</label>
+                     <select  name="marital" >
+                       {% if data.marital_status %}
+                       <option  name="{{data.marital_status }}" >{{ data.marital_status }}</option>
+                       <option   disabled>Select Marital Status</option>
+                                  <option  name="Single" >Single </option>
+                                  <option  name="Married">Married</option>
+                                  <option  name="Divorced">Divorced</option>
+                                  <option  name="Widow">Widow</option>
+                       {% else %}           
+                       <option selected  name="{{data.marital_status }}"   >Select Marital Status</option>
+                       <option  name="Single" >Single </option>
+                       <option  name="Married">Married</option>
+                       <option  name="Divorced">Divorced</option>
+                       <option  name="Widow">Widow</option>
+                       {% endif %}
+                                  </select>
+                                  <br><br>
+
+        <label class="" for="form3Example1q">Referred by</label>
+        {% if data.referred_by == 'None' or not data.referred_by %}
+        <input type="text" id="form3Example1q" name="referred" placeholder="Mention here"  class="form-control"  />
+        {% else %}
+        <input type="text" id="form3Example1q" name="referred" placeholder="Mention here"  class="form-control" value="{{ data.referred_by }}" />
+
+
+        {% endif %}
+       
+                                    <!-- Gender  -->
+       
+                 <!-- Blood Group    -->
+
+        <!-- <div class="form-group">
+            <p align="left">Blood Group</p>
+       <select name="blood" >                                                                
+                   <option  name="{{ userdata.blood }}" >{{ userdata.blood }}</option>               
+                   <option >Select Blood Group</option>                     
+                    <option  name="A+" >A+ </option>
+                   <option  name="B+">B+</option>
+                   <option  name="AB+">AB+</option>
+                   <option  name="O+">O+</option>
+                   <option  name="A-">A-</option>
+                   <option  name="B-">B- </option>                  
+                   <option  name="AB-">AB-</option>
+                   <option  name="O-">O-</option>          
+        </select>
+        <br><br> -->
+       
+
+                          
+        <br><br><br>
+        
+        </div>
+
+       
+        <br>
+       
+      
+
+        <button type="submit" class="btn btn-success btn-lg mb-1 ">Update</button>
+
+      </form>
+      <br>
+
+
+
+
+</div>
+
+</section>  
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+        }
+        
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+   
+</body>
+</html>
+

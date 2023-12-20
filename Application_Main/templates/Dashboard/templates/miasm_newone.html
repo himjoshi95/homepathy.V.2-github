@@ -1,0 +1,263 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+      .th{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }
+        .column2 {
+	    border-right:2px solid lightblue;
+	      padding:5px 10px;
+      }
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        
+                        }
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        background-color: whitesmoke;
+        width: 110px;
+        height: 500px;
+        overflow: auto;
+        }
+        div.ex1 {
+        background-color: whitesmoke;
+        width: 1050px;
+        height: 200px;
+        overflow: auto;
+        }
+         tfoot{
+            
+            border-top: 5px solid  lightblue;
+        }
+       
+        .box {
+          width: 300px;
+          height: 110px;
+          border: 1px solid white;
+          padding: 10px;
+          margin: 10px;
+          display: flex;
+          column-gap: 50px;
+          border-radius: 25px;
+        }
+        .box1{
+          height: 100px;
+          width:100px;
+          
+        }
+        .box2{
+          height: 100px;
+          width:500px;
+          
+        }
+        img{
+          border-radius: 58%;
+      }
+   
+.form-label:after {
+    content:" *";
+    color: red;
+  }
+
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    <br>
+    
+   <div class="container" style="margin-top: 30px;">
+    <div class="mt-2">     
+        <!-- <h1 class="card-title float-left mt-2" style="color: antiquewhite;" >NEW CASE</h1>  -->
+       
+        <!-- <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a> -->
+    </div>
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+      
+       
+
+       <div class="container">
+        <h1 style="margin-top: 20px; color: antiquewhite;">Miasm Examination : </h1>
+        <!-- <a href="{% url 'familymedical' %}" class="btn btn-primary">Family Medical</a> -->
+        <hr> 
+        <div class="box">
+          <div class="box1">
+            {% if patient_details.patient_images %}
+            <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+            
+    
+              {% else %}
+              <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+              {% endif %}
+          </div>
+          <div class="box2" style="color:white; font-size:20px">
+           <h5> {{patient_details.name}}</h5>
+           <hr style="background-color:white;">
+           <h5> {{patient_details.case}}</h5>
+            
+          </div>
+        </div>
+        <table class="" >
+            <thead>
+              <tr class = "bg-primary" style="height: 40px;" >        
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Add Factors</th>
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Recent...</th>                  
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" style="width: 80px">
+                    <div style="width: 660px;">
+                    <form class="px-md-2" action="" method="POST">
+                        {% csrf_token %}                       
+                        
+                      
+                        <br>
+                        <div class="form-group" style="width: 550px;">
+                            <p  style="margin-left: 10px;  font-size: 20px;" class="form-label" align="left">	Select from the Dropdown</p>
+							<select name="Select-Mind" style="margin-left: 20px;  font-size: 20px;" placeholder="Select-Mind-Casusative-Factors" multiple id="countries">
+                                <!-- <option selected disabled="true"  default="">Select Dieseases</option>  -->
+                                {% for m in mental %}
+                                <option  value="{{ m.name }}">{{ m.name }} </option>    
+                                {% endfor %}    
+							  </select>
+							</div>
+                        <br>                                               
+                      
+                        <br><br>
+                        <button type="submit" style="margin-left: 10px; width: 550px;" class="btn btn-primary"> + Add</button>
+                        
+          
+                      </form> 
+                      <br>
+                    </div>  
+                </td>  
+                
+                <td >
+                    <div class="ex3" style="width: 400px; font-size: 20px;">
+                 
+                    {% for d in data %}
+                    <a style="margin-top: 4px; margin-left: 35px; text-decoration:none; font-size: 18px; color:blue">{{d.name}}<hr style="margin-top: 1px; margin-bottom: 1px;"></a>
+                    
+                        {% endfor %}
+                    </div>
+                </td>
+                  
+              </tr>
+          </tbody>        
+          <tfoot>
+            <tr class="table-light">
+                <td style="height: 50px; font-size: 17px;">
+                  <a href="{% url 'past_history_newone' case_id=case_id %}" style="margin-left: 2px; text-decoration:none; color: green; "><b>Present Complaints</b></a> |
+                  <a href="{% url 'chief_complaints_newone' case_id=case_id %}" style="text-decoration:none;"><b>Chief Complaints</b></a>  |
+                  <a href="{% url 'patient_history_newone' case_id=case_id %}" style="text-decoration:none;"><b>Past History</b> </a> |
+                  <a href="{% url 'personal_history_newone' case_id=case_id %}" style="text-decoration:none; color: brown;"><b>Personal History</b> </a>|
+                  <a href="{% url 'family_medical_newone' case_id=case_id %}" style="text-decoration:none; color: red;"><b>Family Medical HO</b></a> |
+                  <a href="{% url 'mental_causative_newone' case_id=case_id %}" style="text-decoration:none;"><b>Mental Causative Factor</b></a>|  
+                  <a href="{% url 'mental_personality_newone' case_id=case_id %}" style="text-decoration:none; color:black;"><b>Mental Personality Character</b></a>|
+                  <a href="{% url 'bms_newone' case_id=case_id %}" style="text-decoration:none; color: purple;"><b>Brief Mind Symptoms</b></a>|
+                  <a href="{% url 'thermal_newone' case_id=case_id %}" style="text-decoration:none; color: orange;"><b>Thermal Reaction</b></a>|
+                  <a href="{% url 'miasm_examination_newone' case_id=case_id %}" style="text-decoration:none; color: olive;"><b>Miasm</b></a>|
+                  <a href="{% url 'newcase_final_report' case_id=case_id %}" style="text-decoration:none;"><b>Generate Report</b></a> |
+                  <a href="{% url 'apointmentDetails' case_id token %}" style="text-decoration:none; color:red;"><b>Appointment Details </b></a>
+                </td>
+                <td></td>
+               
+            </tr>
+          </tfoot>
+          </table>
+          
+          <br><br>
+          <div class="container" style="margin-top: 20px;">
+            
+            <br>
+            <table style="width: 1050px;">
+              <thead>
+                <tr class="bg-primary" style="height: 80px;">
+                <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Miasm Examination Factors <p style="margin-top: 10px; margin-left: 700px;"></p></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class = "table-light" style="height: 100px;">
+                
+                <td class="border-right">
+                  <div class="ex1" style="font-size: 20px;">
+                    {% for m in my_list %}
+                    <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                    {% endfor %}
+                </div>
+                </td>
+
+                
+              </tr>
+            </table>
+            </div>
+           
+          <br><br>
+        </div>       
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script>
+        // new MultiSelectTag('countries')  // id
+        new MultiSelectTag('countries', {
+    rounded: true,    // default true
+    shadow: true,      // default false
+    placeholder: 'Search',  // default Search...
+    onChange: function(values) {
+        console.log(values)
+    }
+})
+    </script>
+  
+</body>
+</html>

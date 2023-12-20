@@ -1,0 +1,505 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">PERSONAL HISTORY</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<!-- <h3>Q. {{data.question}}</h3> -->
+<p>Please read Carefully and Describes How each of the the folllowing things affect you .Mark if you like check them are uncomfertable(X) or trouble by them (XX) or troubled by them or have any complaints due to these things.</p>
+<br>
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       <br>
+       <!-- div 1 -->
+        <div style="margin-top: 20px;">
+                            <label for="potency" style="margin: 20px;"><h5>Desire </h5></label>
+                            <select  id="potency" name="weather_hot">
+                                <option selected value="">-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>   
+                            
+                            <label for="potency" style="margin: 20px;" ><h5 >Aversion </h5></label>
+                            <select  id="potency" name="weather_cold">
+                                <option selected value="" >-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>
+         
+                
+        </div>   
+        <br>
+        <!-- div 2 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Appetite</h5></label>
+            <select  id="potency" name="weather_rainy">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Thirst</h5></label>
+            <select  id="potency" name="weather_humid">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+        <br>
+        <!-- div 3 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Stool</h5></label>
+            <select  id="potency" name="weather_dry">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Urine</h5></label>
+            <select  id="potency" name="getting_wet">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+        <br>
+        <!-- div style="margin: 20px;" -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Sleep </h5></label>
+            <select  id="potency" name="weather_open_air">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Dreams</h5></label>
+            <select  id="potency" name="weather_wind">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 5 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Seashore </h5></label>
+            <select  id="potency" name="weather_seashore">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Noise </h5></label>
+            <select  id="potency" name="weather_noise">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select> -->
+           
+        </div>
+
+        <!-- div 6 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Light </h5></label>
+            <select  id="potency" name="weather_light">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Strong Smell </h5></label>
+            <select  id="potency" name="weather_strong_smell">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+ -->
+        <!-- div 7 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Dust </h5></label>
+            <select  id="potency" name="weather_dust">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Smoke </h5></label>
+            <select  id="potency" name="weather_smoke">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+         -->
+        <!-- div 8 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Before </h5></label>
+            <select  id="potency" name="weather_before">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-During </h5></label>
+            <select  id="potency" name="weather_during">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 9 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -After Periods </h5></label>
+            <select  id="potency" name="weather_after_periods">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Touch </h5></label>
+            <select  id="potency" name="weather_touch">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 10 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Massage </h5></label>
+            <select  id="potency" name="weather_massage">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Pressure </h5></label>
+            <select  id="potency" name="weather_pressure">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 11 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Small Closed Place </h5></label>
+            <select  id="potency" name="weather_small_closed_place">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Crowds </h5></label>
+            <select  id="potency" name="weather_crowds">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 12 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Tight Clothes </h5></label>
+            <select  id="potency" name="weather_tight_clothes">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Exams</h5></label>
+            <select  id="potency" name="weather_exams">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 13 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Interviews </h5></label>
+            <select  id="potency" name="weather_interviews">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Imp Appointments</h5></label>
+            <select  id="potency" name="weather_imp">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 1style="margin: 20px;" -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Exercise </h5></label>
+            <select  id="potency" name="weather_exercise">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Exertion </h5></label>
+            <select  id="potency" name="weather_exertion">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 15 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Walk </h5></label>
+            <select  id="potency" name="weather_walk">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Running </h5></label>
+            <select  id="potency" name="weather_running">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 16 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Full Moon </h5></label>
+            <select  id="potency" name="weather_full_moon">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-New Moon </h5></label>
+            <select  id="potency" name="weather_new_moon">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+        <!-- div 17 -->
+
+        <!-- <div>
+            <label for="potency" style="margin: 20px;"><h5>Weather -Sun </h5></label>
+            <select  id="potency" name="weather_sun">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Weather-Change </h5></label>
+            <select  id="potency" name="weather_change">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div> -->
+
+
+
+
+        
+
+        
+        <br><br><br>
+          
+       
+            <button type="submit" class="btn btn-success bt-lg" value='True'>Save</button>
+
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

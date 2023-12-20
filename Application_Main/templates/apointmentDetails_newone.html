@@ -1,0 +1,1124 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Apointments Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: orange;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:orange;
+        }
+        .reorder{
+          background-color: #90EE90;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: #FED8B1;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .header1{
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 30px;
+            text-align: center;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+        }
+        .header2{
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 30px;
+            margin-left:320px;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+        }
+        
+        .box {
+            width: 300px;
+            height: 110px;
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            column-gap: 50px;
+            border-radius: 25px;
+            background: #dae5f4;
+          }
+          .box1{
+            height: 100px;
+            width:100px;
+            
+          }
+          .box2{
+            height: 100px;
+            width:500px;
+            
+          }
+          img{
+            border-radius: 40%;
+        }
+
+        .dropbtn {
+            background-color:#6495ED;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+          }
+          
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
+          
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          
+          .dropdown-content a {
+            color: black;
+            padding: 5px 8px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          .dropdown-content a:hover {background-color: #6495ED;}
+          .dropdown:hover .dropdown-content {display: block;}
+          .dropdown:hover .dropbtn {background-color: #0047AB;}
+      
+          .btn1{
+            width: 516px
+          }
+
+          .sidenav {
+            height:85vh;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: lightblue;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            margin-top:56px;
+            border-radius: 5px;
+           
+          }
+          
+          .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size:20px;
+            color:black;
+            display: block;
+            transition: 0.3s;
+          }
+          
+         
+          
+          .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            font-size: 40px;
+            
+          }
+          
+          @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+          }
+  
+          /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: 1px solid black;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+    background-color: #40B5AD;
+  
+  }
+  
+  /* Add an active class to the active dropdown button */
+  
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+    display: none;
+    background-color:  #5b5b5d;
+    padding-left: 8px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  .fa-caret-right {
+    float: right;
+    padding-right: 8px;
+  }
+
+  .form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .form-group {
+    flex: 0 0 calc(50% - 1rem);
+    margin: 10px;
+  }
+
+  .form-group textarea {
+    width: 100%;
+  }
+
+  .form-group label {
+    display: block;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 2% auto; /* 15% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 85%; /* 80% of the width */
+  }
+
+  
+  
+  .scrolling-div::-webkit-scrollbar{
+    width: .8rem;
+  }
+  
+  .scrolling-div::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  
+  .scrolling-div::-webkit-scrollbar-thumb{
+    background: 	#6495ED;
+    border-radius: .5rem;
+  }
+
+  .scrolling-div {
+    margin-top: 10px;
+    max-height: 300px; /* Set the maximum height of the div */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #B8CAE4;
+  }
+
+  
+  .scrolling-div-two::-webkit-scrollbar{
+    width: .8rem;
+  }
+  
+  .scrolling-div-two::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  
+  .scrolling-div-two::-webkit-scrollbar-thumb{
+    background: 	#6495ED;
+    border-radius: .5rem;
+  }
+
+  .scrolling-div-two {
+    margin-top: 10px;
+    max-height: 200px; /* Set the maximum height of the div */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #B8CAE4;
+  }
+
+
+  .table-one {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table-one tr{
+    height: 20px;
+  }
+
+  .table-one td {
+    font-size:18px;
+  }
+
+
+  .error {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 450px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #EF665B;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+  }
+  
+  .error__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+  
+  .error__icon path {
+    fill: #fff;
+  }
+  
+  .error__title {
+    font-weight: 500;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .error__close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .error__close path {
+    fill: #fff;
+  }
+          
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %}       
+    
+    
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'add_consultation' data.id token %}"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;  Add Consultation Charges<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'list1' pk=data.id  %}"><i class="fa fa-history" aria-hidden="true"></i>&nbsp;&nbsp;   History Details<i class="fa fa-caret-right"></i></a> 
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'create1' pk=data.id  %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Follow up  <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'present_complaint_appointment' data.id token %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Present Complaints <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>         
+      <a href="{% url 'old_images' id=data.id  %}"><i class="fa fa-image"></i>&nbsp;&nbsp; Case Paper Old Images <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'upload_case_image' id=data.id %}"><i class="fa fa-upload"></i>&nbsp;&nbsp; Upload New Case Paper Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'casepaper_new_images' id=data.id %}"><i class="fa fa-image"></i>&nbsp;&nbsp; New Case Paper Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'investigation_newone' id=data.id %}"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Investigation <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'upload_patients_image' id=data.id %}"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp; Upload Patient's Diagnose Image<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      {% comment %} <a href="{% url 'online_consultation' user=user %}">Online Consultation</a> {% endcomment %}
+      <a href="{% url 'doc_patient_images' id=data.id %}"><i class="fa fa-image" aria-hidden="true"></i>&nbsp;&nbsp; View Patient's Diagnose Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'show_case_paper' data.id %}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp; Show Case Paper PDF <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'new_case_report' data.id %}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp; Show Case Paper Report <i class="fa fa-caret-right"></i></a>
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()"><p style="margin-top:10px; padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776; </b></p></span>
+
+   
+
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+<br>
+
+<div class="jumbotron">
+
+<div class="error">
+  <div class="error__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#393a37" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+  </div>
+  <div class="error__title"> &nbsp;&nbsp;&nbsp;&nbsp; Appointment Type : {{appointment_type}}</div>
+</div><hr>
+<br>
+  {% if patient_flag %}
+    <hr  style="border: 1px solid blue;">
+    <a href="{% url 'past_history_newone' case_id=data.id %}" class="btn btn-primary btn-block">New Case</a>
+    <hr  style="border: 1px solid blue;">
+    <br><br>
+    {% endif %}
+
+
+
+  <div class="container">
+    <div class="header1">Patient's Details</div>
+    
+    <table class="table-one">     
+            <tr>
+                <td>
+                  
+                    {% if patient_details.patient_images %}
+                    <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="90" height="90" border="5">
+                    
+              
+                      {% else %}
+                      <p style="background-color:white; text-align:center; padding: 8px;width:100px; "><b>Photo Not Uploaded</b></p>
+                      {% endif %}
+                 
+                </td>
+                
+                <td style="text-align:left;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+                
+                
+                <td></td>
+                <td></td>
+                <td style="text-align:left;"><b>Date :</b>&nbsp;{{today|date:"d/m/Y"}}</td>
+                
+                
+            </tr>   
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>     
+            
+            <tr>
+                <td style="text-align:left;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+                
+                <td style="text-align:left;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+               
+                <td style="text-align:left;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+                {% if patient_details.height %}
+                <td  style="text-align:left;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td  style="text-align:left;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+                  {{patient_details.weight}} Kgs
+
+                  {% else %}
+                      -
+                  {% endif %}
+                
+                
+                </td>
+                
+                
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>  
+            
+            <tr >
+              <td><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+              <td></td>
+              <td><b>Contact Number :</b> {{patient_details.phone}}</td>
+            </td></td>
+            <td></td>
+
+
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>  
+
+            <tr>
+              <td><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+              <td><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+              
+              <td><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>  
+
+            <tr>
+              <td><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+
+            </tr> 
+            
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>
+
+            <tr>
+              <td><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+            </tr>
+
+           
+       
+    </table>
+</div>
+</div>
+
+  
+  <br>
+  <div class="jumbotron">
+    
+    
+  
+
+    
+    <br>
+
+    <div class="header1">Previous Presciptions</div>
+
+    <label style="color:#337ab7;">Medicine  (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label><br><br>
+    <form method="get" action="">
+      <input type="text" class="form-control" name="medicine" placeholder="Enter Medicine Name" required>
+        
+        <br><br>
+        <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+        <a style="margin-left:10px;" href="{% url 'apointmentDetails' id token %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+        
+    </form>
+
+    <div class="scrolling-div">      
+        <table class='table'>
+          <thead>
+            <tr>
+              <th scope="col" style="font-size:18px;">Diagnose</th>
+		          <th scope="col" style="font-size:18px;">Medicine</th>
+		          <th scope="col" style="font-size:18px;">Potency</th>
+              <th scope="col" style="font-size:18px;">Dose</th>
+		          <th scope="col" style="font-size:18px;">Start Date</th>
+		          <th scope="col" style="font-size:18px;">Date</th>
+		          <th scope="col" style="font-size:18px;">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in previous_prescriptions %}
+          <tr>
+            <td style="font-size: 20px;">{{d.diagnose}}</td>
+		  <td style="font-size: 20px;">{{d.medicine}} </td>
+	
+		  <td style="font-size: 20px;">{{ d.potency}}  </td>
+            {% if d.dose %}
+      <td style="font-size: 20px;">{{ d.dose}}  </td>
+            {% else %}
+          <td style="font-size: 20px;"> -  </td>
+            {% endif %}
+	
+	
+		  <td style="font-size: 20px;">{{d.start_date}}</td>
+		  <td style="font-size: 20px;"> {{d.date|date:"d M, Y"}} </td>
+		  <td style="font-size: 20px;"> {{d.durations}}</td>
+
+          </tr>
+            {% endfor %}
+        </tbody>
+
+        </table>
+
+    
+
+  </div>
+
+  <br>
+  <hr>
+ <div class="header1" style="margin-bottom:30px;">Health Assessment </div>
+ <form class="form-inline" method="post" action="{% url 'health_assessment' id token %}" >
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="bloodPressure">Blood Pressure (mmHg):</label>
+    <input type="text" style="margin-left: 50px; width: 300px;" required class="form-control" id="bloodPressure" name="bloodPressure" required>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <label for="weight">Weight (kg):</label>
+    <input type="text" style="margin-left: 50px; width: 300px;" required class="form-control" id="weight" name="weight" required>
+  </div>
+
+  <br> <br>
+
+  <button type="submit" class="btn btn-primary" style="margin-left:950px;margin-top:15px;">Submit</button>
+</form>
+<br>
+
+<div class="scrolling-div-two">      
+  <table class='table'>
+    <thead>
+      <th scope="col" style="font-size:18px;">SNo.</th>
+      <th scope="col" style="font-size:18px;">Assessment Date</th>
+      <th scope="col" style="font-size:18px;">Blood Pressure</th>
+      <th scope="col" style="font-size:18px;">Weight</th>  
+      <th scope="col" style="font-size:18px;">Delete</th>    
+      
+    </thead>
+    <tbody>
+      {% for h in health %}
+      <tr>
+        <td style="font-size: 20px;">{{forloop.counter}}.</td>
+        <td style="font-size: 20px;">{{h.date|date:"d M ,Y"}}</td>
+        <td style="font-size: 20px;">{{h.bp}} mmHg</td>
+        <td style="font-size: 20px;">{{h.weight}} Kgs.</td>
+        <td><a href="{% url 'delete_health_assessment' h.id token %}" class="btn btn-dark btn-sm"  title="Delete " onclick="confirmDelete(event)" >Delete </a></td>
+        
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+</div>
+
+<hr>
+<br><br>
+
+
+
+
+  <br>
+    <a href="{% url 'extra_prescription' data.id token %}" class="btn btn-primary" style="float:right; font-size:20px;">+</a>
+      <div class="header1">{{header_one}} </div>
+
+    <p style="font-size:20px;"> Amount:  {% if balance.balance_amt %} {% if balance.balance_amt >= 0%}<b> Rs {{balance.balance_amt}} BALANCE </b> {%else%} <b>Rs <span id="balance_amt"></span> ADVANCE</b> {% endif %}{% else %}<b> Rs 0.</b> {% endif %}</p>
+     
+   
+    <hr>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+          <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+          <iframe src="{% url 'present_complaints_add'  id  %}" width="100%" height="600"></iframe>
+      </div>
+    </div>
+
+    <br>
+
+    <form class="form-inline" method="post" action="" >
+      {% csrf_token %}
+      
+      <div class="form-inline" >
+      <div class="form-group">
+
+        <label for="diagnose">Diagnosis :</label><button id="openPopup" class="btn btn-outline-primary " style="margin-left:10px; margin-bottom:5px;" ><i class="fa fa-plus" style="font-size:18px"></i></button>
+
+        <select style="margin-left: 40px; width:325px;" name="select-diagnose" placeholder="Select-Diagnose" multiple id="countries">
+<!--         <option selected disabled="true"  default="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Disease</option> --> 
+          {% for d in diagnose_dropdown %}
+          <option  value="{{ d.complain.name }}">{{ d.complain.name }} </option>    
+          {% endfor %}
+        
+        </select>
+       
+        <!-- <label for="diagnose">Diagnosis :</label>
+        <input type="text" style="margin-left: 50px; width:312px;" required="True" class="form-control" placeholder="Disease Name" id="diagnose" name="diagnose">
+        -->
+      </div>
+    
+      <div class="form-group">
+        <label for="medicine" style="margin-left: 180px;">Medicine :</label>
+        <input type="text" style="margin-left: 50px;width:300px;" required class="form-control" placeholder="Medicine Name" id="medicine" name="medicine">
+      </div>
+    </div>
+   
+
+    <div class="form-inline" style="margin-top:50px;"> 
+      <div class="form-group" >
+        <label for="potency" >Potency :</label>
+        <select style="margin-left: 50px; width:325px;" required="True" id="potency" name="potency">
+          <!-- Options for potency -->
+          <option disabled selected value>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>
+                        <option value="Q">Q</option>
+                        <option value="3X">3X</option>
+                        <option value="6X">6X</option>
+                        <option value="6">6</option>
+                        <option value="30">30</option>
+                        <option value="200">200</option>
+                        <option value="1 M">1 M</option>
+                        <option value="10 M">10 M</option>
+                        <option value="0/1">0/1</option>
+                        <option value="0/2">0/2</option>
+                        <option value="0/3">0/3</option>
+                        <option value="0/4">0/4</option>
+                        <option value="0/5">0/5</option>
+                        <option value="0/6">0/6</option>
+                        <option value="0/7">0/7</option>
+                        <option value="0/8">0/8</option>
+                        <option value="0/9">0/9</option>
+                        <option value="0/10">0/10</option>
+                        <option value="0/11">0/11</option>
+                        <option value="0/12">0/12</option>
+                        <option value="0/13">0/13</option>
+                        <option value="0/14">0/14</option>
+                        <option value="0/15">0/15</option>
+                        <option value="0/16">0/16</option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label style="margin-left: 100px;" for="start_date">Start Date :</label>
+        <select required="True" style="margin-left: 50px;width:290px;" id="start_date" name="start_date">
+          <!-- Options for start date -->
+          <option value="Today">Today</option>
+          <!-- <option value="1 Day">1 Day</option> -->
+          <option value="2nd Day">2nd Day</option>
+          <option value="3rd Day">3rd Day</option>
+          <option value="4th Day">4th Day</option>
+          <option value="5th Day">5th Day</option>
+          <option value="6th Day">6th Day</option>
+          <option value="7th Day">7th Day</option>
+          <option value="10th Day">10th Day</option>
+          <option value="15th Day">15th Day</option>
+          <option value="20th Days">20th Day</option>
+          <option value="25th Day">25th Day</option>
+          <option value="30th Day">30th Day</option>
+          <option value="45th Day">45th Day</option>
+          <option value="60th Day">60th Day</option>	
+          <option value="75th Day">75th Day</option>
+          <option value="3rd Month">3rd Month</option>
+          <option value="4th Month">4th Month</option>
+          <option value="5th Month">5th Month</option>
+
+
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-inline" style="margin-top:50px;">
+      <div class="form-group">
+        <label for="dose">Dose :</label>
+        <select style="margin-left: 70px;" required="True" id="dose" name="dose">
+          <!-- Options for dose -->
+          <option disabled selected value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>				
+          <option value="Single Dose">Single Dose</option>
+          <!-- <option value="1 Day">1 Day</option> -->
+          <option value="3 Dose Half-Hour Interval">3 Dose Half-Hour Interval</option>
+          <option value="2 Dose Half-Hour Interval">2 Dose Half-Hour Interval</option>
+          <option value="3 Dose 1 Hour Interval">3 Dose 1 Hour Interval</option>
+          <option value="2 Dose 1 Hour Interval">2 Dose 1 Hour Interval</option>
+          <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 1 Dose </option>
+          <option value="Morning-Afternoon-Evening -- Per 2 Dose">Morning-Afternoon-Evening -- Per 2 Dose</option>
+          <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 3 Dose</option>
+         
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label for="duration" style="margin-left: 100px;">Duration :</label>
+        <select required="True"style="margin-left: 60px;width:290px;" id="duration" name="duration">
+          <!-- Options for duration -->
+          <option disabled selected value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>
+                        <option value="7 Days">7 Days</option>
+                        <option value="15 Days">15 Days</option>
+                        <!-- <option value="14 Days">14 Days</option> -->
+                        <option value="21 Days">21 Days</option>
+                        <option value="30 Days">30 Days</option>
+                        <!-- <option value="1 Month">1 Month</option> -->
+                        <option value="45 Days">45 Days</option>
+                        <option value="2 Months">2 Months</option>
+                        <option value="3 Months">3 Months</option>
+                        <!-- <option value="4 Months">4 Months</option> -->
+                        <!-- <option value="5 Months">5 Months</option> -->
+                        <!-- <option value="6 Months">6 Months</option> -->
+
+        </select>
+      </div>
+    </div>
+
+    <div class="form-inline" style="margin-top:50px;">
+      <div class="form-group">
+        <label for="note">Note :</label>
+        <textarea style="margin-top:5px; margin-left:110px;" id="note" name="note" rows="6" cols="35" placeholder="   mention if any "></textarea>
+      </div>
+    
+      <button  style="margin-left:120px;" type="submit" class="form-control btn btn-primary btn-lg">Submit</button>
+    </div>
+    </form>
+
+                
+    <hr>
+   
+  
+    
+	<div class="header2">{{header}}</div>
+  
+
+	
+	<br>
+	<div class="display_table">
+    <table class='table'>
+        <thead>
+          <tr>
+            <th>DIAGNOSIS</th>
+            <th>MEDICINE</th> 
+            <th>POTENCY</th>           
+            <th>START DATE</th>
+            <th>DOSE</th>
+            <th>NOTE</th>
+            <th>TODAY'S DATE</th>
+            <th>DURATION</th>
+            <th>NEXT VISIT</th>            
+			<th>UPDATE</th>
+			<th>DELETE</th>
+			
+          </tr>
+        </thead>
+        {% for d in data2 %}
+		
+		{% if d.flag %}
+		<tr style="color: black; font-size: 17px;">
+			<td bgcolor=#90EE90 >{{d.diagnose}} </td>			
+		  <td bgcolor=#90EE90 >{{d.medicine}} </td>
+		<!--  <td> {{ data.docterid.name }} </td>-->
+		  <td bgcolor=#90EE90>{{ d.potency}}  </td>
+	
+	
+		  <!-- <td> {{ data.patientid.name }}</td> -->
+		  <td bgcolor=#90EE90> {{d.start_date}} </td>
+      <td bgcolor=#90EE90> {{d.dose}} </td>
+      {% if d.note %}
+      <td bgcolor=#90EE90> {{d.note}} </td>
+      {% else %}
+      <td bgcolor=#90EE90> - </td>
+      {% endif %}
+		  <td bgcolor=#90EE90> {{d.date|date:"d M , Y"}} </td>
+		  <td bgcolor=#90EE90> {{d.durations}}</td>
+      <td bgcolor=#90EE90>{{next_visit|date:"d M , Y"}}</td>
+		  <!-- <td bgcolor="green"> {{d.flag}}</td> -->
+
+		  <td bgcolor=#90EE90>
+			<a class="btn btn-primary" href="{% url 'update_medicine' id=data.id pk=d.id %}" title="Edit ">
+				<i class="fa fa-edit"></i>
+			</a>
+			
+		</td>
+		<td bgcolor=#90EE90>
+			<a class="btn btn-secondary" href="{% url 'delete_medicine' id=data.id pk=d.id %}" title="Delete " onclick="confirmDelete(event)">
+				<i class="fa fa-trash"></i>
+			</a>
+		</td>		
+		</tr>
+		{% else %}
+		<tr>
+			<td bgcolor=#FED8B1 >{{d.diagnose}} </td>			
+			<td bgcolor=#FED8B1 >{{d.medicine}} </td>
+		  <!--  <td> {{ data.docterid.name }} </td>-->
+			<td bgcolor=#FED8B1>{{ d.potency}}  </td>
+	  
+	  
+			<!-- <td> {{ data.patientid.name }}</td> -->
+			<td bgcolor=#FED8B1> {{d.start_date}} </td>
+      <td bgcolor=#FED8B1> {{d.dose}} </td>
+      {% if d.note %}
+      <td bgcolor=#FED8B1> {{d.note}} </td>
+      {% else %}
+      <td bgcolor=#FED8B1> - </td>
+      {% endif %}
+			<td bgcolor=#FED8B1> {{d.date}} </td>
+			<td bgcolor=#FED8B1> {{d.durations}}</td>
+      <td bgcolor=#FED8B1>{{next_visit|date:"d M , Y"}}</td>
+			<!-- <td bgcolor="yellow"> {{d.flag}}</td> -->
+  
+			<td bgcolor=#FED8B1>
+			  <!-- <a class="btn btn-primary" href="" title="Edit ">
+				  <i class="fa fa-edit"></i>
+			  </a> -->
+		  </td>
+		  <td bgcolor=#FED8B1>
+			  <!-- <a class="btn btn-secondary" href="" title="Delete ">
+				  <i class="fa fa-trash"></i>
+			  </a> -->
+		  </td>		
+		  </tr>
+		{% endif %}
+		{% endfor %}
+		
+    </table>
+</div>
+
+<!--End of display table-->
+
+
+{% if data1 %}
+<br><br>
+<div class="header2">Extra Presciption</div>
+<br>
+
+<div class="display_table">
+  <table class='table'>
+      <thead>
+        <tr>
+          <th>SERIAL</th>
+          <th>ANY OTHER MEDICINE</th>
+          <th>PRICE</th>
+          
+          
+    
+        </tr>
+      </thead>
+      {% for d in data1 %}
+      {% if data_issued.flag %}
+      <tr style="font-size:18px;">
+          <td bgcolor=#90EE90>{{forloop.counter}}</td>
+          <td bgcolor=#90EE90>{{d.description}}</td>
+          <td bgcolor=#90EE90>Rs {{d.other_price}}</td>
+      </tr>
+      {% else %}
+      <tr style="font-size:18px;">
+        <td  bgcolor=#FED8B1>{{forloop.counter}}</td>
+        <td  bgcolor=#FED8B1>{{d.description}}</td>
+        <td  bgcolor=#FED8B1>Rs {{d.other_price}}</td>
+        <td  bgcolor=#FED8B1></td>
+    </tr>
+
+
+      {% endif %}
+      {% endfor %}
+       
+  </table>
+</div>
+
+
+{% endif %}
+
+<br><br>
+ <h5>Note :</h5>
+ <br>
+ <p style="font-size:17px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> Medicine not yet Issued</p>
+ 
+ <p style="font-size:17px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Medicine Issued</p>
+   
+  </div>
+</main>
+
+<script>
+  function openNav() {
+  document.getElementById("mySidenav").style.width = "390px";
+  }
+  
+  function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  }
+  </script>
+  <script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+
+    function confirmDelete(event) {
+      if (!window.confirm("Are you sure you want to delete?")) {
+        event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+      }
+    }
+
+    
+
+   
+
+     // JavaScript to open and close the ASSIGN TASK modal
+   var modal = document.getElementById('myModal');
+   var btn = document.getElementById("openPopup");
+   var span = document.getElementsByClassName("close")[0];
+
+   btn.onclick = function() {
+       modal.style.display = "block";
+   }
+
+   span.onclick = function() {
+       modal.style.display = "none";
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+
+  </script>
+  <script>
+    // Assuming data.balance_amt is a JavaScript variable
+    var balanceAmt = "{{ balance.balance_amt }}";
+  
+    // Remove the negative sign
+    var absoluteAmt = Math.abs(parseFloat(balanceAmt));
+  
+    // Update the content of the span
+    document.getElementById("balance_amt").textContent = absoluteAmt;
+  </script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+
+<script>
+   // new MultiSelectTag('countries')  // id
+   new MultiSelectTag('countries', {
+    rounded: true,    // default true
+    shadow: true,      // default false
+    placeholder: 'Search',  // default Search...
+    onChange: function(values) {
+        console.log(values)
+    }
+})
+</script>
+</body>
+</html>

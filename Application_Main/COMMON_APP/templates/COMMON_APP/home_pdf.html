@@ -1,0 +1,155 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Home Bhagwat Gita</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+    <style type="text/css">
+      /* Add custom styles for your PDF here */
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        margin-top: 50px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+      }
+
+      th, td {
+        border: 1px solid #000;
+        padding: 2px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      span {
+        font-size: 30px;
+        display: block;
+        font-weight: bold;
+        text-align:center;
+        text-decoration: underline;
+      }
+
+      h1 {
+        font-family: 'Helvetica', Arial, sans-serif; /* Change the font */
+        font-size: 24px; /* Change the font size */
+        text-transform: uppercase; /* Apply uppercase text transformation */
+        margin-top: 20px;
+        text-decoration: underline;
+      }
+
+      tr {
+        margin-top: 30px; /* Adjust as needed */
+        margin-bottom: 10px; /* Adjust as needed */
+      }
+    </style>
+  </head>
+
+  <body>
+    <span style="font-size: 30px;">Homeo Bhagwat Gita</span>
+
+    {% if medicine_detail %}
+    <h1>{{ header }}</h1>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>Medicine</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for medicine in medicine_detail %}
+          <tr>
+            <td>{{ forloop.counter }} .</td>
+            <td><b>{{ medicine.medicine_name }}</b></td>
+            <td>{{ medicine.description|safe }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No data available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% elif disease_detail %}
+
+    <h1>{{ header }}</h1>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>Disease</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for medicine in disease_detail %}
+          <tr>
+            <td>{{ forloop.counter }} .</td>
+            <td><b>{{ medicine.disease_name }}</b></td>
+            <td>{{ medicine.description|safe }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No data available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% elif redline_detail %}
+
+    <h1>{{ header }}</h1>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>Disease</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for medicine in redline_detail %}
+          <tr>
+            <td>{{ forloop.counter }} .</td>
+            <td><b>{{ medicine.redline_symptoms }}</b></td>
+            <td>{{ medicine.description|safe }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No data available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
+
+    {% endif %}
+  </body>
+</html>

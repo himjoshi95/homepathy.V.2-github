@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Miasm Examination</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       
+        
+        <div class="container">
+            
+        
+        <input type="checkbox"  id="vehicle1" name="Psora" value="Psora">
+        <label for="vehicle1" > <h5>Psora</h5>  </label><br> <br> 
+
+        <input type="checkbox" id="vehicle2" name="Sycosis" value="Sycosis">
+        <label for="vehicle2" > <h5>Sycosis</h5> </label><br><br>
+        
+        <input type="checkbox" id="vehicle1" name="Syphilis" value="Syphilis">
+        <label for="vehicle1" > <h5>Syphilis</h5>  </label><br><br>
+
+        <input type="checkbox" id="vehicle1" name="Tubercular" value="Tubercular">
+        <label for="vehicle1" > <h5>Tubercular</h5> </label><br>  <br>     
+
+        <input type="checkbox" id="vehicle1" name="Psora Sycosis" value="Psora Sycosis">
+        <label for="vehicle1" > <h5>Psora Sycosis</h5> </label><br><br>
+        
+        <input type="checkbox" id="vehicle1" name="Psora Syphilis" value="Psora Syphilis">
+        <label for="vehicle1" > <h5>Psora Syphilis</h5> </label><br><br>
+
+        <button type="submit" class="btn btn-success bt-lg" value='True'>Next Question</button>
+        
+        
+        </div>
+   
+        
+    </div>
+    
+    
+
+
+
+            </div>
+        </div>
+    </div>
+
+        
+       
+          
+       
+           
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Appointment </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+  <style type="text/css">
+		.container{
+      margin-top: 30px;
+    }     
+    img{
+        border-radius: 58%;
+    }
+    .plussign::after {
+  content: "\2795";
+  
+}
+body {
+  background: url("/static/images/home_img.jpg") 50% 0 no-repeat fixed;
+  background-size: 100%;
+}
+
+</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ 
+<div class="container">
+<div class="row">
+	<div class="col-sm-12">
+    
+   
+  <div class="col-sm-6">
+    <div class="container">
+     <div class="row">
+        {% if pat.patient_images %}
+        <div class="col-sm-5">            
+            <img src="{{pat.patient_images.url}}" alt="Avatar" width="150" height="110" border="5">            
+            </div>
+            {% else %}
+            <div class="col-sm-5">
+                <h3>update profile Photos</h3>
+            </div>
+            {% endif %}
+        <div class="col-sm-5">
+        <h4 class="mb-3" style="color: antiquewhite;">CASE NO:</h4><button class="btn btn-primary" id="hello">{{pat.case}}</button>
+        
+        </div>
+        <div class="col-sm-2">
+          <h4 class="mb-3" style="color: antiquewhite;">NAME:</h4><button class="btn btn-primary" id="hello">{{pat.name}}</button>
+          
+          </div>
+          
+        </div>
+        </div></div></div>
+       
+	<div class="container">
+    <br><br>
+        <h1 style="color: antiquewhite;">Past Appointments</h1>
+    </div>
+    <br>
+		<table class="table">
+  <thead class="table-dark">
+
+    <tr>
+      
+      <th scope="col">Case PaperNo.</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      
+      {% if user == 'P' %}
+      <th scope="col">Docter</th>
+      {% else %}
+      <th scope="col">Patient's Name</th>
+      {% endif %}
+      
+    </tr>
+  </thead>
+  <tbody>    
+  	  	{% for data in app %}  
+        
+    <tr class="bg-info">
+      
+      
+      <th scope="row" style="color: antiquewhite; font-size: 20px;">{{ data.patientid.case }}</th>
+      <td type="date" scope="row" style="color: antiquewhite; font-size: 20px;">{{ data.date }}</td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.time }}</td>
+      {% if user == 'P' %}
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.docterid.name }} </td>
+      {% else %}
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.patientid.name }} </td>
+      {% endif %}      
+    </tr>
+      {% endfor %}
+   
+  </tbody>
+</table>
+
+<div class="container">
+  <br>
+<h1 style="color: antiquewhite;">Next Vist</h1>
+{% if pat_branch == 'Dombivali' %}
+<p style="color:solid black; font-size:20px; background:white;"> <b style="margin-left:20px;">(Call Us Dombivli 8080899990 -  Book an Appointment for the Next Vist)</b></p>
+{% else %}
+<p style="color:solid black; font-size:20px; background:white;"> <b style="margin-left:20px;">(Call Us Mulund 8080848403 - Book an Appointment for the Next Vist)</b></p>
+{% endif %}
+    </div>
+    <br>
+		<table class="table">
+  <thead class="table-dark">
+
+    <tr>
+      
+      <th scope="col">Case PaperNo.</th>
+      <th scope="col">Next Visit</th>
+      
+      
+     
+     
+
+    </tr>
+  </thead>
+  <tbody>    
+  	  	 
+      
+    <tr class="bg-info">
+      
+      
+      <th scope="row" style="color: antiquewhite; font-size: 20px;">{{ pat.case }}</th>
+      {% if next_visit == ' ' %}
+      <td  scope="row" style="color: antiquewhite; font-size: 20px;">No Update </td>
+      
+      {% else %}
+      <td type="date" scope="row" style="color: antiquewhite; font-size: 20px;">{{next_visit|date:"d M , Y"}}</td>
+      
+      {% endif %}
+     
+
+      
+
+    </tr>    
+    
+   <br><br><br>
+  </tbody>
+</table>
+<br>
+<hr>
+<!-- Paginations -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for i in datas.paginator.page_range %}
+    {% if datas.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+    {% endif %}       
+    {% endfor%}    
+    {% if datas.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<!-- end paginations -->
+
+
+
+<br><br><br>
+</div>
+</div>
+</div>
+<br><br><br>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

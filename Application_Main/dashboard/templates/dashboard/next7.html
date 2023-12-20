@@ -1,0 +1,57 @@
+{% extends "basic.html" %}
+
+{% block extra_media %}
+  {{ form.media }}
+{% endblock %}
+<style>
+#border {
+    position: relative;
+    text-align: center;
+    margin-top: 300px !important;
+    border: 1px solid black;
+    }
+
+</style>
+{% block content %}
+
+    <br><br><br>
+
+    <h1>Personal History</h1>
+    <hr>
+    <br><br>
+    {% if data == '' %}
+        <h3>End of questions</h3>
+        <br><br>
+        <!-- <a href="{% url 'past_history' id=1 case_id=case_id %}" class="btn btn-primary btn-lg ">Past History </a> -->
+        <a href="{% url 'newcase' %}" class="btn btn-primary btn-lg">HOME</a>
+
+    {% else %}
+    
+    <h3>Q. {{data.question}}</h3> 
+    <br><br>
+  <form action="{% url 'Create' %}" method="post">
+   
+   <br>
+   <div class="container text-center" id="border">
+    <div class="row justify-content-center">
+     <div class="border">
+    
+    {{ form.signature }}
+    {{ form.question}}
+    {{ form.patient }}
+   
+  </div></div></div>
+    <br>
+    <br>
+    <input type="submit" value="Next Question" class="btn btn-success float-right" />
+    
+   
+  
+    {% csrf_token %}
+  </form>
+  {% endif %}
+  <br><br><br>
+{% endblock %}
+
+
+

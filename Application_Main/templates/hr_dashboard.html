@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HR Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+    body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+    } 
+	</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+ <br>
+ 
+ <div class="col-sm-5">
+  <div class="container">
+   <div class="row">
+      <!-- <div class="col-sm-5">
+        <h5>NAME</h5>
+      <button class="btn btn-primary" id="hello">{{hr_name}}</button>    
+      </div> -->
+
+      <div class="col-sm-7">
+        <h3 style="color: antiquewhite;">Branch Name:</h3>
+    <button class="btn btn-primary" style="width: 80%" id="hello">{{hr_branch}}</button>    
+      </div>  
+    </div>
+  </div>
+</div>
+
+ <br>
+
+ <a style="margin-left:50px;" href="{% url 'add_vendor_stock' %}" class="btn btn-light btn-lg">Add Vendor</a>
+  
+ <a style="margin-left:50px;" href="{% url 'add_stock' %}" class="btn btn-light btn-lg">Add Stock</a>
+
+ <a  style="margin-left:50px;" href="{% url 'list_stock' %}" class="btn btn-light btn-lg">List Stock</a>
+
+ <a  style="margin-left:50px;" href="{% url 'orders_placed_all' %}" class="btn btn-light btn-lg">Order History</a>
+
+ <a style="margin-left:50px;" href="{% url 'add_medicine_stock_hr' %}" class="btn btn-light btn-lg">Add Medicine</a>
+
+ <a  style="margin-left:50px;" href="{% url 'medicine_stock_list_hr' %}" class="btn btn-light btn-lg">List Medicine</a>
+
+<br><br>
+ <!-- <table class="table">
+  <thead>
+    <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Branch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{hr_name}}</td>
+      <td>{{hr_branch}}</td>
+    </tr>
+  </tbody>
+</table> -->
+
+
+
+
+ <div class="card-group">
+  <div class="card">
+  
+    <div class="card-body bg-light">
+      <h5 class="card-title">Total Docters</h5>
+      <h5>{{ all_d }}</h5>
+      
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body bg-success">
+      <h5 class="card-title">Total Patients</h5>
+      <h5>{{ all_p }}</h5>
+
+    	
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body bg-primary">
+      <h5 class="card-title">On Duty Doctors</h5>
+      <h5>{{ active_d }}</h5>
+
+      
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+<div class="row">
+	<div class="col-sm-12">
+		<button class="btn btn-warning">Docter</button>
+		<table class="table">
+  <thead class="table-dark">
+
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Age</th>
+      <th scope="col">Status</th>
+      <th scope="col">Department</th>
+      <th scope="col">Attendance</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Update </th>
+      <th scope="col">Remove</th>
+
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+  	  	{% for data in all_data %}
+    <tr class="bg-info">
+      <th style="color: antiquewhite; font-size: 20px;" scope="row">{{ data.name }}</th>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.phone }}</td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.email }} </td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.gender }}</td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.age }}</td>
+      {% if data.status %}
+      <td style="color: antiquewhite; font-size: 20px;"> Active</td>
+      {% else %}
+      <td style="color: antiquewhite; font-size: 20px;"> Inactive</td>
+{% endif %}
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.department }}</td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.attendance }}</td>
+      <td style="color: antiquewhite; font-size: 20px;"> {{ data.salary }}</td>
+      <td><a href="{% url 'update_docter' id=data.id %}" class="btn btn-primary" >Update</a></td>
+      <td><a href="{% url 'delete_docter' %}" class="btn btn-danger" >Remove</a></td>
+
+
+    </tr>
+    {% endfor %}
+   
+  </tbody>
+</table>
+	</div>
+  </div>
+</div>
+<br><br><br><br>
+<!-- recepetionist -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-warning">Receptionist</button>
+      
+      <table class="table">
+    <thead class="table-dark">
+  
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Username</th>        
+        <th scope="col">Update </th>
+        <th scope="col">Remove</th>
+  
+  
+  
+  
+      </tr>
+    </thead>
+    <tbody>
+          {% for data in all_r %}
+      <tr class="bg-info">
+        <th  style="color: antiquewhite; font-size: 20px;"scope="row">{{ data.name }}</th>
+        <td style="color: antiquewhite; font-size: 20px;"> {{ data.phone }}</td>
+        <td style="color: antiquewhite; font-size: 20px;"> {{ data.email }} </td>
+        <td style="color: antiquewhite; font-size: 20px;"> {{ data.address }}</td>
+        <td style="color: antiquewhite; font-size: 20px;"> {{ data.branch }}</td>       
+        <td style="color: antiquewhite; font-size: 20px;"> {{ data.username }}</td>
+        <td><a href="{% url 'update_receptionist' id=data.id %}" class="btn btn-primary" >Update</a></td>
+        <td><a href="{% url 'delete_docter' %}" class="btn btn-danger" >Remove</a></td>
+  
+  
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+    </div>
+    </div>
+  </div>
+<!-- end recepetionist -->
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

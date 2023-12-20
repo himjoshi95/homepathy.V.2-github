@@ -1,0 +1,426 @@
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>General Appointment's Todays</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: orange;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:orange;
+        }
+        .reorder{
+          background-color: #FFE87C;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: 	#00FF7F;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .medicine{
+            background-color: lightblue;
+            color: white;          
+            border: 1px solid blue;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .complete{
+            background-color: #FED8B1;
+            color: white;          
+            border: 1px solid blue;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+          }
+
+
+          img{
+            border-radius: 50%;
+        }
+        .box1{
+            height: 40px;
+            width:100px;
+            
+          }
+          button {
+            font-size: 0.8rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            outline: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: rgb(2,29,78);
+            color: rgb(234, 234, 234);
+            font-weight: 700;
+            transition: 0.6s;
+            box-shadow: 0px 0px 20px #1f4c65;
+            /* -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4)); */
+          }
+          
+          button:active {
+            scale: 0.92;
+          }
+          
+          button:hover {
+              background: rgb(2,29,78);
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+            color: rgb(4, 4, 38);
+          }
+          .plussign::after {
+            content: "\2795";
+            
+          }
+          .notification {
+            display: inline-block;
+            background-color:  #337ab7; /* Background color for the notification */
+            color: white; /* Text color for the notification */
+            font-size: 14px; /* Font size for the notification */
+            padding: 4px 8px; /* Padding around the notification count */
+            border-radius: 50%; /* Make it a circle */
+            margin-left: 4px; /* Adjust the spacing from the text */
+        }
+         
+          
+
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+    <hr>
+   
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+
+  <div class="jumbotron">
+
+    <a href="{% url 'appoint_doctor' %}" style="margin-left:10px;" >
+        <button class="plussign"> Create Appointment </button>
+        </a>  
+        <a href="{% url 'doc_upload_newcase' %}" style="float:right;" >
+          <button class="plussign"> Upload New Case Paper</button>
+          </a>  
+          
+          <br><br><br>
+          <a href="{% url 'docter_appointment_dombivali' %}">
+            <button >  General Appointment
+      {% if count_general_dom > '0' %}
+          <span class="notification">{{ count_general_dom }}</span>
+      {% endif %}
+            </button>
+  </a>
+  
+  <a href="{% url 'doc_repeat_med_dom' %}" style="margin-left:180px;">
+    <button>  Repeat Medicine
+      {% if count_repeat_dom > '0' %}
+          <span class="notification">{{ count_repeat_dom }}</span>
+      {% endif %}
+    </button>
+  </a>
+  
+  <a href="{% url 'doc_courier_med_dom' %}" style="margin-left:180px;">
+     <button> Courier Medicine
+      {% if count_courier_dom > '0' %}
+          <span class="notification">{{ count_courier_dom }}</span>
+      {% endif %}
+     </button>
+  </a>
+  <hr>
+  
+	<div class="header">{{header}}</div>
+
+	<form>
+        <div class="input-group input-group-sm mb-3 mt-4">
+            <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+            <button class="btn btn-secondary"><i class="fa fa-search"></i>search</button>
+            <a href="{% url 'docter_appointment' %}" class="btn btn-primary" style="margin-left:9px;"><span class="glyphicon glyphicon-refresh" aria-hidden="true" placeholder="Refresh"> Refresh</span></a>
+        </div>
+    </form>
+
+    <p style="font-size:20px; margin-left:5px;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+	<br>
+	<div class="display_table">
+    <table class='table'>
+        <thead>
+          <tr>
+            {% comment %} <th>TOKEN NO.</th> {% endcomment %}
+            <th>PATIENT'S IMAGE</th> 
+            <th>CASE PAPER NO.</th>           
+            <th>TIME</th>
+            <th>PATIENT'S NAME</th>
+            <th>STATUS</th>
+            <th>BRANCH</th>
+			<th>DETAILS</th>
+			
+			
+          </tr>
+        </thead>
+        {% for dat1 in datas %}
+        {% if dat1.stat == "Courier Medicine"%}
+
+        {% if dat1.patientid.flag  and dat1.doctor_notification == False %}  
+        <tr>  
+
+      {% if dat1.patientid.patient_images %}
+      <td bgcolor="#FFE87C"><img src="{{dat1.patientid.patient_images.url}}" alt="Avatar"  width="90" height="70" border="5"></td>
+      {% else %}
+              
+      <td bgcolor="#FFE87C" style="  color: black; font-size: 17px;"><b>Profile Photo Not Updated.</b></td>
+      
+      {% endif %}
+      <td bgcolor="#FFE87C" style="color: black; font-size: 17px;">{{ dat1.patientid.case }}</td>
+      
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ dat1.time }}</td>
+      {% if user == 'P' %}
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ dat1.docterid.name }} </td>
+      {% else %}
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ dat1.patientid.name }} </td>
+      {% endif %}
+      {% if dat1.stat == 'General' %}
+        <td scope="row"  bgcolor="#FFE87C" style="color: black; font-size: 17px;" >{{ dat1.stat }}</td>
+        {% elif dat1.stat == 'Repeat Medicine' %}
+        <td scope="row"  bgcolor="#FFE87C" style="color: black; font-size: 17px;" >{{ dat1.stat }}</td>
+        {% else %}
+        <td scope="row"  bgcolor="#FFE87C" style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+        {% endif %}      
+
+      <td style="color: black; font-size: 17px;" bgcolor=#FFE87C>{{ dat1.patientid.branch }}</td>
+      {% if dat1.patientid.branch == "Dombivali" %}
+
+      <td style="color :darkgreen;" bgcolor=#FFE87C><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token %} " class="btn btn-warning btn-lg">Details</a></td>
+      {% else %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token1 %} " class="btn btn-warning btn-lg">Details</a></td>
+      {% endif %}
+    </tr>
+    {% else %}
+
+    {% if dat1.doctor_notification and dat1.medicine_flag %}
+
+    <tr>
+      
+    {% if dat1.patientid.patient_images %}
+      <td bgcolor=#FED8B1><img src="{{dat1.patientid.patient_images.url}}" alt="Avatar" width="55" height="55" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D" style=" background:antiquewhite; color: black; font-size: 17px;"><b>Profile Photo Not Updated.</b></td>
+      {% endif %}
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;" scope="row">{{ dat1.patientid.case }}</td>
+      <!-- <td scope="row">{{ dat1.date }}</td> -->
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;"> {{ dat1.time }}</td>
+      {% if user == 'P' %}
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;"> {{ dat1.docterid.name }} </td>
+      {% else %}
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;"> {{ dat1.patientid.name }} </td>
+      {% endif %}
+
+      {% if dat1.stat == 'General' %}
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;" scope="row" >{{ dat1.stat }}</td>
+      {% elif dat1.stat == 'Repeat Medicine' %}
+      <td bgcolor=#FED8B1  style="color: black; font-size: 17px;"scope="row" >{{ dat1.stat }}</td>
+      {% else %}
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;"scope="row" >{{ dat1.stat }}</td>
+      {% endif %}
+
+      
+
+      <td bgcolor=#FED8B1 style="color: black; font-size: 17px;">{{ dat1.patientid.branch }}</td>
+      {% if dat1.patientid.branch == "Dombivali" %}
+      <td bgcolor=#FED8B1><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token %} " class="btn btn-primary btn-lg">Details</a></td>
+      {% else %}
+      <td bgcolor=#FED8B1><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token1 %} " class="btn btn-primary btn-lg">Details</a></td>
+        {% endif %}
+    </tr>
+    {% elif dat1.doctor_notification %}
+
+    <tr>
+     
+      
+      {% if dat1.patientid.patient_images %}
+        <td ><img  src="{{dat1.patientid.patient_images.url}}" alt="Avatar" width="55" height="55" border="5"></td>
+        {% else %}
+        <td style="color: black; font-size: 17px;"><b>Profile Photo Not Updated.</b></td>
+        {% endif %}
+        <td scope="row" style="color: black; font-size: 17px;">{{ dat1.patientid.case }}</td>
+        <!-- <td scope="row">{{ dat1.date }}</td> -->
+        <td  style="color: black; font-size: 17px;"> {{ dat1.time }}</td>
+        {% if user == 'P' %}
+        <td  style="color: black; font-size: 17px;"> {{ dat1.docterid.name }} </td>
+        {% else %}
+        <td  style="color: black; font-size: 17px;"> {{ dat1.patientid.name }} </td>
+        {% endif %}
+  
+        {% if dat1.stat == 'General' %}
+        <td scope="row"  style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+        {% elif dat1.stat == 'Repeat Medicine' %}
+        <td scope="row"  style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+        {% else %}
+        <td scope="row"  style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+        {% endif %}
+       
+  
+        <td  style="color: black; font-size: 17px;">{{ dat1.patientid.branch }}</td>
+        {% if dat1.patientid.branch == "Dombivali" %}
+        <td  ><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token %} " class="btn btn-primary btn-lg" style="color: antiquewhite;">Details</a></td>
+        {% else %}
+        <td  ><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token1 %} " class="btn btn-primary btn-lg" style="color: antiquewhite;">Details</a></td>
+          {% endif %}
+
+
+      </tr>  
+
+    {% else %}
+
+    <tr>
+      
+    {% if dat1.patientid.patient_images %}
+      <td bgcolor=	#00FF7F><img  src="{{dat1.patientid.patient_images.url}}" alt="Avatar" width="55" height="55" border="5"></td>
+      {% else %}
+      <td bgcolor=	#00FF7F style="color: black; font-size: 17px;"><b>Profile Photo Not Updated.</b></td>
+      {% endif %}
+      <td scope="row" bgcolor=	#00FF7F style="color: black; font-size: 17px;">{{ dat1.patientid.case }}</td>
+      <!-- <td scope="row">{{ dat1.date }}</td> -->
+      <td bgcolor=	#00FF7F style="color: black; font-size: 17px;"> {{ dat1.time }}</td>
+      {% if user == 'P' %}
+      <td bgcolor=	#00FF7F style="color: black; font-size: 17px;"> {{ dat1.docterid.name }} </td>
+      {% else %}
+      <td bgcolor=	#00FF7F style="color: black; font-size: 17px;"> {{ dat1.patientid.name }} </td>
+      {% endif %}
+
+      {% if dat1.stat == 'General' %}
+      <td scope="row" bgcolor=	#00FF7F style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+      {% elif dat1.stat == 'Repeat Medicine' %}
+      <td scope="row" bgcolor=	#00FF7F style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+      {% else %}
+      <td scope="row" bgcolor=	#00FF7F style="color: black; font-size: 17px;">{{ dat1.stat }}</td>
+      {% endif %}
+     
+
+      <td bgcolor=	#00FF7F style="color: black; font-size: 17px;">{{ dat1.patientid.branch }}</td>
+      {% if dat1.patientid.branch == "Dombivali" %}
+      <td bgcolor=	#00FF7F ><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token %} " class="btn btn-success btn-lg" style="color: antiquewhite;">Details</a></td>
+      {% else %}
+      <td bgcolor=	#00FF7F ><a href="{% url 'apointmentDetails' id=dat1.patientid.id token=dat1.token1 %} " class="btn btn-success btn-lg" style="color: antiquewhite;">Details</a></td>
+        {% endif %}
+
+    </tr>
+
+    {% endif %}
+    {% endif %}
+    
+    {% endif %}
+    {% endfor %}
+    </table>
+</div>
+<!--End of display table-->
+<br><br>
+ <h5>Note :</h5>
+ <br>
+  
+ <p style="font-size:18px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> New Patient Courier Pending<b style="margin-left:140px">({{new_patient}})</b></p>
+ 
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>Old Patient Courier Medicine Pending &nbsp;  <b style="margin-left:58px">({{appointment_due}})</b> </p>
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="medicine" href="#"></a>   Medicine Not Issued &nbsp;  <b style="margin-left:187px">({{medicine_not_issued}})</b></p>
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="complete" href="#"></a>   Courier Medicine Done &nbsp;  <b style="margin-left:165px">({{medicine_issued}})</b></p>
+
+ <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for i in datas.paginator.page_range %}
+    {% if datas.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+    {% endif %}       
+    {% endfor%}    
+    {% if datas.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav> 
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

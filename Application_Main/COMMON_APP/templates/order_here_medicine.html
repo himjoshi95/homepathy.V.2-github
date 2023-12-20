@@ -1,0 +1,88 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medicine Stock Details</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');  
+
+      body {
+        background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+        background-size: 100%;
+      } 
+
+      
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+  <div class="jumbotron">
+    {% comment %} <a href="{% url 'place_order_medicine' pk %}" class="btn btn-primary" ><i class="fa fa-angle-double-left"></i> Go Back</a> {% endcomment %}
+    {% comment %} <a style="margin-left:10px;" href = "{% url 'order_placed_vendor_medicineinfo' pk %}" class="btn btn-primary"><i class="fa fa-history" aria-hidden="true"></i> Orders Placed </a> {% endcomment %}
+
+    <div class="header">Place Order</div>
+
+    <form method='POST' action='' >{% csrf_token %}
+		{{form|crispy}}
+        <input type="submit" value='Save'/>
+    </form>
+	
+      
+<!--End of display table-->
+   
+  </div>
+
+  
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $("#id_vendor_order").select2();
+
+</script>
+
+</body>
+</html>

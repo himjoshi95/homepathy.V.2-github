@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <style>
+        #border {
+            position: relative;
+            text-align: left;
+            margin-top: 100px !important;
+            border: 1px solid black;
+            }
+        
+        </style>
+</head>
+<body>
+    {{ form.media }}
+    <form action="{% url 'create_view' id=data %}" method="POST" >
+        {% csrf_token %}
+        <div class="container text-center" id="border">
+            <div class="row justify-content-center">
+             <div class="border">
+        {% for field in form %}
+            
+            {{ field }}
+        {% endfor %}
+             </div></div></div>
+        <input type="submit" value="Save"/>
+        
+    </form>
+    
+</body>
+</html>
+
+
+

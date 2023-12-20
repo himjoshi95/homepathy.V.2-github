@@ -1,0 +1,181 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">PERSONAL HISTORY</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<!-- <h3>Q. {{data.question}}</h3> -->
+<p>Please read Carefully and Describes How each of the the folllowing things affect you .Mark if you like check them are uncomfertable(X) or trouble by them (XX) or troubled by them or have any complaints due to these things.</p>
+<br>
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       <br>
+       <!-- div 1 -->
+        <div style="margin-top: 20px;">
+                            <label for="potency" style="margin: 20px;"><h5>Desire </h5></label>
+                            <select  id="potency" name="desire">
+                                <option selected value="">-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>   
+                            
+                            <label for="potency" style="margin: 20px;" ><h5 >Aversion </h5></label>
+                            <select  id="potency" name="aversion">
+                                <option selected value="" >-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>
+         
+                
+        </div>   
+        <br>
+        <!-- div 2 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Appetite</h5></label>
+            <select  id="potency" name="appetite">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Thirst</h5></label>
+            <select  id="potency" name="thirst">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+        <br>
+        <!-- div 3 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Stool</h5></label>
+            <select  id="potency" name="stool">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Urine</h5></label>
+            <select  id="potency" name="urine">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+        <br>
+        <!-- div style="margin: 20px;" -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Sleep </h5></label>
+            <select  id="potency" name="sleep">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 20px;"><h5>Dreams</h5></label>
+            <select  id="potency" name="dreams">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+       
+
+
+
+        
+
+        
+        <br><br><br>
+          
+       
+            <button type="submit" class="btn btn-success bt-lg" value='True'>Save</button>
+
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

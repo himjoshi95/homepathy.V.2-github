@@ -1,0 +1,258 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Medicine Order History</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: #DCDCDC;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:#DCDCDC;
+        }
+        .reorder{
+          background-color: #DCDCDC;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: white;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        
+        .select2-selection--multiple:before {
+            content: "";
+            position: absolute;
+            right: 7px;
+            top: 42%;
+            border-top: 5px solid #888;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+        }
+
+        .box {
+          width: 200px; /* Adjust the width as needed */
+          height: 50px; /* Adjust the height as needed */
+          border: 1px solid #000; /* Add a border */
+          padding: 10px; /* Add padding inside the box */
+          text-align: center; /* Center-align the text horizontally */
+          background-color: #f0f0f0; /* Background color for the box */
+          margin-left: 400px;
+      }
+
+      .zoomable-image {
+        max-width: 100%;
+        transition: transform 0.3s ease;
+        border: 2px solid #007bff;
+    }
+    
+    /* Applied when image is clicked */
+    .zoomed-image {
+        transform: scale(8); /* Increase the scale for zoom effect */
+        cursor: zoom-out; /* Change cursor to indicate zoom-out */
+        border: 1px solid #007bff;
+        margin-left:120px;
+        
+      
+    }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+   
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+<br><br>
+  <div  class="jumbotron" style="width:1150px;" >
+
+{% if user == 'H' %}
+
+<a href="{% url 'medicine_order_history' %}" class="btn btn-primary">Go Back</a>
+
+{% elif user == 'D' %}
+
+<a href="{% url 'dom_med_order_history' %}" class="btn btn-primary">Go Back</a>
+
+{% endif %}
+    <div class="header">Order Summary</div> 
+    <hr>
+
+    {% if data %}
+
+<div class="row">
+    {% for x in data %}
+    <div class="col-sm-4">
+        <div class="card m-2">
+        <img src="{{x.bill_images.url}}" alt="  " class = "card-img-top" height="200px" onclick="myFunction(this);">
+        
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+<br>
+<div class="container">
+
+    
+
+    <p>Vendor Name: {{orders_obj.last.vendor}}</p>
+    <p>Contact : {{orders_obj.last.vendor.mobile_number}}</p>
+
+    <table  class='table'>
+        <tr>
+            <th>Count</th>
+            <th>Medicine</th>
+            <th>Potency</th>
+            <th>Pack</th>
+            <th>Ordered Quantity</th>
+            <th>Received Quantity</th>
+            <th>Balance Quantity</th>
+        </tr>
+        
+        {% for order in orders_obj %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{order.ordered_med}}</td>
+            <td>{{order.ordered_med.potency}}</td>
+            <td>{{order.ordered_med.pack}}</td>
+            <td>{{order.ordered_med.order_quantity}}</td>
+            <td>{{order.order_received}}</td>
+            <td>{{order.order_balance}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+            
+
+</div>
+
+<hr>
+
+<div class="container">
+    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+    <img id="expandedImg" style="width:100%">
+    <div id="imgtext"></div>
+    </div>
+
+   
+
+</div>
+<div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+</div>
+{% else %}
+
+<p style="margin-top:20px;font-size:20px; color:red; background: #E0E0E0 ;border: solid 3px red; padding: 20px;"><b style="margin-left:20px;">Bill Image not Uploaded</b></p>
+
+
+
+{% endif %}
+ 
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        function myFunction(imgs) {
+          var expandImg = document.getElementById("expandedImg");
+          var imgText = document.getElementById("imgtext");
+          expandImg.src = imgs.src;
+          imgText.innerHTML = imgs.alt;
+          expandImg.parentElement.style.display = "block";
+        }
+        </script>
+
+</body>
+</html>

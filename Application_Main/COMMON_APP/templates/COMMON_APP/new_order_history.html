@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PLACE ORDER ITEMS</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/placeorder.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+<style>
+    .modaltwo {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content-two {
+        background-color: #fefefe;
+        margin: 2% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 80%; /* 80% of the width */
+        border-radius: 5px;
+    }
+
+    .modalthree {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content-three {
+        background-color: #fefefe;
+        margin: 1% auto; /* 15% from the top and centered */
+        padding: 3px;
+        border: 1px solid #888;
+        width: 90%; /* 80% of the width */
+        border-radius: 5px;
+    }
+
+
+</style>
+
+</head>
+<body>
+    {% include 'nav.html' %}
+    <main role="main"  >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>            
+            
+            
+        <div class="jumbotron" style="margin-top:100px;margin-left:40px; ;width:1300px;">
+
+            <div class="header">New Order Details</div><hr>
+           
+
+            <input type="text" id="vendor-filter" placeholder="Search by Vendor">
+        <table class="table" id="order-table">
+            <thead>
+                <tr >
+                    <th style="text-align:center;">Serial No.</th>
+                    <th style="text-align:center;">Vendor</th>
+                    <th style="text-align:center;">Bill</th> 
+                    <th style="text-align:center;">Order Items</th>  
+                    {% comment %} <th style="text-align:center;">Bill</th>   {% endcomment %}
+                    <th style="text-align:center;">Order Date</th>
+                    <th style="text-align:center;">Expected Delivery Date</th>  
+                    <th style="text-align:center;">Order Status</th>  
+                    <th style="text-align:center;">Doctor's Approval</th>  
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for medicines in orders_list %}
+
+                <tr data-order-id="{{medicine.id}}">
+                    <td style="text-align:center;">{{forloop.counter}}</td>
+                     <td style="text-align:center;">{{medicines.0.vendors}}<br><br> {{medicines.0.vendors.mobile_number}}<b>(M)</b></td>
+
+                     {% if medicines.last.order_receive_flag %}
+                     <td style="text-align:center;">
+ 
+                         <button class="openPopupthree" data-med-id="{{medicines.last.id}}"> View </button>
+
+                         <div id="myModalthree" class="modalthree">
+                            <div class="modal-content-three">
+                                <span class="closethree"><button style="float:right;"> <i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                                <iframe src="{% url 'view_bill_items' medicines.last.id %}" width="100%" height="550"></iframe>
+                            </div>
+                        </div>
+                      
+                     </td>  
+                     {% else %}
+ 
+                     <td style="text-align:center;">
+ 
+                     <button class="openPopuptwo " data-stock-id="{{medicines.last.id}}">Upload +</button>
+                     <div id="myModaltwo" class="modaltwo">
+                        <div class="modal-content-two">
+                            <span class="closetwo"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                            <iframe src="{% url 'upload_bill_items' medicines.last.id %}" width="100%" height="500"></iframe>
+                        </div>
+                    </div> 
+                      
+                     </td>  
+                     {% endif %}
+                   
+                    
+                     <td style="text-align:center; width:250px;" >
+                        <table class="inner-table" id="order-table" >
+                            <thead>
+                                <tr >
+                                    <th style="text-align:center;">Serial No.</th>
+                                    <th style="text-align:center;">Medicines</th>
+                                    <th style="text-align:center;">Pack</th>
+                                    <th style="text-align:center;">Ordered Quantity</th> 
+                                    <th style="text-align:center;" >Received Quantity</th> 
+
+                                    {% if medicines.last.order_receive_flag %}
+                                    <th style="text-align:center;">Balance<th>
+
+                                    {% endif %}
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicine in medicines %}                                
+
+                                <tr>
+                                    <td style="text-align:center;">{{forloop.counter}}</td>
+                                    <td style="text-align:center;">{{medicine.order_medicine}} <br> ({{medicine.potency}})</td>
+                                    <td style="text-align:center;">{{medicine.pack}}</td>
+                                    <td style="text-align:center;">{{medicine.ordered_quantity}}</td>
+                                    {% if medicine.order_receive_flag %}
+                                    <td style="text-align:center;">{{medicine.received_quantity}}</td> 
+                                    {% else %}
+                                    <td >
+
+                                        <form class="formset" action="{% url 'receive_order_items' medicine.id %}" method="post">
+                                             {% csrf_token %}
+                                            <input type="number" id="order_received" name="order_received" placeholder="Received Quantity" value="{{medicine.received_quantity}}">
+                                            <br><br>
+                                            <label>Received Date:</label>
+                                            <input type="date" name="receive_date" name="receive_date" id="receive_date" >
+                                            <br><br>
+                                            <input type="submit"  style="font-size:15px;"class="btn btn-danger btn-sm" value="Receive Order ">  
+                                          
+                                        </form>
+                                    </td>
+                                {% endif %}
+
+                                {% if medicines.last.order_receive_flag %}
+                                    {% if medicine.order_balance == 0 %}
+                                    <td style="text-align:center;">{{medicine.order_balance}}</td>
+                                    {% else %}
+                                    <td  style="font-size:14px; text-align:center; color:red; border: solid 3px red; padding: 3px; "><b>ORDER BAL. </b></td>
+                                    {% endif %}
+                                {% endif %}
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    </td>
+                    
+                    
+                    <td style="text-align:center;">{{medicines.0.order_date|date:"d F,Y"}}</td>                       
+                     <td style="text-align:center;">{{medicines.0.expected_delivery_date|date:"d F,Y"}}</td> 
+                     {% if medicines.last.order_receive_flag %}
+                     <td style="width:200px;"><p style="font-size:14px; text-align:center; color:green; border: solid 3px green; padding: 6px;  "><b>RECEIVED <i class="fa fa-check-circle" style="font-size:20px;"></i></b></p></td>
+                     {% else %}
+                     <td style="width:200px;" ><p style="font-size:14px; text-align:center; color:red; border: solid 3px red; padding: 6px; "><b>PENDING <i class="fa fa-clock-o" style="font-size:20px" aria-hidden="true"></i></b></p></td>
+                     {% endif %}
+
+                     {% if medicines.last.is_approved %}
+                     <td><p style="text-align:center; color:green;  "><b><i class="fa fa-check-circle" style="font-size:30px;"></i></b></p></td>
+                     {% else %}
+                     <td ><p style="text-align:center; color:red;  "><b><i class="fa fa-clock-o" style="font-size:30px" aria-hidden="true"></i></b></p></td>
+
+                     {% endif %}
+                                                 
+                 </tr> 
+                 
+                 {% empty %}
+                 <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="font-size: 30px; color: blue; margin-left: 100px; " ><b>No Orders Placed Today</b></td>
+                </tr>
+
+                 {% endfor %}    
+
+              
+            </tbody>
+        </table>
+    </div>
+
+        
+             
+            
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+   
+
+</script>    
+</body>
+</html>

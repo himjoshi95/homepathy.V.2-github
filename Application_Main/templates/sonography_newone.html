@@ -1,0 +1,266 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+   
+   
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+      .th{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }
+        .column2 {
+	    border-right:2px solid lightblue;
+	      padding:5px 10px;
+      }
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        
+                        }
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        background-color: whitesmoke;
+        width: 110px;
+        height: 500px;
+        overflow: auto;
+        }
+        div.ex1 {
+        background-color: whitesmoke;
+        width: 1050px;
+        height: 200px;
+        overflow: auto;
+        }
+         tfoot{
+            
+            border-top: 5px solid  lightblue;
+        }
+       
+        .img1{
+          border-radius: 58%;
+      }
+      .box {
+        width: 300px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+      }
+      .box-1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box-2{
+        height: 100px;
+        width:500px;
+        
+      }
+      
+   
+.form-label:after {
+    content:" *";
+    color: red;
+  }
+
+	</style>
+
+</head>
+
+  <body>
+    {% include 'nav.html' %} 
+    
+   <div class="container" style="margin-top: 30px;">
+    <div class="mt-2">     
+        <!-- <h1 class="card-title float-left mt-2" style="color: antiquewhite;" >NEW CASE</h1>  -->
+       
+        <!-- <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a> -->
+    </div>
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+      
+       
+
+       <div class="container">
+        <h1 style="margin-top: 20px; color: antiquewhite; text-align:center;">SONOGRAPHY</h1>
+        <!-- <a href="{% url 'familymedical' %}" class="btn btn-primary">Family Medical</a> -->
+        <hr> 
+        <div class="box">
+          <div class="box-1">
+            {% if patient_details.patient_images %}
+            <img src="{{patient_details.patient_images.url}}" class="img1" alt="Avatar" width="70" height="90" border="5">
+            
+    
+              {% else %}
+              <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+              {% endif %}
+          </div>
+          <div class="box-2" style="color:white; font-size:20px">
+           <h5> {{patient_details.name}}</h5>
+           <hr style="background-color:white;">
+           <h5> {{patient_details.case}}</h5>
+            
+          </div>
+        </div>
+       
+        
+        <table class="" >
+            <thead>
+              <tr class = "bg-primary" style="height: 40px;" >        
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Investigation Advised</th>
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Recent List<a href="{% url 'add_sonographytype' id %}"style="background:white; margin-left:20px;" class="btn"><img  src="{% static 'images/add.png' %}" width="30" height="30"></a></th>                  
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" style="width: 80px">
+                    <div style="width: 660px;">
+                    <form class="px-md-2" action="" method="POST">
+                        {% csrf_token %}                       
+                        
+                      
+                        <br>
+                        <div class="form-group" style="width: 550px;">
+                            <p  style="margin-left: 10px;  font-size: 20px;" class="form-label" align="left">	Select from the Dropdown</p>
+							<select name="investigation-advised" style="margin-left: 20px;  font-size: 20px;" placeholder="Select-Mind-Casusative-Factors" multiple id="countries">
+                                <!-- <option selected disabled="true"  default="">Select Dieseases</option>  -->
+                                {% for m in data %}
+                                <option  value="{{ m.name }}">{{ m.name }} </option>    
+                                {% endfor %}    
+							  </select>
+							</div>
+                            <br>
+                            {% comment %} <div class="form-outline mb-4" style="margin-left: 10px;">
+                            <label style="font-size: 20px;" class="form-label1">Any Other</label>
+                            <input id="form3Example1q" style="width: 540px;" type="text" name="any_other" placeholder="" required="" class="form-control" />
+                            </div>                                               {% endcomment %}
+                      
+                        <br><br>
+                        <button type="submit" style="margin-left: 10px; width: 550px;" class="btn btn-primary"> + Add</button>
+                        
+          
+                      </form> 
+                      <br>
+                    </div>  
+                </td>  
+                
+                <td >
+                    <div class="ex3" style="width: 400px; font-size: 20px;">
+                 
+                    {% for d in data %}
+                    <a style="margin-top: 4px; margin-left: 35px; text-decoration:none; font-size: 18px; color:blue">{{d.name}}<hr style="margin-top: 1px; margin-bottom: 1px;"></a>
+                    
+                        {% endfor %}
+                    </div>
+                </td>
+                  
+              </tr>
+          </tbody>        
+          <tfoot>
+            <tr class="table-light">
+                <td style="height: 50px; font-size: 17px;">
+               
+                  <a href="{% url 'investigation_newone' id=patient_details.id %}" style="text-decoration:none;"><b>Investigation Advised</b></a>  |
+                  <a href="{% url 'ultra_sonography_newone' id=patient_details.id %}" style="text-decoration:none; color:red;"><b>Ultra-Sonography</b></a>  |
+                  <a href="{% url 'doppler_studies_newone' id=patient_details.id %}" style="text-decoration:none; color:green;"><b>Doppler Studies</b></a>  |
+                  <a href="{% url 'obstetrics_newone' id=patient_details.id %}" style="text-decoration:none; color:orange;"><b>Obstetrics(Pregnancy)</b></a>  |
+                  <a href="{% url 'sonography_newone' id=patient_details.id %}" style="text-decoration:none; color:black;"><b>Sonography</b></a>  |
+                  <a href="{% url 'ct_scan_newone' id=patient_details.id %}" style="text-decoration:none; color:brown;"><b>16 Slice C.T Scan</b></a>  |
+                  <a href="{% url 'mri_scan_newone' id=patient_details.id %}" style="text-decoration:none; color:Purple;"><b>1.5 MRI Scan</b></a>  |
+                  <a href="{% url 'generate_investigation_pdf' id=patient_details.id %}" style="text-decoration:none; color:olive;"><b>Generate</b></a>  |
+                </td>
+                <td style="font-size: 17px;">
+                 
+                </td>
+            </tr>
+          </tfoot>
+          </table>
+          
+          <br><br>
+          <div class="container" style="margin-top: 20px;">
+            <h1 style="margin-top: 20px; color: antiquewhite;"></h1>
+            <br>
+            <table style="width: 1050px;">
+              <thead>
+                <tr class="bg-primary" style="height: 30px;">
+                <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Sonography Investigation Advised <p style="margin-top: 10px; margin-left: 700px;"></p></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class = "table-light" style="height: 100px;">
+                
+                <td class="border-right">
+                  <div  style="font-size: 20px;">
+                    {% for m in my_list %}
+                    <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                    {% endfor %}
+                </div>
+                </td>
+
+                
+              </tr>
+            </table>
+            </div>           
+          <br><br>
+        </div>       
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script>
+        // new MultiSelectTag('countries')  // id
+        new MultiSelectTag('countries', {
+    rounded: true,    // default true
+    shadow: true,      // default false
+    placeholder: 'Search',  // default Search...
+    onChange: function(values) {
+        console.log(values)
+    }
+})
+    </script>
+  
+</body>
+</html>

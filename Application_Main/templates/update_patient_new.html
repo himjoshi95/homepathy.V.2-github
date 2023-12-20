@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Design by foolishdeveloper.com -->
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <title>Document</title>
+  <style type="text/css">
+    .success-msg{
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 3px 3px 3px 3px;
+        color: #270;
+        background-color: #DFF2BF;
+    }
+
+    select{
+			height:40px;
+            width: 425px!important;
+			border-radius: 5px!important;
+		}
+
+    .form-label:after {
+    content:" *";
+    color: red;
+  }
+
+  button{
+			width: 200px;
+			border-radius: 10px!important;
+      margin-left: 100px;
+		}
+
+    .already{
+      margin-left: 50px;
+
+    }
+    body {
+			background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+      background-size: 100%;
+			
+			}
+
+  </style>
+ 
+</head>
+<body>
+    {% include "nav.html" %}   
+
+    <section class="h-100 h-custom" >
+        <div class="container py-5 h-100">
+            {% if messages %}
+		{% for message in messages %}
+		<div class="success-msg">
+			<i class="fa fa-check"></i>
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+              <div class="card rounded-3">
+                <img src="{% static '/images/login_page.jpg' %}" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                alt="Sample photo">
+                <div class="card-body p-4 p-md-5">
+                  <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Update Patient's Details</h2>
+                  
+      
+                  <form class="px-md-2" form action="{% url 'update_patient' id=data.id %}" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="form-outline mb-4">
+
+                      <label  for="form3Example1q">Patient's Image</label>                   
+                     
+                      {% if data.patient_images %}
+                      <div class="row">
+                      <div class="col-sm-4">
+                          <div class="card m-2">
+                          <img src="{{data.patient_images.url}}" alt=" " class = "card-img-top" height="200px">            
+                          </div>
+                      </div>
+                      </div>
+                      {% else %}
+                      <p>Please upload a Profile Photo</p>
+                      {% endif %}
+                      <input type="file" name="patient_images" multiple="" accept="image/*" required="" id="id_images" multiple value = "Upload"> 
+                      <br><br>
+                    <label class="form-label" for="form3Example1q">Username</label>
+                    <input type="text" id="form3Example1q"  name="username" placeholder="Username" required="" class="form-control" value="{{ data.usern }}"/>
+                    <br>
+                    <label class="form-label" for="form3Example1q">Case Paper No.</label>
+                    <input type="text" name="case" required="" class="form-control"  placeholder="Cases" value="{{ data.case }}">
+                    <br>
+                    <label class="form-label" for="form3Example1q">Name</label>
+                    <input type="text" id="form3Example1q" name="name" placeholder="Full Name" required="" class="form-control" value="{{ data.name }}"/>
+                    <br>
+                    <label class="form-label" for="form3Example1q">Age</label>
+                    
+                   
+                    <input id="form3Example1q"  type="number"  name="age" placeholder="Age" required="" class="form-control" value="{{ data.age }}"> 
+                   
+                    <br> 
+                    <div class="form-group">
+                      <p  class="form-label1" align="left">Gender</p>
+                      
+                 <select  name="gender" >
+                  {% if data.gender %}
+                  <option  name="{{data.gender }}" >{{ data.gender }}</option>
+                  <option   disabled>Select Gender</option>
+                             <option  name="Male" >Male </option>
+                             <option  name="Female">Female</option>
+                             <option  name="Transgender">Transgender</option>
+                  {% else %} 
+                           
+                  <option selected   name="{{data.gender }}">Select Gender</option>
+                             <option  name="Male" >Male </option>
+                             <option  name="Female">Female</option>
+                             <option  name="Transgender">Transgender</option>
+                  {% endif %}
+                             </select><br>
+                  </div>
+                  <br> 
+                  <label  for="form3Example1q">Height</label>
+                  {% if data.height %}
+                    <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control" value="{{ data.height }}" />
+                   {% else %}
+                   <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control"  />
+                   {% endif %}
+                    <br>
+                    <label  for="form3Example1q">Weight (kgs)</label>
+                    {% if data.weight == 'None' or not data.weight %} 
+                    <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control"  />
+                    {% else %}
+                    <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control" value="{{ data.weight }}"  />
+                    {% endif %}
+                    <br>
+                    <label class="form-label1" for="form3Example1q">Address</label>
+                    <textarea class="form-control" name="address"  placeholder="Address" value="{{ data.address }}" placeholder="Address">{{ data.address }}</textarea>
+                    <br>                  
+                    <label class="form-label" for="form3Example1q">Phone Number</label>
+                    <input type="text" id="form3Example1q" name="phone" placeholder="Phone Number" required="" class="form-control" value="{{ data.phone }}" />
+                    <br>
+                    <label class="" for="form3Example1q">Alternative Phone Number</label>
+                    <input type="text" id="form3Example1q" name="alt_number" placeholder="Alternative Number if any"  class="form-control" value="{{ data.alternative_number }}" />
+                    <br>
+                    <label class="form" for="form3Example1q">Email Address</label>
+                    <input type="email" id="form3Example1q"  name="email" placeholder="Email" required="" class="form-control" value="{{ data.email }}"> 
+                    <br>
+                    
+                    <label class="" for="form3Example1q">Qualification</label>
+                    {% if data.qualification == 'None' or not data.qualification %}
+                    <input type="text" id="form3Example1q" name="qualification" placeholder="Mention here"  class="form-control"  />
+                    {% else %} 
+                    <input type="text" id="form3Example1q" name="qualification" placeholder="Mention here"  class="form-control" value="{{ data.qualification }}" />
+
+                    {% endif %}
+                    <br>
+                    <label class="" for="form3Example1q">Occupation</label>
+                    {% if data.occupation == 'None' or not data.occupation %}
+                    <input type="text" id="form3Example1q" name="occupation" placeholder="Mention here"  class="form-control"  />
+                    {% else %}
+                    <input type="text" id="form3Example1q" name="occupation" placeholder="Mention here"  class="form-control" value="{{ data.occupation }}" />
+                    {% endif %}
+                    <br>
+                    <label>Dietry Preference</label>
+                    <select  name="dietry" >
+                      {% if data.dietry_preference %}
+                      <option  name="{{data.dietry_preference }}" >{{ data.dietry_preference }}</option>
+                      <option   disabled>Select Dietry Preference</option>
+                                 <option  name="Vegetarian" >Vegetarian </option>
+                                 <option  name="Non-Vegetarian">Non-Vegetarian</option>
+                                 <option  name="Egg">Egg</option>
+                      {% else %}   
+                            
+                      <option selected  name="{{data.dietry_preference }}"  >Select Dietry Preference</option>
+                                 <option  name="Vegetarian" >Vegetarian </option>
+                                 <option  name="Non-Vegetarian">Non-Vegetarian</option>
+                                 <option  name="Egg">Egg</option>
+                      {% endif %}
+                                 </select>
+                                 <br><br>
+
+                                 <label>Marital Status</label>
+                                 <select  name="marital" >
+                                   {% if data.marital_status %}
+                                   <option  name="{{data.marital_status }}" >{{ data.marital_status }}</option>
+                                   <option   disabled>Select Marital Status</option>
+                                              <option  name="Single" >Single </option>
+                                              <option  name="Married">Married</option>
+                                              <option  name="Divorced">Divorced</option>
+                                              <option  name="Widow">Widow</option>
+                                   {% else %}           
+                                   <option selected  name="{{data.marital_status }}"   >Select Marital Status</option>
+                                   <option  name="Single" >Single </option>
+                                   <option  name="Married">Married</option>
+                                   <option  name="Divorced">Divorced</option>
+                                   <option  name="Widow">Widow</option>
+                                   {% endif %}
+                                              </select>
+                                              <br><br>
+
+                    <label class="" for="form3Example1q">Referred by</label>
+                    {% if data.referred_by == 'None' or not data.referred_by %}
+                    <input type="text" id="form3Example1q" name="referred" placeholder="Mention here"  class="form-control"  />
+                    {% else %}
+                    <input type="text" id="form3Example1q" name="referred" placeholder="Mention here"  class="form-control" value="{{ data.referred_by }}" />
+
+
+                    {% endif %}
+                   
+                                                <!-- Gender  -->
+                   
+                             <!-- Blood Group    -->
+
+                    <!-- <div class="form-group">
+                        <p align="left">Blood Group</p>
+                   <select name="blood" >                                                                
+                               <option  name="{{ userdata.blood }}" >{{ userdata.blood }}</option>               
+                               <option >Select Blood Group</option>                     
+                                <option  name="A+" >A+ </option>
+                               <option  name="B+">B+</option>
+                               <option  name="AB+">AB+</option>
+                               <option  name="O+">O+</option>
+                               <option  name="A-">A-</option>
+                               <option  name="B-">B- </option>                  
+                               <option  name="AB-">AB-</option>
+                               <option  name="O-">O-</option>          
+                    </select>
+                    <br><br> -->
+                   
+
+                                      
+                    <br><br><br>
+                    
+                    </div>
+
+                   
+                    <br>
+                   
+                  
+      
+                    <button type="submit" class="btn btn-success btn-lg mb-1 ">Update</button>
+      
+                  </form>
+                  <br>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+      
+  	
+</body>
+</html>
+

@@ -1,0 +1,130 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Rubric Selection</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       
+        
+        <div class="container">
+
+            <br><br>
+
+            <label for="potency" style="margin-left:30px;" ><h5>Rubric Selection </h5></label>
+            <select  id="potency" name="rubric">
+                <option selected value="">-------- Select -------- </option>
+                <option value="Hypertension">Hypertension</option>
+                <option value="Arthritis">Arthritis</option>
+                <option value="Thyroid">Thyroid</option>
+                <option value="Aversion">Diabetes Mititaries</option>
+                <option value="Kidney Failure">Kidney Failure</option> 
+                <option value="Prostate">Prostate</option> 
+                <option value="Cancer">Cancer</option>  
+                <option value="Osterioarthriritis">Osterioarthriritis</option> 
+                <option value="Lumber & Cervival">Lumber & Cervival</option> 
+                <option value="Spondylosis">Spondylosis</option> 
+                <option value="Tuberculosis">Tuberculosis</option> 
+                <option value="Asthama">Asthama</option>  
+                <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>   
+                <option value="Ankylosis Spondylosis">Ankylosis Spondylosis</option>  
+                <option value="Aric Acid">Aric Acid</option> 
+                <option value="Leprosy">Leprosy</option>
+                <option value="Piles">Piles</option>
+                <option value="Allergic Rhinitis">Allergic Rhinitis</option>
+                <option value="Anamia">Anamia</option>
+                <option value="Insanity">Insanity</option>
+                <option value="Epilepsy">Epilepsy</option>
+                <option value="Ulcerative">Ulcerative</option>
+            </select>
+            
+        <br><br><br><br>
+        
+
+        <button type="submit" class="btn btn-success bt-lg" value='True'>Next Question</button>
+        
+        
+        </div>
+   
+        
+    </div>
+    
+    
+
+
+
+            </div>
+        </div>
+    </div>
+
+        
+       
+          
+       
+           
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

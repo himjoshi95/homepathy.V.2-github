@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Stock</title>
+
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/additemsunit.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <main role="main" class="container" >
+
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="jumbotron"> 
+            <p style="text-align:center;color:#337ab7;"><b style="font-size:25px;">Add Medicine/Potency List</b><p><hr>
+            <div class="container-new">
+                <div class="left-div">
+                   
+                    <form action="" method='post' >
+                        {% csrf_token %}
+
+                        <label >Medicine Name </label>
+                        <input type="text"  name="medicine_name" placeholder="Mention Medicine Name" required>
+
+                        <input type="submit"  value="Add">
+
+                    </form>
+                    <hr>
+                    <br><br>
+                    <label style="color:#337ab7;">Medicine List (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label><br><br>
+                    <form method="get" action="">
+                        {{ search_form }}
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+                        <a style="margin-left:10px;" href="{% url 'add_medicines_potency' %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+                        
+                    </form>
+                    <br><br>
+                  
+                    <div class="scrolling-div">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicine in filtered_medicine %}
+                                    <tr>
+                                        <td>{{ medicine.medicine_name }}</td>
+                                        
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td>No medicine data available.</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="right-div">
+
+                    <form action="" method='post' >
+                        {% csrf_token %}
+
+                        <label >Potency Name  </label>
+                        <input type="text"  name="potency_name" placeholder="Mention Potency Name" required>
+
+                        <input type="submit"  value="Add">
+
+                    </form>  
+                    <hr>
+                    <br><br>
+                    <label style="color:#337ab7;">Potency List (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label>  <br><br>
+                    
+                    <form method="get" action="">
+                        {{ search_form_two }}
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+                        <a style="margin-left:10px;" href="{% url 'add_medicines_potency' %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+                        
+                    </form>
+
+                    <br><br>
+                    <div class="scrolling-div">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Potency Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for potency in filtered_potency %}
+                                    <tr>
+                                        <td>{{ potency.potency_name }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td>No potency data available.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                
+                    
+                </div>
+            </div>
+            
+        </div>
+
+    </main>
+  
+
+
+</body>
+</html>

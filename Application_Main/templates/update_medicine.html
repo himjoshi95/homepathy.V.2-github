@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apointments Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+	<style type="text/css">
+		@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		  }
+	
+		  @media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+			  font-size: 3.5rem;
+			}
+		  }
+		  body {
+			background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+			background-size: 100%;
+			}
+		  
+			.anch{
+			  background-color: white;
+			  color: darkblue;          
+			  border: 1px solid blue;
+			  padding: 2px 60px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+			.anch:hover, .anch:active {
+			  background-color: lightblue;
+			  color: white;
+			}
+			.anch1{
+			  background-color: orange;
+			  color: white;          
+			  border: 1px solid blue;
+			  padding: 2px 65px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+			.anch1:hover, .anch1:active {
+			  background-color: white;
+			  color:orange;
+			}
+			.reorder{
+			  background-color: #90EE90;
+			  color: white;          
+			  border: 1px solid blue;
+			  padding: 10px 10px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+			.check{
+			  background-color: #FED8B1;
+			  color: white;          
+			  border: 1px solid blue;
+			  padding: 10px 10px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+	
+			.header1{
+				font-family: helvetica;
+				color: #337ab7;
+				font-size: 30px;
+				text-align: center;
+				width: 100%;
+				text-shadow: 6px 6px 6px #c9c6c6;
+				display: block;
+				font-weight: bolder;
+			}
+			.header2{
+				font-family: helvetica;
+				color: #337ab7;
+				font-size: 30px;
+				margin-left:320px;
+				width: 100%;
+				text-shadow: 6px 6px 6px #c9c6c6;
+				display: block;
+				font-weight: bolder;
+			}
+			
+			.box {
+				width: 300px;
+				height: 110px;
+				border: 1px solid white;
+				padding: 10px;
+				margin: 10px;
+				display: flex;
+				column-gap: 50px;
+				border-radius: 25px;
+				background: #dae5f4;
+			  }
+			  .box1{
+				height: 100px;
+				width:100px;
+				
+			  }
+			  .box2{
+				height: 100px;
+				width:500px;
+				
+			  }
+			  img{
+				border-radius: 58%;
+			}
+	  
+	  
+	  .form-inline {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	  }
+	
+	  .form-group {
+		flex: 0 0 calc(50% - 1rem);
+		margin: 10px;
+	  }
+	
+	  .form-group textarea {
+		width: 100%;
+	  }
+	
+	  .form-group label {
+		display: block;
+	  }
+	  
+
+	</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+ <main role="main" class="container">
+ <br>
+ <div class="box">
+    <div class="box1">
+      {% if patient_details.patient_images %}
+      <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+      
+
+        {% else %}
+        <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+        {% endif %}
+    </div>
+    <div class="box2" style="color:black; font-size:20px">
+     <h5> {{pat.name}}</h5>
+     <hr style="background-color:blue;">
+     <h5> {{pat.case}}</h5>
+      
+    </div>
+  </div>
+<br>
+  <div class="jumbotron">
+	<a href="{% url 'apointmentDetails' id token %}" class="btn btn-primary" style="float:right; font-size:20px;">Go Back</a>
+	<div class="header1">Update Presciption </div><hr>
+
+	<form class="form-inline" method="post" action="">
+		{% csrf_token %}
+		
+		<div class="form-inline">
+		<div class="form-group">
+		  <label for="diagnose">Diagnosis :</label>
+		  <select style="margin-left: 40px; width:325px;" name="select-diagnose" placeholder="Select-Diagnose" multiple id="countries" >
+			<option selected   value="{{ update_complain }}" default="">{{update_complain}}</option> 
+			<option  disabled="true"  default="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Disease</option> 
+			{% for d in diagnose_dropdown %}
+			<option  value="{{ d.complain.name }}">{{ d.complain.name }} </option>    
+			{% endfor %}
+		  
+		  </select>
+
+		</div>
+	  
+		<div class="form-group">
+		  <label for="medicine" style="margin-left: 100px;">Medicine :</label>
+		  <input type="text" style="margin-left: 50px;width:300px;" required="True" class="form-control" placeholder="Medicine Name" id="medicine" name="medicine" value="{{ pres.medicine }}">
+		</div>
+	  </div>
+	 
+  
+	  <div class="form-inline" style="margin-top:50px;"> 
+		<div class="form-group" >
+		  <label for="potency" >Potency :</label>
+		  <select style="margin-left: 50px; width:325px;" required="True" id="potency" name="potency">
+			<!-- Options for potency -->
+			<option value="{{pres.potency}}">{{pres.potency}}</option>
+			<option disabled  value>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>
+						  <option value="Q">Q</option>
+						  <option value="3X">3X</option>
+						  <option value="6X">6X</option>
+						  <option value="6">6</option>
+						  <option value="30">30</option>
+						  <option value="200">200</option>
+						  <option value="1 M">1 M</option>
+						  <option value="10 M">10 M</option>
+						  <option value="0/1">0/1</option>
+						  <option value="0/2">0/2</option>
+						  <option value="0/3">0/3</option>
+						  <option value="0/4">0/4</option>
+						  <option value="0/5">0/5</option>
+						  <option value="0/6">0/6</option>
+						  <option value="0/7">0/7</option>
+						  <option value="0/8">0/8</option>
+						  <option value="0/9">0/9</option>
+						  <option value="0/10">0/10</option>
+						  <option value="0/11">0/11</option>
+						  <option value="0/12">0/12</option>
+						  <option value="0/13">0/13</option>
+						  <option value="0/14">0/14</option>
+						  <option value="0/15">0/15</option>
+						  <option value="0/16">0/16</option>
+		  </select>
+		</div>
+	  
+		<div class="form-group">
+		  <label style="margin-left: 100px;" for="start_date">Start Date :</label>
+		  <select required="True" style="margin-left: 50px;width:290px;" id="start_date" name="start_date">
+			<!-- Options for start date -->
+			<option value="{{pres.start_date}}">{{pres.start_date}}</option>
+			<option disabled  value>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>
+			<option value="Today">Today</option>
+			<!-- <option value="1 Day">1 Day</option> -->
+			<option value="2nd Day">2nd Day</option>
+			<option value="3rd Day">3rd Day</option>
+			<option value="4th Day">4th Day</option>
+			<option value="5th Day">5th Day</option>
+			<option value="6th Day">6th Day</option>
+			<option value="7th Day">7th Day</option>
+			<option value="10th Day">10th Day</option>
+			<option value="15th Day">15th Day</option>
+			<option value="20th Days">20th Day</option>
+			<option value="25th Day">25th Day</option>
+			<option value="30th Day">30th Day</option>
+			<option value="45th Day">45th Day</option>
+			<option value="60th Day">60th Day</option>					
+  
+		  </select>
+		</div>
+	  </div>
+	  
+	  <div class="form-inline" style="margin-top:50px;">
+		<div class="form-group">
+		  <label for="dose">Dose :</label>
+		  <select style="margin-left: 70px;" required="True" id="dose" name="dose">
+			<!-- Options for dose -->
+			<option value="{{pres.dose}}">{{pres.dose}}</option>
+
+			<option disabled  value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>				
+			<option value="Single Dose">Single Dose</option>
+			<!-- <option value="1 Day">1 Day</option> -->
+			<option value="3 Dose Half-Hour Interval">3 Dose Half-Hour Interval</option>
+			<option value="2 Dose Half-Hour Interval">2 Dose Half-Hour Interval</option>
+			<option value="3 Dose 1 Hour Interval">3 Dose 1 Hour Interval</option>
+			<option value="2 Dose 1 Hour Interval">2 Dose 1 Hour Interval</option>
+			<option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 1 Dose </option>
+			<option value="Morning-Afternoon-Evening -- Per 2 Dose">Morning-Afternoon-Evening -- Per 2 Dose</option>
+			<option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 3 Dose</option>
+		   
+		  </select>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="duration" style="margin-left: 100px;">Duration :</label>
+		  <select required="True"style="margin-left: 60px;width:290px;" id="duration" name="duration">
+			<!-- Options for duration -->
+			<option value="{{pres.durations}}">{{pres.durations}}</option>
+			<option disabled  value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Here </option>
+						  <option value="7 Days">7 Days</option>
+						  <option value="15 Days">15 Days</option>
+						  <!-- <option value="14 Days">14 Days</option> -->
+						  <option value="21 Days">21 Days</option>
+						  <option value="30 Days">30 Days</option>
+						  <!-- <option value="1 Month">1 Month</option> -->
+						  <option value="45 Days">45 Days</option>
+						  <option value="2 Months">2 Months</option>
+						  <option value="3 Months">3 Months</option>
+						  <!-- <option value="4 Months">4 Months</option> -->
+						  <!-- <option value="5 Months">5 Months</option> -->
+						  <!-- <option value="6 Months">6 Months</option> -->
+  
+		  </select>
+		</div>
+	  </div>
+  
+	  <div class="form-inline" style="margin-top:50px;">
+		<div class="form-group">
+		  <label for="note">Note :</label>
+		  <textarea style="margin-top:5px; margin-left:110px;" id="note" name="note" rows="6" cols="35" >{{pres.note}}</textarea>
+		</div>
+	  
+		<button  style="margin-left:120px;"type="submit" class="form-control btn btn-primary btn-lg">Update</button>
+	  </div>
+	  </form>
+  
+
+
+  </div>
+
+
+</main>
+
+
+            
+      
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+	// new MultiSelectTag('countries')  // id
+	new MultiSelectTag('countries', {
+	 rounded: true,    // default true
+	 shadow: true,      // default false
+	 placeholder: 'Search',  // default Search...
+	 onChange: function(values) {
+		 console.log(values)
+	 }
+ })
+ </script>
+</body>
+</html>
+
+ 

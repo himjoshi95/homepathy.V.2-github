@@ -1,0 +1,246 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>BILL INVOICE</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        } 
+    </style>
+    <!-- Custom styles for this template -->
+	<link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+    <br><br>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light col-lg-12 col-12 p-0">
+        <!-- <a class="navbar-brand" href="#" style="margin-left: 40px;">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+
+                                                <!-- Homeo Bhagwat Gita  -->
+            {% comment %} <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 80px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Homeo Bhagavad Gita
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'quote' %}">Causative Factors </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'Gnm_Sbs_Conflicts' %}"> Organs and Conflicts </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'book' %}"> Medicine Essence</a>
+                </div>
+              </li> {% endcomment %}
+
+                                                    <!-- New CASE  -->
+            {% comment %} <li class="nav-item active">
+              <a class="nav-link"  href="{% url 'newcase' %}" style="margin-left: 20px;">New Case <span class="sr-only">(current)</span></a>
+            </li> {% endcomment %}
+            <li class="nav-item active">
+              <a class="nav-link btn" style=" margin-left: 150px;" href="{% url 'new_case_one' %}" style="margin-left: 30px;">New Case <span class="sr-only">(current)</span></a>
+            </li>
+
+                                                       <!-- Medicine -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Medicine
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/list_medicine/">Medicine List </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/add_medicine/"> Add Medicine</a>                
+              </li>
+
+
+
+                                                <!-- STAFF  -->
+
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'allstaff' %}">All Staff</a>                
+              </div>
+            </li>
+
+                            <!-- CERTIFICATE  -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Certificate
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item"  href="{% url 'addpatient' %}">Bill Invoice</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'previous_issued_invoice' %}">Previous Issued Invoices</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'addcertificate' %}">Other Certificates</a></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'previous_issued_certificate' %}">Previous Issued Certificates</a>               
+               </div>
+            </li>
+
+                                <!-- PRICING -->
+            
+            <li class="nav-item">
+              <a class="nav-link" style="margin-left: 20px;" href="{% url 'pricing' %}">Doctor Fees</a>
+            </li>
+
+                                     <!-- COLLECTION  -->
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="margin-left: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Today's Collections
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'dombivali_collection' %}"> Dombivali Branch </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'mulund_collection' %}"> Mulund Branch</a>              
+                </div>
+            </li>
+
+                            <!-- DIAGNOSIS HISTORY  -->
+
+            <li class="nav-item">
+              <a class="nav-link" style="margin-left: 20px;" href="{% url 'diagnosis_history' %}">Diagnosis History</a>
+            </li>
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+<br><br>
+
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+  <div class="jumbotron">
+    <p style="color:red;"><b>Note</b> : You can edit the Details before generating any Certificate<p>
+
+    <hr style="border: 1px solid blue;">
+    
+    {% if obj.date2 %}
+
+    <a href="{% url 'regen_medical_certificate_pdf' id=obj.id %}" style="margin-left:10px" class="btn btn-primary">MEDICAL CERTIFICATE</a> 
+    <a href="{% url 'regen_fitness_certificate_pdf' id=obj.id %}" style="margin-left:30px" class="btn btn-primary">FITNESS CERTIFICATE</a> 
+    <a href="{% url 'regen_unfit_certificate_pdf' id=obj.id %}" style="margin-left:30px" class="btn btn-primary">UNFIT  CERTIFICATE</a>
+    <a href="{% url 'regen_travelling_certificate_pdf' id=obj.id %}" style="margin-left:30px" class="btn btn-primary">TRAVELLING CERTIFICATE</a>
+    {% else %}
+    <a href="{% url 'regen_fitness_certificate_pdf' id=obj.id %}" class="btn btn-primary">FITNESS CERTIFICATE</a> 
+    <a href="{% url 'regen_unfit_certificate_pdf' id=obj.id %}" class="btn btn-primary">UNFIT  CERTIFICATE</a>
+    <a href="{% url 'regen_travelling_certificate_pdf' id=obj.id %}"  class="btn btn-primary">TRAVELLING CERTIFICATE</a>
+     {% endif %}
+    <hr style="border: 1px solid blue;">
+       
+    
+    <br>
+    <div class="header">REGENERATE CERTIFICATES</div>
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+        <select readonly name="patient" required="True" id="id_patientid" class="form-control">
+            <option value="{{obj.patient}}">{{obj.patient}}</option>
+            <!-- <option disabled value name="Selectbranch" default="">Select Case Paper No.</option>
+            {% for d in data %}
+            <option  value="{{ d.pk }}">{{ d.case }} </option>    
+            {% endfor %}     -->
+        </select>
+        <br><br>
+        <label for="diagnose1"><h4>Diagnose (1) </h4></label><br>
+        <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose1" value="{{ obj.diagnose1 }}">
+    
+        <br>
+        <label for="diagnose2"><h4>Diagnose (2)</h4></label><br>
+        <input type="text" class="form-control"  placeholder="Diagnose"  name="diagnose2" value="{{ obj.diagnose2 }}">
+        <br>   
+        <label for="diagnose3"><h4>Diagnose (3)</h4></label><br>
+        <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose3" value="{{ obj.diagnose3 }}">
+        <br>
+        <label ><h4>Date</h4></label><br>
+        <input type="date" required="True" class="form-control" name="date1" value="{{ obj.date1|date:'c' }}">
+        <br>
+    
+        <label ><h4>Rest From</h4></label><br>
+        <input type="date"  class="form-control" name="date2" value="{{ obj.date2|date:'c' }}">
+        <br>
+        <label><h4>Rest Till</h4></label><br>
+        <input type="date"  class="form-control"  name="date3" value="{{ obj.date3|date:'c' }}">
+        <br>
+        <label ><h4>Resume Date</h4></label><br>
+        <input type="date"class="form-control"  name="date4" value="{{ obj.date4|date:'c' }}">
+        <br>
+        <label for="month"><h4>Duration </h4></label><br>
+        <input type="text"  class="form-control" placeholder="Number of Months" id="month" name="month" value="{{ obj.month }}">
+        <br><br><br>
+        <button type="submit" class=" form-control btn btn-success" >Submit</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    
+    
+    
+    
+    
+     
+        
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+{% comment %} <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function () {
+		$('#id_patientid').select2();
+
+	});
+</script>
+
+</body>
+</html>

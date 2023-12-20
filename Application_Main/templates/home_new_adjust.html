@@ -1,0 +1,275 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    
+    
+   
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href = "https://unpkg.com/swiper@7/swiper-bundle.min.css">
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+
+
+
+    <style>
+
+        .line-one {
+             /* Adjust the color as needed */
+           
+             border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+             width: 15%;
+            margin-top: 12px; /* Adjust the top margin as needed */
+            margin-bottom: 24px; /* Adjust the bottom margin as needed */
+           
+        }
+    
+    </style>
+    
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+    
+<section class="home" id="home">
+
+    <div class="slide">    
+    <video class="vdo" preload="auto" control loop autoplay muted><source src="../static/images/wings.mp4" type="video/mp4"></video>
+    </div>   
+
+   
+     <div class="card" >
+        <span class="heading" >For Appointments</span>
+        <div class="line"></div>
+        <br>
+        <span class="heading1"  >" Call Us "</span>
+        
+        <div class="container1">
+
+            {% for b in branch %}                           
+                           
+							 <div class="plan">
+								<div style=" font-size:20px;  background: #AFDBF5;border: solid 3px white; padding: 20px;border-radius:5px; width:230px;"><b>{{b.branch_name}}</b></div>
+								<div class="line"></div>
+                                <ul >
+									<li ><h4> <img class="img2" src="{% static 'images/phone.png' %}" > {{b.contact_number_one}}</h4></li>
+									{% if b.contact_number_two %}
+									<li style="font-size:20px;"><h4>{{b.contact_number_two}}</h4></li>
+									{% endif %}									
+								</ul>								
+							</div>	 
+                            {% endfor %}
+
+
+        </div>
+
+        <h4 id="visite"  data-aos="fade-right" style="text-decoration-style:italic; color: black;">To Visit Us<span class="w5"><i class='fa fa-hand-point-right' style='font-size:20px;color:red'></i>  click the Link  </span> &nbsp;&nbsp;<a href="https://www.wingshomeopathy.com/" class="btn btn-brand me-2"> Wings Classical Homeopathy</a></h4>
+    </div>
+
+        <div class="card-two" >
+            <span class="heading" >About Doctor</span>
+            <div class="line"></div>
+            <br>
+            <span class="heading1" >" Service to the Patient is Service to Nation "</span>
+           
+            
+                <br> <br>
+                <img src="{% static '/images/Dr_santosh_yadav.png' %}" alt="My image">
+				<h3 class="dr1">Dr. Santosh K Yadav</h1>
+				<h3 class="dr2">M.D. (Homeopathy)</h3>
+				<h3 class="dr2">Ph.D.(Homeopathy)</h3>
+                    <br>
+                <h4>About Dr. Santosh K Yadav</h4>
+				<p class="mt-3 mb-4" style="color: black; font-size:13px;"><b>Dr. Santosh K Yadav is a consultant homeopathic doctor is flourishing homeopathic clinical practice in Dombivali and Mulund <span class="year">since 2000</span>. All across India patient consulting him from various state and world wide. he is known too thousands of patients as a kind and lively homeopathy doctor.</b>
+					<br><br>
+				   <b> He is president of Wings medical foundation.
+					He completed his BHMS (Bachelor of Homeopathic Medicine & Surgery) from Amravati university and done his post graduation( M.D Homoeopathy ) from aurangabad university.He also done Ph.D. in Homoeopathy field .</b>
+				</p>
+            
+        </div>
+
+        <div class="card-three" >
+            <span class="heading" >Our Portfolio</span>
+            <div class="line"></div>
+            <br>
+            <div class="room" id="room">
+                <div class="swiper room-slider">
+
+                    <div class="swiper-wrapper">
+                        {% for d in data %}
+            <div class="swiper-slide slide">
+                <div class="image">
+                    <img src="{{d.images.url}}" alt="">
+                </div>                
+            </div>
+			{% endfor %}
+           
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+
+
+           
+
+
+        </div>
+
+    
+    
+
+
+
+
+     </div>
+
+    
+
+    
+
+
+    
+</section>
+
+<br><br>
+<footer class="bg-dark">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-3 col-sm-6">                   
+                    
+                    <p style="font-size:12px;">" Service To Patient is Service To Nation "</p>
+                    <div class="line-one"></div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-sm-6">
+                    <br>
+                    <p class="mb-0 text-white" style="font-size:15px;"><b>SERVICES</b></p>
+                    <div class="line-one"></div>
+                    <p style="font-size:12px;">All Types Of Chronic Diseases.</p>
+                   
+                    
+                </div>
+                
+                <div class="col-lg-3 col-sm-6">
+                    <br>
+                    <p class="mb-0 text-white" style="font-size:15px;"><b>DOMBIVALI  Branch-1</b></p>
+                    <div class="line-one"></div>
+                    <ul>
+                        <li style="font-size:12px;">Address	:	102, "Sanvi Appartment", 1st Floor,
+                            Near Shiv Sena Office, Gupte Road, Dombivali (W).</li>
+                        <li style="font-size:12px;">Time	:<div>	9.30 am to 2 pm </div> 
+                            <div> 5.30 pm to 10 pm.</div>
+                        <li style="font-size:12px;">Tel	:	<div>0251 - 2492081 / 2484950</div>
+                            Mobile	:<div>+91-8080899990, +91 9892064974</div>
+                            Email	:<div>	wingshomeopathy@gmail.com</div>
+                            <div>Visit Us : <a href="www.wingshomeopathy.com">www.wingshomeopathy.com</a></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <br>
+                    <p class="mb-0 text-white" style="font-size:15px;"><b>MULUND  Branch-2</b></p>
+                    <div class="line-one"></div>
+                    <ul>
+                        <li style="font-size:12px;">Address	:	Kapeesh Mall, Shop No. 17 ,18, 19, & 20, 1st Floor, M.G. Road,
+                            Near Mulund Railway Station, Mulund (W).</li>
+                        <li style="font-size:12px;">Time	:	<div>2.30 pm to 5 pm.</div>
+                            <div>Sunday- 10.30 am to 4.30 pm.<div>
+                                <div style="color: yellow;">Thursday -Closed</div>
+                            </li>
+                        <li style="font-size:12px;">Tel	:<div>	022 - 25628989</div> 
+                            Mobile	:<div>	+91-8080848403, +91 9892064974</div>
+                            Email	:<div>	wingshomeopathy@gmail.com</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-auto">
+                    <p class="mb-0" style="font-size:12px;">© Copyright Wings Classical Homeopathy. All Rights Reserved.</p>
+                </div>
+                <div class="col-auto">
+                    <p class="mb-0" style="font-size:12px;">Designed with 💜 By <a href="https://www.snteducation.com/">Snt Super Net Technology Munirka Delhi(New)</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<script>
+	var swiper = new Swiper(".room-slider",{
+		spaceBetween: 20,
+		grabCursor:true,
+		loop:true,
+		centeredSlides:true,
+		autoplay:{
+			delay: 1500,
+			disableOnInteraction: false,
+		},
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		pagination: {
+			el: ".swiper-pagination",
+			clickable: true,
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: 1,
+			},
+			768: {
+				slidesPerView: 2,
+			},
+			991: {
+				slidesPerView: 3,
+			},
+		},
+	});
+	
+</script>
+
+
+
+
+
+
+
+<script>
+    let menu = document.querySelector('#menu-btn');
+let navbar = document.querySelector('.header .navbar');
+
+menu.onclick = () =>{
+    menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+}
+
+window.onscroll = () =>{
+    menu.classList.remove('fa-times');
+    navbar.classList.remove('active');
+
+}
+</script>
+</body>
+</html>

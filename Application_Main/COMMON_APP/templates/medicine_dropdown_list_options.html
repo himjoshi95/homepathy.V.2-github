@@ -1,0 +1,4 @@
+<option value="">Please Select from the list</option>
+{% for m in medicine %}
+<option value="{{ m.pk }}">{{m.medicine.medicine_name }}</option>
+{% endfor %}

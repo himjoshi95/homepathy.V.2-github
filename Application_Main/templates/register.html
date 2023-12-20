@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		input,select{
+			width: 300px!important;
+			border-radius: 0px!important;
+		}
+		form{
+			margin: 20px auto;
+			width: 300px;
+			height: 450px;
+			text-align: center;
+		}
+		select{
+			height:30px;
+		}
+		button{
+			width: 140px;
+			border-radius: 0px!important;
+		}
+		.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+
+	</style>
+</head>
+<body>
+
+  {% include "nav.html" %}
+<br>
+  <div class="container">
+	
+	{% if messages %}
+		{% for message in messages %}
+		<div class="success-msg">
+			<i class="fa fa-check"></i>
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+
+</div>
+<br>
+<!-- Form -->
+<div class="container">
+<h1>Register</h1>
+<div class="row">
+<form action="/register" method="POST">
+	{% csrf_token %}
+ 	<input type="text" name="name" placeholder="Full Name" required="" class="form-control"><br>
+ 	<input type="text" name="username" placeholder="Username" required="" class="form-control"><br>
+ 	<input type="email" name="email" placeholder="Email"  class="form-control"><br>
+ 	<input type="tel" name="phone" placeholder="Phone Number" required="" class="form-control"><br>
+ 	<input type="password" name="pass1" placeholder="Password" required="" class="form-control"><br>
+ 	<input type="password" name="pass2" placeholder="  Confirm Password" required="" class="form-control"><br>
+
+
+
+
+  <div class="form-group">
+  	<p align="left">Choose Branch</p>
+ <select name="post" >
+	         <!-- <option default="">Select Gender</option> -->
+			 <option  name="Selectbranch" default="">Select Branch</option>
+	         <option  name="Branch1">Dombivali </option>
+	         <option  name="Branch2">Mulund</option>
+	         </select><br>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+</div>
+</div>
+<!--JS Library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

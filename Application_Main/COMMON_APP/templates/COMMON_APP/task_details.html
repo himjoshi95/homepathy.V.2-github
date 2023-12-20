@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/itemsvendors.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <main role="main"  >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="jumbotron" style="width:1150px;"> 
+            <p style="text-align:center;color:#337ab7;"><b style="font-size:25px;">TASK DETAILS</b><p><hr>
+            
+                    
+                   
+                        
+
+                            
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Serial No.</th>
+                                            <th>Task</th>
+                                            <th>Assigned To</th>
+                                            <th>Assigned On</th>
+                                            <th>Status</th>                                            
+                                            <th>Change Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for task in task_details %}
+                                            <tr>
+                                                <td>{{forloop.counter}} .</td>
+                                                <td>{{ task.task }}</td>
+                                                <td>{{ task.assign_To }}</td>
+                                                <td>{{ task.created_at|date:"d M,Y" }}</td>
+                                                {% if task.completed %}
+                                                <td style="color: #018749"><b>COMPLETED</b></td>
+                                                {% else %}
+                                                <td style="color:#AA0000"><b>PENDING</b></td>
+                                                {% endif %}
+                                                
+                                                {% if task.completed %}
+                                                <td></td>
+
+                                                {% else %}
+                                                <td><button ><a href="{% url 'task_complete' task.id %}">Click here</a></button></td>
+                                                {% endif %}
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                
+                                                <td></td>
+                                               
+                                                <td></td>
+                                                <td>No Tasks Assign Yet</td>
+                                                <td></td>
+                                                <td></td>
+
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                      
+        
+                        
+                    </div>
+
+                
+
+    </main>
+
+
+     
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		input,select{
+			width: 300px!important;
+			border-radius: 0px!important;
+		}
+		form{
+			margin: 50px auto;
+			width: 300px;
+			height: 450px;
+			text-align: center;
+		}
+		select{
+			height:30px;
+		}
+		button{
+			width: 140px;
+			border-radius: 0px!important;
+			margin-top: 20px;
+		}
+	</style>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+  {% include "nav.html" %}
+
+<!-- Form -->
+<div class="container">
+    <br>
+    <h2>Create Appointment</h2>
+<div class="row">
+
+<form action="" method="POST">
+	{% csrf_token %}
+ 	<input type="date" name="date" placeholder="Date" required="" class="form-control"><br>
+ 	<input type="time" name="time" placeholder="time" required="" class="form-control"><br>
+ 	 <div class="form-group">
+  	<p align="left">Patient Case Paper Number</p>
+ <select name="patient" required id="id_patientid" class="form-control">
+	<option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+ 	{% for data in patient_names %}
+	   <option  value="{{ data.pk }}">{{ data.case }} </option>
+	     {% endfor %}
+	    </select><br>
+  </div>
+   <p align="left">Docter Name</p>
+ <select name="docter" >
+ 	{% for data in doctor_names %}
+	   <option  value="{{ data.pk }}">{{ data.name }} </option>
+	     {% endfor %}
+	    </select><br>
+  <div class="form-group">
+  	<p align="left">Status</p>
+ <select name="status" >
+	         <!-- <option default="">Select Gender</option> -->
+	         <option  value="General">General </option>
+	         <option  value="Repeat Medicine">Repeat Medicine</option>
+			 <option  value="Courier Medicine">Courier Medicine</option>
+	         </select><br>
+	         <button type="submit" class="form-control btn-primary">Submit</button>
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+
+  
+  <!--<button type="submit" class="btn btn-primary">Submit</button>--->
+</form>
+</div>
+</div>
+
+<!--JS Library -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+<script>
+	$(document).ready(function () {
+		$('#id_patientid').select2();
+
+	});
+</script>
+</body>
+</html>

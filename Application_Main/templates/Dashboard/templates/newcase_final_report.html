@@ -1,0 +1,528 @@
+{% load static %}
+{% load jsignature_filters %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style type="text/css">
+	 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 200%;
+    }         
+
+  .header1{
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+  }
+
+  .table-one {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table-one tr{
+    height: 20px;
+  }
+
+  .table-one td {
+    font-size:18px;
+  }  
+
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    
+   <div class="container" style="margin-top: 30px;">
+    
+    <div class="jumbotron" style="margin-top:50px;">
+     <!-- <h1 style="margin-top: 20px; text-align:center; ">New Case Report <a style="color:white;" href="{% url 'gen_pdf_new' pk=case_id %}" class="btn btn-warning btn-lg float-right">Generate Pdf  &nbsp; &nbsp;<i style="color:whitesmoke" class="fa fa-download"></i></a></h1><hr>
+
+      -->
+      <div class=header1> New Case Report </div><hr>
+
+      <p style="margin-top:30px; text-align:center; font-size:20px; color: #337ab7; font-weight: bolder; font-family: helvetica; text-decoration:underline;">Patient's Details</p>
+
+      <table class="table-one">     
+        <tr>
+            <td>
+              
+                {% if patient_details.patient_images %}
+                <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="90" height="90" border="5">
+                
+          
+                  {% else %}
+                  <p style="background-color:white; text-align:center; padding: 8px;width:100px; "><b>Photo Not Uploaded</b></p>
+                  {% endif %}
+             
+            </td>
+            
+            <td style="text-align:left;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+            
+            
+            <td></td>
+            <td></td>
+            <td style="text-align:left;"><b>Date :</b>&nbsp;{{today|date:"d/m/Y"}}</td>
+            
+            
+        </tr>   
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>     
+        
+        <tr>
+            <td style="text-align:left;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+            
+            <td style="text-align:left;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+           
+            <td style="text-align:left;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+            {% if patient_details.height %}
+            <td  style="text-align:left;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            <td  style="text-align:left;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+              {{patient_details.weight}} Kgs
+
+              {% else %}
+                  -
+              {% endif %}
+            
+            
+            </td>
+            
+            
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>  
+        
+        <tr >
+          <td><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+          <td></td>
+          <td><b>Contact Number :</b> {{patient_details.phone}}</td>
+        </td></td>
+        <td></td>
+
+
+        </tr>
+
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>  
+
+        <tr>
+          <td><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+          <td><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+          
+          <td><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+          <td></td>
+          <td></td>
+
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>  
+
+        <tr>
+          <td><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+          <td></td>
+          <td><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+          <td></td>
+          <td></td>
+
+        </tr> 
+        
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>
+
+        <tr>
+          <td><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>
+
+       
+   
+</table>
+
+    </div>
+
+    <div class="jumbotron">
+
+      <!--Table 1 - Present Complaints  -->
+      
+      <p style=" text-align:center; font-size:30px; color: #337ab7; font-weight: bolder; font-family: helvetica; text-decoration:underline;">Present Complaints</p>
+      
+      <div class="display_table">
+        <table class='table'>
+          <thead>
+            <tr>
+              <th style="font-size:17px;">Serial No.</th>
+              <th style="font-size:17px;">Complain</th>
+              <th style="font-size:17px;">Duration</th>
+              <th style="font-size:17px;">Date</th>                                
+              <th style="font-size:17px;">Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in table1 %}
+            <tr>
+              <td style="font-size:16px;">{{forloop.counter}}.</td>          
+                      <td style="font-size:16px;">{{t.complain.name}}</td>
+                      <td style="font-size:16px;">{{t.duration}} {{t.duration_suffix}}</td>
+                      <td style="font-size:16px;">{{t.date|date:"d-m-Y"}}</td>
+                                                      
+                      <td style="font-size:16px;">{% if t.remarks %} {{t.remarks}} {% else %} <b><i class="fa-solid fa-dash"></i><b> {% endif %}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+      </div>
+
+
+    </div>
+
+        
+   
+      
+               
+        
+       
+             
+          
+          <div class="container" style="margin-top: 20px;">
+          
+              
+             
+
+              <h2 style="margin-top: 20px; color: antiquewhite;">Past History :</h2><hr>
+              <table style="width:1050px">
+                  <tr class="bg-primary" style="height: 60px;" >
+                   <th   style=" width: 300px; text-align: center; color: antiquewhite;">Serial No.</th>
+                      <th  style=" width: 300px; text-align: center; color: antiquewhite;">Complain</th>
+                      <th  style=" width: 300px; text-align: center; color: antiquewhite;">Last Diagnosed</th> 
+                      <th  style=" width: 300px; text-align: center; color: antiquewhite;">Duration</th>                                
+                      <th  style=" width: 300px; text-align: center; color: antiquewhite;">Remarks</th>
+                  </tr>
+                  {% for t in table3 %}
+                  <tr  style="height: 50px; background: white;">
+
+                     <td  class="column2" style="text-align: center;">{{forloop.counter}}.</td>          
+                     <td  class="column2" style="text-align: center;">{{t.complain.name}}</td>
+                     <td  class="column2" style="text-align: center;">{{t.last_diagnosed}} {{t.last_suffix}}</td>
+                     <td  class="column2" style="text-align: center;">{{t.duration}} {{t.duration_suffix}}</td>                                
+                     <td  class="column2" style="text-align: center;">{{t.remarks}}</td>
+                      
+                  </tr>
+                  {% endfor %}
+             </table>
+
+
+             <h2 style="margin-top: 20px; color: antiquewhite;">Family Medical History :</h2><hr>              
+            
+              <table style="width:1050px">
+                   <tr class="bg-primary" style="height: 50px;" >
+                    <th style=" width: 300px; text-align: center; color: antiquewhite;">Serial No.</th>
+                      
+                      <th   style=" width: 300px; text-align: center; color: antiquewhite;font-size: 20px;">Relation</th>
+                       <th   style=" width: 300px; text-align: center; color: antiquewhite;font-size: 20px;">Diseases</th>   
+                       <th   style=" width: 300px; text-align: center; color: antiquewhite;font-size: 20px;">Any Other</th>                             
+                       <th   style=" width: 300px; text-align: center; color: antiquewhite;font-size: 20px;">Dead/Alive</th>
+                       <th   style=" width: 300px; text-align: center; color: antiquewhite; font-size: 20px;">Age</th>
+                   </tr>
+                   {% for item1,item2 in list %}
+                   <tr style="height: 80px; background: white;" >
+                    <td  class="column2" style="text-align: center;">{{forloop.counter}}.</td>                     
+  
+                       <td  class="column2" style="text-align: center;">{{item1.relation}}</td>                                                            
+                       <td  class="column2" style="text-align: center;">{{item2}}</td>
+                       <td  class="column2" style="text-align: center;">{{item1.any_other}}</td>                                 
+                       <td  class="column2" style="text-align: center;">{{item1.dead_alive}}</td>
+                       <td  class="column2" style="text-align: center;">{{item1.age}} Years</td>
+                       
+                   </tr>
+                   {% endfor %}
+            
+                </table>
+
+                <h2 style="margin-top: 20px; color: antiquewhite;">Thermal Reaction :</h2><hr>
+
+
+                <table style="width: 1050px;">
+                  <thead>
+                    <tr class="bg-primary" style="height: 80px;">
+                    <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Thermal Reaction Factors <p style="margin-top: 10px; margin-left: 700px;"></p></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr class = "table-light" style="height: 100px;">
+                    
+                    <td class="border-right">
+                      <div class="ex1" style="font-size: 20px;">
+                        {% for m in my_list4 %}
+                        <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                        {% endfor %}
+                    </div>
+                    </td>
+    
+                    
+                  </tr>
+                </table>
+    
+    
+                    <h2 style="margin-top: 20px; color: antiquewhite;">Miasm:</h2><hr>
+    
+                    <table style="width: 1050px;">
+                        <thead>
+                          <tr class="bg-primary" style="height: 80px;">
+                          <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Miasm Examination Factors <p style="margin-top: 10px; margin-left: 700px;"></p></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <tr class = "table-light" style="height: 100px;">
+                          
+                          <td class="border-right">
+                            <div class="ex1" style="font-size: 20px;">
+                              {% for m in my_list3 %}
+                              <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                              {% endfor %}
+                          </div>
+                          </td>
+          
+                          
+                        </tr>
+                      </table>
+    
+    
+
+              <h2 style="margin-top: 20px; color: antiquewhite;">Chief Complaints :</h2><hr>
+              {% for o in table2 %}
+              <dd>
+                  <div class="container text-center" id="border">
+                    <div class="row justify-content-center">
+                     <div class="border" style="background:white;">
+                  <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> <hr>
+                  
+                  <img src="{{ o.signature|signature_base64 }}" alt="{{ table2 }}" />
+                 
+                     </div></div></div>           
+                  
+                </dd>
+                {% endfor %}
+
+               
+              
+                  <h2 style="margin-top: 20px; color: antiquewhite;">Mental Causative Factor :</h2><hr> 
+                  
+                  <table style="width: 1050px;">
+                    <thead>
+                      
+                    </thead>
+                    <tbody>
+                    <tr class = "table-light" style="height: 100px;">
+                      
+                      <td class="border-right">
+                        <div class="ex1" style="font-size: 20px;">
+                          {% for m in my_list1 %}
+                          <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                          {% endfor %}
+                      </div>
+                      </td>
+      
+                      
+                    </tr>
+                  </table>
+
+                  {% for o in mental %}
+                  <dd>
+                      <div class="container text-center" id="border">
+                        <div class="row justify-content-center">
+                         <div class="border" style="background:white;">
+                      <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                      
+                      <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                     
+                         </div></div></div>           
+                      
+                    </dd>
+                    {% endfor %}
+
+                <h2 style="margin-top: 20px; color: antiquewhite;">Mental Personality Character :</h2><hr>
+
+                <table style="width: 1050px;">
+                    <thead>
+                      
+                    </thead>
+                    <tbody>
+                    <tr class = "table-light" style="height: 100px;">
+                      
+                      <td class="border-right">
+                        <div class="ex1" style="font-size: 20px;">
+                          {% for m in my_list2 %}
+                          <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                          {% endfor %}
+                      </div>
+                      </td>
+      
+                      
+                    </tr>
+                  </table>
+                  {% for o in personality %}
+                  <dd>
+                      <div class="container text-center" id="border">
+                        <div class="row justify-content-center">
+                         <div class="border" style="background:white;">
+                      <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                      
+                      <img src="{{ o.signature|signature_base64 }}" alt="{{ personality }}" />
+                     
+                         </div></div></div>           
+                      
+                    </dd>
+                    {% endfor %}
+                <h2 style="margin-top: 20px; color: antiquewhite;">Brief Mind Symptoms :</h2><hr>
+
+                <table style="width: 1050px;">
+                    <thead>
+                        <tr class = "bg-primary" >        
+                            <th style="color:antiquewhite; text-align: center;  font-size: 20px;" scope="col">FAQs </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr class = "table-light" style="height: 100px;">
+                      
+                      <td class="border-right">
+                        <div class="ex1" style="font-size: 20px;">
+                          {% for m in bms %}
+                          <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m.question}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;;">
+                          {% endfor %}
+                      </div>
+                      </td>
+      
+                      
+                    </tr>
+                  </table>
+
+                  {% for o in bms_view %}
+                  <dd>
+                      <div class="container text-center" id="border">
+                        <div class="row justify-content-center">
+                         <div class="border" style="background:white;">
+                      <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                      
+                      <img src="{{ o.signature|signature_base64 }}" alt="{{ bms_view }}" />
+                     
+                         </div></div></div>           
+                      
+                    </dd>
+                    {% endfor %}
+
+          
+               <h2 style="margin-top: 20px; color: antiquewhite;">Personal History :</h2><hr>
+
+              
+               <table style="width: 1050px;">
+                <thead>
+                  <tr class="bg-primary" style="height: 80px;">
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Frequently Asked Questions(FAQs) <p style="margin-top: 10px; margin-left: 700px;"></p></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr class = "table-light" style="height: 100px;">
+                  
+                  <td class="border-right">
+                    <div class="ex1" style="font-size: 20px;">
+                      {% for q in question %}
+                               <p style="margin-top: 4px; margin-left: 50px;" ><b>{{forloop.counter}}.  {{q.question}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;">
+                               {% endfor %}
+                  </div>
+                  </td>
+  
+                  
+                </tr>
+              </table>
+
+              {% for p in personal_history %}
+              <dd>
+                  <div class="container text-center" id="border">
+                    <div class="row justify-content-center">
+                     <div class="border" style="background:white;">
+                  <p style="font-size: 30px;">Date : {{p.signature_date|date:"d M Y"}} </p> 
+                  
+                  <img  src="{{ p.signature|signature_base64 }}" alt="{{ personal_history }}" />
+                 
+                     </div></div></div>           
+                  
+                </dd>
+                {% endfor %} 
+
+
+            
+
+                         
+            
+        </div>       
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script>
+        $(document).ready(function () {
+            $('#id_patientid').select2();
+    
+        });
+    </script>
+    {{ form.media }}
+</body>
+</html>

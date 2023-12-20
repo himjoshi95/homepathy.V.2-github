@@ -1,0 +1,230 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Images</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<style>
+    .box {
+        width: 400px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      .img1{
+        border-radius: 58%;
+    }
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+    .upload-image{
+        margin-left: 400px;
+        margin-top:20px;
+    }
+    @media (max-width: 768px){
+    .box {
+        width: 300px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+    .upload-image{
+        margin-left: 50px;
+        margin-top: 20px;
+    }
+}
+
+    
+   
+
+</style>
+
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <main role="main" class="container">
+    
+        <div class="box">
+            <div class="box1">
+              {% if patient_details.patient_images %}
+              <img src="{{patient_details.patient_images.url}}" class="img1" alt="Avatar" width="70" height="90" border="5">
+              
+        
+                {% else %}
+                <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+                {% endif %}
+            </div>
+            <div class="box2" style="color:black; font-size:20px">
+                <p style="font-size:18px;"><b> {{patient_details.name}} </b></p>
+             <hr style="background-color:blue;">
+            
+             <h4>Case PaperNo. {{patient_details.case}}</h4>
+         <h4>Contact No. {{patient_details.phone}}</h4>
+              
+            </div>
+          </div>
+        
+      <div class="jumbotron" style="margin-top:30px;">
+        <div class="header-past">Upload Images</div>
+        <hr style="border: 1px solid lightblue">
+
+        <form method='POST' action="" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            
+    
+            <div class="upload-image">
+                <label style ="font-size:18px; color:red;">(Please <b>Choose Files</b> to be Uploaded)</label>
+                <br><br>
+                <input required name="images" type="file" multiple class="form-control-file">
+            </div>
+            <br>
+            <button type='submit' class="btn btn-danger btn-lg upload-image">Upload Images</button>
+    
+    
+        </form>
+        <br>
+        <hr  style="border: 1px solid lightblue">
+
+
+        <div class="row">
+            {% for x in datas %}
+            <div class="col-sm-4">
+                <div class="card m-2">
+                <img src="{{x.images.url}}" alt=" " class = "card-img-top" height="200px" onclick="myFunction(this);" >                
+                <h6 style="height:40px; margin-top:20px;">Date: {{ x.date|date:"d M, Y" }}  <a href="{% url 'delete_images' x.id %}" onclick="confirmDelete(event)"><img style="float:right;" src="{% static 'images/del.png' %}" width="25" height="25"></a></h6>
+    
+                </div>
+            </div>
+    
+            {% endfor %}
+        </div>
+    
+        <!-- paginations -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if datas.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          {% for i in datas.paginator.page_range %}
+          {% if datas.number == i %}
+          <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+          {% endif %}       
+          {% endfor%}    
+          {% if datas.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    
+    
+      <div class="container">
+        <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+        <img id="expandedImg" style="width:100%">
+        <div id="imgtext"></div>
+        </div>
+      
+
+
+
+
+
+      </div>
+
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        function myFunction(imgs) {
+          var expandImg = document.getElementById("expandedImg");
+          var imgText = document.getElementById("imgtext");
+          expandImg.src = imgs.src;
+          imgText.innerHTML = imgs.alt;
+          expandImg.parentElement.style.display = "block";
+        }
+        </script>
+        <script>
+        function confirmDelete(event) {
+            if (!window.confirm("Are you sure you want to delete?")) {
+              event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+            }
+          }
+      
+        </script>
+
+    </body>
+    </html>

@@ -1,0 +1,180 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+    .th{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }
+        
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        }
+
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        background-color: whitesmoke;
+        width: 200px;
+        height: 500px;
+        overflow: auto;
+        }
+        tfoot{
+            border-top: 1px solid black;
+        }
+        .card {
+  width: 400px;
+  height: 120px;
+  border-radius: 30px;
+  background: rgb(130, 142, 209);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+.card1 {
+  width: 400px;
+  height: 400px;
+  border-radius: 30px;
+  background: rgb(130, 142, 209);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+    
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    <br>
+   
+
+   <div class="container" style="margin-top: 30px;">
+    <div class="mt-2">     
+        <!-- <h1 class="card-title float-left mt-2" style="color: antiquewhite;" >NEW CASE</h1>  -->
+       
+        <!-- <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a> -->
+    </div>
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+       
+
+       <div class="container">
+        <h1 style="margin-top: 20px; color: antiquewhite;">{{header}} </h1>
+        <!-- <a href="{% url 'familymedical' %}" class="btn btn-primary">Family Medical</a> -->
+        
+        <hr> 
+        
+        <br>
+        <table style="width: 1100px;" >
+            <thead>
+              <tr class = "bg-primary" style="height: 60px;" >        
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">{{table_header}}</th>
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col" colspan="2">Recent... <a href="{% url 'investigation_newone' id=pk %}" class="btn btn-danger">Go Back</a></th>                  
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" style="width: 80px">
+                    <div style="width: 600px;">
+                    <form class="px-md-2" action="" method="POST">
+                        {% csrf_token %}                       
+                        
+                      
+                        {{form|crispy}}
+                        <br><br>
+                        <button type="submit" style="margin-left: 10px;" class="btn btn-primary"> + Add</button>
+                        
+          
+                      </form> 
+                      <br>
+                    </div>  
+                </td>  
+                
+                <td>
+                    <div class="ex3" style="width: 500px; font-size: 20px;">
+                 
+                    {% for d in data %}
+                    
+                    <a style="margin-top: 4px; margin-left: 20px; text-decoration:none; font-size: 18px; color:blue">{{d.name}} <a href="{% url 'delete_investigation' d.id %}"><img style="float:right;" src="{% static 'images/del.png' %}" width="25" height="25"></a>  <hr style="margin-top:3px; margin-bottom: 3px;"></a>    
+                                  
+                        {% endfor %}
+                    </div>
+                </td>
+                    
+                  
+              </tr>
+          </tbody>        
+          <tfoot>
+            <tr class="table-light">
+                <td></td>
+                <td></td>
+            </tr>
+          </tfoot>
+          </table>
+          
+          <br><br>
+         
+           
+          <br><br>
+        </div>       
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script>
+        // new MultiSelectTag('countries')  // id
+        new MultiSelectTag('countries', {
+    rounded: true,    // default true
+    shadow: true,      // default false
+    placeholder: 'Search',  // default Search...
+    onChange: function(values) {
+        console.log(values)
+    }
+})
+    </script>
+  
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/addtransaction.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <main role="main" >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="jumbotron"> 
+            <p style="color:#337ab7; font-size:16px; text-align:center;"><b>ADD PAYMENT DETAILS</b></p><hr>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="payment_method">Payment Method</label>
+                <select id="payment_method" name="payment_method">
+                     
+                     <option value="">Select Here</option>
+                     <option value="CASH">Cash</option>
+                     <option value="ONLINE">Online</option>
+                     <option value="CHEQUE">Cheque</option>
+                    
+                </select>
+                <br>
+                <label for="transaction_detail">Transaction Detail</label>
+                <input type="text" id="transaction_detail" name="transaction_detail" placeholder="Mention Transaction Details">
+                    <br>
+                <label for="remark">Remark</label>
+                <textarea id="remark" name="remark" placeholder="Mention if any Remark"></textarea>
+
+                <br>
+                <label for="images">Upload Image:</label>
+                <input type="file" name="images_two" id="images_two"><br>
+   
+                <br> <br>
+                <input type="submit" style="margin-left:80px; width:100px;"  value="Add">
+            </form>
+        </div>
+
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    
+</body>
+</html>

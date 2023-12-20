@@ -1,0 +1,250 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap'); */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
+
+
+
+body {
+  background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+  
+ 
+  
+  }
+
+  .scrolling-div{
+    font-size: 16px;
+    overflow-x: hidden;
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+  
+  }
+  
+  .scrolling-div::-webkit-scrollbar{
+    width: .8rem;
+  }
+  
+  .scrolling-div::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  
+  .scrolling-div::-webkit-scrollbar-thumb{
+    background: 	#6495ED;
+    border-radius: .5rem;
+  }
+
+
+/*Align the title to the center of the page*/
+
+
+.display_table{  
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 20px;
+	box-shadow: 10px 12px 20px 6px #2e6da4;
+}
+
+.header {
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+}
+
+
+
+.success{
+  list-style: none;
+  background-color: #2e6da4;
+  color: white;
+  box-shadow: 8px 8px 8px #e61c66;
+  text-align: center;
+}
+
+
+
+
+
+
+.scrolling-div {
+  margin-top: 10px;
+  max-height: 300px; /* Set the maximum height of the div */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc;
+  padding: 5px;
+  background-color: #B8CAE4;
+}
+
+
+/* Add this CSS for the formset-one */
+
+/* Style for the form */
+
+.formset-one {
+    max-width: 1300px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for the table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for form input elements */
+  .formset-one input[type="text"],
+  .formset-one select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Style for the submit button */
+  .formset-one input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 500px;
+  }
+  
+  .formset-one input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+
+ /* Style for the form */
+.formset {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+}
+
+
+/* Style for the form input elements */
+.formset input[type="number"]
+ {
+  width: 80%; /* Allow input fields to grow and occupy available space */
+  padding: 5px;
+  margin: 3px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  
+}
+
+/* Style for the submit button */
+.formset input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+
+/* Style for the inner table */
+.inner-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.inner-table th, .inner-table td {
+  padding: 5px;
+  text-align: left;
+}
+
+.inner-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.inner-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+.container-new {
+    display: flex;  /* Use flexbox to align the divs side by side */
+}
+
+.left-div{
+    width: 50%;  /* Each div takes up 50% of the container width */
+    padding: 30px;  /* Add padding for spacing */
+    
+}
+
+.right-div {
+    width: 50%;
+    padding: 10px;
+    border-left: 1px solid #ccc; /* Add a left border for separation */
+    margin-left: 0px;
+    margin-right:1px; /* Create spacing between the divs */
+}   
+
+.image-box {
+    width: 200px; /* Set the width of the image box */
+    height: 230px; /* Set the height of the image box */
+    margin: 20px; /* Add margin for spacing between boxes */
+    border: 2px solid #ccc;
+     /* Add a border for separation */
+}
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+

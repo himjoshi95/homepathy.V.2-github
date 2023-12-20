@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/itemsvendors.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<style>
+
+    .modalthree {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content-three {
+        background-color: #fefefe;
+        margin: 0% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 50%; /* 80% of the width */
+    }
+
+   
+    
+</style>
+
+
+
+</head>
+<body>
+    <main role="main" class="container" >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="jumbotron" style="width:1150px;"> 
+            <p style="text-align:center;color:#337ab7;"><b style="font-size:25px;">VENDORS</b><p><hr>
+                <div class="container-new">
+                    <div class="left-div">
+                        <p style="color:#337ab7; "><b style="font-size:18px;" >Add Vendor </b><p>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form}}
+            
+                            <input type="submit" style="margin-left:80px; width:100px;"  value="Add">
+                        </form>
+                       
+                    </div>
+
+                    <div class="right-div">
+                        <p style="color:#337ab7; "><b style="font-size:18px;" >Vendor Details </b><p>
+
+                            <div class="scrolling-div-one">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Serial No.</th>
+                                            <th>Vendor Name</th>
+                                            <th>Contact Number</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for vendor in vendor_details %}
+                                            <tr>
+                                                <td>{{forloop.counter}} .</td>
+                                                <td>{{ vendor.vendor_name }}</td>
+                                                <td>{{ vendor.mobile_number }}</td>
+                                                <td>{{ vendor.email }}</td>
+                                                <td>{{ vendor.address }}</td>
+                                                <td><button class="openPopupthree" data-vendor-id="{{vendor.id}}"> <i class="fa fa-edit" style="font-size:24px"></i></button>
+                                                   
+                                                    <div id="myModalthree" class="modalthree">
+                                                        <div class="modal-content-three">
+                                                            <span class="closethree"><button style="float:right; font-size:20px;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                                                            <iframe src="{url 'medicines_vendors_update' vendor.id }" width="100%" height="500"></iframe>
+                                                        </div>
+                                                   
+                                                    </div>   
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td>No medicine data available.</td>
+                                                <td>.</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+        
+                        
+                    </div>
+
+                </div>
+        </div>
+
+    </main>
+
+<script>
+
+    var modalthree = document.getElementById('myModalthree');
+    var btnthree = document.getElementsByClassName("openPopupthree");
+    var spanthree = document.getElementsByClassName("closethree")[0];
+
+    for (var i = 0; i < btnthree.length; i++) {
+        btnthree[i].onclick = function() {
+            var vendorId = this.getAttribute("data-vendor-id");
+            var iframe = document.querySelector("#myModalthree iframe");
+            var url = "{% url 'medicines_vendors_update' 9999 %}".replace('9999', vendorId); // Replace a placeholder with the actual stock ID
+            iframe.src = url;
+            modalthree.style.display = "block";
+        }
+    }
+
+    spanthree.onclick = function() {
+    modalthree.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+    if (event.target == modalthree) {
+        modalthree.style.display = "none";
+    }
+    }
+  
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,859 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+
+:root{
+    --primary: #0077b6;
+    --secondary: #48cae4;
+    --black: #000000;
+    --white: #fff;    
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: none;
+    transition: .2s linear;
+}
+body{
+    background: #4a9acc;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+
+}
+
+html::-webkit-scrollbar{
+    width: .8rem;
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: var(--primary);
+    border-radius: .5rem;
+}
+section{
+    padding: 5rem 7%;
+    
+}
+
+.heading{
+    font-size: 4rem;
+    color: var(--primary);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+}
+
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    background:  var(--primary);
+    border-radius: .5rem;
+    color: var(--white);
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background: var(--secondary);
+}
+
+/* header */
+
+.header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: #404858;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 9% ;
+}
+
+.header .logo{
+    font-size:  2rem;
+    font-weight: bolder;
+    color: var(--white);
+}
+
+.header .logo i{
+    color: var(--white);
+    padding-right:  .5rem;
+}
+
+.header .navbar a{
+    font-size: 1.7rem;
+    color: var(--white);
+    margin: 0 1rem;
+}
+
+.header .navbar a:hover{
+    color: var(--primary);
+}
+
+.header .navbar .btn{
+    margin-top: 0;
+    color: var(--white);
+}
+
+.header .navbar .btn:hover{
+    color: var(--white);
+}
+
+
+#menu-btn{
+    display: none;
+    font-size: 2.5rem;
+    margin-left: 1.7rem;
+    cursor: pointer;
+    color: var(--white);
+}
+
+#menu-btn:hover{
+    color: var(--white);
+}
+
+/* end */
+
+/* home */
+.home{
+    padding: 0;
+}
+
+.home .slide{
+    min-height: 80vh;
+    background-size: cover !important;
+    background-position:  center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+.home .slide .vdo{
+    width: 90rem;
+    margin-top:60px;
+    background-size: cover;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.home .card {
+    
+    margin-left: 185px;
+    margin-top:80px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 71%; /* Adjust the width as needed */
+    width: 100%;
+}
+
+.home .card .heading {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    
+}
+
+.home .card .heading1 {
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 2em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    
+}
+
+.home .card .line{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 10%; /* You can adjust the width as needed */
+    margin-left: 380px;
+}
+
+.home .card .container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.home .card .container1 .plan {
+
+    background-color: #C0C0C0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 40px;
+    width: 300px;
+    border: solid 5px white;
+
+}
+
+.home .card .container1 .plan ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.home .card .container1 .plan li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.home .card .container1 .plan .img2{
+    height: 30px;
+    width : 30px;
+}
+
+.home .card .container1 .plan .line{
+    margin-left: 80px;   
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 30%; /* You can adjust the width as needed */
+    
+}
+
+.home .card-two {
+    
+    margin-left: 185px;
+    margin-top:80px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 71%; /* Adjust the width as needed */
+    width: 100%;
+}
+
+.home .card-two .heading {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    
+}
+
+.home .card-two .line{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 380px;
+}
+
+.home .card-two .heading1 {
+    margin-top: 10px;
+    margin-left: 2px;
+    font-family: 'Arial', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 2em; /* Larger font size */
+     /* Bold text */
+    color: #333; /* Dark gray color */
+    
+}
+
+.home .card-three {
+    
+    margin-left: 185px;
+    margin-top:80px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 71%; /* Adjust the width as needed */
+    width: 100%;
+
+}
+
+.home .card-three .heading {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    
+}
+
+.home .card-three .line{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 380px;
+}
+
+.room .slide{
+    background: var(--white);
+    border: .1rem solid rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 4rem;
+}
+
+.room .slide .image{
+    height: 30rem;
+    width: 100%;
+    padding: 1rem;
+    overflow: hidden;
+    position:relative;
+}
+
+.room .slide .image img{
+    width: 95%;
+    height: 100%;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+footer {
+    padding-top: 120px;
+}
+
+.footer-top {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+footer li,
+footer p,
+footer a {
+    color: rgba(255,255,255,0.7);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .line {
+    width: 40px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 100px;
+}
+
+.social-icons a:hover {
+    background-color: var(--c-brand);
+    color: white;
+}
+
+.dr1{
+	align-items: center;
+	font-size:25px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+}
+
+.dr2{
+	align-items: center;
+	font-size:20px;
+	text-shadow: none;
+	text-align: center;
+	font-family: sans-serif;
+	font-style: var(--c-brand);
+	color: blue;
+}
+
+
+  .success{
+    list-style: none;
+    background-color: #2e6da4;
+    color: white;
+    box-shadow: 8px 8px 8px #e61c66;
+    text-align: center;
+  }
+
+  
+
+
+
+  /* LOGIN PAGE */
+
+
+  /*.home .slide-login{
+    min-height: 80vh;
+    background-size: cover !important;
+    background-position:  center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+*/
+
+.home .card-login .vdo-login{
+    width: 45rem;    
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+  .home .card-login {
+    
+    margin-left: 380px; 
+    margin-top: 120px;   
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    max-width: 40%; /* Adjust the width as needed */
+    width: 50%;
+}
+
+.home .card-login .heading {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    margin-left: 180px;
+    
+    
+}
+
+.home .card-login .line{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 200px;
+}
+
+.home .card-login .heading-new {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    margin-left: 0px;
+    
+    
+}
+
+.home .card-login .line-new{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 10px;
+}
+
+/* create app recep*/
+
+.home .card-app {
+    
+    margin-left: 380px; 
+    margin-top: 5px;   
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    max-width: 40%; /* Adjust the width as needed */
+    width: 50%;
+}
+
+.home .card-app .heading {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    margin-left: 180px;
+    
+    
+}
+
+.home .card-app .line{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 200px;
+}
+
+.home .card-app .heading-new {
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+    font-size: 3em; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark gray color */
+    margin-left: 0px;
+    
+    
+}
+
+.home .card-app .line-new{
+    margin-top: 10px;
+    border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+    width: 15%; /* You can adjust the width as needed */
+    margin-left: 40px;
+}
+/*recep end create app*/
+
+.home .card-dashboard {
+    
+    margin-left: 150px; 
+    margin-top: 120px;   
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    max-width: 100%; /* Adjust the width as needed */
+    width: 80%;
+}
+
+
+.table{
+	font-size: 13px;
+	text-align: center;
+	width: 100%;
+	margin: auto;
+}
+
+/*Make alternating colors for the table rows*/
+.table tr:nth-child(odd){
+	background: #B8CAE4
+}
+
+.table tr:nth-child(even){
+	background: #B8CAE4
+}
+
+th {
+  background-color: #337ab7;
+  color: white;
+}
+
+.table-new{
+	font-size: 13px;
+	text-align: center;
+	width: 100%;
+	margin: auto;
+}
+
+/*Make alternating colors for the table rows*/
+.table-new tr:nth-child(odd){
+	background: #B8CAE4
+}
+
+.table-new tr:nth-child(even){
+	background: #B8CAE4
+}
+
+.display_table{  
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 20px;
+	box-shadow: 10px 12px 20px 6px #2e6da4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* media queries */
+
+@media (max-width:991px){
+
+    html{
+        font-size: 55%;
+    }
+
+    .header{
+        padding: 2rem 3rem;
+    }
+   
+
+}
+
+@media (max-width: 768px){
+
+    #menu-btn{
+        display: inline-block;
+    }
+
+    .header .navbar{
+        position: absolute;
+        top: 110%; right:-110%;
+        width: 30rem;
+        box-shadow: var(--box-shadow);
+        background: var(--black);
+        border-radius: .5rem;
+    }
+    .header .navbar.active{
+        right: 2rem;
+        transition: .4s linear;
+    }
+
+    .header .navbar a{
+        font-size: 2rem;
+        margin: 2rem 2.5rem;
+        display: block;
+    }
+
+    .home .slide .vdo{
+        width: 45rem;        
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .home .card {  
+        margin-left: 0px;
+        margin-top:0px;     
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+        
+        /* Adjust the width as needed */
+        
+    }
+
+    .home .card .line{
+        margin-top: 10px;
+        border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+        width: 15%; /* You can adjust the width as needed */
+        margin-left: 140px;
+    }
+
+    .home .card-two {
+    
+        margin-left: 0px;
+        margin-top:80px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+
+    }
+
+    .home .card-two .line{
+        margin-top: 10px;
+        border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+        width: 15%; /* You can adjust the width as needed */
+        margin-left: 140px;
+    }
+
+    .home .card-three {
+    
+        margin-left: 0px;
+        margin-top:80px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+
+    }
+
+    .home .card-three .line{
+        margin-top: 10px;
+        border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+        width: 15%; /* You can adjust the width as needed */
+        margin-left: 140px;
+    }
+
+    .home .card-login {
+    
+        margin-left: 0px;
+        margin-top:150px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);        
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+    }
+
+    .home .card-login .heading {
+        font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+        font-size: 3em; /* Larger font size */
+        font-weight: bold; /* Bold text */
+        color: #333; /* Dark gray color */
+        margin-left: 120px;
+        
+        
+    }
+
+    .home .card-login .line{
+        margin-top: 10px;
+        border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+        width: 10%; /* You can adjust the width as needed */
+        margin-left: 140px;
+    }
+
+    .home .card-login .vdo-login{
+        width: 40rem;    
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MOBILE RECEP CREATE APP */
+
+
+    .home .card-app {
+    
+        margin-left: 0px;
+        margin-top:15px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);        
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+    }
+
+    .home .card-app .heading {
+        font-family: 'Roboto', sans-serif; /* Use the Roboto font for the heading */
+        font-size: 3em; /* Larger font size */
+        font-weight: bold; /* Bold text */
+        color: #333; /* Dark gray color */
+        margin-left: 120px;
+        
+        
+    }
+
+    .home .card-app .line{
+        margin-top: 10px;
+        border: 2px solid #3498db; /* Replace #3498db with your desired color code */
+        width: 10%; /* You can adjust the width as needed */
+        margin-left: 140px;
+    }
+/* RECEP END CREATE APP*/
+
+    .home .card-dashboard {
+    
+        margin-left: 0px; 
+        margin-top: 120px;   
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+        max-width: 100%; /* Adjust the width as needed */
+        width: 100%;
+    }
+
+    .table{
+        font-size: 5px;
+        text-align: center;
+        width: 100%;
+        margin: auto;
+    }
+    
+/*Make alternating colors for the table rows*/
+.table tr:nth-child(odd){
+	background: #B8CAE4
+}
+
+.table tr:nth-child(even){
+	background: #B8CAE4
+}
+
+th {
+  background-color: #337ab7;
+  color: white;
+}
+
+
+
+/*Make alternating colors for the table rows*/
+.table-new tr:nth-child(odd){
+	background: #B8CAE4
+}
+
+.table-new tr:nth-child(even){
+	background: #B8CAE4
+}
+
+.display_table{  
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	box-shadow: 10px 12px 20px 6px #2e6da4;
+}
+
+    
+    
+
+    
+
+
+    
+    
+
+   
+
+    
+}
+
+@media (max-width:450px){
+
+    html{
+        font-size: 50%;
+    }
+
+    
+   
+  
+
+    
+}
+

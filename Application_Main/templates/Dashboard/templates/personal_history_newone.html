@@ -1,0 +1,317 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- {{ form.media }} -->
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+    .th{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }
+        .column2 {
+	    border-right:2px solid lightblue;
+	      padding:5px 10px;
+      }
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        
+                        }
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        
+        width: 300px;
+        height: 1250px;
+        overflow: auto;
+        }
+        tfoot{
+            
+            border-top: 5px solid  lightblue;
+        }
+        #border {
+    position: relative;
+    text-align: center;
+    
+    /* margin-top: 50px!important; */
+    border: 1px solid black;
+    }
+    .card {
+  width: 400px;
+  height: 254px;
+  background: white;
+  /* box-shadow: 7px 5px 10px white; */
+}
+
+.imge {
+  height: 112px;
+  background-color: #007bff;
+}
+
+.imge .Usericon {
+  background-color: white;
+  transform: translateX(10px) translateY(10px);
+  width: 100px;
+  height: 100spx;
+  border-radius: 10px;
+}
+
+.imge .UserName {
+  background-color: white;
+  width: 60px;
+  height: 15px;
+  border-width: 10px;
+  border-radius: 5px;
+  border-color: #262626;
+  color: #262626;
+  font-size: 15px;
+  font-weight: bold;
+  transform: translateX(70px) translateY(-35px);
+}
+
+.imge .Id {
+  background-color: white;
+  width: 100px;
+  height: 15px;
+  border-width: 10px;
+  border-radius: 5px;
+  border-color: #262626;
+  color: #262626;
+  font-size: 15px;
+  font-weight: bold;
+  transform: translateX(70px) translateY(-25px);
+}
+
+.Description {
+  border-color: white;
+  background-color:white;
+  transform: translate(5px, 6px);
+  width: 300px;
+  height: 130px;
+  border-radius: 5px;
+}
+    .box-1{
+      height: 500px;
+      width:100px;
+      
+    }
+    .box-2{
+      height: 500px;
+      width:100px;
+      
+    }
+    .container1{
+
+      display: flex;
+      column-gap: 100px;
+    }
+    img{
+      border-radius: 58%;
+  }
+  .box {
+    width: 300px;
+    height: 110px;
+    border: 1px solid white;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    column-gap: 50px;
+    border-radius: 25px;
+  }
+  .box1{
+    height: 100px;
+    width:100px;
+    
+  }
+  .box2{
+    height: 100px;
+    width:500px;
+    
+  }
+	</style>
+
+</head>
+
+  <body>
+
+    {% include "nav.html" %}
+
+    <br>
+   
+
+   
+
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+       
+    </div>
+       
+       
+
+       <div class="container">
+        <h1 style="margin-top: 20px; color: antiquewhite;">Personal History :</h1>
+        <!-- <a href="{% url 'familymedical' %}" class="btn btn-primary">Family Medical</a> -->
+        <hr> 
+        <div class="box">
+          <div class="box1">
+            {% if patient_details.patient_images %}
+            <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+            
+    
+              {% else %}
+              <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+              {% endif %}
+          </div>
+          <div class="box2" style="color:white; font-size:20px">
+           <h5> {{patient_details.name}}</h5>
+           <hr style="background-color:white;">
+           <h5> {{patient_details.case}}</h5>
+            
+          </div>
+        </div>
+       
+            <div class="container1">
+            <div class="box-1">
+            <table style="width: 300px;">
+                 <tr class="bg-primary" style="height: 101.5px;" >
+                     <th  class="th" style=" text-align: center; color: antiquewhite; font-size: 20px;">FAQs</th>
+                     
+                 </tr>
+                 <tr style="height: 100px;" class="table-light">
+                    
+                     <td  class="td">
+                        <div class="ex3" style="font-size: 20px;">
+                        {% for q in question %}
+                        <p style="margin-top: 4px; margin-left: 50px;" ><b>{{forloop.counter}}.  {{q.question}}</b></p><hr style="margin-top: 4px; margin-bottom: 2px;">
+                        {% endfor %}
+                    </div></td>
+                     
+                     
+                 </tr>
+                 
+            </table>
+          </div>
+        <br><br>
+          <div class="box-2">
+        <table>
+            <thead style="height: 50px;">
+              <tr class = "bg-primary" >        
+                  <th style="color:antiquewhite; text-align: center;  font-size: 20px;" scope="col">Add Personal History  <p style="margin-top: 10px; margin-left: 700px;"><a href="{% url 'personal_history_view' case_id=case_id %}" class="btn btn-success">View Personal History</a></p></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" >
+                    <div>
+                      <p style="text-align: center; font-size: 20px;"><b>You may Start Writing Below <i class="fa fa-pencil"></i> :</b></p>
+                        <form action="{% url 'cheif_complaint_create' %}" method="post">
+   
+                            
+                            <div class="container text-center" id="border">
+                             <div class="row justify-content-center">
+                              <div class="border">
+                             
+                             {{ form.signature }}
+                             {{ form.category}}
+                             {{ form.patient }}
+                             
+                           </div>
+                          </div>
+                        </div>
+                             <br>
+                             <br>
+                             <input type="submit" style="margin-left: 410px;" value="+ Add" class="btn btn-primary btn-lg" />
+                             
+                            
+                           
+                             {% csrf_token %}
+                           </form> 
+                             <br>
+                    </div>  
+                </td>  
+                
+               
+                  
+              </tr>
+          </tbody> 
+                   
+          <tfoot>
+            <tr class="table-light">
+              <td style="height: 40px; font-size: 17px;">
+                <a href="{% url 'past_history_newone' case_id=case_id %}" style="margin-left: 2px; text-decoration:none; color: green; "><b>Present Complaints</b></a> |
+                  <a href="{% url 'chief_complaints_newone' case_id=case_id %}" style="text-decoration:none;"><b>Chief Complaints</b></a>  |
+                  <a href="{% url 'patient_history_newone' case_id=case_id %}" style="text-decoration:none;"><b>Past History</b> </a> |
+                  <a href="{% url 'personal_history_newone' case_id=case_id %}" style="text-decoration:none; color: brown;"><b>Personal History</b> </a>|
+                  <a href="{% url 'family_medical_newone' case_id=case_id %}" style="text-decoration:none; color: red;"><b>Family Medical HO</b></a> |
+                  <a href="{% url 'mental_causative_newone' case_id=case_id %}" style="text-decoration:none;"><b>Mental Causative Factor</b></a>|  
+                  <a href="{% url 'mental_personality_newone' case_id=case_id %}" style="text-decoration:none; color:black;"><b>Mental Personality Character</b></a>|
+                  <a href="{% url 'bms_newone' case_id=case_id %}" style="text-decoration:none; color: purple;"><b>Brief Mind Symptoms</b></a>|
+                  <a href="{% url 'thermal_newone' case_id=case_id %}" style="text-decoration:none; color: orange;"><b>Thermal Reaction</b></a>|
+                  <a href="{% url 'miasm_examination_newone' case_id=case_id %}" style="text-decoration:none; color: olive;"><b>Miasm</b></a>|
+               
+              </td>
+                
+            </tr>
+          </tfoot>
+         
+          </table>
+          <br><br> <br><br>
+        </div>
+       
+            </div>
+          <br><br>
+                    <br><br>
+        </div>       
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script>
+        $(document).ready(function () {
+            $('#id_patientid').select2();
+    
+        });
+    </script>
+    
+    {{ form.media }}
+   
+    
+</body>
+</html>

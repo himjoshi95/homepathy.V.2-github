@@ -1,0 +1,214 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">  
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<style>
+.container .success-msg{
+    list-style: none;
+    background-color: #2e6da4;
+    color: white;
+    box-shadow: 8px 8px 8px #e61c66;
+    text-align: center;
+  }
+
+.form-label:after {
+    content:" *";
+    color: red;
+  }
+  button{
+		width: 200px;
+        height:40px;
+		border-radius: 10px!important;
+        margin-left: 0px;
+        color:white;
+        font-weight:bolder;
+        background:#3498db;
+        font-size:15px;
+        margin-left: 110px;
+		}
+    .already{
+      margin-left:80px;
+      font-size:12px;
+
+    }
+
+    select{
+        height:30px;
+        width: 460px!important;
+        border-radius: 5px!important;
+        border: 1px solid black;
+    }
+
+    @media (max-width: 768px){
+        select{
+            height:30px;
+            width: 330px!important;
+            border-radius: 5px!important;
+            border: 1px solid black;
+        }
+        button{
+            width: 200px;
+            height:40px;
+            border-radius: 10px!important;
+            margin-left: 0px;
+            color:white;
+            font-weight:bolder;
+            background:#3498db;
+            font-size:15px;
+            margin-left: 50px;
+            }
+        .already{
+          margin-left:20px;
+          font-size:12px;
+    
+        }
+    
+
+    }
+</style>
+
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <div class="container">
+        {% if messages %}
+		{% for message in messages %}
+		<div class="success-msg">			
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+
+    </div>
+
+    
+    <section class="home" id="home">
+        
+      
+
+        <div class="card-login" >
+            <img src="{% static '/images/login_page.jpg' %}" class="vdo-login" alt="Sample photo">
+            <br><br><br>
+            <span class="heading-new" >Update Profile</span>
+            <div class="line-new"></div>
+            <br><br>
+            <form class="px-md-2" action="{% url 'profile' user=user %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example1q">Name</label>
+                    <input type="text" id="form3Example1q" name="name" placeholder="Full Name" required="" class="form-control" value="{{ userdata.name }}"/>
+                    <br>
+                    <label class="form-label" for="form3Example1q">Phone Number</label>
+                    <input type="text" id="form3Example1q" name="phone" placeholder="Phone Number" required="" class="form-control" value="{{ userdata.phone }}" />
+                    <br>
+                    <label class="" for="form3Example1q">Alternative Phone Number</label>
+                    <input type="text" id="form3Example1q" name="alt_number" placeholder="Alternative Number if any"  class="form-control" value="{{ userdata.alternative_number }}" />
+                    <br>
+                    <label class="form" for="form3Example1q">Email Address</label>
+                    <input type="email" id="form3Example1q"  name="email" placeholder="Email"  class="form-control" value="{{ userdata.email }}"> 
+                    <br>
+                    <label class="form" for="form3Example1q">Age</label>
+                    <input id="form3Example1q"  type="number" name="age" placeholder="Age" class="form-control" value="{{ userdata.age }}"> 
+                    <br>
+                            <!-- Gender  -->
+                    <div class="form-group">
+                        <p  class="form-label1" align="left">Gender</p>
+                        
+                   <select  name="gender" >
+                    <option  name="{{ userdata.gender }}" >{{ userdata.gender }}</option>
+                               <option >Select Gender</option>
+                               <option  name="Male" >Male </option>
+                               <option  name="Female">Female</option>
+                               <option  name="Transgender">Transgender</option>
+                               </select><br>
+                    </div>
+                    <br>
+                             <!-- Blood Group    -->
+
+                    <div class="form-group">
+                        <p align="left">Blood Group</p>
+                   <select name="blood" >                                                                
+                               <option  name="{{ userdata.blood }}" >{{ userdata.blood }}</option>               
+                               <option >Select Blood Group</option>                     
+                                <option  name="A+" >A+ </option>
+                               <option  name="B+">B+</option>
+                               <option  name="AB+">AB+</option>
+                               <option  name="O+">O+</option>
+                               <option  name="A-">A-</option>
+                               <option  name="B-">B- </option>                  
+                               <option  name="AB-">AB-</option>
+                               <option  name="O-">O-</option>          
+                    </select>
+                    <br><br>
+                    <label class="form-label1" for="form3Example1q">Address</label>
+                    <!-- <input type="text" id="form3Example1q" name="username" placeholder="Username" required="" class="form-control" /> -->
+                    <textarea class="form-control" id="form3Example1q" name="address" value="{{ userdata.address }}" placeholder="Address">{{ userdata.address }}</textarea>
+                    <br>
+
+                    <p align="left">Patient's Image</p>
+                   
+                    <br>
+                    {% if userdata.patient_images %}
+                    <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card m-2">
+                        <img src="{{userdata.patient_images.url}}" alt=" " class = "card-img-top" height="200px">            
+                        </div>
+                    </div>
+                    </div>
+                    {% else %}
+                    <p>Please upload a Profile Photo</p>
+                    {% endif %}
+                    <input type="file" name="patient_images" accept="image/*"  id="id_images"  value = "Upload" class="form-control">
+
+                    <input type="hidden" name="case" required="" class="form-control" value="{{ userdata.case }}" placeholder="Cases" readonly>
+                    <!-- <input name="case" required="" class="form-control" value="{{ userdata.case }}" placeholder="Cases" readonly> -->
+                    </div>
+
+                   
+                    <br>
+                   
+                  
+      
+                    <button type="submit" class="btn btn-success btn-lg mb-1 ">Update</button>
+      
+                  </form>
+    
+              <br>
+        </div>
+
+
+    </section>
+
+
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+   
+
+</body>
+</html>

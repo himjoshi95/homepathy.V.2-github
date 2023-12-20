@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADD MEDICINE STOCK</title>
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    
+
+     <!-- Select2 CDN -->
+
+
+     <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/itemsvendors.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <main role="main" class="container" >
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="jumbotron"> 
+            <div class="header-one">ADD MEDICINE TO STOCK</div><hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form}}
+
+                <input type="submit" style="margin-left:80px; width:100px;"  value="Add">
+            </form>
+        </div>
+
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    
+</body>
+</html>

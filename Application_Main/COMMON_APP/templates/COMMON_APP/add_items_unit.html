@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Stock</title>
+
+    <meta name="description" content="A description of your web page">
+    <meta name="keywords" content="keywords, for, your, page">
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/additemsunit.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+   
+
+    <main role="main" class="container" >
+
+        <div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="jumbotron"> 
+            <p style="text-align:center;color:#337ab7;"><b style="font-size:25px;">Add Items/Unit List</b><p><hr>
+            <div class="container-new">
+                <div class="left-div">
+                   
+                    <form action="" method='post' >
+                        {% csrf_token %}
+
+                        <label >Item Name</label>
+                        <input type="text"  name="item_name" placeholder="Mention Item Name" required>
+
+                        <input type="submit"  value="Add">
+
+                    </form>
+                    <hr>
+                    <br><br>
+                    <label style="color:#337ab7;">Items List (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label><br><br>
+                    <form method="get" action="">
+                        {{ search_form }}
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+                        <a style="margin-left:10px;" href="{% url 'add_items_unit' %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+                        
+                    </form>
+                    <br><br>
+                  
+                    <div class="scrolling-div">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in filtered_items %}
+                                    <tr>
+                                        <td>{{ item.item_name }}</td>
+                                        
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td>No Items data available.</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="right-div">
+
+                    <form action="" method='post' >
+                        {% csrf_token %}
+
+                        <label >Unit Name  </label>
+                        <input type="text"  name="unit_name" placeholder="Mention Unit Name" required>
+
+                        <input type="submit"  value="Add">
+
+                    </form>  
+                    <hr>
+                    <br><br>
+                    <label style="color:#337ab7;">Unit List (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label>  <br><br>
+                    
+                    <form method="get" action="">
+                        {{ search_form_two }}
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+                        <a style="margin-left:10px;" href="{% url 'add_items_unit' %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+                        
+                    </form>
+
+                    <br><br>
+                    <div class="scrolling-div">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Unit Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for unit in filtered_units %}
+                                    <tr>
+                                        <td>{{ unit.unit_name }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td>No Quantity data available.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                
+                    
+                </div>
+            </div>
+            
+        </div>
+
+    </main>
+  
+
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<style>
+    table, th, td {
+      border:1px solid brown;
+    }
+    th ,td{
+  height: 70px;
+}
+    </style>
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">PREVIOUS ISSUED CERTIFICATES</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<form>
+    <div class="input-group input-group-sm mb-2 mt-4">
+        <input name="query" type="text" class="form-control" placeholder="Enter Case PaperNo." value="{{request.GET.query}}">
+        <br><br>
+        <button class="btn btn-secondary"><i class="fa fa-search"></i> SEARCH</button>
+        <a href="{% url 'previous_issued_certificate' %}" class="btn btn-dark" style="margin-top: 10pt; width: 100%;"><i class="fa fa-refresh" aria-hidden="true" placeholder="Refresh"> Refresh</i></a>
+    </div>
+</form>
+<br>
+{% if data %}
+<div class="container">
+    <table class="" style="width:100%">
+        <thead>
+          <tr class = "table-danger" >        
+              <!-- <th style="text-align:center" scope="col"><h5><b>S.No</b></h5></th> -->
+              <th style="text-align:center" scope="col"><h5><b>Case Paper No.</b></h5></th>
+              <th style="text-align:center" scope="col"><h5><b>Name</b></h5></th>
+              <th style="text-align:center" scope="col"><h5><b>Date</h5></b></th>
+              <th style="text-align:center" scope="col"><h5><b>Status</h5></b></th>
+              <!-- <th style="text-align:center" scope="col"><h5><b></h5></b></th> -->
+  
+          </tr>
+      </thead>
+      <tbody>
+          {% for o in data %}
+          <tr class = "table-info">        
+              
+              <td style="text-align:center"><h5><b>{{o.patient}}</b></h5></td>
+              <td style="text-align:center"><h5><b>{{o.patient.name}}</b></h5></td>
+              <td style="text-align:center"><h5><b>{{o.date1|date:"d M,Y"}}</b></h5></td>
+              <td style="text-align:center"><h5><b><a href="{% url 'regenerate_issued_certificate' id=o.id %}" class="btn btn-warning ">Regenerate Certificate</a></b></h5></td>
+              <!-- <td style="text-align:center"><h5><b></b></h5></td> -->
+          </tr>
+          {% endfor %}
+      </tbody>
+              </table>
+		
+	
+</div>
+{% elif data == '' %}
+<h1></h1>
+{% else %}
+<h1>No Previous Certificate</h1>
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+   
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

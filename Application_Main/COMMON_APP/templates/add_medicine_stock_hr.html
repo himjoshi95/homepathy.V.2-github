@@ -1,0 +1,120 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Add Stock</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+        body {
+            background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+            background-size: 100%;
+          } 
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+    </style>
+    <!-- Custom styles for this template -->
+	<link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+
+      <!-- Select2 CDN -->
+
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+<br>
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+  <div class="jumbotron">
+
+    {% if title == main %}
+    <a style="float:left; font-size:16px;" href="/add-medicine-name-hr/" class="btn btn-outline-primary">Medicine Name <i class="fa fa-plus" aria-hidden="true"></i></a>    
+    <a style="float:right; font-size:16px;" href="/add-potency-name-hr/" class="btn btn-outline-primary">Potency Name <i class="fa fa-plus" aria-hidden="true"></i></a>   
+    {% endif %}
+    
+    <br><br><br> 
+    <h1> {{title}}</h1> 
+    <hr>
+   
+    <form method='POST' id="personForm" data-cities-url="{% url 'ajax_load_medicines' %}" enctype="multipart/form-data" >{% csrf_token %}
+        
+		{{form|crispy}}
+        
+        <input type="submit" value='Save'/>
+    </form>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $("#id_medicine").select2();
+  $("#id_potency").select2();
+  $("#id_vendor").select2();
+
+</script>
+<script>
+  $("#id_vendor").change(function () {
+      const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      const vendorId = $(this).val();  // get the selected vendor ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+          data: {
+              'vendor_id': vendorId       // add the vendor id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+              $("#id_medicine").html(data);
+              console.log(data);  // replace the contents of the stock_name input with the data that came from the server
+              /*
+
+              let html_data = '<option value="">---------</option>';
+              data.forEach(function (stock_name) {
+                  html_data += `<option value="${stock_name.id}">${stock_name.name}</option>`
+              });
+              console.log(html_data);
+              $("#id_stock_name").html(html_data);
+
+              */
+          }
+      });
+
+  });
+</script>
+
+</body>
+</html>

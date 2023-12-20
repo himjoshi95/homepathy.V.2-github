@@ -1,0 +1,589 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Stock List</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');  
+
+      body {
+        background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+        background-size: 100%;
+      } 
+
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+  <div style="width:1170px;" class="jumbotron">
+    
+    <div class="header">Stock Enquiry {{branch}}</div>
+
+	<form method='POST' action=''>{% csrf_token %}
+
+		{{form|crispy}}
+    <p style="color:red;">(Please Select Stock Name from the list you want to Search)</p> 
+			<input type="submit" style="width:500px;" class="btn btn-primary" value='Search'/>
+      <a href="/list-stock/" class="btn btn-dark" style="width:500px; margin-left:20px;text-decoration:none;">Refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
+	</form>
+	<br><hr>
+  <div class="header">{{header}}</div>
+  <hr>
+	<div style="width:1123px;"class="display_table">
+    <table style="width:800px;" class='table'>
+        <thead>
+          <tr>
+            <th>COUNT</th>
+            <th>STOCK NAME</th>            
+            <th>QUANTITY IN STORE</th>
+            <th>UNIT</th>
+            <th>REORDER LEVEL</th>
+            <th>CREATED ON</th>
+            <th>LAST UPDATED</th>
+            <th>ISSUED QUANTITY</th>
+            <th>RECEIVED QUANTITY</th>
+            <th>DELETE</th>
+            <th>APPROVAL</th>
+            <th>STATUS</th>
+            <th>ORDER STATUS</th>
+            <th>BILL IMAGE</th>
+
+			
+          </tr>
+        </thead>
+
+        
+      {% for item1, item2 in datas %}    
+      
+     
+
+      {% if item1 != none and item2 != none  %}     
+      
+
+      {% if  item1.approval_flag_new %}
+      <tr>                 
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+            
+            <td bgcolor=#FBCEB1 style="font-size:16px;">
+              {% if item1.quantity <= item1.reorder_level %}
+              <div style="background-color: #DCDCDC;;">
+              <b>{{item1.quantity}}</b>
+              </div>
+              {% else %}
+              <b>{{item1.quantity}}</b>
+              {% endif %}
+            </td >
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+            <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+              <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.issue_quantity}}</td>
+              <td bgcolor=#FBCEB1 style="font-size:16px;"><b>{{item1.quantity}}</b></td>      
+			{% comment %} <td ><a href="{% url 'update_stock' item1.id %}"><img src="{% static 'img/update.png' %}" width="25" height="25"></a></td > {% endcomment %}
+			<td bgcolor=#FBCEB1><a href="{% url 'delete_stock' item1.id %}"><img src="{% static 'images/del.png' %}" width="25" height="25"></a></td >
+			<td bgcolor=#FBCEB1 style="font-size:13px;">Not Approved</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">NEW ITEM ADDED IN STORE</td>
+       
+        <td bgcolor=	#FBCEB1 >
+          {% if item1.quantity <= item1.reorder_level %}              
+                <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                
+                {% else %}
+                    -
+                {% endif %}
+          </td>
+          <td bgcolor=#FBCEB1 style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:blue;'></i></a></td>
+  
+          </tr>
+
+
+          {% elif item1.approval_flag_new == False and item1.issue_quantity == 0 and item1.receive_quantity == 0 and item1.approval_flag_updtate == False %}            
+          <tr>           
+            <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+            <td  style="font-size:13px;">{{item1.stock_name}}</td >
+            
+            <td  style="font-size:16px;">
+              {% if item1.quantity <= item1.reorder_level %}
+              <div style="background-color: #DCDCDC;;">
+              <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+              </div>
+              {% else %}
+              <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+              {% endif %}
+            </td >
+            <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+            <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+            <td  style="font-size:13px;">{{item1.timestamp}}</td >
+            <td   style="font-size:13px;">{{item1.last_updated}}</td >
+              <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+              <td  style="font-size:13px;">{{item1.quantity}}</td>
+			      <td >-</td >
+		      	<td style="font-size:16px;" >DONE <i class="fa fa-check-circle" aria-hidden="true"></i></td >
+              <td  style="font-size:13px;">NEW ITEM APPROVED</td>
+              <td>
+              {% if item1.quantity <= item1.reorder_level %}              
+                      <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                      
+                      {% else %}
+                          -
+                      {% endif %}
+                </td>
+                <td style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:grey;'></i></a></td>
+
+      </tr>
+
+
+      {% elif item1.issue_quantity != 0  and item1.approval_flag_new == False and item1.approval_flag_updtate == False %} 
+      
+      <tr>                 
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+        
+        <td bgcolor=#FBCEB1 style="font-size:16px;">
+          {% if item1.quantity <= item1.reorder_level %}
+          <div style="background-color: #DCDCDC;;">
+          <b>{{item1.quantity}}</b>
+          </div>
+          {% else %}
+          <b>{{item1.quantity}}</b>
+          {% endif %}
+        </td >
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+        <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;"><b>{{item1.issue_quantity}}</b></td>
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.receive_quantity}}</td>
+        <td bgcolor=#FBCEB1>-</td >
+         <td bgcolor=#FBCEB1  style="font-size:13px;" >Not Approved</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">ITEM ISSUED FROM STORE</td>
+          <td bgcolor=	#FBCEB1 >
+            {% if item1.quantity <= item1.reorder_level %}              
+                  <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                  
+                  {% else %}
+                      -
+                  {% endif %}
+            </td>
+            <td bgcolor=#FBCEB1 style="font-size:13px;">-</td>
+
+      </tr>
+
+
+      {% elif item1.issue_quantity != 0  and item1.approval_flag_new == False and item1.approval_flag_updtate == True %} 
+      
+      <tr>           
+        <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+        <td  style="font-size:13px;">{{item1.stock_name}}</td >
+        
+        <td  style="font-size:16px;">
+          {% if item1.quantity <= item1.reorder_level %}
+          <div style="background-color: #DCDCDC;;">
+          <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+          </div>
+          {% else %}
+          <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+          {% endif %}
+        </td >
+        <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+        <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+        <td  style="font-size:13px;">{{item1.timestamp}}</td >
+        <td   style="font-size:13px;">{{item1.last_updated}}</td >
+          <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+          <td  style="font-size:13px;">{{item1.receive_quantity}}</td>
+        <td >-</td >
+        <td  style="font-size:16px;"> DONE <i class="fa fa-check-circle" aria-hidden="true"></td >
+          <td  style="font-size:13px;">ITEM ISSUED APPROVED</td>
+          <td >
+            {% if item1.quantity <= item1.reorder_level %}              
+                  <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                  
+                  {% else %}
+                      -
+                  {% endif %}
+            </td>
+            <td style="font-size:13px;">-</td>
+
+        </tr>
+
+        {% elif item1.receive_quantity != 0 and item1.approval_flag_new == False and item1.approval_flag_receive == False  %}
+        <tr>                 
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+          
+          <td bgcolor=#FBCEB1 style="font-size:16px;">
+            {% if item1.quantity <= item1.reorder_level %}
+            <div style="background-color: #DCDCDC;;">
+            <b>{{item1.quantity}}</b>
+            </div>
+            {% else %}
+            <b>{{item1.quantity}}</b>
+            {% endif %}
+          </td >
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+          <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.issue_quantity}}</td>
+            <td bgcolor=#FBCEB1 style="font-size:16px;"><b>{{item1.receive_quantity}}</b></td>
+          <td bgcolor=#FBCEB1>-</td >
+           <td bgcolor=#FBCEB1 style="font-size:13px;" >Not Approved</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">ITEM RECEIVED IN STORE</td>
+            <td bgcolor=	#FBCEB1 >
+              {% if item1.quantity <= item1.reorder_level %}              
+                    <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                    
+                    {% else %}
+                        -
+                    {% endif %}
+              </td>
+              <td bgcolor=#FBCEB1 style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:blue;'></i></a></td>
+
+
+        </tr>
+        {% elif item1.receive_quantity != 0 and item1.approval_flag_new == False and item1.approval_flag_receive == True  %}
+        <tr>           
+          <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+          <td  style="font-size:13px;">{{item1.stock_name}}</td >
+          
+          <td  style="font-size:16px;">
+            {% if item1.quantity <= item1.reorder_level %}
+            <div style="background-color: #DCDCDC;;">
+            <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+            </div>
+            {% else %}
+            <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+            {% endif %}
+          </td >
+          <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+          <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+          <td  style="font-size:13px;">{{item1.timestamp}}</td >
+          <td   style="font-size:13px;">{{item1.last_updated}}</td >
+            <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+            <td  style="font-size:13px;">{{item1.receive_quantity}}</td>
+          <td >-</td >
+          <td  style="font-size:16px;">DONE <i class="fa fa-check-circle" aria-hidden="true"></td >
+            <td  style="font-size:13px;" >ITEM RECEIVED APPROVED</td>
+            <td >
+              {% if item1.quantity <= item1.reorder_level %}              
+                    <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-success"><i class="fa fa-check-square-o" style="font-size:20px"></i></a>
+                    
+                    {% else %}
+                        -
+                    {% endif %}
+              </td>
+              <td  style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:grey;'></i></a></td>
+
+
+          </tr>
+      {% endif %}
+
+      {% comment %} Second Condition {% endcomment %}
+
+      {% else %}
+      
+
+      {% if  item1.approval_flag_new %}
+      <tr>                 
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+            
+            <td bgcolor=#FBCEB1 style="font-size:16px;">
+              {% if item1.quantity <= item1.reorder_level %}
+              <div style="background-color: #DCDCDC;;">
+              <b>{{item1.quantity}}</b>
+              </div>
+              {% else %}
+              <b>{{item1.quantity}}</b>
+              {% endif %}
+            </td >
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+            <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+            <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+              <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.issue_quantity}}</td>
+              <td bgcolor=#FBCEB1 style="font-size:16px;"><b>{{item1.quantity}}</b></td>      
+			{% comment %} <td ><a href="{% url 'update_stock' item1.id %}"><img src="{% static 'img/update.png' %}" width="25" height="25"></a></td > {% endcomment %}
+			<td bgcolor=#FBCEB1><a href="{% url 'delete_stock' item1.id %}"><img src="{% static 'images/del.png' %}" width="25" height="25"></a></td >
+			<td bgcolor=#FBCEB1 style="font-size:13px;">Not Approved</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">NEW ITEM ADDED IN STORE</td>
+       
+        <td bgcolor=	#FBCEB1 >
+          {% if item1.quantity <= item1.reorder_level %}              
+                <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:20px"></i></a>
+                
+                {% else %}
+                    -
+                {% endif %}
+          </td>
+          <td bgcolor=#FBCEB1 style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:blue;'></i></a></td>
+  
+          </tr>
+
+
+          {% elif item1.approval_flag_new == False and item1.issue_quantity == 0 and item1.receive_quantity == 0 and item1.approval_flag_updtate == False %}            
+          <tr>           
+            <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+            <td  style="font-size:13px;">{{item1.stock_name}}</td >
+            
+            <td  style="font-size:16px;">
+              {% if item1.quantity <= item1.reorder_level %}
+              <div style="background-color: #DCDCDC;;">
+              <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+              </div>
+              {% else %}
+              <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+              {% endif %}
+            </td >
+            <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+            <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+            <td  style="font-size:13px;">{{item1.timestamp}}</td >
+            <td   style="font-size:13px;">{{item1.last_updated}}</td >
+              <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+              <td  style="font-size:13px;">{{item1.quantity}}</td>
+			      <td >-</td >
+		      	<td style="font-size:16px;" >DONE <i class="fa fa-check-circle" aria-hidden="true"></i></td >
+              <td  style="font-size:13px;">NEW ITEM APPROVED</td>
+              <td>
+              {% if item1.quantity <= item1.reorder_level %}              
+                      <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:24px"></i></a>
+                      
+                      {% else %}
+                          -
+                      {% endif %}
+                </td>
+                <td style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:grey;'></i></a></td>
+
+      </tr>
+
+
+      {% elif item1.issue_quantity != 0  and item1.approval_flag_new == False and item1.approval_flag_updtate == False %} 
+      
+      <tr>                 
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+        
+        <td bgcolor=#FBCEB1 style="font-size:16px;">
+          {% if item1.quantity <= item1.reorder_level %}
+          <div style="background-color: #DCDCDC;;">
+          <b>{{item1.quantity}}</b>
+          </div>
+          {% else %}
+          <b>{{item1.quantity}}</b>
+          {% endif %}
+        </td >
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+        <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+        <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+        <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;"><b>{{item1.issue_quantity}}</b></td>
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.receive_quantity}}</td>
+        <td bgcolor=#FBCEB1>-</td >
+         <td bgcolor=#FBCEB1  style="font-size:13px;" >Not Approved</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">ITEM ISSUED FROM STORE</td>
+          <td bgcolor=	#FBCEB1 >
+            {% if item1.quantity <= item1.reorder_level %}              
+                  <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:24px"></i></a>
+                  
+                  {% else %}
+                      -
+                  {% endif %}
+            </td>
+            <td bgcolor=#FBCEB1 style="font-size:13px;">-</td>
+
+      </tr>
+
+
+      {% elif item1.issue_quantity != 0  and item1.approval_flag_new == False and item1.approval_flag_updtate == True %} 
+      
+      <tr>           
+        <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+        <td  style="font-size:13px;">{{item1.stock_name}}</td >
+        
+        <td  style="font-size:16px;">
+          {% if item1.quantity <= item1.reorder_level %}
+          <div style="background-color: #DCDCDC;;">
+          <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+          </div>
+          {% else %}
+          <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+          {% endif %}
+        </td >
+        <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+        <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+        <td  style="font-size:13px;">{{item1.timestamp}}</td >
+        <td   style="font-size:13px;">{{item1.last_updated}}</td >
+          <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+          <td  style="font-size:13px;">{{item1.receive_quantity}}</td>
+        <td >-</td >
+        <td  style="font-size:16px;"> DONE <i class="fa fa-check-circle" aria-hidden="true"></td >
+          <td  style="font-size:13px;">ITEM ISSUED APPROVED</td>
+          <td >
+            {% if item1.quantity <= item1.reorder_level %}              
+                  <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:24px"></i></a>
+                  
+                  {% else %}
+                      -
+                  {% endif %}
+            </td>
+            <td style="font-size:13px;">-</td>
+
+        </tr>
+
+        {% elif item1.receive_quantity != 0 and item1.approval_flag_new == False and item1.approval_flag_receive == False  %}
+        <tr>                 
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.stock_name}}</td >
+          
+          <td bgcolor=#FBCEB1 style="font-size:16px;">
+            {% if item1.quantity <= item1.reorder_level %}
+            <div style="background-color: #DCDCDC;;">
+            <b>{{item1.quantity}}</b>
+            </div>
+            {% else %}
+            <b>{{item1.quantity}}</b>
+            {% endif %}
+          </td >
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.stock_unit}}</td >
+          <td bgcolor=#FBCEB1  style="font-size:16px;">{{item1.reorder_level}}</td >
+          <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.timestamp}}</td >
+          <td bgcolor=#FBCEB1  style="font-size:13px;">{{item1.last_updated}}</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">{{item1.issue_quantity}}</td>
+            <td bgcolor=#FBCEB1 style="font-size:16px;"><b>{{item1.receive_quantity}}</b></td>
+          <td bgcolor=#FBCEB1>-</td >
+           <td bgcolor=#FBCEB1 style="font-size:13px;" >Not Approved</td >
+            <td bgcolor=#FBCEB1 style="font-size:13px;">ITEM RECEIVED IN STORE</td>
+            <td bgcolor=	#FBCEB1 >
+              {% if item1.quantity <= item1.reorder_level %}              
+                    <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:24px"></i></a>
+                    
+                    {% else %}
+                        -
+                    {% endif %}
+              </td>
+              <td bgcolor=#FBCEB1 style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:blue;'></i></a></td>
+
+
+        </tr>
+        {% elif item1.receive_quantity != 0 and item1.approval_flag_new == False and item1.approval_flag_receive == True  %}
+        <tr>           
+          <td   style="font-size:13px;">{{forloop.counter0|add:datas.start_index}}</td >
+          <td  style="font-size:13px;">{{item1.stock_name}}</td >
+          
+          <td  style="font-size:16px;">
+            {% if item1.quantity <= item1.reorder_level %}
+            <div style="background-color: #DCDCDC;;">
+            <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+            </div>
+            {% else %}
+            <a href="{% url 'stock_management' item1.id %}">{{item1.quantity}}</a>
+            {% endif %}
+          </td >
+          <td   style="font-size:13px;">{{item1.stock_unit}}</td >
+          <td  style="font-size:16px;"><a href="{% url 'reorder_stock' item1.id %}">{{item1.reorder_level}}</a></td >
+          <td  style="font-size:13px;">{{item1.timestamp}}</td >
+          <td   style="font-size:13px;">{{item1.last_updated}}</td >
+            <td  style="font-size:13px;">{{item1.issue_quantity}}</td>
+            <td  style="font-size:13px;">{{item1.receive_quantity}}</td>
+          <td >-</td >
+          <td  style="font-size:16px;">DONE <i class="fa fa-check-circle" aria-hidden="true"></td >
+            <td  style="font-size:13px;" >ITEM RECEIVED APPROVED</td>
+            <td >
+              {% if item1.quantity <= item1.reorder_level %}              
+                    <a href= "{% url 'place_order_stock' item1.id %}" class="btn btn-primary"><i class="fa fa-cart-plus" style="font-size:24px"></i></a>
+                    
+                    {% else %}
+                        -
+                    {% endif %}
+              </td>
+              <td  style="font-size:13px;"><a href="{% url 'bill_view' item1.id %}"><i class='fa fa-camera' style='font-size:24px; color:grey;'></i></a></td>
+
+
+          </tr>
+      {% endif %}
+
+      {% endif %}
+      {% endfor %}
+    </table>
+</div>
+<!--End of display table-->
+<br>
+<hr>
+<div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+   
+  </div>
+</main>
+<script>
+  $("#id_stock_name").select2();
+</script>
+
+
+</body>
+</html>

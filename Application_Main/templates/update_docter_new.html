@@ -1,0 +1,166 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Design by foolishdeveloper.com -->
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <title>Update Doctor</title>
+  <style type="text/css">
+    .success-msg{
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 3px 3px 3px 3px;
+        color: #270;
+        background-color: #DFF2BF;
+    }
+
+    select{
+			height:40px;
+            width: 425px!important;
+			border-radius: 5px!important;
+		}
+
+    .form-label:after {
+    content:" *";
+    color: red;
+  }
+
+  button{
+			width: 200px;
+			border-radius: 10px!important;
+      margin-left: 100px;
+		}
+
+    .already{
+      margin-left: 50px;
+
+    }
+    body {
+			background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+      background-size: 100%;
+			
+			}
+
+  </style>
+ 
+</head>
+<body>
+    {% include "nav.html" %}   
+
+    <section class="h-100 h-custom" >
+        <div class="container py-5 h-100">
+            {% if messages %}
+		{% for message in messages %}
+		<div class="success-msg">
+			<i class="fa fa-check"></i>
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+              <div class="card rounded-3">
+                
+                <div class="card-body p-4 p-md-5">
+                  <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Update Doctor's Details</h2>
+                  
+      
+                  <form action="{% url 'update_docter' id=userdata.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="form-label" for="form3Example1q">Full Name</label>
+                     <input type="text" name="name" placeholder="Full Name" required="" class="form-control" value="{{ userdata.name }}"><br>
+
+                     <label class="form" for="form3Example1q">Email Address</label>
+                     <input type="email" name="email" placeholder="Email" required="" class="form-control" value="{{ userdata.email }}"><br>
+
+                     <label class="form-label" for="form3Example1q">Contact Number</label>
+                     <input type="tel" name="phone" placeholder="Phone Number" required="" class="form-control" value="{{ userdata.phone }}"><br>
+
+                     <label class="form" for="form3Example1q">Age</label>
+                     <input type="number" name="age" placeholder="Age" required="" class="form-control" value="{{ userdata.age }}"><br>
+
+                       <div class="form-group">
+                      <p align="left">Gender</p>
+                 <select name="gender" value="{{ userdata.gender }}">
+                             <!-- <option default="">Select Gender</option> -->
+                             <option  name="Male" default="">Male </option>
+                             <option  name="Female">Female</option>
+                             <option  name="Transgender">Transgender</option>
+                
+                             </select><br>
+                  </div>
+                       <div class="form-group">
+                      <p align="left">Blood Group</p>
+                 <select name="blood" >
+                             <!-- <option default="">Select Gender</option> -->
+                     
+                
+                             <option  name="{{ userdata.blood }}" >{{ userdata.blood }}</option>
+                                     <option  name="A+" value="">A+ </option>
+                             <option  name="B+">B+</option>
+                             <option  name="AB+">AB+</option>
+                             <option  name="O+">O+</option>
+                             <option  name="A-">A-</option>
+                             <option  name="B-">B- </option>
+                
+                             <option  name="AB-">AB-</option>
+                             <option  name="O-">O-</option>
+                
+                
+                             </select><br><br>
+
+                             <label class="form-label1" for="form3Example1q">Address</label>
+                    <textarea class="form-control" name="address" value="{{ userdata.address }}" placeholder="Address">{{ userdata.address }}</textarea><br>
+
+                    <label class="form-label1" for="form3Example1q">Department</label>
+                    <input type="text" name="department" placeholder="Department" required="" class="form-control" value="{{ userdata.department }}"><br>
+
+                    <label class="form-label1" for="form3Example1q">Salary</label>
+                            <input type="number" name="salary" placeholder="Salary" required="" class="form-control" value="{{ userdata.salary }}"><br>
+
+                            <label class="form-label1" for="form3Example1q">Attendance</label>
+                                <input type="number" name="attendance" placeholder="Attendance" required="" class="form-control" value="{{ userdata.attendance }}"><br>
+                  <div class="form-group">
+                      <p align="left">Status</p>
+                 <select name="status" value="{{ userdata.status }}">
+                             <!-- <option default="">Select Gender</option> -->
+                             <option  value="1" default="">Active </option>
+                             <option  value="0">Inactive</option>
+                           
+                             </select><br>
+                  </div>
+                  </div>
+                
+                
+                
+                
+                
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+                  <br>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--JS Library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+      
+  	
+</body>
+</html>
+
+
+
+

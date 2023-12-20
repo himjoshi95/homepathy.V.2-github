@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">REGENERATE CERTIFICATES</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+    <select readonly name="patient" required="True" id="id_patientid" class="form-control">
+        <option value="{{obj.patient}}">{{obj.patient}}</option>
+        <!-- <option disabled value name="Selectbranch" default="">Select Case Paper No.</option>
+        {% for d in data %}
+        <option  value="{{ d.pk }}">{{ d.case }} </option>    
+        {% endfor %}     -->
+    </select>
+    <br><br>
+    <label for="diagnose1"><h4>Diagnose (1) </h4></label><br>
+    <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose1" value="{{ obj.diagnose1 }}">
+
+    <br>
+    <label for="diagnose2"><h4>Diagnose (2)</h4></label><br>
+    <input type="text" class="form-control"  placeholder="Diagnose"  name="diagnose2" value="{{ obj.diagnose2 }}">
+    <br>   
+    <label for="diagnose3"><h4>Diagnose (3)</h4></label><br>
+    <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose3" value="{{ obj.diagnose3 }}">
+    <br>
+    <label ><h4>Date</h4></label><br>
+    <input type="date" required="True" class="form-control" name="date1" value="{{ obj.date1|date:'c' }}">
+    <br>
+
+    <label ><h4>Rest From</h4></label><br>
+    <input type="date"  class="form-control" name="date2" value="{{ obj.date2|date:'c' }}">
+    <br>
+    <label><h4>Rest Till</h4></label><br>
+    <input type="date"  class="form-control"  name="date3" value="{{ obj.date3|date:'c' }}">
+    <br>
+    <label ><h4>Resume Date</h4></label><br>
+    <input type="date"class="form-control"  name="date4" value="{{ obj.date4|date:'c' }}">
+    <br>
+    <label for="month"><h4>Duration </h4></label><br>
+    <input type="text"  class="form-control" placeholder="Number of Months" id="month" name="month" value="{{ obj.month }}">
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+<br>
+<br>
+<br>
+
+
+
+    {% if obj.date2 %}
+
+   <a href="{% url 'regen_medical_certificate_pdf' id=obj.id %}" class="btn btn-primary btn-lg">MEDICAL CERTIFICATE</a> <br><br><br>
+   <a href="{% url 'regen_fitness_certificate_pdf' id=obj.id %}" class="btn btn-primary btn-lg">FITNESS CERTIFICATE</a> <br><br><br>
+   <a href="{% url 'regen_unfit_certificate_pdf' id=obj.id %}" class="btn btn-primary btn-lg">UNFIT  CERTIFICATE</a><br><br><br>
+   <a href="{% url 'regen_travelling_certificate_pdf' id=obj.id %}"  class="btn btn-primary btn-lg">TRAVELLING CERTIFICATE</a><br> 
+   {% else %}
+   <a href="{% url 'regen_fitness_certificate_pdf' id=obj.id %}" class="btn btn-primary btn-lg">FITNESS CERTIFICATE</a> <br><br><br>
+   <a href="{% url 'regen_unfit_certificate_pdf' id=obj.id %}" class="btn btn-primary btn-lg">UNFIT  CERTIFICATE</a><br><br><br>
+   <a href="{% url 'regen_travelling_certificate_pdf' id=obj.id %}"  class="btn btn-primary btn-lg">TRAVELLING CERTIFICATE</a><br> 
+    {% endif %}
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

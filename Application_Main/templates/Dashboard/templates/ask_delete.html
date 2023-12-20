@@ -1,0 +1,159 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+        } 
+        body {
+    background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+    background-size: 100%;
+    }  
+    select{
+			height:40px;
+            width: 585px!important;
+			border-radius: 5px!important;
+		}
+    .th{
+            border: 2px solid lightblue;
+                        border-collapse: collapse;
+        }   
+
+        table{          
+                        border-spacing: 1;
+                        border: 8px solid lightblue;
+                        border-collapse: collapse;
+                        }
+
+        .border-right {
+                    border-right: 1px solid black;
+        }
+        div.ex3 {
+        background-color: whitesmoke;
+        width: 110px;
+        height: 500px;
+        overflow: auto;
+        }
+        tfoot{
+            border-top: 1px solid black;
+        }
+        .card {
+  width: 400px;
+  height: 120px;
+  border-radius: 30px;
+  background: rgb(130, 142, 209);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+.card1 {
+  width: 400px;
+  height: 400px;
+  border-radius: 30px;
+  background: rgb(130, 142, 209);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+    
+	</style>
+
+</head>
+
+  <body>
+
+    
+   <div class="container" style="margin-top: 30px;">
+    <div class="mt-2">     
+        <!-- <h1 class="card-title float-left mt-2" style="color: antiquewhite;" >NEW CASE</h1>  -->
+       
+        <!-- <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a> -->
+    </div>
+    <div class="container" style="margin-top: 10px;">
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+       
+       <br>
+
+       <div class="container">
+        {% if category == 'Chief Complaints' %}
+        <h1 style="margin-top: 20px; color: antiquewhite;">Delete Chief Complaint : </h1>
+         {% elif category == 'Personal History' %} 
+         <h1 style="margin-top: 20px; color: antiquewhite;">Delete Personal History : </h1>
+         {% elif category == 'Mental Causative Factor' %} 
+         <h1 style="margin-top: 20px; color: antiquewhite;">Delete Mental Causative Factor : </h1>
+         {% elif category == 'Mental Personality Character' %} 
+         <h1 style="margin-top: 20px; color: antiquewhite;">Delete Mental Personality Character : </h1>
+         {% elif category == 'Brief Mind Symptoms' %} 
+         <h1 style="margin-top: 20px; color: antiquewhite;">Delete Brief Mind Symptoms : </h1>
+         {% elif category == 'Thermal' %} 
+         <h1 style="margin-top: 20px; color: antiquewhite;">Delete Thermal Reaction : </h1>
+         {% endif %}
+         <hr> 
+        
+        <br><br>
+        <table class="" >
+            <thead>
+              <tr class = "bg-primary" style="height: 80px;" >        
+                  <th style="color:antiquewhite; text-align: center; font-size: 20px;" scope="col">Are you sure you want to Delete?</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class = "table-light">
+                <td class="border-right" style="width: 80px">
+                    <div style="width: 1000px;">
+                        <a href ="{% url 'delete_chief_complaints' id=id %}" style="margin-top: 50px; margin-left: 50px;" class="btn btn-danger btn-lg">Yes</a>
+                        {% if category == 'Chief Complaints' %}
+                        <a href ="{% url 'chief_complaints_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Personal History' %}
+                        <a href ="{% url 'personal_history_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Mental Causative Factor' %}
+                        <a href ="{% url 'mental_causative_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Mental Personality Character' %}
+                        <a href ="{% url 'mental_personality_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Brief Mind Symptoms' %}
+                        <a href ="{% url 'bms_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Thermal' %}
+                        <a href ="{% url 'thermal_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 100px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% endif %}
+                      <br><br><br><br>
+                    </div>  
+                </td>  
+                
+                
+                  
+              </tr>
+          </tbody>       
+          
+          </table>
+          
+          <br><br>
+         
+           
+          <br><br>
+        </div>       
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>   
+  
+</body>
+</html>

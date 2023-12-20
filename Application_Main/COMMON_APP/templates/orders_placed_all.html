@@ -1,0 +1,175 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v3.8.6" />
+    <title>Medicine Stock Details</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <style>
+      @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+      body {
+        background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+        background-size: 100%;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% include 'nav.html' %}
+
+    <main role="main" class="container">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="jumbotron">
+
+        <a href="/hr_dashboard/" class="btn btn-outline-primary"><i class="fa fa-angle-double-left"></i> Go Back </a>
+
+
+        <a href="{% url 'orders_placed_all' %}"  style="margin-left: 10px" class="btn btn-outline-primary"
+          ><i class="fa fa-history" aria-hidden="true"></i> Stock Order History 
+        </a>
+        <a
+          href="{% url 'orders_placed_medicine' %}"
+          style="margin-left: 10px"
+          class="btn btn-outline-primary"
+          > <i class="fa fa-history" aria-hidden="true"></i
+            > Medicine Order History
+          </a>
+        <hr />
+        <h1 class="header">Orders History Stock</h1>
+
+        <form method='POST' action=''>{% csrf_token %}
+
+          {{form|crispy}}
+          <p style="color:red;">(Please Select Stock Name from the list you want to Search)</p> 
+            <input type="submit" style="width:500px;" class="btn btn-primary" value='Search'/>
+            <a href="/stock-orders-placed/" class="btn btn-dark" style="width:500px; margin-left:20px;text-decoration:none;">Refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
+        </form>
+        <br>
+
+
+        {% if order_details %}
+        <hr />
+        <div style="width:1060px;" class="display_table">
+          <table class="table">
+            <tr>
+              <th>STOCK NAME</th>
+              <th>ORDERED QUANTITY</th>
+              <th>ORDERED ON DATE</th>
+              <th>ORDER DELIVERY DATE</th>
+              <th>VENDOR</th>
+              <th>EMAIL</th>
+              <th>DELIVERY STATUS</th>
+            </tr>
+            {% for order in datas %}
+             {% if order.email_placed_flag %}
+            <tr style="font-size: 15px">
+              <td>{{order.stock_order}}</td>
+              <td>{{order.order_quantity}} {{order.unit}}</td>
+              <td>{{order.order_timestamp|date:"d F, Y"}}</td>
+              <td>{{order.order_delivery_date|date:"d F, Y"}}</td>
+              <td>{{order.stock_order.vendor}}</td>
+              <td>{{order.email}}</td>
+              {% if order.order_received_flag %}
+              <td>
+                <a
+                  href="{% url 'mark_stock_delivered' order.id %}"
+                  class="btn btn-success btn-block"
+                  >Delivered <i class="fa fa-calendar-check-o" style="font-size:20px; float:right;"></i></a
+                >
+              </td>
+              {% else %}
+              <td>
+                <a
+                  href="{% url 'mark_stock_delivered' order.id %}"
+                  class="btn btn-primary btn-block"
+                  >Mark Delivered &nbsp;<i class="fa fa-exchange" style="font-size:20px"></i></a
+                >
+              </td>
+              {% endif %}
+            </tr>
+            {% endif %} {% endfor %}
+          </table>
+        </div>
+
+        {% endif %}
+      <br>
+      <hr>
+      <div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if datas.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+            {% endif %}
+            {% for i in datas.paginator.page_range %}
+            {% if datas.number == i %}
+            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+            {% endif %}       
+            {% endfor%}    
+            {% if datas.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+
+
+      </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+    <script>
+      $("#id_stock_order").select2();
+
+    </script>
+  </body>
+</html>

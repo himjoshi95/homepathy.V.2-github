@@ -1,0 +1,46 @@
+Hi {{appoint.patientid.name}},
+
+We trust this message finds you in good health.
+Thank you for choosing our clinic for your recent visit on {{today|date:"d F,y"}}.
+We appreciate the opportunity to serve you.
+
+Below are the details of your visit:  
+
+
+Case Paper No : {{appoint.patientid.case}}
+
+
+Next Visit (Follow-up) : {{next_visit|date:"d F,Y"}}
+
+
+
+
+
+
+
+Today's Bill : Rs {{paid|add:balance}}
+
+
+Paid Amount : Rs {{paid}}
+
+
+
+{% if balance > 0 %}
+Balance Amount : Rs {{balance}}
+
+
+Please Pay your Balance Amount of Rs {{balance}}, dated {{today|date:"d F,y"}} .
+{% elif balance == 0 %}
+Balance Amount : Rs {{balance}}
+{% else %}
+Advance Amount : Rs {{advance}}
+{% endif %}
+
+
+
+Warm Regards,
+
+Dr. Santosh K. Yadav
+
+Wings Classical Homeopathy
+

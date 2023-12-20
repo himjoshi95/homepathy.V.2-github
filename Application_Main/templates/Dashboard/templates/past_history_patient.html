@@ -1,0 +1,109 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Past History</h1> 
+            <a href = "{% url 'add_disease' case_id=case_id %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Disease</a>
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br><br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name"><h4>Diseases</h4></label> <br>
+    <select name="diseases" required id="id_patientid" class="form-control">
+        <option selected disabled="true" name="Selectbranch" default="">Name of the disease</option>
+        {% for d in data %}
+        <option  value="{{ d.pk }}">{{ d.name }} </option>    
+        {% endfor %}    
+    </select>
+    <br><br><br>
+    <label for="diagnose1"><h4>Last Diagnosed </h4></label><br>
+    <input type="text" class="form-control" placeholder="e.g 3 Months"  name="diagnosed">
+
+    <br>
+    <label for="diagnose2"><h4>Duration</h4></label><br>
+    <input type="text" class="form-control"  placeholder="e.g 2 Weeks"  name="duration">
+    
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+
+
+<br>
+<br>
+<br>
+
+<hr class = 'primary'>
+			<table class="table">
+	  <thead>
+	
+		<tr>
+          <th scope="col">Disease</th>
+		  <th scope="col">Last Diagnose</th>		  
+		  <th scope="col">Duration</th>		  
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for l in list %}
+		<tr>
+			<td>{{l.disease.name}}</td>
+            <td>{{l.last_diagnose}}</td>
+            <td>{{l.duration}}</td>		
+		  </tr>
+          {% endfor %}
+		
+		
+	  </tbody>
+	</table>
+  
+  
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

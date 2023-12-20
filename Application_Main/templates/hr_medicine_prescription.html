@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Presciption Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+	body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+	  margin: 0;
+}    
+	</style>
+	</head>
+<body>
+    {% include "nav.html" %}
+
+ <br>
+ 
+ <div class="col-sm-5">
+	 <div class="container">
+	  <div class="row">
+        
+		 <div class="col-sm-5">
+		 <h4 class="mb-3">CASE NO:</h4><button class="btn btn-primary" id="hello">{{case}}</button>
+		 
+		 </div> 
+		 <div class="col-sm-5">
+		   <h4 class="mb-3">NAME:</h4><button class="btn btn-primary" id="hello">{{name}}</button>
+		   
+		   </div>
+           
+		 </div>
+		 </div></div></div>
+       
+        
+		 <!-- <hr> -->
+ <div class="container mt-5"> 
+    <br>
+    <div>
+    <button type="submit" class="btn btn-danger"> <a href="# "></a> Today's Prescription </button>
+</div>	
+    <hr class = 'primary'>
+			<table class="table">
+	  <thead class="table-dark">
+	
+		<tr>   
+			<!-- <th scope="col">Diagnose</th>      -->
+		  <th scope="col">Medicine</th>
+		  <th scope="col">Potency</th>
+		  <th scope="col">Date</th>
+		  <th scope="col">Start Date</th>
+		  <th scope="col">Duration</th>
+		  <th scope="col">Next Visit</th>
+          <th scope="col">Status</th>
+		  <th scop="col">Balance Due</th>
+		  <th></th>
+		  <!-- <th scope="col">Flag</th> -->
+		 <!-- <th scope="col">Branch</th>
+		  <th scope="col">Details</th>-->
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for d in data %}
+		
+		{% if d.flag %}
+		<tr>			
+			<!-- <td bgcolor=#90EE90 >{{d.diagnose}} </td> -->
+		  <td bgcolor=#90EE90 >{{d.medicine}} </td>
+		<!--  <td> {{ data.docterid.name }} </td>-->
+		  <td bgcolor=#90EE90 >{{ d.potency}}  </td>
+	
+	
+		  <!-- <td> {{ data.patientid.name }}</td> -->
+		  <td bgcolor=#90EE90 > {{d.date|date:"d M , Y"}} </td>
+		  <td bgcolor=#90EE90 > {{d.start_date}} </td>
+		  <td bgcolor=#90EE90 > {{d.durations}}</td>
+		  <td bgcolor=#90EE90 >{{next_visit|date:"d M , Y"}}</td>
+
+		  <!-- <td bgcolor="green" > {{d.flag}}</td> -->
+			{% if d == data1 %}
+		  <td bgcolor=#90EE90>
+			<!-- <form method="POST" action="{% url 'hr_status' id=d.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" value='True'>DONE</button></form>       -->
+				<a href="{% url 'hr_medicine_payment' id=id %}" class="btn btn-danger">
+					Pay
+					</a>
+		</td>
+		<th bgcolor=#90EE90>Rs {{ balance }}</th>
+		{% else %}
+		<td bgcolor=#90EE90></td>
+		<td bgcolor=#90EE90></td>
+		{% endif %}
+		<td bgcolor=#90EE90 >			
+			<!-- <a class="btn btn-secondary" href="" title="Delete ">
+				<i class="fa fa-trash"></i>
+			</a> -->
+		</td>
+				
+		</tr>
+        {% else %}
+        <tr>
+			<!-- <td bgcolor=#FED8B1 >{{d.diagnose}} </td>			 -->
+			<td bgcolor=#FED8B1 >{{d.medicine}} </td>
+		  <!--  <td> {{ data.docterid.name }} </td>-->
+			<td bgcolor=#FED8B1>{{ d.potency}}  </td>
+	  
+	  
+			<!-- <td> {{ data.patientid.name }}</td> -->
+			<td bgcolor=#FED8B1> {{d.date|date:"d M , Y"}} </td>
+			<td bgcolor=#FED8B1> {{d.start_date}}</td>
+			<td bgcolor=#FED8B1> {{d.durations}}</td>
+			<td bgcolor=#FED8B1> {{next_visit|date:"d M , Y"}}</td>
+			<!-- <td bgcolor="yellow"> {{d.flag}}</td> -->
+  
+			<!-- <td bgcolor=#FED8B1>
+			  
+		  </td> -->
+		  {% if d == data1 %}
+		  <td bgcolor=#FED8B1></td>
+		  <th bgcolor=#FED8B1>
+			 Rs {{balance}}
+		  </th>	
+		  {% else %}
+		  <td bgcolor=#FED8B1></td>
+		  <td bgcolor=#FED8B1></td>
+		  {% endif %}
+		  </tr>
+		{% endif %}
+		
+		
+		{% endfor %}
+		
+	  </tbody>
+	</table>
+	
+	  </div>
+	</div>
+	</div>
+
+
+
+
+ </div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

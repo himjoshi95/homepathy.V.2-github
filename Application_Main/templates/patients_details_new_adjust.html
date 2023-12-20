@@ -1,0 +1,374 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patient Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style> 
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+    .sidenav {
+        height:85vh;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: lightblue;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        margin-top:56px;
+        border-radius: 5px;
+       
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size:20px;
+        color:black;
+        display: block;
+        transition: 0.3s;
+      }
+      
+     
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 2px;
+        font-size: 20px;
+        
+      }
+      
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+      /* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+padding: 6px 8px 6px 16px;
+text-decoration: none;
+font-size: 20px;
+color: 1px solid black;
+display: block;
+border: none;
+background: none;
+width:100%;
+text-align: left;
+cursor: pointer;
+outline: none;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+color: #f1f1f1;
+background-color: #20B5AD;
+
+}
+
+/* Add an active class to the active dropdown button */
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+display: none;
+background-color:  #5b5b5d;
+padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+float: right;
+padding-right: 8px;
+}
+.fa-caret-right {
+float: right;
+padding-right: 8px;
+}
+
+
+
+.yellow-shadow {
+    background-color: #FFDB58 ; /* Use a more vibrant yellow color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow with multiple layers for depth */
+    border-radius: 8px; /* Add rounded corners for a smoother look */
+    padding: 12px; /* Add some padding for better spacing */
+    transition: background-color 0.3s ease; /* Add a transition for smoother color change */
+  }
+
+  .yellow-shadow:hover {
+    background-color: #FFD700 ; /* Change the background color on hover for interactivity */
+  }
+ 
+  .blue-shadow {
+    background-color: #6699CC; /* Use a more vibrant yellow color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow with multiple layers for depth */
+    border-radius: 8px; /* Add rounded corners for a smoother look */
+    padding: 12px; /* Add some padding for better spacing */
+    transition: background-color 0.3s ease; /* Add a transition for smoother color change */
+  }
+
+  .blue-shadow:hover {
+    background-color: #1E90FF ; /* Change the background color on hover for interactivity */
+  }
+  .reorder{
+    background-color: #FFDB58;
+    color: white;          
+    border: 1px solid #FFDB58;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    .yellow-shadow {
+        background-color: #FFDB58 ; /* Use a more vibrant yellow color */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow with multiple layers for depth */
+        border-radius: 8px; /* Add rounded corners for a smoother look */
+        padding: 0px; /* Add some padding for better spacing */
+        transition: background-color 0.3s ease; /* Add a transition for smoother color change */
+      }
+    
+      .yellow-shadow:hover {
+        background-color: #FFD700 ; /* Change the background color on hover for interactivity */
+      }
+     
+      .blue-shadow {
+        background-color: #6699CC; /* Use a more vibrant yellow color */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow with multiple layers for depth */
+        border-radius: 8px; /* Add rounded corners for a smoother look */
+        padding: 0px; /* Add some padding for better spacing */
+        transition: background-color 0.3s ease; /* Add a transition for smoother color change */
+      }
+    
+      .blue-shadow:hover {
+        background-color: #1E90FF ; /* Change the background color on hover for interactivity */
+      }
+      
+     
+    
+}
+
+    .f-left {
+        float: left;
+    }
+    
+    .f-right {
+        float: right;
+    } 
+    
+    
+  
+
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <br><br><br><br><br>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'receptionist_dashboard' user=user %}">Dashboard <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'recep_register_patient' user=user %}">Register Patient <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>        
+        <a href="{% url 'patients_details' user=user %}">Patients Details <i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'create_appointment' user=user %}">Create Appointments<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'appointment_details' user=user %}">General Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'repeat_medicicne' user=user %}">Repeat Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'courier_medicicne' user=user %}">Courier Medicine<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+        {% comment %} <a href="{% url 'online_consultation' user=user %}">Online Consultation</a> {% endcomment %}
+        <a href="{% url 'old_prescription' user=user %}">Upload Old Case Paper<i class="fa fa-caret-right"></i></a>
+    </div>
+      <span style="font-size:20px;cursor:pointer" onclick="openNav()"><p style="margin-top:10px; padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776; </b></p></span>
+
+
+    <main role="main" class="container">
+
+        <div class="jumbotron" style="margin-top:30px;">
+            <a href="{% url 'create_appointment' user=user %}" class="btn btn-primary btn-lg" >Create Appointments &nbsp; <i class="fa fa-calendar-check-o" style="font-size:20px"></i></a>
+        
+            <div class="header-past">Patient's Details</div>
+            <hr>
+
+            <form>
+                    <input name="query" type="text" style="height:50px;" class="form-control" placeholder="Search for Patient's Name/Case Paper No./Mobile No." value="{{request.GET.query}}">
+                    <br>
+                    <button class="btn btn-secondary" style="height:45px;">Search <i class="fa fa-search"></i></button>
+                    <a href="{% url 'patients_details' user=user %}" class="btn btn-dark btn-sm" style="margin-left:9px; height:45px;"><span placeholder="Refresh"> Refresh <i class="fa fa-refresh fa-spin" ></i></span></a>
+            </form>
+            <hr>
+
+            <div class="table-responsive">
+                <table class='table'>
+                    <thead>
+                      <tr>
+                        <th>SERIAL NO.</th>
+                        <th>CASE PAPER NO.</th>
+                        <th>NAME</th> 
+                        <th>PHONE NUMBER</th>           
+                        
+                        <th>EMAIL</th>
+                        <th>GENDER</th>
+                        <th>AGE</th>
+                        <th>ADDRESS</th>	
+                        <th></th>	
+                      
+            
+                    </tr>
+                    </thead>
+                    {% for data in datas %} 
+                    
+            
+                    <tr>
+                    {% if data.case == 'DOM-NEW' or data.case == 'MUL-NEW' %}
+                    <td class="yellow-shadow"  >{{forloop.counter0|add:datas.start_index}}</td>
+                    <td class="yellow-shadow"  ><p style="padding: 5px; border: 2px solid orange; background:white;">{{data.case}}</p></td>
+                    <td class="yellow-shadow" >{{ data.name }}</td>
+                    <td class="yellow-shadow"  >{{ data.phone }} </td>
+                    <td class="yellow-shadow"  >{{ data.email }}</td>
+                    <td class="yellow-shadow" >{{ data.gender }}</td>
+                    <td class="yellow-shadow" >{{ data.age }}</td>
+                    <td class="yellow-shadow" >{{data.address}}</td>
+                    
+                    <td class="yellow-shadow"  ><a class="btn btn-warning btn-lg btn-block" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
+                     
+                    {% else %}
+                    <td class="blue-shadow" >{{forloop.counter0|add:datas.start_index}}</td>
+                    <td class="blue-shadow"  >{{data.case}}</td>
+                    <td class="blue-shadow"  >{{ data.name }}</td>
+                    <td class="blue-shadow">{{ data.phone }} </td>
+                    <td class="blue-shadow" >{{ data.email }}</td>
+                    <td class="blue-shadow"  >{{ data.gender }}</td>
+                    <td class="blue-shadow" >{{ data.age }}</td>
+                    <td class="blue-shadow" >{{data.address}}</td>
+                    
+                    <td class="blue-shadow" ><a class="btn btn-success btn-sm" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
+                     
+                    {% endif %}
+                    
+              
+              
+                       
+                  </tr>
+              
+                    
+                    
+            
+                 
+                     {% endfor %}
+                </table>
+            </div>
+
+            <!--End of display table-->
+<br><br><br>
+
+<h5>Note :</h5>
+<br>
+<p style="font-size:18px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> New Patient (Case Paper Number Not Issued) </p>
+<br><hr>
+
+ <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+
+        </div>
+
+
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+        }
+        
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+</body>
+</html>

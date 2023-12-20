@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<style type="text/css">
+    .container{
+  margin-top: 30px;
+}     
+img{
+    border-radius: 58%;
+}
+.plussign::after {
+content: "\2795";
+
+}
+
+</style>
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">UPLOAD DOCUMENTS - {{obj.name}}</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+      
+    <label for="hr_doc"><h4>Documents</h4></label><br>
+    <input type="file" name="hr_doc" accept="image/*" id="hr_doc" multiple value = "Upload">
+   
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Upload</button>
+</form>
+<br>
+<br>
+<br>
+
+
+
+   
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

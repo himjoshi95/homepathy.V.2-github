@@ -1,0 +1,178 @@
+
+{% block content %}
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+
+
+  --->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<!-- <style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		#hello{
+			width: 100%;
+		}
+  
+  
+    form{
+      background:aquamarine;
+      border-radius: 10px;
+      align-items: center;
+      width: 600px;
+      height: 40px;
+      text-align: center;
+      display: flex;
+      margin-top: 50px;
+    }
+    form input{
+      flex: 1;
+      border: none;
+      outline: none;
+    }
+    form button{
+      background: aquamarine;
+      padding: 10px , 50px;
+      border: none;
+      outline: none;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+	</style> -->
+
+  <style>
+    .success-msg{
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 3px 3px 3px 3px;
+        color: #270;
+        background-color: #DFF2BF;
+    }
+
+    body {
+  background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+}
+  </style>
+	</head>
+  
+<body>
+ {% include "nav.html" %}
+<div>
+ {% if messages %}
+ {% for message in messages %}
+ <div class="success-msg">
+   <i class="fa fa-check"></i>
+    {{ message}}
+ </div>
+ {% endfor %}
+{% endif %}
+</div>
+<div class="container">
+  <br><br>
+  <h1 style="color: antiquewhite;">Patient's Details</h1>
+  <hr>
+  <form>
+    <div class="input-group input-group-sm mb-3 mt-4">
+        <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+        <button class="btn btn-secondary"><i class="fa fa-search"></i>search</button>
+        <a href="{% url 'patients_details' user=user %}" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true" placeholder="Refres">Refresh</i></a>
+    </div>
+</form>
+
+<br>
+  <div class="col-sm">
+   <!--- <a href="{% url 'create_patient'  %}" class="btn btn-primary" id="hello">Create Patient</a>--->
+    <table class="table">
+  <thead class="table-dark">
+
+    <tr>
+      <!-- <td scope="col">SNo.</td> -->
+      <th scope="col">Case_Paper_No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone No.</th>
+      <th scope="col">Email</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Age</th>
+      <th scope="col">Address</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for data in datas %}
+    <tr class="bg-info">
+      <!-- <td>{{ forloop.counter }}</td>       -->
+      {% if data.case == 'DOM-NEW' or data.case == 'MUL-NEW' %}
+      <td bgcolor="yellow" style="color: antiquewhite;  font-size: 20px;">{{data.case}}</td>
+      {% else %}
+      <td style="color: antiquewhite;  font-size: 20px;">{{data.case}}</td>
+      {% endif %}
+      <td style="color: antiquewhite;  font-size: 20px;">{{ data.name }}</td>
+      <td style="color: antiquewhite;  font-size: 20px;">{{ data.phone }} </td>
+      <td style="color: antiquewhite;  font-size: 20px;">{{ data.email }}</td>
+      <td style="color: antiquewhite;  font-size: 20px;">{{ data.gender }}</td>
+      <td style="color: antiquewhite;  font-size: 20px;">{{ data.age }}</td>
+      <td style="color: antiquewhite;  font-size: 20px;">{{data.address}}</td>
+
+
+          {% if user == 'D' %}
+          <td></td>
+          <td></td>
+          {% else %}
+            <td scope="col"><a class="btn btn-success" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
+      <td scope="col"><a class="btn btn-danger" href="{% url 'delete_patient' id=data.id %}" >Delete</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+
+
+
+
+  </tbody>
+
+</table>
+<br>
+<hr>
+        <!-- paginations -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+  
+  <!-- end paginations -->
+  </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+</body>
+
+
+</html>
+{% endblock %}
+

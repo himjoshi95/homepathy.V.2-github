@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apointments Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		button{
+      width: 100%;
+    }
+	body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+	  margin: 0;
+}
+	</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ <br>
+    <div class="col-sm-5">
+        <div class="container">
+         <div class="row">
+            <div class="col-sm-5">
+            <h4 class="mb-3" style="color: antiquewhite;">CASE NO:</h4><button class="btn btn-primary" id="hello">{{data.case}}</button>
+            
+            </div>
+            <div class="col-sm-5">
+              <h4 class="mb-3" style="color: antiquewhite;">NAME:</h4><button class="btn btn-primary" id="hello">{{data.name}}</button>
+              
+              </div>
+            </div>
+            </div></div></div>
+            
+            <hr>
+ <div class="container mt-5">
+ <h2 class="text-center alert alert-danger">Previous Prescription Details</h2>
+
+ <div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			
+			</div>
+	  	
+	</div>
+		<br><br>
+			<table class="table">
+	  <thead class="table-dark">
+	
+		<tr>
+			<th scope="col">Diagnose</th>
+		  <th scope="col">Medicine</th>
+		  <th scope="col">Potency</th>
+		  <th scope="col">Start Date</th>
+		  <th scope="col">Date</th>
+		  <th scope="col">Duration</th>
+		  <th scope="col"></th>
+		 <!-- <th scope="col">Branch</th>
+		  <th scope="col">Details</th>-->
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for d in data2 %}
+		<tr class="bg-light">
+			
+		  <!-- <td>{{ d.patientid.id }}</td> -->
+		  <td style="font-size: 20px;">{{d.diagnose}}</td>
+		  <td style="font-size: 20px;">{{d.medicine}} </td>
+		<!--  <td> {{ data.docterid.name }} </td>-->
+		  <td style="font-size: 20px;">{{ d.potency}}  </td>
+	
+	
+		  <!-- <td> {{ data.patientid.name }}</td> -->
+		  <td style="font-size: 20px;">{{d.start_date}}</td>
+		  <td style="font-size: 20px;"> {{d.date}} </td>
+		  <td style="font-size: 20px;"> {{d.durations}}</td>
+		  {% for r in rep_pres %}
+		  {% if r.id == d.id %}
+		  <td><a href="{% url 'doc_repeat_medicine' id=d.patientid.case pk=d.id %}" class="btn btn-success btn-lg">Repeat Medicine</a></td>
+			{% else %}
+			
+			{% endif %}
+			{% endfor %}
+			
+			
+		  <!-- <td>
+			<a class="btn btn-primary" href="" title="Edit ">
+				<i class="fa fa-edit"></i>
+			</a>
+		</td> -->
+		<!-- <td>
+			<a class="btn btn-secondary" href="" title="Delete ">
+				<i class="fa fa-trash"></i>
+			</a>
+		</td> -->
+		</tr>
+		{% endfor %}
+		
+	  </tbody>
+	</table>
+	<br><br>
+	  </div>
+	</div>
+	</div>
+
+
+
+
+ </div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>
+
+ 

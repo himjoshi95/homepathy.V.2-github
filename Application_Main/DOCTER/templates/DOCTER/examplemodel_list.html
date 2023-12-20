@@ -1,0 +1,49 @@
+{% extends "base.html" %}{% load jsignature_filters %}
+<style>
+  #border {
+      position: relative;
+      text-align: center;
+      margin-top: 300px !important;
+      border: 2px solid black;
+      }
+  
+  </style>
+{% block content %}
+  <!-- <h1>List</h1> -->
+  <br>
+  
+  <a href="{% url 'create' %}"  class="btn btn-primary ">Create Presciptions</a>
+  <br>
+  <br>
+  <ul>
+    {% for obj in object_list %}
+      <li>
+        <dl>
+          <!-- <dt>Raw data (from db)</dt> -->
+          <!-- <dd>{{ obj.signature }}</dd> -->
+          <dt><h4>Date and Time </h4>{{obj.signature_date}}</dt>
+          <br>
+          <a href="{% url 'update' obj.pk %}" class="btn btn-success">
+            Update
+          </a>
+          <a href="{% url 'delete' obj.pk %}" class="btn btn-danger">
+            Delete
+          </a><br><br>
+          <dd>
+            <div class="container text-center" id="border">
+              <div class="row justify-content-center">
+               <div class="border">
+            <img src="{{ obj.signature|signature_base64 }}" alt="{{ obj }}" />
+               </div></div></div>           
+            
+          </dd>
+          <br>
+          <hr>
+          <br>
+        </dl>
+      </li>
+    {% endfor %}
+  </ul>
+ <br>
+ <br>
+{% endblock %}

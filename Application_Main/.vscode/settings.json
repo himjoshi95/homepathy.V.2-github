@@ -1,0 +1,7 @@
+{
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-python.python",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    }
+}

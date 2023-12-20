@@ -1,0 +1,17 @@
+
+Vendor Name:    {{order_info.stock_order.vendor}} 
+
+Vendor Contact Number: {{order_info.stock_order.vendor.mobile_number}}
+
+Email: {{order_info.email}} 
+
+Stock Orders
+
+{% for order in order_details %}
+ {{forloop.counter}}.   {{order.stock_order}} - {{order.order_quantity}} {{order.unit}}
+{% endfor %}
+
+
+Order Delivery: {{order_info.order_delivery_date|date:"d F, Y"}} 
+
+

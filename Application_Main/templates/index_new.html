@@ -1,0 +1,462 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Doctor Dashboard</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style type="text/css">
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');   
+
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+
+        .sidenav {
+          height:100vh;
+          width: 0;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: lightblue;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 60px;
+          margin-top:56px;
+          border-radius: 5px;
+         
+        }
+        
+        .sidenav a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size:20px;
+          color:black;
+          display: block;
+          transition: 0.3s;
+        }
+        
+       
+        
+        .sidenav .closebtn {
+          position: absolute;
+          top: 0;
+          right: 2px;
+          font-size: 40px;
+          
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+
+        /* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: 1px solid black;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+  background-color: #40B5AD;
+
+}
+
+/* Add an active class to the active dropdown button */
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color:  #5b5b5d;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+.fa-caret-right {
+  float: right;
+  padding-right: 8px;
+}
+
+.order-card {
+  color: #fff;
+}
+
+.bg-c-blue {
+  background: linear-gradient(50deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+  background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+  background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+  background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+  border-radius: 10px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+  border: none;
+  margin-bottom: 30px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width:320px;
+  
+}
+
+
+.card .card-block {
+  padding: 25px;
+}
+
+.card .card-block-one {
+padding: 8px;
+width: 600px;
+}
+
+.order-card i {
+  font-size: 26px;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}    
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 2% auto; /* 15% from the top and centered */
+  padding: 5px;
+  border: 1px solid #888;
+  width: 85%; /* 80% of the width */
+}
+
+.modalone {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content-one {
+  background-color: #fefefe;
+  margin: 2% auto; /* 15% from the top and centered */
+  padding: 5px;
+  border: 1px solid #888;
+  width: 85%; /* 80% of the width */
+}
+
+
+
+        
+
+     
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    {% include 'nav.html' %} 
+    <br>
+
+    <div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><hr>
+			<!-- <a href="{% url 'create_patient'  %}">Create Patients</a> -->
+      
+			<a href="{% url 'dashboard'  %}">Dashboard<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+
+      <button class="dropdown-btn">Medicine<i class="fa fa-caret-down"></i></button>
+			<div class="dropdown-container">
+        <a href="/list_medicine/">Medicine List</a>
+        <div class="dropdown-divider"></div>
+        <a href="/add_medicine/">Add Medicine</a>        
+      </div>
+      <div class="dropdown-divider"></div>
+
+      <button class="dropdown-btn">Staff<i class="fa fa-caret-down"></i></button>
+			<div class="dropdown-container">
+        <a href="{% url 'allstaff' %}">All Staff</a>            
+      </div>
+      <div class="dropdown-divider"></div>	
+      
+      <button class="dropdown-btn">Certificates<i class="fa fa-caret-down"></i></button>
+			<div class="dropdown-container">
+        <a href="{% url 'addpatient' %}">Bill Invoice</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'previous_issued_invoice' %}">Previous Issued Invoices</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'addcertificate' %}">Other Certificates</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'previous_issued_certificate' %}">Previous Issued Certificates</a>             
+      </div>	
+      <div class="dropdown-divider"></div>    
+			
+			<a href="{% url 'pricing' %}">Doctor Fees<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+
+      <button class="dropdown-btn">Today's Collection<i class="fa fa-caret-down"></i></button>
+			<div class="dropdown-container">
+        <a href="{% url 'dombivali_collection' %}">Dombivali Branch</a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'mulund_collection' %}">Mulund Branch</a>                   
+      </div>	
+      <div class="dropdown-divider"></div>		
+			<a href="{% url 'diagnosis_history' %}">Diagnosis History</a>
+
+		</div>
+		  <span style="font-size:30px;cursor:pointer;"  onclick="openNav()"><p style="padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776;</b></p></span>
+
+    
+ 
+<main role="main" class="container">
+   <br>
+
+  <div class="jumbotron"> 
+
+    {% comment %} <a href="{% url 'dom_med_order_history' %}" class="btn btn-info">Dombivali Order History</a> {% endcomment %}
+{% comment %} 
+    <a href="{% url 'approve_medicines_doctor' 'Dombivali' %}" class="btn btn-info">Approve Medicine Dombivali</a>
+
+    <a href="{% url 'approve_medicines_doctor' 'Mulund' %}" class="btn btn-info">Approve Medicine Mulund</a> {% endcomment %}
+
+    <a href="{% url 'edit_home_page' %}" class="btn btn-info">Edit Home Page</a>
+
+    <a href="{% url 'balance_list' 'Dombivali' %}" class="btn btn-info" style="margin-left:40px;">Balance List Dombivali</a>
+
+    <a href="{% url 'balance_list' 'Mulund' %}" class="btn btn-info" style="margin-left:30px;">Balance List Mulund</a>
+
+    {% comment %} <a href="{% url 'place_new_order_doctor' %}" class="btn btn-info">Place New Order</a> {% endcomment %}
+    <button id="openPopup" class="btn btn-info" style="margin-left:30px;"><a href="#" style="text-decoration:none; color:white;">Assign Task</a></button>
+
+    <button id="openPopupone" class="btn btn-info" style="margin-left:30px;"><a href="#" style="text-decoration:none; color:white;">Leave Reports</a></button>
+    
+    <a href="{% url 'doctor_diagnose_history'%}" class="btn btn-info" style="margin-left:25px;">Diagnose History</a>
+
+     <a href="{% url 'view_courier_details' 'Dombivali' %}" class="btn btn-info" style="margin-top:30px;" >Courier List Dombivali</a>
+     
+     <a href="{% url 'view_courier_details' 'Mulund' %}" class="btn btn-info" style="float:right;margin-top:30px;" >Courier List Mulund</a>
+
+    
+  <br>
+  <hr>
+	<div class="header">Dashboard</div>
+  <hr>
+<br><br>
+  <div class="row">
+    <div class="col-md-4 col-xl-3" style="margin-left:100px;">
+        <div class="card bg-c-blue order-card">
+            <div class="card-block">
+                <h4 class="m-b-20">Approve Items</h4>
+                <hr style="border : 1px solid white;">
+                <br>
+               
+                <h2 class="text-center"><i style="font-size:50px;" class="fa fa-cart-plus f-left"></i><span><a href="{% url 'approve_items_doctor' 'Dombivali' %}" style="text-decoration: none; color:white;"> Dombivali <img src="{% static 'images/plus_new.png' %}" width="45" height="45"></a></span></h2>
+                <p class="m-b-0"><span class="f-right"></span></p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 col-xl-3" style="margin-left:250px;">
+        <div class="card bg-c-pink order-card">
+            <div class="card-block">
+                <h4 class="m-b-20">Approve Items</h4>
+                <hr style="border : 1px solid white;">
+                <br>
+                <h2 class="text-center"><i style="font-size:50px;" class="fa fa-cart-plus f-left"></i><span><a href="{% url 'approve_items_doctor' 'Mulund' %}" style="text-decoration: none; color:white;">Mulund <img src="{% static 'images/plus_new.png' %}" width="50" height="50"></a></span></h2>
+                <p class="m-b-0"><span  class="f-right"></span></p>
+               
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+<hr>
+<div class="row">
+
+  <div class="col-md-4 col-xl-3" style="margin-left:100px;">
+    <div class="card bg-c-green order-card">
+        <div class="card-block">
+            <h4 class="m-b-20">Approve Medicine</h4>
+            <hr style="border : 1px solid white;">
+            <br>
+           
+            <h2 class="text-center"><i style="font-size:40px;" class="fa fa-medkit f-left"></i><span><a href="{% url 'approve_medicines_doctor' 'Dombivali' %}" style="text-decoration: none; color:white;">Dombivali <img src="{% static 'images/plus_new.png' %}" width="45" height="45"></a></span></h2>
+            <p class="m-b-0"><span class="f-right"></span></p>
+            
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-xl-3" style="margin-left:250px;">
+  <div class="card bg-c-yellow order-card">
+      <div class="card-block">
+          <h4 class="m-b-20">Approve Medicine</h4>
+          <hr style="border : 1px solid white;">
+          <br>
+          <h2 class="text-center"><i style="font-size:40px;" class="fa fa-medkit f-left"></i><span><a href="{% url 'approve_medicines_doctor' 'Mulund' %}" style="text-decoration: none; color:white;">Mulund <img src="{% static 'images/plus_new.png' %}" width="50" height="50"></a></span></h2>
+          <p class="m-b-0"><span  class="f-right"></span></p>
+         
+      </div>
+  </div>
+</div>
+
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+      <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+      <iframe src="{% url 'assign_tasks'%}" width="100%" height="550"></iframe>
+  </div>
+</div>
+
+<div id="myModalone" class="modalone">
+  <div class="modal-content-one">
+      <span class="closeone"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+      <iframe src="{% url 'approve_leaves' %}" width="100%" height="550"></iframe>
+  </div>
+</div>
+
+
+
+
+
+</div>
+	
+</main>
+
+<script>
+   // JavaScript to open and close the ASSIGN TASK modal
+   var modal = document.getElementById('myModal');
+   var btn = document.getElementById("openPopup");
+   var span = document.getElementsByClassName("close")[0];
+
+   btn.onclick = function() {
+       modal.style.display = "block";
+   }
+
+   span.onclick = function() {
+       modal.style.display = "none";
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+
+   // JavaScript to open and close the LEAVE REPORTS modal
+   var modalone = document.getElementById('myModalone');
+   var btnone = document.getElementById("openPopupone");
+   var spanone = document.getElementsByClassName("closeone")[0];
+
+   btnone.onclick = function() {
+       modalone.style.display = "block";
+   }
+
+   spanone.onclick = function() {
+       modalone.style.display = "none";
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modalone) {
+           modalone.style.display = "none";
+       }
+   }
+
+  function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  }
+  </script>
+  <script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

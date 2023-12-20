@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Bills</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br><br><br>
+<form action="{% url 'bills' id=id1 %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <br><br>
+    <label for="diagnose"><h4>Duration </h4></label><br>
+    <input type="text" required="True" class="form-control" placeholder="Number of Months" id="month" name="month">
+    <br><br>
+    <label ><h4>From</h4></label><br>
+    <input type="date"  class="form-control" name="date1">
+    <br><br>
+    <label><h4>To</h4></label><br>
+    <input type="date"  class="form-control"  name="date2">
+    
+    <br><br>
+    <label for="diagnose"><h4>Consulting Fees</h4></label><br>
+    <input type="text"   class="form-control" placeholder="Rs" id="consulting_fees" name="consulting_fees">
+    <br><br>
+    <label for="diagnose"><h4>Medicine Fees</h4></label><br>
+    <input type="text" required="True" class="form-control" placeholder="Rs" id="medicine_fees" name="medicine_fees">
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+<br>
+<br>
+<br>
+{{id}}
+<a href="{% url 'bill_pdf' id=id1 %}" class="btn btn-primary btn-lg float-right">Generate Bill</a>  
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

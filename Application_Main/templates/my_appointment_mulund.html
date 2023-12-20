@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Appointment </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+  <style type="text/css">
+		.container{
+      margin-top: 30px;
+    }
+    img{
+        border-radius: 58%;
+    }
+    .plussign::after {
+  content: "\2795";
+  
+}
+
+body {
+  background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+}
+button {
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: rgb(14, 14, 26);
+  color: rgb(234, 234, 234);
+  font-weight: 700;
+  transition: 0.6s;
+  box-shadow: 0px 0px 20px #1f4c65;
+  /* -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4)); */
+}
+
+button:active {
+  scale: 0.92;
+}
+
+button:hover {
+	background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  color: rgb(4, 4, 38);
+}
+	</style>
+  <script type="text/javascript">
+  
+
+    function myFunction2(){
+      document.getElementById("stop").hidden = False;
+      console.log(document.getElementById("stop").hidden);
+      
+  
+    }
+  
+    function green(){
+  
+  document.getElementById('btn1').style.display= 'block';
+  document.getElementById('btn').style.display = 'none';
+  
+  }
+  
+  function red(){
+  
+  document.getElementById('btn').style.display= 'block';
+  document.getElementById('btn1').style.display= 'none';
+  
+  }
+  </script>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ 
+<div class="container">
+  <h1 style="color: antiquewhite;">General Appointments Mulund :</h1><hr>
+<div class="row">
+	<div class="col-sm-12">
+    
+    <a href="{% url 'appoint_doctor' %}" >
+      <button class="plussign"> Create Appointment</button>
+      </a>  
+      <a href="{% url 'doc_upload_newcase' %}" style="margin-left: 50px;" >
+        <button class="plussign"> Upload New Case Paper</button>
+        </a>
+    <form>
+      <div class="input-group input-group-sm mb-3 mt-4">
+          <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+          <button class="btn btn-secondary"><i class="fa fa-search"></i>search</button>
+          <a href="{% url 'docter_appointment_mulund' %}" class="btn btn-primary" style="margin-left:9px;"><span class="glyphicon glyphicon-refresh" aria-hidden="true" placeholder="Refresh"> Refresh</span></a>
+      </div>
+  </form>
+
+  <h3 style="color:antiquewhite">Date: {{date|date:"d M Y"}}</h3>
+    <br>
+
+    <!-- <a href="{% url 'start_consultancy' branch='Mulund' %}"  id="btn" onclick="green()"  class="btn btn-success">Start Consultancy</a> -->
+
+    <!-- <a href="{% url 'stop_consultancy' branch='Mulund' %}" id="btn1" onclick="red()" style="display:none" class="btn btn-danger" >Stop Consultancy</a> -->
+
+
+    <!-- <button href="{% url 'start_consultancy' branch='Mulund' %}" type="button" id="btn" onclick="green()"  class="btn btn-success">Start Consultancy</button> -->
+        
+    
+          <!-- <button href="{% url 'stop_consultancy' branch='Mulund' %}" type="button" id="btn1" onclick="red()" style="display:none" class="btn btn-danger" >Stop Consultancy</button> -->
+	
+          <br><br>
+		<table class="table">
+  <thead class="table-dark">
+
+    <tr>
+      <th scope="col">Token No.</th>
+      <th scope="col">Patient's Image</th>
+      <th scope="col">Case PaperNo.</th>
+      <!-- <th scope="col">Date</th> -->
+      <th scope="col">Time</th>
+      
+      {% if user == 'P' %}
+      <th scope="col">Docter</th>
+      {% else %}
+      <th scope="col">Patient's Name</th>
+      {% endif %}
+      <th scope="col">Status</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Details</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  	  	{% for dat2 in datas %}
+        {% if dat2.stat == 'General' %}
+        {% if dat2.patientid.flag %}
+    <tr>
+      <td> {{ dat2.token1 }}</td>
+      {% if dat2.patientid.patient_images %}
+      <td><img src="{{dat2.patientid.patient_images.url}}"  alt="Avatar" width="160" height="120" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D">Profile Photo Not Updated.</td>
+      {% endif %}
+      <th style="color :darkgreen;" bgcolor=#FFE87C scope="row">{{ dat2.patientid.case }}</th>
+      <!-- <th style="color :darkgreen;" bgcolor=#FFE87C scope="row">{{ dat2.date }}</th> -->
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ dat2.time }}</td>
+      {% if user == 'P' %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ dat2.docterid.name }} </td>
+      {% else %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ dat2.patientid.name }} </td>
+      {% endif %}
+
+      {% if dat2.stat == 'General' %}
+      <td scope="row" bgcolor="	#FAEBD7" >{{ dat2.stat }}</td>
+      {% elif dat2.stat == 'Repeat Medicine' %}
+      <td scope="row" bgcolor="#AFEEEE">{{ dat2.stat }}</td>
+      {% else %}
+      <td scope="row" bgcolor="	#FFB6C1">{{ dat2.stat }}</td>
+      {% endif %}
+
+      <!-- <td style="color :darkgreen;" bgcolor=#FFE87C> {{ dat2.stat }} </td> -->
+      <!-- <td> {{ data.patientid.name }}</td> -->
+      <!-- {% if dat2.status %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C>Completed</td>
+      {% else %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C>Pending</td>
+      {% endif %} -->
+
+      <td style="color :darkgreen;" bgcolor=#FFE87C>{{ dat2.patientid.branch }}</td>
+      <td style="color :darkgreen;" bgcolor=#FFE87C><a href="{% url 'apointmentDetails' id=dat2.patientid.id token=dat2.token1 %} ">Details</a></td>
+
+    </tr>
+    {% else %}
+    {% if dat2.doctor_notification %}
+
+    <tr>
+      <th style="color: antiquewhite; font-size: 20px;">{{ dat2.token1 }}</th>
+      {% if dat2.patientid.patient_images %}
+      <td style="color: antiquewhite; font-size: 20px;"><img src="{{dat2.patientid.patient_images.url}}"  alt="Avatar" width="160" height="120" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D">Profile Photo Not Updated.</td>
+      {% endif %}
+      <th scope="row" style="color: antiquewhite; font-size: 20px;">{{ dat2.patientid.case }}</th>
+      <!-- <th scope="row">{{ dat2.date }}</th> -->
+      <th style="color: antiquewhite; font-size: 20px;"> {{ dat2.time }}</th>
+      {% if user == 'P' %}
+      <th style="color: antiquewhite; font-size: 20px;"> {{ dat2.docterid.name }} </th>
+      {% else %}
+      <th style="color: antiquewhite; font-size: 20px;"> {{ dat2.patientid.name }} </th>
+      {% endif %}
+
+      {% if dat2.stat == 'General' %}
+      <th scope="row" style="color: antiquewhite; font-size: 20px;"  >{{ dat2.stat }}</th>
+      {% elif dat2.stat == 'Repeat Medicine' %}
+      <th scope="row" style="color: antiquewhite; font-size: 20px;">{{ dat2.stat }}</th>
+      {% else %}
+      <th scope="row" style="color: antiquewhite; font-size: 20px;">{{ dat2.stat }}</th>
+      {% endif %}
+
+      <!-- <td> {{ dat2.stat }} </td> -->
+      <!-- <td> {{ data.patientid.name }}</td> -->
+      <!-- {% if dat2.status %}
+      <td>Completed</td>
+      {% else %}
+      <td>Pending</td>
+      {% endif %} -->
+
+      <th style="color: antiquewhite; font-size: 20px;">{{ dat2.patientid.branch }}</th>
+      <td><a href="{% url 'apointmentDetails' id=dat2.patientid.id token=dat2.token1%} " class="btn btn-success btn-lg">Details</a></td>
+
+    </tr>
+    {% else %}
+
+    <tr>
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;">{{ dat2.token1 }}</td>
+      {% if dat2.patientid.patient_images %}
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;"><img src="{{dat2.patientid.patient_images.url}}"  alt="Avatar" width="160" height="120" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D">Profile Photo Not Updated.</td>
+      {% endif %}
+      <th scope="row" bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;">{{ dat2.patientid.case }}</th>
+      <!-- <th scope="row">{{ dat2.date }}</th> -->
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;"> {{ dat2.time }}</td>
+      {% if user == 'P' %}
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;"> {{ dat2.docterid.name }} </td>
+      {% else %}
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;"> {{ dat2.patientid.name }} </td>
+      {% endif %}
+
+      {% if dat2.stat == 'General' %}
+      <td scope="row" bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;" >{{ dat2.stat }}</td>
+      {% elif dat2.stat == 'Repeat Medicine' %}
+      <td scope="row" bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;">{{ dat2.stat }}</td>
+      {% else %}
+      <td scope="row" bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;">{{ dat2.stat }}</td>
+      {% endif %}
+
+      <!-- <td> {{ dat2.stat }} </td> -->
+      <!-- <td> {{ data.patientid.name }}</td> -->
+      <!-- {% if dat2.status %}
+      <td>Completed</td>
+      {% else %}
+      <td>Pending</td>
+      {% endif %} -->
+
+      <td bgcolor=#483D8B style="color: antiquewhite; font-size: 20px;">{{ dat2.patientid.branch }}</td>
+      <td bgcolor=#483D8B><a href="{% url 'apointmentDetails' id=dat2.patientid.id token=dat2.token1%} " class="btn btn-success btn-lg">Details</a></td>
+
+    </tr>
+
+
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+   
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for i in datas.paginator.page_range %}
+    {% if datas.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+    {% endif %}       
+    {% endfor%}    
+    {% if datas.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+  </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

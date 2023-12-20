@@ -1,0 +1,440 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+    
+		
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <i class="fa fa-check"></i>	
+               {{ message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+   
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">Likes and Dislikes In Food</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<!-- <h3>Q. {{data.question}}</h3> -->
+<p>Please Refer to Chart and Specify About Each Items . Mention If you are allergic any food</p>
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}            
+       <br>
+       <!-- div 1 -->
+        <div>
+                            <label for="potency" style="margin: 20px;"><h5>Sweet </h5></label>
+                            <select  id="potency" name="Sweet">
+                                <option selected value="">-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>   
+                            
+                            <label for="potency" style="margin: 40px;"><h5>Bitter</h5></label>
+                            <select  id="potency" name="Bitter">
+                                <option selected value="" >-- Select -- </option>
+                                <option value="Like">Like</option>
+                                <option value="Dislike">Dislike</option>
+                                <option value="Uncomfortable">Uncomfortable</option>
+                                <option value="Aversion">Aversion</option>
+                                <option value="Trouble">Trouble</option>                
+                            </select>
+         
+                
+        </div>   
+        
+        <!-- div 2 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Bread </h5></label>
+            <select  id="potency" name="Bread">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Eggs </h5></label>
+            <select  id="potency" name="Eggs">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 3 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Cold Foods Or Drinks </h5></label>
+            <select  id="potency" name="cold">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Chocolates </h5></label>
+            <select  id="potency" name="Chocolates">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+    
+        <!-- div 4 -->
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Mud, Chalk ,Paper </h5></label>
+            <select  id="potency" name="mud">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Salty/Salt </h5></label>
+            <select  id="potency" name="Salty">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 5 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Fats , Fried Food </h5></label>
+            <select  id="potency" name="fat">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Butter </h5></label>
+            <select  id="potency" name="Butter">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 6 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Meat </h5></label>
+            <select  id="potency" name="Meat">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Warm Food or Drinks </h5></label>
+            <select  id="potency" name="warm">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 7 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Fruits </h5></label>
+            <select  id="potency" name="Fruits">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Tobbacco/Pan </h5></label>
+            <select  id="potency" name="pan">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+        
+        <!-- div 8 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Sour</h5></label>
+            <select  id="potency" name="Sour">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Raw Salads </h5></label>
+            <select  id="potency" name="raw_salad">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 9 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Snacks</h5></label>
+            <select  id="potency" name="Snacks">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Fish </h5></label>
+            <select  id="potency" name="Fish">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 10 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Juices </h5></label>
+            <select  id="potency" name="Juices">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Ice-Cream/Ice</h5></label>
+            <select  id="potency" name="ice_cream">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 11 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Spicy </h5></label>
+            <select  id="potency" name="Spicy">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Vegetables</h5></label>
+            <select  id="potency" name="Vegetables">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 12 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Cheese</h5></label>
+            <select  id="potency" name="Cheese">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Onions</h5></label>
+            <select  id="potency" name="Onions">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 13 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Garlic</h5></label>
+            <select  id="potency" name="Garlic">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Milk</h5></label>
+            <select  id="potency" name="Milk">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 14 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Alcohol </h5></label>
+            <select  id="potency" name="Alcohol">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+            <label for="potency" style="margin: 40px;"><h5>Smoking </h5></label>
+            <select  id="potency" name="Smoking">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>
+           
+        </div>
+
+        <!-- div 15 -->
+
+        <div>
+            <label for="potency" style="margin: 20px;"><h5>Any Other</h5></label>
+            <select  id="potency" name="any_other">
+                <option selected value="">-- Select -- </option>
+                <option value="Like">Like</option>
+                <option value="Dislike">Dislike</option>
+                <option value="Uncomfortable">Uncomfortable</option>
+                <option value="Aversion">Aversion</option>
+                <option value="Trouble">Trouble</option>                
+            </select>   
+            
+           
+        </div>
+
+         
+        <br><br><br>
+          
+       
+            <button type="submit" class="btn btn-success bt-lg" value='True'>Next Question</button>
+
+    </form>
+<br>
+<br>
+<br>
+
+
+       
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

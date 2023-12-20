@@ -1,0 +1,415 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Payment Details</title>
+    
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      table, th, td {
+        border:1px solid black;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: orange;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:orange;
+        }
+        .reorder{
+          background-color: #FFE87C;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: 	#00FF7F;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .complete{
+            background-color: lightblue;
+            color: white;          
+            border: 1px solid blue;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+          }
+
+          img{
+            border-radius: 50%;
+        }
+        .box-one {
+            width: 300px;
+            height: 110px;
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            column-gap: 50px;
+            border-radius: 25px;
+            background: #dae5f4;
+          }
+          .box1{
+            height: 100px;
+            width:100px;
+            
+          }
+          .box2{
+            height: 100px;
+            width:500px;
+            
+          }
+          button {
+            font-size: 0.8rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            outline: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: rgb(2,29,78);
+            color: rgb(234, 234, 234);
+            font-weight: 700;
+            transition: 0.6s;
+            box-shadow: 0px 0px 20px #1f4c65;
+            /* -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4)); */
+          }
+          
+          button:active {
+            scale: 0.92;
+          }
+          
+          button:hover {
+              background: rgb(2,29,78);
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+            color: rgb(4, 4, 38);
+          }
+          .plussign::after {
+            content: "\2795";
+            
+          }
+
+          #box {
+            display: none;
+            background-color: white;
+            color: black;
+            width: 300px;
+            height: 32px;
+          }
+
+          .grand1 {
+            background-color: lightblue;
+            font-size: 20px;
+    
+        }
+          
+          
+
+    </style>
+    <script>
+		function myFunction() {
+        var x = document.getElementById("total").value;
+		var y = document.getElementById("id_courier_amount").value;
+		var total = parseInt(x) + parseInt(y)
+		
+		
+
+        document.getElementById("grand").innerHTML = "<b>Grand Total Amount</b> : Rs "+total;
+		
+    }
+	</script>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+    <hr>
+   
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+
+<div class="box-one">
+    <div class="box1">
+      {% if patient.patient_images %}
+      <img src="{{patient.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+      
+
+        {% else %}
+        <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+        {% endif %}
+    </div>
+    <div class="box2" style="color:black; font-size:20px">
+     <h5> {{patient.name}}</h5>
+     <hr style="background-color:blue;">
+     <h5> {{patient.case}}</h5>
+      
+    </div>
+    
+  </div>
+
+
+  <div class="jumbotron">
+
+    <p style="font-size:22px; margin-left:5px;"><b style="padding: 5px; border: 2px solid lightblue; background:white;">TODAY : {{date|date:"d M Y"}} </b><b style=" margin-left: 450px; padding: 5px; border: 2px solid lightblue; background:white;"> Next Visit: &nbsp; {{next_visit|date:"d M , Y"}}</b></p>
+   <hr style="border: 1px solid lightblue;">
+	<div class="header">Payment</div><hr>
+  {% if patient.flag %}
+
+  <p style="font-size:25px;">Medicine Charges : <h1 style="margin-left:20px;"> Rs {{med_charges}} </h1></p><br>
+
+  {% if data_extra %}
+  
+  <p style="font-size:25px;">Other Medicine(Details) :
+    
+     <table style="width:40%">
+      <tr style="text-align:center;">
+        <th>Name</th>
+        <th>Value</th>
+        {% comment %} <th>Country</th> {% endcomment %}
+      </tr>
+      {% for d in data_extra %}
+      <tr style="text-align:center;">
+        <td>{{d.description}}</td>
+        <td>Rs {{d.other_price}}</td>        
+      </tr>  
+      {% endfor %} 
+      <tr style="text-align:center; background:lightblue;">
+        <td><b>Other Medicine Total: </b></td>
+        <td><b>Rs {{extra_med}}</b></td>
+      </tr> 
+    </table>    
+ 
+  {% endif %}
+
+    <br>
+
+
+  <p style="font-size:25px;">Consultation Charges <h1 style="margin-left:20px;"> Rs {{consult_charges}} </h1></p><br>
+
+  <p style="font-size:25px;">Today's Bill :</p><p style="font-size:16px;"><b> (Note: Today's Amount = Medicine Charges + Other Medicine Total + Consultation Charges  )</b> </p><h1 style="margin-left:20px;"> Rs {{x}} </h1><br>
+
+  {% else %}
+
+  <p style="font-size:25px;">Medicine Charges : <h1 style="margin-left:20px;"> Rs {{med_charges}} </h1></p><br>
+
+  {% if data_extra %}
+  
+  <p style="font-size:25px;">Other Medicine(Details) :
+    
+     <table style="width:40%">
+      <tr style="text-align:center;">
+        <th>Name</th>
+        <th>Value</th>
+        {% comment %} <th>Country</th> {% endcomment %}
+      </tr>
+      {% for d in data_extra %}
+      <tr style="text-align:center;">
+        <td>{{d.description}}</td>
+        <td>Rs {{d.other_price}}</td>        
+      </tr>  
+      {% endfor %} 
+      <tr style="text-align:center; background:lightblue;">
+        <td><b>Other Medicine Total: </b></td>
+        <td><b>Rs {{extra_med}}</b></td>
+      </tr> 
+    </table>    
+    <br>
+  {% endif %}
+
+   
+  {% if old_consult != 0 %}
+  
+  <p style="font-size:25px;">Consultation Charges <h1 style="margin-left:20px;"> Rs {{old_consult}} </h1></p><br>
+
+
+  {% endif %}
+
+
+  {% endif %}
+
+  
+
+  {% if patient.flag == False %}
+
+  {% if data_extra %}
+
+  <p style="font-size:25px;">Today's Bill : </p><h1 style="margin-left:20px;"> Rs {{med_charges|add:extra_med|add:old_consult}}</h1><br>
+
+  {% else %}
+  <p style="font-size:25px;">Today's Bill :</p><h1 style="margin-left:20px;"> Rs {{med_charges|add:old_consult}}</h1><br>
+  {% endif %}
+
+  {% endif %}
+ 
+    <p style="font-size:25px;">Balance Dues: </p><h1 style="margin-left:20px;">{% if bal >= 0 %} Rs {{bal}} {% else %}  Rs <span id="balanceAmt"> {{bal}}  </span>{% endif %}</h1><br>
+
+    <label for="total" style="margin-top:10px;"><b style="font-size:25px;">Amount to be paid:</b> <h1 style="margin-left:20px; margin-top:10px;"> {% if total_clearance >= 0 %}Rs {{ total_clearance }} {% else %} Rs <span id="clearanceAmt"> {{ total_clearance }} </span> {% endif %}</h1></label><br>
+    <input type="hidden" readonly="True" id="total" name="total" value="{{ total_clearance }}" checked />
+
+    <form action="{% url 'hr_status' id=id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+        {% if app_stat == 'Courier Medicine' %}	
+        
+        {{form.patient}}<br><br>
+        <label ><h5>Courier Amount:</h5></label><br>
+        {{form.courier_amount}}<br><br>
+        <h5 >Please Click on Grand Total to Calculate Final Amount.</h5><br>
+        <button style="width: 20%; " type="submit" class="btn btn-warning" value='True' onclick="myFunction()">Grand Total</button><br><br>
+        <label ><h5>Address:</h5></label><br>
+        {{form.address}}<br><br>
+        <label ><h5>Email:</h5></label><br>
+        {{form.email}}
+        {% endif %}
+    </div>
+    <br><br>
+    <h4 >Mode of Payment:</h4>
+    <div>
+      <input type="radio" id="hide" name="example" value="hide" checked />
+      <label for="hide">Cash</label>
+    </div>
+
+    <div>
+      <input type="radio" id="show" name="example" value="show" />
+      <label  for="show">Online</label>
+    </div>
+    <br>
+    <p style="font-size: 20px" id="grand" class="grand1"></p>
+
+
+
+
+    
+    <br>
+    <h3 >Amount Paid:</h3>
+    <input type="text" id="id_email" maxlength="75" required="True" class="required"
+    value="" name="Email" placeholder="Rs"><br><br>		
+    <div id="box">
+    <h3>Transaction Details:</h3>
+    <input type="text" id="id_email1" maxlength="75" class="required"
+    value="" name="Email1" placeholder="Enter Details">
+    </div>
+    <br>
+    
+    
+    <br><br>
+    
+        
+    <hr>
+        <div class="container">
+            <button style="width: 25%; " type="submit" class="btn btn-success" value='True'>DONE</button></div>
+
+    </form>
+
+
+    
+   
+ 
+  
+  </div>
+</main>
+<script>
+  // Get the balance amount element
+  var balanceAmtElement = document.getElementById('balanceAmt');
+
+  // Get the balance amount value as a number
+  var balanceAmtValue = Math.abs(parseFloat(balanceAmtElement.innerHTML));
+
+  // Check if the balance amount is negative and format accordingly
+  document.getElementById("balanceAmt").textContent = balanceAmtValue + "  - PREVIOUS ADVANCE";
+
+  // Get the balance amount element
+  var clearanceAmtElement = document.getElementById('clearanceAmt');
+
+  // Get the balance amount value as a number
+  var clearanceAmtValue = Math.abs(parseFloat(clearanceAmtElement.innerHTML));
+
+  // Check if the balance amount is negative and format accordingly
+  document.getElementById("clearanceAmt").textContent = clearanceAmtValue + " - ADVANCE LEFT";
+</script>
+<script>const box = document.getElementById('box');
+
+	function handleRadioClick() {
+	  if (document.getElementById('show').checked) {
+		box.style.display = 'block';
+	  } else {
+		box.style.display = 'none';
+	  }
+	}
+	
+	const radioButtons = document.querySelectorAll('input[name="example"]');
+	radioButtons.forEach(radio => {
+	  radio.addEventListener('click', handleRadioClick);
+	});</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

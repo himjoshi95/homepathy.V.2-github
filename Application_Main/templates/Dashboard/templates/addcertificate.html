@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">CERTIFICATES</h1> 
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+    <select name="patient" required="True" id="id_patientid" class="form-control">
+        <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+        {% for d in data %}
+        <option  value="{{ d.pk }}">{{ d.case }} </option>    
+        {% endfor %}    
+    </select>
+    <br><br>
+    <label for="diagnose1"><h4>Diagnose (1) </h4></label><br>
+    <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose1">
+
+    <br>
+    <label for="diagnose2"><h4>Diagnose (2)</h4></label><br>
+    <input type="text" class="form-control"  placeholder="Diagnose"  name="diagnose2">
+    <br>   
+    <label for="diagnose3"><h4>Diagnose (3)</h4></label><br>
+    <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose3">
+    <br>
+    <label ><h4>Date</h4></label><br>
+    <input type="date" required="True" class="form-control" name="date1">
+    <br>
+
+    <label ><h4>Rest From</h4></label><br>
+    <input type="date"  class="form-control" name="date2">
+    <br>
+    <label><h4>Rest Till</h4></label><br>
+    <input type="date"  class="form-control"  name="date3">
+    <br>
+    <label ><h4>Resume Date</h4></label><br>
+    <input type="date"class="form-control"  name="date4">
+    <br>
+    <label for="month"><h4>Duration </h4></label><br>
+    <input type="text"  class="form-control" placeholder="Number of Months" id="month" name="month">
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+<br>
+<br>
+<br>
+
+
+
+
+
+   <a href="{% url 'medical_certificate_pdf' id=case_id %}" class="btn btn-primary btn-lg">MEDICAL CERTIFICATE</a> <br><br><br>
+   <a href="{% url 'fitness_certificate_pdf' id=case_id %}" class="btn btn-primary btn-lg">FITNESS CERTIFICATE</a> <br><br><br>
+   <a href="{% url 'unfit_certificate_pdf' id=case_id %}" class="btn btn-primary btn-lg">UNFIT  CERTIFICATE</a><br><br><br>
+   <a href="{% url 'travelling_certificate_pdf' id=case_id %}" class="btn btn-primary btn-lg">TRAVELLING CERTIFICATE</a><br> 
+   
+</div></div></div>
+<br><br><br><br>
+{% endblock %}
+
+

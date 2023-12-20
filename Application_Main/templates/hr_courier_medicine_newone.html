@@ -1,0 +1,385 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Courier Medicine Today</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: orange;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:orange;
+        }
+        .reorder{
+          background-color: #FFE87C;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color:#AAFF00;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .medicine{
+            background-color: lightblue;
+            color: white;          
+            border: 1px solid blue;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .complete{
+            background-color: #FED8B1;
+            color: white;          
+            border: 1px solid blue;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+          }
+
+          img{
+            border-radius: 50%;
+        }
+        .box1{
+            height: 40px;
+            width:100px;
+            
+          }
+          button {
+            font-size: 0.8rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            outline: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: rgb(2,29,78);
+            color: rgb(234, 234, 234);
+            font-weight: 700;
+            transition: 0.6s;
+            box-shadow: 0px 0px 20px #1f4c65;
+            /* -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4)); */
+          }
+          
+          button:active {
+            scale: 0.92;
+          }
+          
+          button:hover {
+              background: rgb(2,29,78);
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+            color: rgb(4, 4, 38);
+          }
+          .plussign::after {
+            content: "\2795";
+            
+          }
+
+          .btn11{
+            width : 230px;
+          }
+
+          .btn10{
+            width : 100px;
+          }
+          
+
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %} 
+    <hr>
+   
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+
+  <div class="jumbotron">
+
+    <hr  style="border:  1px solid lightblue;">
+    {% if general == '0' %}
+    <a href="{% url 'hr_accounting'  %}" class="btn btn-primary btn11" style="margin-left:9px;">General</a>
+    {% else %}
+    <a href="{% url 'hr_accounting'  %}" class="btn btn-primary btn11" style="margin-left:9px;">General<span class="pending"><b>{{general}}</b></span></a>
+    {% endif %}
+
+    {% if repeat == '0' %}
+    <a href="{% url 'hr_repeat_medicine' %}" class="btn btn-primary btn11" style="margin-left:50px;"> Repeat Medicine</a>
+    {% else %}
+    <a href="{% url 'hr_repeat_medicine' %}" class="btn btn-primary btn11" style="margin-left:50px;"> Repeat Medicine<span class="total"><b>{{repeat}}</b></span></a>
+    {% endif %}
+
+    {% if courier == '0' %}
+    <a href="{% url 'hr_courier_medicine' %}" class="btn btn-primary btn11" style="margin-left:50px;"> Courier Medicine</a>  
+    {% else %}
+    <a href="{% url 'hr_courier_medicine' %}" class="btn btn-primary btn11" style="margin-left:50px;"> Courier Medicine<span class="total"><b>{{courier}}</b></span></a>  
+    {% endif %}
+    <hr style="border:1 px solid lightblue;">
+
+       
+	<div class="header">Courier Medicine Details</div>
+
+	<form>
+        <div class="input-group input-group-sm mb-3 mt-4">
+            <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+            <button class="btn btn-secondary"><i class="fa fa-search"></i>search</button>
+            <a href="{% url 'hr_courier_medicine'  %}" class="btn btn-primary " style="margin-left:9px;"><span class="glyphicon glyphicon-refresh" aria-hidden="true" placeholder="Refresh"> Refresh</span></a>
+        </div>
+    </form>
+
+    <p style="font-size:20px; margin-left:5px;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+	<br>
+	<div class="display_table">
+    <table class='table'>
+        <thead>
+          <tr>
+            
+             
+            <th>CASE PAPER NO.</th>
+            <th>DATE</th>           
+            <th>TIME</th>
+            <th>PATIENT'S NAME</th>
+            <th>STATUS</th>
+            <th>BRANCH</th>
+			<th>DETAILS</th>
+      <th>Mail</th>
+			
+			
+          </tr>
+        </thead>
+        {% for data in datas %}  
+
+        {% if data.stat == 'Courier Medicine' %}
+                                                    {% comment %} NEW PATIENT {% endcomment %}
+        {% if data.patientid.flag %}       
+    <tr>  
+
+     
+      <td bgcolor="#FFE87C" style="color: black; font-size: 17px;">{{ data.patientid.case }}</td>
+
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.date }}</td>
+      
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.time }}</td>
+     
+      <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+      
+      {% if data.stat == 'General' %}
+        <td scope="row"  bgcolor="#FFE87C" style="color: black; font-size: 17px;" >{{ data.stat }}</td>
+        {% elif data.stat == 'Repeat Medicine' %}
+        <td scope="row" bgcolor="#FFE87C" style="color: black; font-size: 17px;" >{{ data.stat }}</td>
+        {% else %}
+        <td scope="row" bgcolor="#FFE87C" style="color: black; font-size: 17px;">{{ data.stat }}</td>
+        {% endif %}      
+
+      <td style="color: black; font-size: 17px;" bgcolor=#FFE87C>{{ data.patientid.branch }}</td>
+      
+
+      <td  bgcolor=#FFE87C><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-warning btn-lg">Details</a></td>
+      <td bgcolor=#FFE87C><p style="padding: 2px; border: 3px solid darkorange; background:white; font-size:15px"><b>Not Active</b></p></td>
+     
+    </tr>
+    {% else %}
+
+    {% if data.doctor_notification == True and data.notification_flag ==  False %}
+
+    <tr>    
+    
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;" scope="row">{{ data.patientid.case }}</td>
+      <!-- <td scope="row">{{ data.date }}</td> -->
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.date }}</td>
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.time }}</td>
+      
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+      
+
+      {% if data.stat == 'General' %}
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;" scope="row" >{{ data.stat }}</td>
+      {% elif data.stat == 'Repeat Medicine' %}
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+      {% else %}
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+      {% endif %}
+
+      
+
+      <td bgcolor=#00ff7f; style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+      
+      <td bgcolor=#00ff7f;><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-primary">Details</a></td>
+      <td bgcolor=#00ff7f; ><p style="padding: 2px; border: 3px solid darkgreen; background:white; font-size:15px"><b>Not Active</b></p></td>
+    </tr>
+
+    {% elif data.doctor_notification == True and data.notification_flag == True %}
+
+    <tr>
+     
+    
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;" scope="row">{{ data.patientid.case }}</td>
+      <!-- <td scope="row">{{ data.date }}</td> -->
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"> {{ data.date }}</td>
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"> {{ data.time }}</td>
+     
+      <td bgcolor="#FED8B1"  style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+      
+
+      {% if data.stat == 'General' %}
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;" scope="row" >{{ data.stat }}</td>
+      {% elif data.stat == 'Repeat Medicine' %}
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+      {% else %}
+      <td bgcolor="#FED8B1"  style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+      {% endif %}
+
+      
+
+      <td bgcolor="#FED8B1" style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+      
+      <td bgcolor="#FED8B1" ><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-primary">Details</a></td>
+      <td  bgcolor="#FED8B1" ><a href="{% url 'hr_send_mail' %}" class="btn btn-primary btn-block">Courier Mail</a></td>
+    </tr>
+    
+    {% else %}
+
+    <tr>
+     
+   
+      <td scope="row"  style="color: black; font-size: 17px;">{{ data.patientid.case }}</td>
+      <!-- <td scope="row">{{ data.date }}</td> -->
+      <td  style="color: black; font-size: 17px;"> {{ data.date }}</td>
+      <td  style="color: black; font-size: 17px;"> {{ data.time }}</td>
+      {% if user == 'P' %}
+      <td  style="color: black; font-size: 17px;"> {{ data.docterid.name }} </td>
+      {% else %}
+      <td  style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+      {% endif %}
+
+      {% if data.stat == 'General' %}
+      <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+      {% elif data.stat == 'Repeat Medicine' %}
+      <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+      {% else %}
+      <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+      {% endif %}
+     
+
+      <td  style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+     
+      <td  ><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-success btn-lg" style="color: antiquewhite;">Details</a></td>
+      <td></td>
+    </tr>
+
+    {% endif %}
+    {% endif %}
+    
+    {% endif %}
+    {% endfor %}
+    </table>
+</div>
+<!--End of display table-->
+<br><br>
+ <h5>Note :</h5>
+ <br>
+ <p style="font-size:18px;"> <a style="margin-right:10px;" class="reorder" href="#"></a>  Courier Medicine New Patient Pending <b style="margin-left:120px">({{new_patient}})</b></p>
+ 
+ {% comment %} <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Appointment Due &nbsp;  <b style="margin-left:38px">({{appointment_due}})</b> </p> {% endcomment %}
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Courier Medicine Old Patient &nbsp;  <b style="margin-left:185px">({{old_patient}})</b></p>
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="complete" href="#"></a>  Courier Medicine Issued &nbsp;  <b style="margin-left:224px">({{medicine_issued}})</b></p>
+   
+
+ <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if datas.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      {% for i in datas.paginator.page_range %}
+      {% if datas.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+      {% endif %}       
+      {% endfor%}    
+      {% if datas.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

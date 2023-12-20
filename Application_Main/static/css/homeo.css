@@ -1,0 +1,204 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap'); */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
+
+
+
+body {
+  background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+  background-size: 100%;
+  
+ 
+  
+  }
+
+  .scrolling-div-one{
+    font-size: 16px;
+    overflow-x: hidden;
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+  
+  }
+  
+  .scrolling-div-one::-webkit-scrollbar{
+    width: .8rem;
+  }
+  
+  .scrolling-div-one::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  
+  .scrolling-div-one::-webkit-scrollbar-thumb{
+    background: 	#6495ED;
+    border-radius: .5rem;
+  }
+
+
+/*Align the title to the center of the page*/
+
+/* Add this CSS to your existing styles */
+
+/* Adjust the form container styles */
+form {
+    max-width: 1050px; /* Increase the form width for better readability */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-left {
+    margin: 0; /* Remove the margin for left alignment */
+  }
+
+  .form-left-update {
+    margin: 10px; /* Remove the margin for left alignment */
+  }
+  
+  .text-center {
+    text-align: center;
+}
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px; /* Increase the padding for better spacing */
+    margin-top: 10px;
+    margin-bottom: 20px; /* Increase the margin for better spacing */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px; /* Adjust the font size for better readability */
+  }
+  
+  /* Adjust the form button styles */
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px; /* Increase the padding for better button size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold; /* Make the text bold for better visibility */
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Adjust the search input styles */
+  #searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Adjust the table styles for better readability */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  
+  .table th, .table td {
+    padding: 15px; /* Increase the padding for better spacing */
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .table tr:nth-child(even), .table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+
+.display_table{  
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 20px;
+	box-shadow: 10px 12px 20px 6px #2e6da4;
+}
+
+.header {
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+}
+
+.header-one {
+  font-family: helvetica;
+  color: #337ab7;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+  text-shadow: 6px 6px 6px #c9c6c6;
+  display: block;
+  font-weight: bolder;
+}
+
+.success{
+  list-style: none;
+  background-color: #2e6da4;
+  color: white;
+  box-shadow: 8px 8px 8px #e61c66;
+  text-align: center;
+}
+
+.container-new {
+  display: flex;  /* Use flexbox to align the divs side by side */
+  margin-top: 0px;
+}
+
+.left-div{
+  width: 40%;  /* Each div takes up 50% of the container width */
+  padding: 5px;  /* Add padding for spacing */
+  
+}
+
+.right-div {
+  width: 60%;
+  padding: 5px;
+  border-left: 1px solid #ccc; /* Add a left border for separation */
+  margin-left: 0px;
+  margin-right:1px; /* Create spacing between the divs */
+}  
+
+
+.scrolling-div-one {
+  margin-top: 10px;
+  max-height: 500px; /* Set the maximum height of the div */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  background-color: #B8CAE4;
+}
+
+
+
+
+
+

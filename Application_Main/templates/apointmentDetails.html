@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apointments Details </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+	<style type="text/css">
+		.card-body{
+			text-align: center;
+		}
+		.card{
+			height: 200px;
+		}
+		
+	.plussign::after {
+  content: "\2795";
+  
+}
+body {
+      background: url("/static/images/home_img.jpg") 0 no-repeat fixed;
+      background-size: 100%;
+	  margin: 0;
+}
+
+.content{
+	background: white;
+}
+button {
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: rgb(14, 14, 26);
+  color: rgb(234, 234, 234);
+  font-weight: 700;
+  transition: 0.6s;
+  box-shadow: 0px 0px 20px #1f4c65;
+  /* -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4)); */
+}
+
+button:active {
+  scale: 0.92;
+}
+
+button:hover {
+	background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  color: rgb(4, 4, 38);
+}
+
+
+
+	</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ <br>
+ <div class="col-sm-5">
+	 <div class="container">
+	  <div class="row">
+		 <div class="col-sm-5">
+		 <h4 class="mb-3" style="color: antiquewhite;">CASE NO:</h4><button class="btn btn-success" id="hello">{{data.case}}</button>
+		 
+		 </div>
+		 <div class="col-sm-5">
+		   <h4 class="mb-3" style="color: antiquewhite;">NAME:</h4><button class="btn btn-success" id="hello">{{data.name}}</button>
+		   
+		   </div>
+		 </div>
+		 </div></div></div>
+		 
+		 <hr>
+ <div class="container mt-5">
+
+{% if patient_flag  %}
+<a href="{% url 'past_history_newone' case_id=data.id %}" ><button class="plussign">New Case</button> </a>
+{% else %}
+
+ <a href="{% url 'list1' pk=data.id  %}" ><button>History details</button></a>
+ 
+  <a href="{% url 'create1' pk=data.id  %}" style="margin-left: 180px;"><button class="plussign">Create History</button> </a>
+  
+  <a href="{% url 'old_images' id=data.id  %}" style="margin-left: 180px;"><button>Case Paper Old Images</button></a>
+	
+
+<br><br><br>
+<a href="{% url 'upload_case_image' id=data.id %}" ><button class="plussign">Upload New Case Paper</button> </a>
+
+<a href="{% url 'casepaper_new_images' id=data.id %}" style="margin-left: 90px;"> <button> Case Paper New Images</button></a>
+
+<a href="{% url 'investigation_newone' id=data.id %}" style="margin-left: 90px;" ><button class="plussign">Investigation</button> </a>
+{% endif %}
+
+
+
+
+
+<br><br><br><br><br><br>
+ <div class="container content">
+	<div class="row">
+		<div class="col-sm-12">
+			<form class="form-inline" method="post" action="">
+				{% csrf_token %}
+				
+				<label for="diagnose" style="margin: 50px;">Diagnose:</label>
+				<input type="text" required="True" class="form-control" placeholder="" id="diagnose" name="diagnose">
+				<label for="medicine" style="margin: 50px;">Medicine:</label>
+				<input type="text" required="True" class="form-control" placeholder="Medicine Name" id="medicine" name="medicine">
+				<label for="potency" style="margin: 50px;">Potency:</label>
+				<select required="True" id="potency" name="potency">
+					<option disabled selected value>--- Select --- </option>
+					<option value="Q">Q</option>
+					<option value="3X">3X</option>
+					<option value="6X">6X</option>
+					<option value="6">6</option>
+					<option value="30">30</option>
+					<option value="200">200</option>
+					<option value="1 M">1 M</option>
+					<option value="10 M">10 M</option>
+					<option value="0/1">0/1</option>
+					<option value="0/2">0/2</option>
+					<option value="0/3">0/3</option>
+					<option value="0/4">0/4</option>
+					<option value="0/5">0/5</option>
+					<option value="0/6">0/6</option>
+					<option value="0/7">0/7</option>
+					<option value="0/8">0/8</option>
+					<option value="0/9">0/9</option>
+					<option value="0/10">0/10</option>
+					<option value="0/11">0/11</option>
+					<option value="0/12">0/12</option>
+					<option value="0/13">0/13</option>
+					<option value="0/14">0/14</option>
+					<option value="0/15">0/15</option>
+					<option value="0/16">0/16</option>										
+				  </select>
+				  <label for="start_date" style="margin: 50px;">Start Date:</label>
+				  <select required="True" id="start_date" name="start_date">				
+					<option value="Today">Today</option>
+					<!-- <option value="1 Day">1 Day</option> -->
+					<option value="2nd Day">2nd Day</option>
+					<option value="3rd Day">3rd Day</option>
+					<option value="4th Day">4th Day</option>
+					<option value="5th Day">5th Day</option>
+					<option value="6th Day">6th Day</option>
+					<option value="7th Day">7th Day</option>
+					<option value="10th Day">10th Day</option>
+					<option value="15th Day">15th Day</option>
+					<option value="20th Days">20th Day</option>
+					<option value="25th Day">25th Day</option>
+					<option value="30th Day">30th Day</option>
+					<option value="45th Day">45th Day</option>
+					<option value="60th Day">60th Day</option>					
+				  </select>
+				<label for="duration" style="margin: 50px;">Duration:</label>
+				<select required="True" id="duration" name="duration">
+					<option disabled selected value> -- Select -- </option>
+					<option value="7 Days">7 Days</option>
+					<option value="15 Days">15 Days</option>
+					<!-- <option value="14 Days">14 Days</option> -->
+					<option value="21 Days">21 Days</option>
+					<option value="30 Days">30 Days</option>
+					<!-- <option value="1 Month">1 Month</option> -->
+					<option value="45 Days">45 Days</option>
+					<option value="2 Months">2 Months</option>
+					<option value="3 Months">3 Months</option>
+					<!-- <option value="4 Months">4 Months</option> -->
+					<!-- <option value="5 Months">5 Months</option> -->
+					<!-- <option value="6 Months">6 Months</option> -->
+				  </select>	
+				<button type="submit" class=" form-control btn btn-primary" style="margin: 50px;">Submit</button>
+			
+			  </form>
+			</div>
+			<!-- <button type="submit" class="btn btn-danger"> <a href="{% url 'payment' id=1 % } "></a> Today Prescription </button> -->
+
+			<div>
+			
+			</div>
+	  	
+	</div>
+	<h3> Today's Prescription</h3>
+		<hr class = 'primary'>
+			<table class="table">
+	  <thead class="table-dark">
+	
+		<tr>
+		  <th scope="col">Diagnose</th>
+		  <th scope="col">Medicine</th>
+		  <th scope="col">Potency</th>
+		  <th scope="col">Start Date</th>
+		  <th scope="col">Date</th>
+		  <th scope="col">Duration</th>
+		  <th scope="col">Update</th>
+		  <th scope="col">Delete</th>
+		 <!-- <th scope="col">Branch</th>
+		  <th scope="col">Details</th>-->
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for d in data2 %}
+		
+		{% if d.flag %}
+		<tr>
+			<td bgcolor=#90EE90 >{{d.diagnose}} </td>			
+		  <td bgcolor=#90EE90 >{{d.medicine}} </td>
+		<!--  <td> {{ data.docterid.name }} </td>-->
+		  <td bgcolor=#90EE90>{{ d.potency}}  </td>
+	
+	
+		  <!-- <td> {{ data.patientid.name }}</td> -->
+		  <td bgcolor=#90EE90> {{d.start_date}} </td>
+		  <td bgcolor=#90EE90> {{d.date}} </td>
+		  <td bgcolor=#90EE90> {{d.durations}}</td>
+		  <!-- <td bgcolor="green"> {{d.flag}}</td> -->
+
+		  <td bgcolor=#90EE90>
+			<a class="btn btn-primary" href="{% url 'update_medicine' id=data.id pk=d.id %}" title="Edit ">
+				<i class="fa fa-edit"></i>
+			</a>
+			
+		</td>
+		<td bgcolor=#90EE90>
+			<a class="btn btn-secondary" href="{% url 'delete_medicine' id=data.id pk=d.id %}" title="Delete ">
+				<i class="fa fa-trash"></i>
+			</a>
+		</td>		
+		</tr>
+		{% else %}
+		<tr>
+			<td bgcolor=#FED8B1 >{{d.diagnose}} </td>			
+			<td bgcolor=#FED8B1 >{{d.medicine}} </td>
+		  <!--  <td> {{ data.docterid.name }} </td>-->
+			<td bgcolor=#FED8B1>{{ d.potency}}  </td>
+	  
+	  
+			<!-- <td> {{ data.patientid.name }}</td> -->
+			<td bgcolor=#FED8B1> {{d.start_date}} </td>
+			<td bgcolor=#FED8B1> {{d.date}} </td>
+			<td bgcolor=#FED8B1> {{d.durations}}</td>
+			<!-- <td bgcolor="yellow"> {{d.flag}}</td> -->
+  
+			<td bgcolor=#FED8B1>
+			  <!-- <a class="btn btn-primary" href="" title="Edit ">
+				  <i class="fa fa-edit"></i>
+			  </a> -->
+		  </td>
+		  <td bgcolor=#FED8B1>
+			  <!-- <a class="btn btn-secondary" href="" title="Delete ">
+				  <i class="fa fa-trash"></i>
+			  </a> -->
+		  </td>		
+		  </tr>
+		{% endif %}
+		{% endfor %}
+		
+	  </tbody>
+	</table>
+	
+	  </div>
+	</div>
+	</div>
+
+
+
+
+ </div>
+
+
+<br><br><br>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

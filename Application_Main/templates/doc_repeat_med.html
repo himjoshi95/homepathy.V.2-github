@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Appointment </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+  <style type="text/css">
+		.container{
+      margin-top: 30px;
+    }     
+    img{
+        border-radius: 58%;
+    }
+    .plussign::after {
+  content: "\2795";
+  
+}
+</style>
+	</head>
+<body>
+ {% include "nav.html" %}
+
+ 
+<div class="container">
+<div class="row">
+	<div class="col-sm-12">
+    <!-- <a href="{% url 'appoint_doctor' %}" class="btn btn-outline-primary plussign">
+      Create Appointment
+      </a> -->
+      <h2>Repeat Medicine</h2>
+      
+    <form>
+      <div class="input-group input-group-sm mb-3 mt-4">
+          <input name="query" type="text" class="form-control" placeholder="Search for Records" value="{{request.GET.query}}">
+          <button class="btn btn-secondary"><i class="fa fa-search"></i>search</button>
+          <a href="{% url 'doc_repeat_medicicne' user=user %}" class="btn btn-dark" style="margin-left:9px;"><i class="fa fa-refresh" aria-hidden="true" placeholder="Refres"></i></a>
+      </div>
+  </form>
+    
+		<table class="table">
+  <thead>
+
+    <tr>
+      <th scope="col">Patient's Image</th>
+      <th scope="col">Case PaperNo.</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      
+      {% if user == 'P' %}
+      <th scope="col">Docter</th>
+      {% else %}
+      <th scope="col">Patient's Name</th>
+      {% endif %}
+      <th scope="col">Status</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Details</th>
+
+    </tr>
+  </thead>
+  <tbody>    
+  	  	{% for data in datas %}  
+        {% if data.stat == 'Repeat Medicine' %}
+        
+        {% if data.patientid.flag %}      
+    <tr>
+      
+      {% if data.patientid.patient_images %}
+      <td><img src="{{data.patientid.patient_images.url}}" alt="Avatar" width="150" height="110" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D">Profile Photo Not Updated.</td>
+      {% endif %}
+      <th style="color :darkgreen;"bgcolor="#FFE87C" scope="row">{{ data.patientid.case }}</th>
+      <td type="date" style="color :darkgreen;" bgcolor=#FFE87C scope="row">{{ data.date }}</td>
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ data.time }}</td>
+      {% if user == 'P' %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ data.docterid.name }} </td>
+      {% else %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ data.patientid.name }} </td>
+      {% endif %}
+
+      <td style="color :darkgreen;" bgcolor=#FFE87C> {{ data.stat}} </td>
+      <!-- <td> {{ data.patientid.name }}</td> -->
+      <!-- {% if data.status %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C>Completed</td>
+      {% else %}
+      <td style="color :darkgreen;" bgcolor=#FFE87C>Pending</td>
+      {% endif %} -->
+
+      <td style="color :darkgreen;" bgcolor=#FFE87C>{{ data.patientid.branch }}</td>
+      <td style="color :darkgreen;" bgcolor=#FFE87C><a href="{% url 'apointmentDetails' id=data.patientid.id %} ">Details</a></td>
+
+    </tr>
+    {% else %}
+    <tr>
+    {% if data.patientid.patient_images %}
+      <td><img src="{{data.patientid.patient_images.url}}" alt="Avatar" width="150" height="110" border="5"></td>
+      {% else %}
+      <td bgcolor="#5D7B9D">Profile Photo Not Updated.</td>
+      {% endif %}
+      <th scope="row">{{ data.patientid.case }}</th>
+      <td scope="row">{{ data.date }}</td>
+      <td> {{ data.time }}</td>
+      {% if user == 'P' %}
+      <td> {{ data.docterid.name }} </td>
+      {% else %}
+      <td> {{ data.patientid.name }} </td>
+      {% endif %}
+
+      <td> {{ data.stat }} </td>
+      <!-- <td> {{ data.patientid.name }}</td> -->
+      <!-- {% if data.status %}
+      <td>Completed</td>
+      {% else %}
+      <td>Pending</td>
+      {% endif %} -->
+
+      <td>{{ data.patientid.branch }}</td>
+      <td><a href="{% url 'apointmentDetails' id=data.patientid.id  %} ">Details</a></td>
+
+    </tr>
+    
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+   
+  </tbody>
+</table>
+<br>
+<hr>
+<!-- {{ datas }}<br>
+Has Previous: {{datas.has_previous}}<br>
+Has Next: {{datas.has_next}}<br>
+Current Page: {{datas.number}}<br>
+Number of pages: {{ datas.paginator.num_pages}}<br>
+<hr><br><br> -->
+
+<!-- Paginations -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for i in datas.paginator.page_range %}
+    {% if datas.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+    {% endif %}       
+    {% endfor%}    
+    {% if datas.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<!-- end paginations -->
+<!-- {% if datas.has_previous %}
+  <a href="?page=1">&laquo First</a>
+  <a href="?page={{ datas.previous_page_number}}">Previous Page</a>
+
+{% endif %}
+
+Page {{ datas.number }} of  {{ datas.paginator.num_pages}}
+
+{% if datas.has_next %}
+  <a href="?page={{ datas.next_page_number}}">Next Page</a>
+  <a href="?page={{ datas.paginator.num_pages}}">Last &raquo</a>
+
+{% endif %}
+ -->
+
+
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

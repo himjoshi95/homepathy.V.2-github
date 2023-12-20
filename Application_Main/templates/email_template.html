@@ -1,0 +1,58 @@
+Hi {{courier.patient.name}}, 
+
+Next Visit : {{next_visit|date:"d M,Y"}}
+
+Your Courier details are mentioned below.
+
+Case Paper Number: {{courier.patient.case}}
+
+{% if new_flag == "True" %}
+
+NEW PATIENT
+
+Medicine Charges : Rs {{med_charges}}
+
+{% if extra_medicine != 0 or extra_medicine != '0'%}
+
+Other Presciption Charges :Rs {{extra_medicine}}
+
+{% endif %}
+
+Consultation Charges : Rs {{consult_price}}
+
+Courier Amount:Rs {{courier.courier_amount}}
+
+Total Amount (This time) : Rs {{bill_today}}
+
+Previous Balance Dues: Rs {{balance}}
+
+{% else %}
+
+Medicine Charges: Rs {{med_charges}}
+
+{% if extra_medicine != 0 or extra_medicine != '0'%}
+
+Other Presciption Charges :Rs {{extra_medicine}}
+
+{% endif %}
+
+Courier Amount:Rs {{courier.courier_amount}}
+
+Total Amount (This time) : Rs {{bill_today}}
+
+Previous Balance Dues: Rs {{balance}}
+
+{% endif %}
+
+Total Amount: Rs {{total_amount}}
+
+Address:  {{courier.address}}
+
+Date: {{courier.date|date:"d M,Y"}}
+
+
+
+Warm Regards,
+Dr. Santosh K. Yadav
+Wings Classical Homeopathy
+

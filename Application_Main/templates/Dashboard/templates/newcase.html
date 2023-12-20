@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+<div class="row align-items-center">
+    <div class="col">
+        <br>
+<br>
+  <div class="container">
+		
+	
+</div>
+        <div class="mt-2">     
+            <h1 class="card-title float-left mt-2">NEW CASE</h1> 
+            <a href = "{% url 'addquestion' %}" class="btn btn-primary btn-lg" style="margin-left: 600px;">Add Question</a>
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+<br>
+<div class="container">
+		
+	{% if messages %}
+		{% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check"></i>	
+		   {{ message}}
+        </div>
+		{% endfor %}
+	{% endif %}
+</div>
+<br><br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+    <select name="patient" required id="id_patientid" class="form-control">
+        <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+        {% for d in data %}
+        <option  value="{{ d.pk }}">{{ d.case }} </option>    
+        {% endfor %}    
+    </select>
+    
+    <br><br><br>
+    <button type="submit" class=" form-control btn btn-success" >Submit</button>
+</form>
+<br>
+<br>
+<br>
+   <!-- <a href="{% url 'past_history' id=1 case_id=case_id %}" class="btn btn-primary btn-lg ">Next </a> -->
+   <a href="{% url 'chief_complaints' id=102 case_id=case_id %}" class="btn btn-primary btn-lg ">Chief Complaints</a> 
+   <a href="{% url 'personal_appetite' id=49 case_id=case_id %}" class="btn btn-primary btn-lg" style="margin: 10px;">Origin of Cause</a>
+   <!-- <a href="{% url 'past_history' id=1 case_id=case_id %}" class="btn btn-primary btn-lg " style="margin: 10px;">Past History</a>  -->
+   <!-- <a href="{% url 'past_history_new' case_id=case_id %}" class="btn btn-primary btn-lg " style="margin: 10px;">New Past History</a>  -->
+   <a href="{% url 'past_history_patient' case_id=case_id %}" class="btn btn-primary btn-lg " style="margin: 10px;">Past History</a> 
+   <a href="{% url 'familymedical' %}" class="btn btn-primary btn-lg " style="margin: 10px;">Family Medical H/O</a> 
+   <!-- <a href="{% url 'personal_habits' case_id=case_id %}"class="btn btn-primary btn-lg " style="margin: 20px;">Personal History</a> -->
+   <!-- <a href="{% url 'personal_new_habits' case_id=case_id %}"class="btn btn-primary btn-lg " style="margin: 20px;">Personal History</a> -->
+   <a href="{% url 'patient_personal_history' id=107 case_id=case_id %}"class="btn btn-primary btn-lg " style="margin: 20px;">Personal History</a>
+   <a href="{% url 'InFood' case_id=case_id %}"class="btn btn-primary btn-lg ">InFood</a>
+   <a href="{% url 'sex_history' id=53 case_id=case_id %}" class="btn btn-primary btn-lg" style="margin: 10px;">Sexual History</a> 
+   <a href="{% url 'mental_causative' case_id=case_id %}"class="btn btn-primary btn-lg "  style="margin: 10px;" >Mental Causative Factor</a> 
+   <a href="{% url 'personality_character' case_id=case_id %}"class="btn btn-primary btn-lg "style="margin: 10px;" >Mental Personality Character</a>      
+   <a href="{% url 'mental_personality' id=83 case_id=case_id  %}" class="btn btn-primary btn-lg" >Fear and Incidents</a>
+   <!-- <a href="#" class="btn btn-primary btn-lg" style="margin: 10px;">Life Story of Patient</a> -->
+   <a href="{% url 'thermal_reaction' id=88 case_id=case_id  %}" class="btn btn-primary btn-lg" style="margin: 10px;">Thermal Reaction</a>
+   <a href="{% url 'mia_sm' case_id=case_id %}"class="btn btn-primary btn-lg " style="margin: 20px;" >Miasm</a>
+ 
+   <a href="{% url 'investigation' id=99 case_id=case_id %}" class="btn btn-primary btn-lg" style="margin: 10px;">Investigation</a>
+   <a href="{% url 'gen_pdf' case_id=case_id %}"class="btn btn-warning btn-lg " >Generate Pdf</a>
+</div></div></div>
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

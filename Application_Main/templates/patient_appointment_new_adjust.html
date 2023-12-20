@@ -1,0 +1,210 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Appointment Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<style>
+    .box {
+        width: 400px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      img{
+        border-radius: 58%;
+    }
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 45px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+    @media (max-width: 768px){
+    .box {
+        width: 300px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }}
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <main role="main" class="container">
+    
+    <div class="box">
+        <div class="box1">
+          {% if pat.patient_images %}
+          <img src="{{pat.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+          
+    
+            {% else %}
+            <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+            {% endif %}
+        </div>
+        <div class="box2" style="color:black; font-size:20px">
+         <p style="font-size:18px;"><b> {{pat.name}} </b></p>
+         <hr style="background-color:blue;">
+         <h4>Case PaperNo. {{pat.case}}</h4>
+         <h4>Contact No. {{pat.phone}}</h4>
+          
+        </div>
+      </div>
+
+      <br>
+  <div class="jumbotron" style="margin-top:30px;">
+
+    <br>
+    <div class="header-past">Past Visits</div>
+    <p style="text-align:center; font-size:15px;"><b>( Last Two Visits to the Clinic)</b></p>
+
+    <hr>
+    <div class="display_table">
+        <table class='table'>
+            <thead>
+              <tr>
+                <th>CASE PAPER NO</th>
+                <th>DATE</th> 
+                <th>TIME</th>           
+                <th>DOCTOR</th>               
+                
+              </tr>
+            </thead>
+            {% for data in app %}  
+            <tr style="font-size:18px;">
+                <td>{{ data.patientid.case }}</td>
+                <td>{{ data.date }}</td>
+                <td> {{ data.time }}</td>
+                {% if user == 'P' %}
+                <td> {{ data.docterid.name }}</td>
+                {% else %}
+                <td> {{ data.docterid.name }}</td>
+                {% endif %}
+                
+            </tr>  
+            {% endfor %}  
+           
+        </table>
+    </div>
+
+     <br><br>    <br><br>                   
+    
+  
+    
+	<div class="header-past">Next Visit</div>
+    <hr>
+
+    {% if pat_branch == 'Dombivali' %}
+<p style="color:solid black; font-size:15px; background:white;"> <b style="margin-left:170px;">(Call Us Dombivli 8080899990 -  Book an Appointment for the Next Vist)</b></p>
+{% else %}
+<p style="color:solid black; font-size:15px; background:white;"> <b style="margin-left:170px;">(Call Us Mulund 8080848403 - Book an Appointment for the Next Vist)</b></p>
+{% endif %}
+  
+
+	
+	<br>
+	<div class="display_table">
+    <table class='table'>
+        <thead>
+          <tr>
+            <th>CASE PAPER NO</th>
+            <th>NEXT VISIT</th> 
+           
+          </tr>
+        </thead>
+        <tr style="font-size:18px;">
+            <td>{{ pat.case }}</td>
+            {% if next_visit == ' ' %}
+            <td >No Update </td>
+            
+            {% else %}
+            <td type="date">{{next_visit|date:"d M , Y"}}</td>
+            
+            {% endif %}
+        </tr>
+       
+    </table>
+
+  </div>
+
+    </main>
+    
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+
+</body>
+</html>

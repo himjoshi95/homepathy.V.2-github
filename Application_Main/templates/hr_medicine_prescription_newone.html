@@ -1,0 +1,392 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Today's Presciption</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
+        background-size: 100%;
+        }
+      
+        .anch{
+          background-color: white;
+          color: darkblue;          
+          border: 1px solid blue;
+          padding: 2px 60px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch:hover, .anch:active {
+          background-color: lightblue;
+          color: white;
+        }
+        .anch1{
+          background-color: orange;
+          color: white;          
+          border: 1px solid blue;
+          padding: 2px 65px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .anch1:hover, .anch1:active {
+          background-color: white;
+          color:orange;
+        }
+        .reorder{
+          background-color: #90EE90;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .check{
+          background-color: #FED8B1;
+          color: white;          
+          border: 1px solid blue;
+          padding: 10px 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .header1{
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 30px;
+            text-align: center;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+        }
+        .header2{
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 30px;
+            margin-left:320px;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+        }
+        
+        .box {
+            width: 300px;
+            height: 110px;
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            column-gap: 50px;
+            border-radius: 25px;
+            background: #dae5f4;
+          }
+          .box1{
+            height: 100px;
+            width:100px;
+            
+          }
+          .box2{
+            height: 100px;
+            width:500px;
+            
+          }
+          img{
+            border-radius: 58%;
+        }
+
+        .dropbtn {
+            background-color:#6495ED;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+          }
+          
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
+          
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          
+          .dropdown-content a {
+            color: black;
+            padding: 5px 8px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          .dropdown-content a:hover {background-color: #6495ED;}
+          .dropdown:hover .dropdown-content {display: block;}
+          .dropdown:hover .dropbtn {background-color: #0047AB;}
+      
+          .btn1{
+            width: 516px
+          }
+          
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %}     
+
+<main role="main" class="container">
+  {% if messages %}
+  <ul class="messages">
+         {% for message in messages %}
+               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+ </ul>
+{% endif %}
+<br>
+<div class="box">
+    <div class="box1">
+      {% if pat.patient_images %}
+      <img src="{{pat.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+      
+
+        {% else %}
+        <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+        {% endif %}
+    </div>
+    <div class="box2" style="color:black; font-size:20px">
+     <h5> {{pat.name}}</h5>
+     <hr style="background-color:blue;">
+     <h5> {{pat.case}}</h5>
+      
+    </div>
+  </div>
+  <br>
+  <div class="jumbotron">
+
+    <p style="font-size:20px; margin-left:5px;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+    
+    <br>
+      <div class="header">Today's Presciption </div>
+   
+    <hr>
+    <div class="display_table">
+        <table class='table'>
+            <thead>
+              <tr>
+             
+                <th>MEDICINE</th>
+                <th>POTENCY</th> 
+                <th>DATE</th>           
+                <th>START DATE</th>
+                <th>DOSE</th>
+                <th>NOTE</th>
+                <th>DURATION</th>
+                <th>NEXT VISIT</th>
+                <th>STATUS</th>
+                <th>BALANCE DUE</th>  
+                <th></th>             
+                
+              </tr>
+            </thead>
+            {% for d in data %}
+		
+            {% if d.flag %}
+            <tr style="font-size:20px;">			
+                 
+              <td bgcolor=#90EE90 >{{d.medicine}} </td>
+            <!--  <td> {{ data.docterid.name }} </td>-->
+              <td bgcolor=#90EE90 >{{ d.potency}}  </td>
+        
+        
+              <!-- <td> {{ data.patientid.name }}</td> -->
+              <td bgcolor=#90EE90 > {{d.date|date:"d M , Y"}} </td>
+              <td bgcolor=#90EE90 > {{d.start_date}} </td>
+              <td bgcolor=#90EE90> {{d.dose}} </td>
+                {% if d.note %}
+                <td bgcolor=#90EE90> {{d.note}} </td>
+                {% else %}
+                <td bgcolor=#90EE90> - </td>
+                {% endif %}
+              
+              <td bgcolor=#90EE90 > {{d.durations}}</td>
+              <td bgcolor=#90EE90 >{{next_visit|date:"d M , Y"}}</td>
+    
+              <!-- <td bgcolor="green" > {{d.flag}}</td> -->
+                {% if d == data1 %}
+              <td bgcolor=#90EE90>
+                <!-- <form method="POST" action="{% url 'hr_status' id=d.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" value='True'>DONE</button></form>       -->
+                    <a href="{% url 'hr_medicine_payment' id=id %}" class="btn btn-danger btn-block">
+                        Pay Now
+                        </a>
+            </td>
+            <td bgcolor=#90EE90>
+              <b> {% if balance >= '0' or balance > 0 %}<span style="color:#E32636">Rs {{ balance }} BALANCE</span> {% else %} <span id="balance_amt" style="color:green"> </span> <span style="color:green">ADVANCE</span>   {% endif %}</b>
+            </td>
+            {% else %}
+            <td bgcolor=#90EE90></td>
+            <td bgcolor=#90EE90></td>
+            {% endif %}
+            <td bgcolor=#90EE90 >			
+                <!-- <a class="btn btn-secondary" href="" title="Delete ">
+                    <i class="fa fa-trash"></i>
+                </a> -->
+            </td>
+                    
+            </tr>
+            {% else %}
+            <tr style="font-size:20px;">
+                        <td bgcolor=#FED8B1 >{{d.medicine}} </td>
+              <!--  <td> {{ data.docterid.name }} </td>-->
+                <td bgcolor=#FED8B1>{{ d.potency}}  </td>
+          
+          
+                <!-- <td> {{ data.patientid.name }}</td> -->
+                <td bgcolor=#FED8B1> {{d.date|date:"d M , Y"}} </td>
+                <td bgcolor=#FED8B1> {{d.start_date}}</td>
+                <td bgcolor=#FED8B1> {{d.dose}} </td>
+                      {% if d.note %}
+                      <td bgcolor=#FED8B1> {{d.note}} </td>
+                      {% else %}
+                      <td bgcolor=#FED8B1> - </td>
+                      {% endif %}
+                <td bgcolor=#FED8B1> {{d.durations}}</td>
+                <td bgcolor=#FED8B1> {{next_visit|date:"d M , Y"}}</td>
+                <!-- <td bgcolor="yellow"> {{d.flag}}</td> -->
+      
+                <!-- <td bgcolor=#FED8B1>
+                  
+              </td> -->
+              {% if d == data1 %}
+              <td bgcolor=#FED8B1><p style="padding: 5px; border: 2px solid red; background:white; color:red;"><b>MEDICINE ISSUED</b></p></td>
+              <td bgcolor=#FED8B1>
+                <b> {% if balance >= '0' or balance > 0 %}<span style="color:red;">Rs {{ balance }} BALANCE</span> {% else %} <span id="balance_amt" style="color:green"> </span> <span style="color:green">ADVANCE</span>   {% endif %}</b>
+              </td>	
+              {% else %}
+              <td bgcolor=#FED8B1></td>
+              <td bgcolor=#FED8B1></td>
+              {% endif %}
+              <td bgcolor=#FED8B1></td>
+        </tr>
+            {% endif %}
+            
+            
+            {% endfor %}
+            
+        </table>
+
+        
+    </div>
+
+     <br><br>   <br><br>  
+     {% if data_extra %}
+
+     <div class="header">Other Presciptions </div>
+     
+     <br>
+	<div class="display_table">
+    <table class='table'>
+        <thead>
+          <tr>
+            <th>SERIAL</th>
+            <th>ANY OTHER MEDICINE</th>
+            {% comment %} <th>PRICE</th>  {% endcomment %}
+            <th>STATUS</th>
+            
+			
+          </tr>
+        </thead>
+        {% for d in data_extra %}
+        {% if data2.flag %}
+        <tr style="font-size:18px;">
+            <td  bgcolor=#90EE90>{{forloop.counter}}</td>
+            <td  bgcolor=#90EE90>{{d.description}}</td>
+            {% comment %} <td  bgcolor=#90EE90>Rs {{d.other_price}}</td> {% endcomment %}
+            <td  bgcolor=#90EE90><p style="padding: 1px; border: 2px solid darkgreen; background:white; color:darkgreen;"><b>MEDICINE NOT ISSUED</b></p></td>      
+
+        </tr>
+        {% else %}
+        <tr style="font-size:18px;">
+          <td  bgcolor=#FED8B1>{{forloop.counter}}</td>
+          <td  bgcolor=#FED8B1>{{d.description}}</td>
+          {% comment %} <td  bgcolor=#FED8B1>Rs {{d.other_price}}</td>     {% endcomment %}
+          <td  bgcolor=#FED8B1><p style="padding: 1px; border: 2px solid red; background:white; color:red;"><b>MEDICINE ISSUED</b></p></td>      
+        </tr>
+        {% endif %}
+
+        {% endfor %}
+       	
+    </table>
+</div>
+    
+{% endif %}
+  
+    
+	
+  
+
+	
+	
+
+<br><br>
+ 
+  </div>
+</main>
+<script>
+  // Assuming data.balance_amt is a JavaScript variable
+  var balanceAmt = "{{ balance }}";
+
+  // Remove the negative sign
+  var absoluteAmt = Math.abs(parseFloat(balanceAmt));
+
+  // Update the content of the span
+  document.getElementById("balance_amt").textContent = "Rs " + absoluteAmt;
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
