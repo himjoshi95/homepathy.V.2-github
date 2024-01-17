@@ -3,458 +3,555 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Doctor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style type="text/css">
-		.card-body{
-			text-align: center;
-		}
-		.card{
-			height: 200px;
-		}
-		button{
+    <title>New Case - Final Report PDF</title>
+   <style>
+
+    
+   .header-past {
+      font-family: helvetica;
+      color: black;
+      font-size: 35px;
+      text-align: center;
       width: 100%;
-        } 
-       
-    select{
-			height:40px;
-            width: 585px!important;
-			border-radius: 5px!important;
-		}
-        .th{
-            border: 2px solid black;
-                        border-collapse: collapse;
-        }
-        .column2 {
-	    border-right:2px solid black;
-	      
-}
-
-        table{          
-                        border-spacing: 1;
-                        border: 1px solid black;
-                        border-collapse: collapse;
-                       
-                        }
-
-        .border-right {
-                    border-right: 1px solid black;
-        }
-        div.ex3 {
-        background-color: whitesmoke;
-        width: 200px;
-        height: 1000px;
-        
-        }
-        tfoot{
-            border-top: 5px solid lightblue;
-        }
-       
-
-.form-label:after {
-    content:" *";
-    color: red;
-  }
-  img{
-    border-radius: 58%;
-
-}
-.box {
-  width: 500px;
-  height: 110px;
-  border: 1px solid white;
-  padding: 10px;
-  margin: 10px;
-  display: flex;
-  column-gap: 50px;
-  border-radius: 25px;
-}
-.box-1{
-  height: 100px;
-  width:100px;
+      margin-top: 0px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;
+  } 
   
+  .header-new {
+    font-family: helvetica;
+    color: black;
+    font-size: 25px;
+    text-align: left;
+    width: 100%;
+    margin-top: 0px;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+    text-decoration:underline;
+} 
+.table-pdf {
+  width: 80%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  border: 1px solid grey;
 }
-.box-2{
-  height: 100px;
-  width:500px;
-  
+
+/* Table cells and spacing */
+.table-pdf th,
+.table-pdf td {
+  padding: 2px;
+  border-bottom: 1px solid black;
+  width:200px;
 }
-.box-new {
-   
-    display: flex;
-    column-gap: 120px;
+
+/* Table headers */
+.table-pdf th {
+  background-color: #f2f2f2; /* Light gray background for headers */
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Alternating row colors */
+.table-pdf tr:nth-child(even) {
+  background-color: #f9f9f9; /* Lighter gray for even rows */
+}
+
     
-  }
-  .box1{
-    height: 700px;
-    width:100px;
-  }
-  .box2{
-    height: 500px;
-      width:100px;
+
+    
+     
+  
+
+  @media (max-width: 768px){
       
-  }
+    .header-past {
+      font-family: helvetica;
+      color: black;
+      font-size: 30px;
+      text-align: center;
+      width: 100%;
+      margin-top: 16px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;        
+  }  
+
+  .header-new {
+    font-family: helvetica;
+    color: black;
+    font-size: 20px;
+    text-align: left;
+    width: 100%;
+    margin-top: 0px;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+    text-decoration:underline;
+}  
   
+}  
 
-	</style>
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
 
-</head>
+  </head>
 
-  <body>
+  <body>       
+    <main role="main" class="container">
+      <img style="width:1000px;" src="./dashboard/document/header_pdf.jpg" />
 
-    
-
-    
-   <div class="container" >
-    
-   
-    <img style="width:1000px;" src="./dashboard/document/header_pdf.jpg" />
-       <div class="container">
         
-       
+        <div class="jumbotron">
            
-        <h1 style="margin-top: 10px; text-align:center; font-size:25px;">New Case Report</h1>
+          <table class="table-one" style ="margin-top:20px;">     
+            <tr>
+               
+                
+                <td style="text-align:left; font-size:14px; width:200px;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+                
+                
+                <td></td>
+                <td></td>
+                <td style="text-align:left;font-size:14px;"><b>Date :</b>&nbsp;{{table1.0.date|date:"d/m/y"}}</td>
+                
+                
+            </tr>   
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>     
             
+            <tr style="margin-top:20px;">
+                <td style="text-align:left;font-size:14px;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+                
+                <td style="text-align:left;font-size:14px;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+               
+                <td style="text-align:left;font-size:14px;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+                {% if patient_details.height %}
+                <td  style="text-align:left;font-size:14px;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td  style="text-align:left;font-size:14px;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+                  {{patient_details.weight}} Kgs
+      
+                  {% else %}
+                      -
+                  {% endif %}
+                
+                
+                </td>
+                
+                
+            </tr>
+            <tr style="margin-top:20px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>  
+            
+            <tr style="margin-top:20px;" >
+              <td style="text-align:left;font-size:14px;"><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+              <td></td>
+              <td style="text-align:left;font-size:14px;"><b>Contact Number :</b> {{patient_details.phone}}</td>
+            </td></td>
+            <td></td>
+      
+      
+            </tr>
+      
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>  
+      
+            <tr style="margin-top:20px;">
+              <td style="text-align:left;font-size:14px;"><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+              <td style="text-align:left;font-size:14px;"><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+              
+              <td style="text-align:left;font-size:14px;"><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+      
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>  
+      
+            <tr style="margin-top:20px;">
+              <td style="text-align:left;font-size:14px;"><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td style="text-align:left;font-size:14px;"><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+      
+            </tr> 
+            
+            <tr style="margin-top:20px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>
+      
+            <tr style="margin-top:20px;">
+              <td style="text-align:left;font-size:14px;"><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+      
+            </tr>
+      
+           
        
-
-        <div class="box">
-         
-          <div class="box-2" style="font-size:17px; margin-left:20px;">
-            <h5 > Name: {{patient_details.name}}</h5>
-            
-            
-            <h5>Case Paper Number: {{patient_details.case}}</h5>
-
-            {% comment %} <h5> Mobile Number : {{patient_details.phone}}</h5>
-
-            <h5> Email : {{patient_details.email}}</h5>
-
-            <h5> Date : {{date1|date:"d-M-Y"}}</h5> {% endcomment %}
-
-          </div>
+      </table>
+           
         </div>
-        
-        <hr>   
+        <hr style="border: 0.3px solid black;">
         <br>
-          
-          <div class="container" style="margin-top: 20px;">
-            <h2 style="margin-top: 10px; font-size:20px">Present Complaints :</h2>
-              
-              
-              <table style="width:1050px">
-                   <tr class="bg-primary" style="height: 60px;" >
-                    <th   style=" width: 300px; text-align:center; font-size:17px">Serial No.</th>
-                       <th  style=" width: 300px; text-align:center;font-size:17px ">Complain</th>
-                       <th  style=" width: 300px; text-align:center;font-size:17px ">Duration</th>                                
-                       <th  style=" width: 300px; text-align:center; font-size:17px ">Remarks</th>
-                   </tr>
-                   
-                   <tr  style="height: 50px; background: white;">
+           <div class="jumbotron" >
 
-                      <td  class="column2" style="text-align: center;font-size:15px">{{forloop.counter}}.</td>          
-                      <td  class="column2" style="text-align: center;font-size:15px">{{t1.complain.name}}</td>
-                      <td  class="column2" style="text-align: center;font-size:15px">{{t1.duration}} {{t1.duration_suffix}}</td>                                
-                      <td  class="column2" style="text-align: center;font-size:15px">{{t1.remarks}}</td>
-                       
-                   </tr>
-                   
-              </table>
-             <br>
-
-              <h2 style="margin-top: 10px; font-size:20px ">Past History :</h2>
-              <table style="width:1050px">
-                  <tr class="bg-primary" style="height: 60px;" >
-                   <th   style=" width: 300px; text-align:center; font-size:17px ">Serial No.</th>
-                      <th  style=" width: 300px; text-align:center; font-size:17px ">Complain</th>
-                      <th  style=" width: 300px; text-align:center;  font-size:17px">Last Diagnosed</th> 
-                      <th  style=" width: 300px; text-align:center;  font-size:17px">Duration</th>                                
-                      <th  style=" width: 300px; text-align:center;  font-size:17px">Remarks</th>
-                  </tr>
-                  {% for t in table3 %}
-                  <tr  style="height: 50px; background: white;">
-
-                     <td  class="column2" style="text-align: center; font-size:15px">{{forloop.counter}}.</td>          
-                     <td  class="column2" style="text-align: center; font-size:15px">{{t.complain.name}}</td>
-                     <td  class="column2" style="text-align: center; font-size:15px">{{t.last_diagnosed}} {{t.last_suffix}}</td>
-                     <td  class="column2" style="text-align: center; font-size:15px">{{t.duration}} {{t.duration_suffix}}</td>                                
-                     <td  class="column2" style="text-align: center; font-size:15px">{{t.remarks}}</td>
-                      
-                  </tr>
-                  {% endfor %}
-             </table>
-
-             <br>
-             <h2 style="margin-top: 20px; font-size:20px ">Family Medical History :</h2>             
-            
-              <table style="width:1050px">
-                   <tr class="bg-primary" style="height: 50px;" >
-                    <th style=" width: 300px; text-align: center; font-size:17px ">Serial No.</th>
-                      
-                      <th   style=" width: 300px; text-align: center; font-size:17px ">Relation</th>
-                       <th   style=" width: 300px; text-align:center; font-size:17px ">Diseases</th>   
-                       <th   style=" width: 300px; text-align:center; font-size:17px  ">Any Other</th>                             
-                       <th   style=" width: 300px; text-align:center;  font-size:17px">Dead/Alive</th>
-                       <th   style=" width: 300px; text-align:center; font-size:17px">Age</th>
-                   </tr>
-                   {% for item1,item2 in list %}
-                   <tr style="height: 60px; background: white;" >
-                    <td  class="column2" style="text-align: center;">{{forloop.counter}}.</td>                     
-  
-                       <td  class="column2" style="text-align: center;font-size:15px">{{item1.relation}}</td>                                                            
-                       <td  class="column2" style="text-align: center;font-size:15px">{{item2}}</td>
-                       <td  class="column2" style="text-align: center;font-size:15px;">{{item1.any_other}}</td>                                 
-                       <td  class="column2" style="text-align: center; font-size:15px">{{item1.dead_alive}}</td>
-                       <td  class="column2" style="text-align: center; font-size:15px">{{item1.age}} Years</td>
-                       
-                   </tr>
-                   {% endfor %}
-            
-                </table>
-
-                {% comment %} <h2 style="margin-top: 20px; font-size:20px ">Thermal Reaction :</h2>
-                <br>
-                <table style="width: 1050px;">
-                  <thead>
-                    <tr class="bg-primary" >
-                    <th style=" text-align: center; font-size: 20px;" scope="col">Thermal Reaction Factors <p style="margin-top: 10px; margin-left: 700px;"></p></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <tr class = "table-light">
-                    
-                    <td class="border-right">
-                      <div class="ex1" style="font-size: 20px;">
-                        {% for m in my_list4 %}
-                        <p style="margin-top: 10px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p>
-                        {% endfor %}
-                    </div>
-                    </td>
+       
+        <div class="header-past">New Case - Final Report</div>      
+        
+        
+        <br>
+        {% if len_present_complaint != 0 %}
+        <div class="header-new">Present Complaints</div>
+        
+        <div class="table-responsive">
+            <table class="table-pdf" >
+              <thead>
+                <tr>
+                  
+                  <th style="font-size:17px;">Complain</th>
+                  <th style="font-size:17px;">Date</th>
+                  <th style="font-size:17px;">Duration</th>
+                                                 
+                  <th style="font-size:17px;">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for t in table1 %}
+                <tr>                            
+                          <td style="font-size:16px;">{{t.complain.name}}</td>
+                          <td style="font-size:16px;">{{t.date|date:"d-m-y"}}</td>
+                          <td style="font-size:16px;">{{t.duration}} {{t.duration_suffix}}</td>
+                                                                               
+                          <td style="font-size:16px;">{% if t.remarks %} {{t.remarks}} {% else %} <b><i class="fa-solid fa-dash"></i><b> {% endif %}</td>
     
-                    
-                  </tr>
-                </table> {% endcomment %}
-
-                <h2 style="margin-top: 20px; font-size:20px ">Thermal Reaction :</h2>
-                <div style="font-size: 18px;">
-                  {% for m in my_list4 %}
-                  <p ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p>
-                  {% endfor %}
-              </div>
-                                 
-                   
-    
-                    {% comment %} <table style="width: 1050px;">
-                        <thead>
-                          <tr class="bg-primary" style="height: 80px;">
-                          <th style=" text-align: center; font-size: 20px;" scope="col">Miasm Examination Factors </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        <tr class = "table-light" style="height: 100px;">
-                          
-                          <td class="border-right">
-                            <div class="ex1" style="font-size: 20px;">
-                              {% for m in my_list3 %}
-                              <p style="margin-top: 10px; font-size: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><br>
-                              {% endfor %}
-                          </div>
-                          </td>
-          
-                          
-                        </tr>
-                      </table> {% endcomment %}
-              <h2 style="font-size:20px ">Miasm Examination Factors:</h2>
-
-              <div>
-                {% for m in my_list3 %}
-                <p style="font-size:18px; "><b>{{forloop.counter}}. &nbsp; {{m}}</b></p><br>
+                </tr>
                 {% endfor %}
-            </div>
+              </tbody>
     
-
-              <h2 style="font-size:20px ">Chief Complaints :</h2>
-              {% for o in table2 %}
+            </table>
+          </div>
+          {% endif %}
+        
+       
+       
+        {% if len_obj_chief_complaints != 0 %}
+        <br><br>
+        <div class="header-new">Chief Complaints</div>
+       
+        
+        {% for o in table2 %}
               <dd>
                   <div class="container text-center" id="border">
                     <div class="row justify-content-center">
                      <div class="border" style="background:white;">
-                  {% comment %} <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p>  {% endcomment %}
+                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
                   
                   <img src="{{ o.signature|signature_base64 }}" alt="{{ table2 }}" />
+                  <hr>   
+                            <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
                  
                      </div></div></div>           
                   
                 </dd>
                 {% endfor %}
 
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-               
-              
-                  <h2 style="margin-top: 20px; font-size:20px; ">Mental Causative Factor :</h2>
-                  
-                  <table style="width: 1050px;">
-                    <thead>
-                      
-                    </thead>
-                    <tbody>
-                    <tr class = "table-light" style="height: 100px;">
-                      
-                      <td class="border-right">
-                        <div class="ex1" style="font-size: 20px;">
-                          {% for m in my_list1 %}
-                          <p style="margin-top: 30px; margin-left: 20px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p>
-                          {% endfor %}
-                      </div>
-                      </td>
-      
-                      
-                    </tr>
-                  </table>
+        {% endif %} 
+        
+        
+        {% if len_past_history != 0 %}
+        <br><br>
+        <div class="header-new">Past History</div>
+       
+        
+        
+        <table class="table-pdf">
+            <tr style="font-size:17px;" >
+                <th>Complain</th>
+                <th>Last Diagnosed</th> 
+                <th >Duration</th>                                
+                <th>Remarks</th>
+            </tr>
+            {% for t in table3 %}
+            <tr  >
 
-                  {% for o in mental %}
-                  <dd>
-                      <div class="container text-center" id="border">
-                        <div class="row justify-content-center">
-                         <div class="border" style="background:white;">
-                      {% comment %} <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p>  {% endcomment %}
-                      
-                      <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
-                     
-                         </div></div></div>           
-                      
-                    </dd>
-                    {% endfor %}
-
-                <h2 style="margin-top: 20px; font-size:20px; ">Mental Personality Character :</h2>
-
-                <table style="width: 1050px;">
-                    <thead>
-                      
-                    </thead>
-                    <tbody>
-                    <tr class = "table-light" style="height: 100px;">
-                      
-                      <td class="border-right">
-                        <div class="ex1" style="font-size: 20px;">
-                          {% for m in my_list2 %}
-                          <p style="margin-top: 10px; margin-left: 15px;" ><b>{{forloop.counter}}. &nbsp; {{m}}</b></p>
-                          {% endfor %}
-                      </div>
-                      </td>
-      
-                      
-                    </tr>
-                  </table>
-                  {% for o in personality %}
-                  <dd>
-                      <div class="container text-center" id="border">
-                        <div class="row justify-content-center">
-                         <div class="border" style="background:white;">
-                      {% comment %} <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p>  {% endcomment %}
-                      
-                      <img src="{{ o.signature|signature_base64 }}" alt="{{ personality }}" />
-                     
-                         </div></div></div>           
-                      
-                    </dd>
-                    {% endfor %}
-                    <br><br>
-                <h2 style="margin-top: 20px; font-size:20px; ">Brief Mind Symptoms :</h2>
-
-                <table style="width: 1050px;">
-                  <thead>
-                    
-                  </thead>
-                  <tbody>
-                  <tr class = "table-light" style="height: 200px;">
-                    
-                    <td class="border-right">
-                      
-                        {% for m in bms %}
-                        <p style="margin-top: 20px; margin-left: 20px; font-size:20px;" ><b>{{forloop.counter}}. &nbsp; {{m.question}}</b></p>
-                        {% endfor %}
-                   
-                    </td>
-    
-                    
-                  </tr>
-                </table>
+               <td  style="font-size:16px;" >{{t.complain.name}}</td>
+               <td  style="font-size:16px;">{{t.last_diagnosed}} {{t.last_suffix}}</td>
+               <td  style="font-size:16px;">{{t.duration}} {{t.duration_suffix}}</td>                                
+               <td  style="font-size:16px;">{{t.remarks}}</td>
                 
+            </tr>
+            {% endfor %}
+       </table>
+      
 
-                  {% for o in bms_view %}
-                  <dd>
-                      <div class="container text-center" id="border">
-                        <div class="row justify-content-center">
-                         <div class="border" style="background:white;">
-                      {% comment %} <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p>  {% endcomment %}
-                      
-                      <img src="{{ o.signature|signature_base64 }}" alt="{{ bms_view }}" />
-                     
-                         </div></div></div>           
-                      
-                    </dd>
-                    {% endfor %} 
+        {% endif %}
 
-           
-               <h2 style="margin-top: 20px; font-size:20px  ">Personal History :</h2>
-              
-               <table style="width: 1050px;">
-                <thead>
-                  <tr class="bg-primary">
-                  <th style="text-align: center; font-size: 20px;" scope="col">Frequently Asked Questions(FAQs) </th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr class = "table-light" >
-                  
-                  <td class="border-right">
-                    
-                      {% for q in question %}
-                               <p style="margin-top: 4px; margin-left: 50px; font-size:18px" ><b>{{forloop.counter}}.  {{q.question}}</b></p>
-                               {% endfor %}
-                 
-                  </td>
-  
-                  
-                </tr>
-              </table>
 
-              {% for p in personal_history %}
+        {% if len_personal_history != 0 %}
+
+        <br><br><br><br><br><br>
+        <div class="header-new">Personal History</div>
+        
+        
+        {% for o in personal_history %}
               <dd>
                   <div class="container text-center" id="border">
                     <div class="row justify-content-center">
                      <div class="border" style="background:white;">
-                  {% comment %} <p style="font-size: 30px;">Date : {{p.signature_date|date:"d M Y"}} </p>  {% endcomment %}
+                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> <hr>
                   
-                  <img  src="{{ p.signature|signature_base64 }}" alt="{{ personal_history }}" />
+                  <img src="{{ o.signature|signature_base64 }}" alt="{{ table2 }}" />
+                  <hr>   
+                            <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
                  
                      </div></div></div>           
                   
                 </dd>
-                {% endfor %} 
+                {% endfor %}
+
+        {% endif %}
 
 
+        {% if len_family_medical != 0 or len_family_medical != '0' %}
+        <br><br>
+        <div class="header-new">Family Medical History</div><hr>
+
+        
+
+            <table class='table-pdf'>
+                <tr style="font-size:17px;">              
+                   <th >Relation</th>
+                   <th>Age</th>
+                    <th>Diseases</th>   
+                    <th>Any Other</th>                             
+                    <th>Dead/Alive</th>                 
+                </tr>
+                {% for item1,item2 in list %}
+                <tr >
+                    <td style="font-size:16px;"  >{{item1.relation}}</td> 
+                    <td style="font-size:16px;" >{{item1.age}} Years</td>                                                           
+                    <td style="font-size:16px;" >{{item2}}</td>
+                    <td style="font-size:16px;" >{{item1.any_other}}</td>                                 
+                    <td style="font-size:16px;" >{{item1.dead_alive}}</td>                    
+                </tr>
+                {% endfor %}         
+             </table>
+        
+        {% endif %}
+
+
+        {% if len_my_list1 != 0 %}
+        <br><br>
+        <div class="header-new">Mental Causative Factor</div>
+        <div class="table-responsive">
+
+            <table class='table-pdf'>
+                <tr style="height:40px; font-size:17px;">              
+                    <th>Factors</th>                                 
+                 </tr>
+                 {% for m in my_list1 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+        </div>
+        {% endif %}
+        <br>
+        {% for o in mental %}
+                  <dd>
+                      <div class="container text-center" id="border">
+                        <div class="row justify-content-center">
+                         <div class="border" style="background:white;">
+                      <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                      
+                      <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                      <hr>   
+                      <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+           
                      
-              
-             
+                         </div></div></div>           
+                      
+                    </dd>
+                    {% endfor %}
+
+
+                    {% if len_my_list2 != 0 %}
+                    <br><br>
+                    <div class="header-new">Mental Personality Character</div>
+                    <div class="table-responsive">
             
-        </div>       
- 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
-    <script>
-        $(document).ready(function () {
-            $('#id_patientid').select2();
+                      <table class='table-pdf'>
+                        <tr style="height:40px; font-size:17px;">                     
+                                <th>Personality Character</th>                                 
+                             </tr>
+                             {% for m in my_list2 %}
+                             <tr style="font-size:16px;">
+                                <td>{{m}}</td>
+                             </tr>
+                             {% endfor  %}
+            
+                        </table>
+            
+                    </div>
+                    {% endif %}
+                    <br>
+                    {% for o in personality %}
+                              <dd>
+                                  <div class="container text-center" id="border">
+                                    <div class="row justify-content-center">
+                                     <div class="border" style="background:white;">
+                                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                                  
+                                  <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                                  <hr>   
+                                  <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                       
+                                 
+                                     </div></div></div>           
+                                  
+                                </dd>
+                                {% endfor %}
+
+
+        {% if len_bms != 0 %}
+        <br><br>
+
+        <div class="header-new">Brief Mind Symptoms</div>
+        {% for o in bms_view %}
+                              <dd>
+                                  <div class="container text-center" id="border">
+                                    <div class="row justify-content-center">
+                                     <div class="border" style="background:white;">
+                                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                                  
+                                  <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                                  <hr>   
+                                  <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                       
+                                 
+                                     </div></div></div>           
+                                  
+                                </dd>
+                                {% endfor %}
+
+
+
+
+        {% endif %}
+
+
+        {% if len_thermal_reaction != 0 %}
+        <br><br>
+        <div class="header-new">Thermal Reaction</div>
+       
+
+            <table class='table-pdf'>
+                <tr style="height:40px;">               
+                    <th></th>                                 
+                 </tr>
+                 {% for m in my_list4 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+     
+
+
+
+        {% endif %}
+
+
+        {% if len_miasm != 0 %}
+        <br><br>
+        <div class="header-new">Miasm Examination</div>
+       
+
+            <table class='table-pdf'>
+                <tr style="height:40px;">              
+                    <th></th>                                 
+                 </tr>
+                 {% for m in my_list3 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+
+
+
+
+        {% endif %}
+
+
+
+
+
+
+      
+    </div> 
     
-        });
-    </script>
-    {{ form.media }}
-</body>
+  </main>
+   
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+  {{ form.media }}
+  </body>
 </html>

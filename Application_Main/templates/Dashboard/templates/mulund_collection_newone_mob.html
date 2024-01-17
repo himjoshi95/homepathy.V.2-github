@@ -1,0 +1,329 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mulund Collections</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+   
+.header-past {
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 35px;
+    text-align: center;
+    width: 100%;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;        
+}
+
+    @media (max-width: 768px){
+   
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    div {
+        text-align: center; /* Center-align the content */
+      }
+  
+      p {
+        font-size: 16px; /* Adjust the font size for better readability on smaller screens */
+      }
+  
+      #totalAmountPaid,
+      #totalCash,
+      #totalOnline,
+      #totalBalance,
+      #totalAdvance {
+        margin-left: 45px; /* Remove left margin for better alignment on mobile screens */
+      
+      }
+
+       
+}   
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <main role="main" class="container">
+
+        <div class="jumbotron" style="margin-top:30px;">
+
+            <a href="{% url 'dashboard'  %}" class="btn btn-primary"><i class="fa fa-angle-double-left" style="font-size:16px"></i></a>
+            <br>
+            <hr>
+            <a href="{% url 'mulund_collection' %}" style="width:300px; text-align:left;" class="btn btn-primary ">All Collections</a>
+            <a href="{% url 'mulund_collection_general' %}"style="width:300px; text-align:left;" class="btn btn-primary ">General Collections</a>
+            <a href="{% url 'mulund_collection_repeat' %}" style="width:300px; text-align:left;" class="btn btn-primary ">Repeat Medicine Collections</a>
+            <a href="{% url 'mulund_collection_courier' %}" style="width:300px; text-align:left;" class="btn btn-primary ">Courier Medicine Collections</a>
+            <hr>
+            <div class="header-past">{{header}}</div>
+
+            <div class="table-responsive">
+                <table class='table-js' >
+                    <thead thead style="font-size:17px; height:80px;">
+                      <tr style="font-size:17px;">
+                        {% comment %} <th>TOTAL COLLECTION</th> {% endcomment %}
+                        <th>AMOUNT COLLECTED TODAY</th> 
+                        <th>CASH PAYMENT</th>           
+                        <th>ONLINE PAYMENT</th>
+                        <th>BALANCE(DUES TODAY)</th>
+                        <th>ADVANCE (TODAY)</th>
+                        
+                        
+                      </tr>
+                    </thead>
+                  
+                      <tr style="font-size:25px; height:80px;">
+                        
+                        {% comment %} <td>Rs {{ total }}</td> {% endcomment %}
+                        <td>Rs {{ sum_paid }}</td>
+                        <td>Rs {{ sum_cash }}</td>
+                        <td>Rs {{ sum_online }}</td>
+                        <td>Rs {{ sum_balance }}</td>  
+                        <td>Rs {{sum_advance}}</td>      
+                        
+                      </tr>
+                  
+                </table>
+            </div>
+            <!--End of display table-->
+            <br><br><br>
+            <div class="header-past">{{header1}}</div>
+            <hr>
+            <!-- ... (your HTML code) ... -->
+            
+            <label for="paymentCollector" style="font-size:20px;"><b>Select Payment Collected by :</b></label>
+            <select id="paymentCollector" style="margin-left:30px; width:200px; border:1px solid black;font-size:14px;" onchange="filterTable()">
+              <option selected  disabled >Select Here</option>
+              <option value="all">All</option>
+              {% for hr in hr_payment %}
+              <option value="{{hr}}">{{hr}}</option>
+                {% endfor %}
+              <!-- Add more payment collector options as needed -->
+            </select>
+            <br><br>
+            <div>
+              {% comment %} <p>Total Amount: <span id="totalAmount">Rs 0.00</span></p> {% endcomment %}
+              <p style="font-size:20px; ">Total Amount Collected <span id="totalAmountPaid" > <b>Rs&nbsp; 0.00</b></span></p>
+              <p style="font-size:20px; ">Total Cash <span id="totalCash" > <b>Rs&nbsp; 0.00</b></span></p>
+              <p style="font-size:20px; ">Total Online <span id="totalOnline" > <b>Rs&nbsp; 0.00</b></span></p>
+              <p style="font-size:20px; ">Total Balance <span id="totalBalance" > <b>Rs&nbsp; 0.00</b></span></p>
+              <p style="font-size:20px; ">Total Advance <span id="totalAdvance" > <b>Rs&nbsp; 0.00</b></span></p>
+            </div>
+            <hr>
+            
+            <div class="table-responsive" >
+              <table class='table'>
+                <thead>
+                  <tr style="font-size:17px;">
+                    <th class="case-paper">CASE PAPER NO.</th>
+                    <th class="name">NAME</th>
+                    <th class="total-amount">TOTAL AMOUNT</th>
+                    <th class="amount-paid">AMOUNT PAID</th>
+                    <th class="cash">CASH</th>
+                    <th class="online">ONLINE</th>
+                    <th class="transaction-details">TRANSACTION DETAILS</th>
+                    <th class="status">STATUS</th>
+                    <th class="type">TYPE</th>
+                    <th class="balance">BALANCE(DUES TODAY)</th>
+                    <th class="collected-by">PAYMENT COLLECTED BY</th>
+                    <th class="edit">Edit</th>
+                  </tr>
+                </thead>
+            
+                {% for d in amount_names %}
+                  {% for b in balance_names %}
+                    {% for a in appointment_status %}
+                      <tr style="font-size:17px;">
+                        {% if d.patient.case == a.patientid.case %}
+                          {% if d.patient.case == b.patient.case %}
+                            <td class="case-paper" style="text-align:center">{{d.patient.case}}</td>
+                            <td class="name" style="text-align:center">{{d.patient.name}}</td>
+                            <td class="total-amount" style="text-align:center">Rs {{d.paid_amount|add:b.balance_amt}}</td>
+                            <td class="amount-paid" style="text-align:center">Rs {{d.paid_amount}}</td>
+                            {% if d.cash %}
+                              <td class="cash" style="text-align:center">Rs {{d.cash_amount}}</td>
+                            {% else %}
+                              <td class="cash" style="text-align:center">Rs 0</td>
+                            {% endif %}
+                            {% if d.online %}
+                              <td class="online" style="text-align:center">Rs {{d.online_amount}}</td>
+                            {% else %}
+                              <td class="online" style="text-align:center">Rs 0</td>
+                            {% endif %}
+                            <td class="transaction-details" style="text-align:center">{{d.transac_id}}</td>
+                            {% if d.balance_flag %}
+                              <td class="status" style="text-align:center">Paid Balance Today</td>
+                            {% else %}
+                              <td class="status" style="text-align:center">_</td>
+                            {% endif %}
+                            <td class="type" style="text-align:center">{{a.stat}}</td>
+                            {% if b.balance_amt == 0 %}
+                              <td class="balance" style="text-align:center" >No Dues</td>
+                            {% else %}
+                              {% if b.balance_amt >= 0 or b.balance_amt >= '0' %}
+                                <td class="balance" style="text-align:center;color:#AA0000;"> <b>Rs {{ b.balance_amt }}  &nbsp; BALANCE</b></td>
+                              {% else %}
+                                <td class="balance" style="text-align:center"><b> Rs <span class="balanceAmt">{{ b.balance_amt }} </span>   ADVANCE</b></td>
+                              {% endif %}
+                            {% endif %}
+                            <td class="collected-by" style="text-align:center">{{d.collected_by}}</td>
+                            <td class="edit" style="text-align:center"><a href="{% url 'payment_cancellation' d.patient.id %}" class="btn btn-primary"  title="Delete " onclick="confirmDelete(event)">Delete</a></td>
+                          {% endif %}
+                        {% endif %}
+                      </tr>
+                    {% endfor %}
+                  {% endfor %}
+                {% endfor %}
+              </table>
+            </div>
+
+
+        
+
+
+
+
+
+
+        
+    
+       
+
+
+
+
+    </div>
+    
+   
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script>
+        function confirmDelete(event) {
+          if (!window.confirm("Are you sure you want to delete this Collection Entry?")) {
+            event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+          }
+        }
+      </script>
+      <script>
+        function filterTable() {
+          var selectedType = document.getElementById("paymentCollector").value;
+          var table = document.querySelector(".table");
+          var rows = table.querySelectorAll("tbody tr");
+      
+          // Initialize variables to store totals
+          //var totalAmount = 0;
+          var totalAmountPaid = 0;
+          var totalCash = 0;
+          var totalOnline = 0;
+          var totalBalance = 0;
+          var totalAdvance = 0;
+      
+          rows.forEach(function (row) {
+            var collectorColumn = row.querySelector(".collected-by");
+      
+            if (collectorColumn) {
+              if (selectedType === "all" || collectorColumn.innerText === selectedType) {
+                // Accumulate totals for the selected collector
+               // var totalColumn = row.querySelector(".total-amount");
+                var amountPaidColumn = row.querySelector(".amount-paid");
+                var cashColumn = row.querySelector(".cash");
+                var onlineColumn = row.querySelector(".online");
+                var balanceColumn = row.querySelector(".balance");
+      
+                // Check if columns are found
+                if (amountPaidColumn && cashColumn && onlineColumn && balanceColumn) {
+                  //var totalValue = parseFloat(totalColumn.innerText.replace('Rs ', '')) || 0;
+                  var amountPaidValue = parseFloat(amountPaidColumn.innerText.replace('Rs ', '')) || 0;
+                  var cashValue = parseFloat(cashColumn.innerText.replace('Rs ', '')) || 0;
+                  var onlineValue = parseFloat(onlineColumn.innerText.replace('Rs ', '')) || 0;
+      
+                  //totalAmount += totalValue;
+                  totalAmountPaid += amountPaidValue;
+                  totalCash += cashValue;
+                  totalOnline += onlineValue;
+      
+                  // Check if balance is positive (dues) or negative (advance)
+                  var balanceValue = parseFloat(balanceColumn.innerText.replace('Rs ', '')) || 0;
+      
+                  console.log("balance_value",balanceValue)
+                  var balanceSpan = balanceColumn.querySelector("span");
+                  console.log("balanceSpan",balanceSpan)
+                  
+                  if (balanceSpan) {
+                    totalAdvance += Math.abs(balanceValue);
+                  } else {
+                    totalBalance += balanceValue;
+                  }
+                }
+              }
+      
+              row.style.display = selectedType === "all" || collectorColumn.innerText === selectedType ? "" : "none";
+            } else {
+              // Handle the case where the collectorColumn is not found
+              console.error("Collector column not found for the row:", row);
+            }
+          });
+      
+          // Display the totals in the frontend
+         // document.getElementById("totalAmount").innerText = "Rs " + totalAmount.toFixed(2);
+          document.getElementById("totalAmountPaid").innerText = "Rs " + totalAmountPaid.toFixed(2);
+          document.getElementById("totalCash").innerText = "Rs " + totalCash.toFixed(2);
+          document.getElementById("totalOnline").innerText = "Rs " + totalOnline.toFixed(2);
+          document.getElementById("totalBalance").innerText = "Rs " + totalBalance.toFixed(2);
+          document.getElementById("totalAdvance").innerText = "Rs " + totalAdvance.toFixed(2);
+        }
+      </script>
+      
+      <script>
+        // Get all elements with the class "balanceAmt"
+        var balanceAmtElements = document.getElementsByClassName('balanceAmt');
+      
+        // Loop through each element and update its content
+        for (var i = 0; i < balanceAmtElements.length; i++) {
+          var balanceAmtElement = balanceAmtElements[i];
+      
+          // Get the balance amount value as a number
+          var balanceAmtValue = Math.abs(parseFloat(balanceAmtElement.innerHTML));
+      
+          // Check if the balance amount is negative and format accordingly
+          balanceAmtElement.textContent = balanceAmtValue;
+        }
+      </script>
+      
+      <!-- ... (rest of your HTML code) ... -->
+      
+      
+
+
+</body>
+</html>
+
+
+        

@@ -1,0 +1,534 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Medicine</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style> 
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }    
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto; /* 15% from the top and centered */
+      padding: 5px;
+      border: 1px solid #888;
+      width: 85%; /* 80% of the width */
+    }
+  
+      .table-one {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      
+      .table-one tr{
+        height: 10px;
+      }
+    
+      .table-one td {
+        font-size:16px;
+      }   
+
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 16px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+    
+      .form-left {
+        margin: 0; /* Remove the margin for left alignment */
+      }
+    
+      .form-left-update {
+        margin: 10px; /* Remove the margin for left alignment */
+      }
+      
+      .text-center {
+        text-align: center;
+    }
+      label {
+        font-weight: bold;
+      }
+      
+
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      input[type="password"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px; /* Increase the padding for better spacing */
+        margin-top: 10px;
+        margin-bottom: 16px; /* Increase the margin for better spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px; /* Adjust the font size for better readability */
+      }
+      
+      /* Adjust the form button styles */
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px; /* Increase the padding for better button size */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* Make the text bold for better visibility */
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+          
+     
+      .scrolling-div::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+    
+      .scrolling-div {
+        margin-top: 10px;
+        max-height: 300px; /* Set the maximum height of the div */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border: 1px solid #ccc;
+        padding: 5px;
+        background-color: #B8CAE4;
+      }
+
+      .scrolling-div-two::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div-two::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div-two::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+    
+      .scrolling-div-two {
+        margin-top: 10px;
+        max-height: 200px; /* Set the maximum height of the div */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border: 1px solid #ccc;
+        padding: 5px;
+        background-color: #B8CAE4;
+      }
+    
+      .amount-one {
+        font-size:20px;
+        margin-top:10px;
+      }
+
+      .add-btn {
+        width:10px;
+      }
+
+      .reorder{
+        background-color: #90EE90;
+        color: white;          
+        border: 1px solid blue;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .check{
+        background-color: #FED8B1;
+        color: white;          
+        border: 1px solid blue;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+     
+    
+    
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 16px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 16px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-left {
+        margin: 0; /* Remove the margin for left alignment */
+      }
+    
+      .form-left-update {
+        margin: 10px; /* Remove the margin for left alignment */
+      }
+      
+      .text-center {
+        text-align: center;
+    }
+      label {
+        font-weight: bold;
+      }
+      
+
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      input[type="password"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 80%;
+        padding: 10px; /* Increase the padding for better spacing */
+        margin-top: 0px;
+        margin-bottom: 16px; /* Increase the margin for better spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px; /* Adjust the font size for better readability */
+      }
+      
+      /* Adjust the form button styles */
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px; /* Increase the padding for better button size */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* Make the text bold for better visibility */
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+     
+
+     
+    .table-one {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+    .table-one tr{
+        height: 16px;
+      }
+    
+      .table-one td {
+        font-size:14px;
+      }
+
+      .amount-one {
+        font-size:15px;
+        margin-top:20px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 16% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+    
+     
+  
+}  
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="success">
+      <i class="fa fa-bell"></i>
+       {{ message}}
+    </div>
+    {% endfor %}
+  {% endif %}
+    
+
+    <main role="main" class="container">
+
+                <div class="jumbotron" style="margin-top:150px;" >
+                    <a href="{% url 'apointmentDetails' id token %}" class="btn btn-primary" style="float:right; font-size:20px;">Go Back</a>
+                  <div class="header-past">UPDATE PRESCRIPTION </div>
+                 <br>
+                  <hr>
+
+                  
+
+                  <div class="table-responsive">
+                    <table class="table-one">
+
+                      <form  method="post" action="" >
+                        {% csrf_token %}
+                      <tr >
+                        <td>
+                         
+                           <label for="diagnose">Diagnosis :</label>
+
+                          <select class="select-width"  name="select-diagnose" placeholder="Select-Diagnose" multiple id="countries">
+                            <option selected   value="{{ update_complain }}" default="">{{update_complain}}</option> 
+                            {% for d in diagnose_dropdown %}
+                            <option  value="{{ d.complain.name }}">{{ d.complain.name }} </option>    
+                            {% endfor %}
+                          
+                          </select>
+                  
+                        </td>
+
+                        <td >                          
+                          <label for="medicine" style="margin-left:90px;">Medicine :</label>
+                          <input type="text"  required class="form-control" style="margin-left: 240px;width:290px; height:50px;"placeholder="Medicine Name" id="medicine" name="medicine"  value="{{ pres.medicine }}">
+                        </td>
+                      </tr>
+                      <br><br>
+                      <tr>
+
+                        <td>
+                          <label for="potency" >Potency :</label>
+                          <select style="margin-left: 50px; width:395px;" required="True" id="potency" name="potency">
+                           <!-- Options for potency -->
+                           <option value="{{pres.potency}}">{{pres.potency}}</option>
+                         <option disabled  value>&nbsp;&nbsp;&nbsp;&nbsp; Select Potency Here </option>
+                        <option value="Q">Q</option>
+                        <option value="3X">3X</option>
+                        <option value="6X">6X</option>
+                        <option value="6">6</option>
+                        <option value="30">30</option>
+                        <option value="200">200</option>
+                        <option value="1 M">1 M</option>
+                        <option value="10 M">10 M</option>
+                        <option value="0/1">0/1</option>
+                        <option value="0/2">0/2</option>
+                        <option value="0/3">0/3</option>
+                        <option value="0/4">0/4</option>
+                        <option value="0/5">0/5</option>
+                        <option value="0/6">0/6</option>
+                        <option value="0/7">0/7</option>
+                        <option value="0/8">0/8</option>
+                        <option value="0/9">0/9</option>
+                        <option value="0/10">0/10</option>
+                        <option value="0/11">0/11</option>
+                        <option value="0/12">0/12</option>
+                        <option value="0/13">0/13</option>
+                        <option value="0/14">0/14</option>
+                        <option value="0/15">0/15</option>
+                        <option value="0/16">0/16</option>
+                      </select>
+                        </td>
+
+                        <td colspan=2>
+                          <label style="margin-left: 100px;" for="start_date">Start Date :</label>
+                          <select required="True" style="margin-left: 50px;width:290px;" id="start_date" name="start_date">
+                            <!-- Options for start date -->
+                            <option value="{{pres.start_date}}">{{pres.start_date}}</option>
+			<option disabled  value> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Start Date </option>
+                            <option value="Today">Today</option>
+                            <!-- <option value="1 Day">1 Day</option> -->
+                            <option value="2nd Day">2nd Day</option>
+                            <option value="3rd Day">3rd Day</option>
+                            <option value="4th Day">4th Day</option>
+                            <option value="5th Day">5th Day</option>
+                            <option value="6th Day">6th Day</option>
+                            <option value="7th Day">7th Day</option>
+                            <option value="10th Day">10th Day</option>
+                            <option value="15th Day">15th Day</option>
+                            <option value="20th Days">20th Day</option>
+                            <option value="25th Day">25th Day</option>
+                            <option value="30th Day">30th Day</option>
+                            <option value="45th Day">45th Day</option>
+                            <option value="60th Day">60th Day</option>	
+                            <option value="75th Day">75th Day</option>
+                            <option value="3rd Month">3rd Month</option>
+                            <option value="4th Month">4th Month</option>
+                            <option value="5th Month">5th Month</option>
+                  
+                  
+                          </select>
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <label for="dose">Dose :</label>
+                          <select style="margin-left: 70px; width:400px;" required="True" id="dose" name="dose">
+                            <!-- Options for dose -->
+                            <option value="{{pres.dose}}">{{pres.dose}}</option>
+
+			<option disabled  value> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Dose </option>		
+                            <option value="Single Dose">Single Dose</option>
+                            <!-- <option value="1 Day">1 Day</option> -->
+                            <option value="3 Dose Half-Hour Interval">3 Dose Half-Hour Interval</option>
+                            <option value="2 Dose Half-Hour Interval">2 Dose Half-Hour Interval</option>
+                            <option value="3 Dose 1 Hour Interval">3 Dose 1 Hour Interval</option>
+                            <option value="2 Dose 1 Hour Interval">2 Dose 1 Hour Interval</option>
+                            <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 1 Dose </option>
+                            <option value="Morning-Afternoon-Evening -- Per 2 Dose">Morning-Afternoon-Evening -- Per 2 Dose</option>
+                            <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 3 Dose</option>
+                           
+                          </select>
+                        </td>
+                        <td>
+                          <label for="duration" style="margin-left: 100px;">Duration :</label>
+                          <select required="True"style="margin-left: 60px;width:290px;" id="duration" name="duration">
+                           <!-- Options for duration -->
+                           <option value="{{pres.durations}}">{{pres.durations}}</option>
+                           <option disabled  value> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Duration Here </option>
+                        <option value="7 Days">7 Days</option>
+                        <option value="15 Days">15 Days</option>
+                        <!-- <option value="14 Days">14 Days</option> -->
+                        <option value="21 Days">21 Days</option>
+                        <option value="30 Days">30 Days</option>
+                        <!-- <option value="1 Month">1 Month</option> -->
+                        <option value="45 Days">45 Days</option>
+                        <option value="2 Months">2 Months</option>
+                        <option value="3 Months">3 Months</option>
+                        <!-- <option value="4 Months">4 Months</option> -->
+                        <!-- <option value="5 Months">5 Months</option> -->
+                        <!-- <option value="6 Months">6 Months</option> -->
+
+                      </select>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <label for="note">Note :</label>
+                          <textarea style="margin-top:5px; margin-left:80px;" id="note" name="note" rows="6" cols="35" >{{pres.note}}</textarea>
+                        </td>
+
+                        <td>
+                          <button  style="margin-left:100px; width:200px; height:50px;" type="submit" class="form-control btn btn-primary btn-lg">Update</button>
+                        </td>
+                      </tr>
+                    </form>
+
+
+                    </table>
+                  </div>
+
+                  
+              
+            </div>
+
+    </main>     
+
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }     
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+  // new MultiSelectTag('countries')  // id
+  new MultiSelectTag('countries', {
+   rounded: true,    // default true
+   shadow: true,      // default false
+   placeholder: 'Search',  // default Search...
+   onChange: function(values) {
+       console.log(values)
+   }
+})
+</script>
+   
+      
+      
+</body>
+</html>
+
+

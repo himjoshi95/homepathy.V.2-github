@@ -1,0 +1,161 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delete</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style>   
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }    
+    
+   
+      
+      .scrolling-div::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+      .jsign-container {
+        width: 100%;
+        max-width: 900px; /* Default width for desktop */
+        margin: 0 auto;
+      }
+
+      
+    
+
+    @media (max-width: 768px){
+        
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 16px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }    
+  
+}  
+
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+</head>
+<body>   
+
+    
+<br>
+    <main role="main" class="container">
+       
+        <div class="jumbotron" style="margin-top:100px;">
+           
+        
+         {% if category == 'Chief Complaints' %}
+         <div class="header-past">Delete Chief Complaint </div>
+         {% elif category == 'Personal History' %} 
+         <div class="header-past">Delete Personal History </div>
+         {% elif category == 'Mental Causative Factor' %} 
+         <div class="header-past">Delete Mental Causative Factor </div>
+         {% elif category == 'Mental Personality Character' %} 
+         <div class="header-past">Delete Mental Personality Character </div>
+         {% elif category == 'Brief Mind Symptoms' %} 
+         <div class="header-past">Delete Brief Mind Symptoms </div>
+         {% elif category == 'Thermal' %} 
+         <div class="header-past">Delete Thermal Reaction </div>
+         {% endif %}
+         <hr>
+            
+         <table class='table'>
+            <thead>
+            <tr style="height:50px;">  
+                <th>Are you sure you want to Delete?</th>                    
+            </tr>            
+            </thead>
+        </table>
+        <br><br>
+        <a href ="{% url 'delete_chief_complaints' id=id %}" style="margin-top: 50px; margin-left: 50px;" class="btn btn-danger btn-lg">Yes</a>
+                        {% if category == 'Chief Complaints' %}
+                        <a href ="{% url 'chief_complaints_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Personal History' %}
+                        <a href ="{% url 'personal_history_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Mental Causative Factor' %}
+                        <a href ="{% url 'mental_causative_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Mental Personality Character' %}
+                        <a href ="{% url 'mental_personality_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Brief Mind Symptoms' %}
+                        <a href ="{% url 'bms_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% elif category == 'Thermal' %}
+                        <a href ="{% url 'thermal_view' case_id=case_id %}" style="margin-top: 50px; margin-left: 10px;" class="btn btn-success btn-lg">Go Back</a>
+                        {% endif %}
+        
+        
+        
+        </div>
+          
+        
+        
+
+                
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+
+   
+  
+
+    </script>
+
+   
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+
+      
+</body>
+</html>
+
+

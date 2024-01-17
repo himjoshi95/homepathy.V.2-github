@@ -164,8 +164,14 @@ JSIGNATURE_JQUERY = 'admin'
 # JSIGNATURE_WIDTH =  800
 # JSIGNATURE_HEIGHT = 600
 
-JSIGNATURE_WIDTH =  900
-JSIGNATURE_HEIGHT = 1000
+JSIGNATURE_WIDTH = 800
+JSIGNATURE_HEIGHT= 1000
+
+
+
+
+
+
 
 #EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -198,3 +204,9 @@ CKEDITOR_CONFIGS = {
 CSRF_TRUSTED_ORIGINS = [
     'https://0345-49-36-193-92.ngrok-free.app'
                         ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # Add any additional authentication backends if needed
+]

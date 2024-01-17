@@ -1,0 +1,592 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+    
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 7% auto; /* 15% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 88%; /* 80% of the width */
+  }
+  
+  .modalone {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content-one {
+    background-color: #fefefe;
+    margin: 7% auto; /* 15% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 88%; /* 80% of the width */
+  }
+
+
+  
+  .notification-badge {
+    background-color: #0CAFFF; /* Set your desired background color */
+    color: white;
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 8px 15px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+    
+    .box {
+        width: 400px;
+        height: 100px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 110px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box-new {
+        width: 400px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      img{
+        border-radius: 58%;
+    }
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 45px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+   
+
+.ifr {
+    margin-left:30px;
+    
+}
+
+.card-margins {
+    margin-left:70px;
+}
+
+
+.bg-c-blue {
+    background: linear-gradient(50deg,#2099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    
+}
+
+
+.card .card-block {
+    padding: 20px;
+}
+
+.card .card-block-one {
+  padding: 8px;
+  width: 500px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.card-left{
+    margin-left:100px;
+}
+
+
+
+    @media (max-width: 768px){
+    .box {
+        width: 300px;
+        height: 90px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      
+      .box-new {
+        width: 300px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 80px;
+        width:300px;
+        
+      }
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+    .ifr {
+        margin-left:10px;
+        width:250px;
+        text-align:left;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Modal content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 20% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+      
+      .modalone {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Modal content */
+      .modal-content-one {
+        background-color: #fefefe;
+        margin: 20% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+      
+      .notification-badge {
+        background-color: #0CAFFF; /* Set your desired background color */
+        color: white;
+        border-radius: 50%;
+        font-size: 20px;
+        padding: 8px 15px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .card-margins {
+        margin-left:0px;
+    }
+
+    .card-left{
+        margin-left:0px;
+    }
+     
+    
+}
+
+    .f-left {
+        float: left;
+    }
+    
+    .f-right {
+        float: right;
+    }   
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+   
+
+    <main role="main" class="container">
+    
+    <div class="box">
+       
+        <div class="box2" style="color:black; font-size:20px">
+         <p style="font-size:18px;"><b>PHARMACIST BRANCH NAME </b></p>
+         <hr style="background-color:blue;">
+         <h2><span class="f-right"> {{hr_branch}}&nbsp;&nbsp;<i class="fa fa-map-marker"></i> </span></h2>
+         
+          
+        </div>
+      </div>
+      
+    
+    
+      <br>
+      <div class="jumbotron" style="margin-top:30px;">
+
+        <a  href="{% url 'items_inventory_home' %}" class="btn btn-primary btn-lg ifr">ITEMS STOCK &nbsp;<i class="fa fa-cart-arrow-down" style="float:right;font-size:18px"></i></a>
+
+        <a  href="{% url 'medicines_inventory_home' %}" class="btn btn-primary btn-lg ifr">MEDICINE STOCK &nbsp; <i class="fa fa-cart-arrow-down" style="float:right;font-size:18px"></i></a>
+         <button style="margin-left:10px;" id="openPopup" class="btn btn-primary btn-lg">Task Details
+      {% if task_count > 0 %} 
+      <span class="notification-badge">
+       
+            {{ task_count }}
+       
+      </span>
+      {% endif %}
+    </button>
+
+    <button style="margin-left:10px;" id="openPopupone" class="btn btn-primary btn-lg">Apply Leave</button>
+
+    <a href="{% url 'all_courier' hr_branch %}" class="btn btn-primary btn-lg"  style="margin-left:10px;" >Courier List</a>
+
+    <a href="{% url 'hr_collections' %}" class="btn btn-primary btn-lg" style="margin-left:30px;">Collections <i class="fa fa-money" aria-hidden="true"></i></a>
+
+ 
+    
+    <hr>
+    <br>
+    <div class="header-past">Dashboard</div>
+    <br>
+    <p style="font-size:20px; margin-left:5px; color:#337ab7;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+
+    <hr style="border : 1px solid lightblue;">
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+            <iframe src="{% url 'task_details' %}" width="100%" height="550"></iframe>
+        </div>
+      </div>
+
+
+    <div id="myModalone" class="modalone">
+      <div class="modal-content-one">
+          <span class="closeone"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+          <iframe src="{% url 'apply_leave' %}" width="100%" height="550"></iframe>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h4 class="m-b-20">Total Doctors</h4>
+                    <hr style="border : 1px solid white;">
+                    <br>
+                   
+                    <h2 class="text-center"><i class="fa fa-user-md f-left"></i><span>{{ all_d }}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 card-left" >
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h4 class="m-b-20">Total Patients</h4>
+                    <hr style="border : 1px solid white;">
+                    <br>
+                    <h2 class="text-center"><i class="fa fa-users f-left" aria-hidden="true"></i><span>{{ all_p }}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 card-left" >
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h4 class="m-b-20">On Duty Doctors</h4>
+                    <hr style="border : 1px solid white;">
+                    <br>
+                    <h2 class="text-center"><i class="fa fa-check-circle-o f-left"></i><span>{{ active_d }}</span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <hr>
+    <div class="header-past">Doctor</div>
+    <hr>
+
+    <div class="table-responsive">
+        <table class='table'>
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th> 
+                <th>EMAIL</th>           
+                <th>GENDER</th>
+                <th>AGE</th>
+                <th>STATUS</th>
+                <th>DEPARTMENT</th>
+                {% comment %} <th>ATTENDANCE</th> {% endcomment %}
+                {% comment %} <th>SALARY</th> {% endcomment %}
+                <th>UPDATE </th>
+                
+                
+              </tr>
+            </thead>
+            {% for data in all_data %}
+              <tr style="font-size:18px;">
+                
+                <td>Dr. {{ data.name }}</td>
+                <td>{{ data.phone }}</td>
+                <td>{{ data.email }}</td>                    
+                <td>{{ data.gender }} </td>                
+                <td>{{ data.age }}</td>
+                {% if data.status %}
+                <td> Active</td>
+                {% else %}
+                <td> Inactive</td>
+                {% endif %}
+                <td>{{ data.department }}</td>
+                {% comment %} <td>{{ data.attendance }}</td> {% endcomment %}
+                {% comment %} <td>{{ data.salary }}</td> {% endcomment %}
+                <td><a href="{% url 'update_docter' id=data.id %}" class="btn btn-primary" >Click here to Update </a></td>
+
+              </tr>
+              {% endfor %}
+          
+        </table>
+    </div>
+
+    <br><br>
+<hr>
+    <div class="header-past">Receptionist</div>
+
+    <div class="table-responsive">
+        <table class='table'>
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>CONTACT NUMBER</th> 
+                <th>EMAIL</th>           
+                <th>ADDRESS</th>
+                <th>BRANCH</th>
+                <th>USERNAME</th>                    
+                <th>UPDATE</th>              
+              </tr>
+            </thead>
+            {% for data in all_r %}
+              <tr style="font-size:18px;">
+                
+                <td>{{ data.name }}</td>
+                <td>{{ data.phone }}</td>
+                <td>{{ data.email }}</td>                    
+                <td>{{ data.address }} </td>                
+                <td>{{ data.branch }}</td>
+               
+                <td>{{ data.username }}</td>
+              
+                <td><a href="{% url 'update_receptionist' id=data.id %}" class="btn btn-primary" >Click here to Update</a></td>
+
+              </tr>
+              {% endfor %}
+          
+        </table>
+    </div>
+
+
+    
+
+
+    </div>
+
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "300px";
+        }
+        
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+        <script>
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            
+            for (i = 0; i < dropdown.length; i++) {
+              dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                  dropdownContent.style.display = "none";
+                } else {
+                  dropdownContent.style.display = "block";
+                }
+              });
+            }
+        
+             // JavaScript to open and close the TASK DETAILS modal
+            var modal = document.getElementById('myModal');
+            var btn = document.getElementById("openPopup");
+            var span = document.getElementsByClassName("close")[0];
+         
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+         
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+         
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        
+             // JavaScript to open and close the Apply Leave modal
+             var modalone = document.getElementById('myModalone');
+             var btnone = document.getElementById("openPopupone");
+             var spanone = document.getElementsByClassName("closeone")[0];
+          
+             btnone.onclick = function() {
+                 modalone.style.display = "block";
+             }
+          
+             spanone.onclick = function() {
+                 modalone.style.display = "none";
+             }
+          
+             window.onclick = function(event) {
+                 if (event.target == modalone) {
+                     modalone.style.display = "none";
+                 }
+             }
+          </script>
+        
+      
+
+
+</body>
+</html>

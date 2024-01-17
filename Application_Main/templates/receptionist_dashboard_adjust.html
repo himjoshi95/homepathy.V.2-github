@@ -11,125 +11,125 @@
     <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">  
     <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        .sidenav {
+            height:85vh;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: lightblue;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            margin-top:56px;
+            border-radius: 5px;
+           
+          }
+          
+          .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size:20px;
+            color:black;
+            display: block;
+            transition: 0.3s;
+          }
+          
+         
+          
+          .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            font-size: 20px;
+            
+          }
+          
+          @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+          }
+    
+          /* Style the sidenav links and the dropdown button */
+    .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: 1px solid black;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    margin-top:10px;
+    margin-bottom:10px;
+    }
+    
+    /* On mouse-over */
+    .sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+    background-color: #20B5AD;
+    
+    }
+    
+    /* Add an active class to the active dropdown button */
+    
+    
+    /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+    .dropdown-container {
+    display: none;
+    background-color:  #5b5b5d;
+    padding-left: 8px;
+    }
+    
+    /* Optional: Style the caret down icon */
+    .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+    }
+    .fa-caret-right {
+    float: right;
+    padding-right: 8px;
+    }
+    
+    
+    
+    .order-card {
+        color: #fff;
+    }
+    
+    .bg-c-blue {
+        background: linear-gradient(50deg,#2099ff,#73b4ff);
+    }
+    
+    .bg-c-green {
+        background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    }
+    
+    .bg-c-yellow {
+        background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    }
+    
+    .bg-c-pink {
+        background: linear-gradient(45deg,#FF5370,#ff869a);
+    }
+    
+    </style>
+    <script>
+        function mouseover() {
+            document.getElementById("gfg").style.color = "#097969";
+        }
+         
+        function mouseout() {
+            document.getElementById("gfg").style.color = "white";
+        }
+    </script>
+    
 </head>
-
-<style>
-    .sidenav {
-        height:85vh;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: lightblue;
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-        margin-top:56px;
-        border-radius: 5px;
-       
-      }
-      
-      .sidenav a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size:20px;
-        color:black;
-        display: block;
-        transition: 0.3s;
-      }
-      
-     
-      
-      .sidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 2px;
-        font-size: 20px;
-        
-      }
-      
-      @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-      }
-
-      /* Style the sidenav links and the dropdown button */
-.sidenav a, .dropdown-btn {
-padding: 6px 8px 6px 16px;
-text-decoration: none;
-font-size: 20px;
-color: 1px solid black;
-display: block;
-border: none;
-background: none;
-width:100%;
-text-align: left;
-cursor: pointer;
-outline: none;
-margin-top:10px;
-margin-bottom:10px;
-}
-
-/* On mouse-over */
-.sidenav a:hover, .dropdown-btn:hover {
-color: #f1f1f1;
-background-color: #20B5AD;
-
-}
-
-/* Add an active class to the active dropdown button */
-
-
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
-display: none;
-background-color:  #5b5b5d;
-padding-left: 8px;
-}
-
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-float: right;
-padding-right: 8px;
-}
-.fa-caret-right {
-float: right;
-padding-right: 8px;
-}
-
-
-
-.order-card {
-    color: #fff;
-}
-
-.bg-c-blue {
-    background: linear-gradient(50deg,#2099ff,#73b4ff);
-}
-
-.bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
-}
-
-.bg-c-yellow {
-    background: linear-gradient(45deg,#FFB64D,#ffcb80);
-}
-
-.bg-c-pink {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
-}
-
-</style>
-<script>
-    function mouseover() {
-        document.getElementById("gfg").style.color = "#097969";
-    }
-     
-    function mouseout() {
-        document.getElementById("gfg").style.color = "white";
-    }
-</script>
 
 <body>
 

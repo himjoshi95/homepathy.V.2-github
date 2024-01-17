@@ -1,0 +1,181 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Courier List {{branch}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>    
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    } 
+
+    .header-new {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 20px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+        text-decoration:underline;
+    } 
+    
+   
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+    
+     
+    
+}
+
+</style>
+</head>
+<body>
+    
+    <main role="main" class="container">      
+    <div class="jumbotron" style="margin-top:20px;">       
+        <a href="{% url 'dashboard'  %}" class="btn btn-primary"><i class="fa fa-angle-double-left" style="font-size:16px"></i> Dashboard</a><hr>
+        <div class="header-past">Courier Medicine List - {{branch}}</div><br>
+        <p style="font-size:20px; margin-left:5px; color:#337ab7;"><b>DATE : {{date|date:"d M, Y"}} </b></p><br>
+
+        <hr style="border : 1px solid lightblue;">
+        <label for="startDate" style="font-size:18px;"><b>Start Date :</b></label>
+        <input type="date" id="startDate" style="margin-left:20px; font-size:20px;" >
+    
+        <label for="endDate" style="margin-left:20px; font-size:18px;"><b>End Date :</b></label>
+        <input type="date" id="endDate" style="margin-left:20px; font-size:20px;">
+    
+        <button onclick="filterData()" class="btn btn-primary btn-lg" style="margin-left:50px;">Filter Data &nbsp;<i class="fa fa-search" style="font-size:24px"></i></button>
+        <a href="{% url 'view_courier_details' branch %}" class="btn btn-dark btn-lg" style="margin-left:20px;">Refresh &nbsp;<i class="fa fa-refresh" style="font-size:24px;"></i></a>
+    
+           
+    
+        <hr style="border : 1px solid lightblue;">
+
+        <div class="header-new">Courier Details</div>
+        <div class="table-responsive">
+            <table class="table" >    
+                <thead>       
+                    <tr>
+                    <th>COUNT</th>
+                      <th>PATIENT NAME</th>                              
+                      <th>PATIENT CASE PAPER</th>
+                      <th>CONTACT NUMBER</th>
+                      <th>ADDRESS</th>            
+                      <th>ORDER DATE</th>
+                      <th>BALANCE AMOUNT</th>
+                      
+                      <th>PAYMENT DETAILS</th>                          
+                    </tr>
+                </thead>
+                {% for d in details %}
+                <tr class="data-row" >
+                    <td style="text-align:center; font-size:16px;">{{forloop.counter}} .</td>
+                    <td style="text-align:center;font-size:16px;">{{d.patient.name}}</td>
+                    <td style="text-align:center;font-size:16px;">{{d.patient.case}}</td>
+                    <td style="text-align:center;font-size:16px;"> {{d.patient.phone}}</td>
+                    <td style="text-align:center;font-size:16px;">{{d.patient.address}}</td>
+                    <td class="dateColumn" style="text-align:center;font-size:16px; width:200px;" >{{d.date|date:"d-m-Y"}}</td>
+                    <td style="text-align:center;font-size:16px;"><b>Rs {{d.balance_amount}}</b></td>
+                   
+        
+                    {% if d.paid_amount == 0 %}
+                    <td><b>PAYMENT NOT DONE</b></td>
+                    {% else %}
+                    <td><a href="{% url 'view_payment_courier' d.id %}" class="btn btn-success ">View Details</a></td>
+                    {% endif %}
+        
+                   
+        
+                </tr>
+                {% endfor %}
+            </table>
+        
+    </div>
+    
+    
+        
+    </div>
+
+    
+
+    
+    
+
+
+      
+
+    </main>
+
+    <script>
+        // Function to format the date from yyyy-mm-dd to dd-mm-yyyy
+        function formatDate(inputDate) {
+            var parts = inputDate.split('-');
+            return parts[2] + '-' + parts[1] + '-' + parts[0];
+        }
+    
+        // Function to filter data based on date range
+        function filterData() {
+            // Get start and end dates from input fields
+            var startDate = new Date(document.getElementById('startDate').value);
+            var endDate = new Date(document.getElementById('endDate').value);
+    
+            // Select all rows with the class 'data-row'
+            var rows = document.querySelectorAll('.data-row');
+    
+            // Iterate through each row and check the date
+            rows.forEach(function (row) {
+                var dateColumn = row.querySelector('.dateColumn');
+    
+                // Ensure the dateColumn is not null before proceeding
+                if (dateColumn) {
+                    var rowDate = new Date(formatDate(dateColumn.innerText));
+    
+                    // Check if the row date is within the selected range
+                    if (rowDate >= startDate && rowDate <= endDate) {
+                        // Show the row
+                        row.style.display = '';
+                    } else {
+                        // Hide the row
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+    
+      
+
+
+</body>
+</html>

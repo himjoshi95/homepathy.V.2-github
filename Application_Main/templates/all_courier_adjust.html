@@ -1,0 +1,215 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Courier Medicine List {{hr_branch}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 45px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+ 
+
+    @media (max-width: 768px){
+    
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }     
+    
+}
+    .f-left {
+        float: left;
+    }
+    
+    .f-right {
+        float: right;
+    }      
+    
+   
+
+</style>
+<script>
+    function mouseover() {
+        document.getElementById("gfg").style.color = "#097969";
+    }
+     
+    function mouseout() {
+        document.getElementById("gfg").style.color = "white";
+    }
+</script>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}   
+
+    <main role="main" class="container">   
+      <br>
+      <div class="jumbotron" style="margin-top:120px;">
+
+       
+ 
+    
+    
+    <div class="header-past">Courier Medicine List - {{hr_branch}}</div>
+    <hr>
+    <br>
+    <p style="font-size:20px; margin-left:5px; color:#337ab7;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+
+    <label for="startDate" style="font-size:18px;"><b>Start Date :</b></label>
+    <input type="date" id="startDate" style="margin-left:20px; font-size:20px;" >
+
+    <label for="endDate" style="margin-left:80px; font-size:18px;"><b>End Date :</b></label>
+    <input type="date" id="endDate" style="margin-left:20px; font-size:20px;">
+
+    <button onclick="filterData()" class="btn btn-primary btn-lg" style="margin-left:50px;">Filter Data &nbsp;<i class="fa fa-search" style="font-size:24px"></i></button>
+    <a href="{% url 'all_courier' hr_branch %}" class="btn btn-dark btn-lg" style="margin-left:20px;">Refresh &nbsp;<i class="fa fa-refresh" style="font-size:24px;"></i></a>
+
+       
+
+    <hr style="border : 1px solid lightblue;">
+
+    <div class="header-past">Courier Details</div>
+   <div class='table-responsive'>
+    <table class="table" >    
+        <thead>       
+            <tr>
+            {% comment %} <th>COUNT</th> {% endcomment %}
+              <th>PATIENT NAME</th>                              
+              <th>PATIENT CASE PAPER</th>
+              <th>CONTACT NUMBER</th>
+              <th>ADDRESS</th>            
+              <th>ORDER DATE</th>
+              <th>BALANCE AMOUNT</th>
+              <th>RECEIVING STATUS</th> 
+              <th>COURIER ORDER STATUS</th> 
+              <th>PAYMENT DETAILS</th>                          
+            </tr>
+        </thead>
+        {% for d in details %}
+        {% if d.balance_amount >= 0 %}
+        <tr class="data-row" >
+            
+            <td style="text-align:center;font-size:16px;">{{d.patient.name}}</td>
+            <td style="text-align:center;font-size:16px;">{{d.patient.case}}</td>
+            <td style="text-align:center;font-size:16px;"> {{d.patient.phone}}</td>
+            <td style="text-align:center;font-size:16px;">{{d.patient.address}}</td>
+            <td class="dateColumn" style="text-align:center;font-size:16px; width:200px;" >{{d.date|date:"d-m-Y"}}</td>
+            <td style="text-align:center;font-size:16px;"><b>Rs {{d.balance_amount}}</b></td>
+            {% if d.receiver_flag %}
+            <td style="text-align:center;font-size:16px; color:green;"><b>RECEIVED</b></td>
+            {% else %}
+            <td style="text-align:center;font-size:16px; color:red;"><b>NOT RECEIVED</b></td>
+            {% endif %}
+
+            {% if not d.receiver_flag %}
+            <td style="text-align:center;font-size:16px;"><a href="{% url 'mark_receive_courier' d.id %}" class="btn btn-info">Mark Received</a></td>
+
+            {% else %}
+            <td style="text-align:center;font-size:16px;"><b>-</b></td>
+
+            {% endif %}
+
+            {% if d.paid_amount == 0 %}
+            <td><a href="{% url 'update_payment_courier' d.id %}" class="btn btn-danger ">Add Details</a></td>
+            {% else %}
+            <td><a href="{% url 'update_payment_courier' d.id %}" class="btn btn-success ">View Details</a></td>
+            {% endif %}
+
+           
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+    
+
+
+    </div>
+
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        // Function to format the date from yyyy-mm-dd to dd-mm-yyyy
+        function formatDate(inputDate) {
+            var parts = inputDate.split('-');
+            return parts[2] + '-' + parts[1] + '-' + parts[0];
+        }
+    
+        // Function to filter data based on date range
+        function filterData() {
+            // Get start and end dates from input fields
+            var startDate = new Date(document.getElementById('startDate').value);
+            var endDate = new Date(document.getElementById('endDate').value);
+    
+            // Select all rows with the class 'data-row'
+            var rows = document.querySelectorAll('.data-row');
+    
+            // Iterate through each row and check the date
+            rows.forEach(function (row) {
+                var dateColumn = row.querySelector('.dateColumn');
+    
+                // Ensure the dateColumn is not null before proceeding
+                if (dateColumn) {
+                    var rowDate = new Date(formatDate(dateColumn.innerText));
+    
+                    // Check if the row date is within the selected range
+                    if (rowDate >= startDate && rowDate <= endDate) {
+                        // Show the row
+                        row.style.display = '';
+                    } else {
+                        // Hide the row
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+    
+
+      
+
+
+</body>
+</html>

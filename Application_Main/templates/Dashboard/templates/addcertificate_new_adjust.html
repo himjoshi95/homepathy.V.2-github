@@ -1,0 +1,164 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Certificates</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<style>    
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    } 
+    
+    .container-new {
+        display: flex;  /* Use flexbox to align the divs side by side */
+    }
+    
+    .center-div{
+        width: 50%;  /* Each div takes up 50% of the container width */
+        padding: 30px;  /* Add padding for spacing */
+        
+    }
+    
+    .right-div {
+        width: 50%;
+        padding: 10px;
+        border-center: 1px solid #ccc; /* Add a center border for separation */
+        margin-center: 0px;
+        margin-right:1px; /* Create spacing between the divs */
+    }   
+    
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+    
+     
+    
+}
+
+    
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    
+    <main role="main" class="container">      
+      <div class="jumbotron" style="margin-top:20px;">       
+        <a href="{% url 'dashboard'  %}" class="btn btn-primary"><i class="fa fa-angle-double-left" style="font-size:16px"></i> Dashboard</a><hr>
+        <div class="header-past">Certificates</div>
+
+        <p style="font-size:14px;color:red;font-weight:bolder;text-decoration:underline;">Note: Fill the Details before generating any Certificate<p>  
+    <a href="{% url 'medical_certificate_pdf' id=case_id %}" class="btn btn-primary " style="font-size:15px;margin-left:5px;margin-top;3px;width:250px;  text-align:left;"><i class="fa-solid fa-file-pdf" style="font-size:22px;"></i> MEDICAL CERTIFICATE</a> 
+    <a href="{% url 'fitness_certificate_pdf' id=case_id %}" class="btn btn-primary " style="font-size:15px;margin-left:5px;margin-top;3px;width:250px;  text-align:left;"><i class="fa-solid fa-file-pdf" style="font-size:22px;"></i> FITNESS CERTIFICATE</a> 
+    <a href="{% url 'unfit_certificate_pdf' id=case_id %}"  class="btn btn-primary " style="font-size:15px;margin-left:5px;margin-top;3px;width:250px;  text-align:left;"><i class="fa-solid fa-file-pdf" style="font-size:22px;"></i> UNFIT  CERTIFICATE</a>
+    <a href="{% url 'travelling_certificate_pdf' id=case_id %}"  class="btn btn-primary " style="font-size:15px;margin-left:5px;margin-top;3px;width:250px;  text-align:left;"><i class="fa-solid fa-file-pdf" style="font-size:22px;"></i> TRAVELLING CERTIFICATE</a>
+    <hr>
+    
+
+        {% if messages %}
+        <br><br>
+        {% for message in messages %}
+        <div class="success">
+          <i class="fa fa-bell"></i>
+           {{ message}}
+        </div>
+        {% endfor %}
+        <br><br>
+      {% endif %}
+        <br><br>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name"><h4>Patient Case Paper Number</h4></label> <br>
+            <select name="patient" required="True" id="id_patientid" class="form-control">
+                <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
+                {% for d in data %}
+                <option  value="{{ d.pk }}">{{ d.case }} </option>    
+                {% endfor %}    
+            </select>
+            <br><br>
+            <label for="diagnose1"><h4>Diagnose (1) </h4></label><br>
+            <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose1">
+        
+            <br>
+            <label for="diagnose2"><h4>Diagnose (2)</h4></label><br>
+            <input type="text" class="form-control"  placeholder="Diagnose"  name="diagnose2">
+            <br>   
+            <label for="diagnose3"><h4>Diagnose (3)</h4></label><br>
+            <input type="text" class="form-control" placeholder="Diagnose"  name="diagnose3">
+            <br>
+            <label ><h4>Date</h4></label><br>
+            <input type="date" required="True" class="form-control" name="date1">
+            <br>
+        
+            <label ><h4>Rest From</h4></label><br>
+            <input type="date"  class="form-control" name="date2">
+            <br>
+            <label><h4>Rest Till</h4></label><br>
+            <input type="date"  class="form-control"  name="date3">
+            <br>
+            <label ><h4>Resume Date</h4></label><br>
+            <input type="date"class="form-control"  name="date4">
+            <br>
+            <label for="month"><h4>Duration </h4></label><br>
+            <input type="text"  class="form-control" placeholder="Number of Months" id="month" name="month">
+            <br><br><br>
+            <button type="submit" class="btn btn-success btn-block" ><i class="fa fa-check-square-o" style="font-size:20px;"></i>&nbsp; Submit</button>
+        </form>
+
+        
+   
+<br><br><br><br>
+       
+    </div>
+    
+
+
+      
+
+    </main>
+
+  
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#id_patientid').select2();
+    
+        });
+    </script>	
+
+</body>
+</html>

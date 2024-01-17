@@ -1,0 +1,307 @@
+{% load static %}
+<!doctype html>
+{% load crispy_forms_tags %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    
+    <title>New Case - Present Complaints</title>
+   <style>
+
+    .box {
+      width: 400px;
+      height: 110px;
+      border: 1px solid white;
+      padding: 10px;
+      margin-top: 50px;
+      display: flex;
+      column-gap: 50px;
+      border-radius: 25px;
+      background: #dae5f4;
+    }
+    .box1{
+      height: 100px;
+      width:100px;
+      
+    }
+    .box2{
+      height: 100px;
+      width:500px;
+      
+    }
+    .img-pic{
+      border-radius: 58%;
+  }
+ 
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 35px;
+      text-align: center;
+      width: 100%;
+      margin-top: 0px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;
+  }   
+  div.ex3 {
+    background-color: whitesmoke;
+    width: 110px;
+    height: 500px;
+    overflow: auto;
+    }
+    
+    .scrolling-div::-webkit-scrollbar{
+      width: .8rem;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-thumb{
+      background: 	#6495ED;
+      border-radius: .5rem;
+    }
+
+    
+
+    
+     
+  
+
+  @media (max-width: 768px){
+      
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 30px;
+      text-align: center;
+      width: 100%;
+      margin-top: 16px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;        
+  }  
+  
+  .box {
+    width: 320px;
+    height: 110px;
+    border: 1px solid white;
+    padding: 10px;
+    margin-top: 50px;
+    display: flex;
+    column-gap: 50px;
+    border-radius: 25px;
+    background: #dae5f4;
+  }
+  .box1{
+    height: 100px;
+    width:100px;
+    
+  }
+  .box2{
+    height: 100px;
+    width:500px;
+    
+  }
+
+
+}  
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+  </head>
+
+  <body>
+    
+   
+    
+
+        
+    <main role="main" class="container">
+
+      <div class="box">
+        <div class="box1">
+          {% if patient.patient_images %}
+          <img src="{{patient.patient_images.url}}" class="img-pic" alt="Avatar" width="70" height="90" border="5">
+          
+    
+            {% else %}
+            <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+            {% endif %}
+        </div>
+        <div class="box2" style="color:black; font-size:20px">
+         <p style="font-size:18px;"><b> {{patient.name}} </b></p>
+         <hr style="background-color:blue;">
+         <h4>Case PaperNo. {{patient.case}}</h4>
+         <h4>Contact No. {{patient.phone}}</h4>
+          
+        </div>
+      </div>
+
+      <br>
+      <div class="jumbotron" style="margin-top:0px;">
+
+        <a href="{% url 'apointmentDetails' case_id final_token %}" class="btn btn-primary" > <i class="fa fa-angle-double-left"></i> Go Back</a><hr>
+          
+      <div class="header-past">Present Complaints</div>
+      <br><br>
+      {% if messages %}
+      
+      {% for message in messages %}
+      <div class="success">
+        <i class="fa fa-bell"></i>
+         {{ message}}
+      </div>
+      <br>
+      {% endfor %}
+       {% endif %}
+      <br>
+      <div class="table-responsive">
+      <table class="table-new-case" >
+        <thead>
+          <tr class = "bg-primary" style="height: 40px;" >        
+              <th style="color:antiquewhite;text-align:left; font-size: 20px;" scope="col">Add Present Complaints</th>
+              <th style="color:antiquewhite;text-align:left; font-size: 20px;" scope="col">Recent List<a href="{% url 'add_complain' case_id=case_id %}" style="background:white; margin-left:20px;" class="btn"><img  src="{% static 'images/add.png' %}" width="30" height="30"></a></th>                  
+          </tr>
+      </thead>
+      <tbody>
+          <tr class = "table-light">
+            <td class="border-right" style="width: 0px">
+                <div >
+                    <a href="{% url 'past_history_newone' case_id %}" style="float:right; margin-bottom:10px;" class="btn btn-dark btn-sm"> <i class="fa fa-eraser"></i> &nbsp;Clear Form</a>
+
+                    <form class="px-md-2" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-outline mb-4" style=" margin-top:50px; margin-left: 10px; font-size: 20px;" >
+                          {{form|crispy}}
+
+                        </div>
+                        <br><br>
+                        <button type="submit" style="margin-left: 10px; width: 580px;" class="btn btn-primary"> + Add</button>
+                        
+          
+                      </form> 
+                      <br>
+                    </div> 
+            </td>  
+            
+            <td >
+                <div class="ex3" style="width: 400px; font-size: 20px;">
+             
+                {% for d in data %}
+                <a href="{% url 'complain' case_id=case_id id=d.id %}" style="margin-top: 4px; margin-left: 35px;  text-decoration:none; font-size: 18px;" class="genericbuttonleft">{{d.name}}<hr style="margin-top: 3px; margin-bottom: 3px;"></a>                   
+                
+                    {% endfor %}
+                </div>
+            </td>
+              
+          </tr>
+      </tbody>        
+      <tfoot>
+        <tr class="table-light">
+            <td style="height: 50px; font-size: 17px;">
+           
+                <a href="{% url 'past_history_newone' case_id=case_id %}" style="margin-left: 2px; text-decoration:none; color: green; "><b>Present Complaints</b></a> |
+                <a href="{% url 'chief_complaints_newone' case_id=case_id %}" style="text-decoration:none;"><b>Chief Complaints</b></a>  |
+                <a href="{% url 'patient_history_newone' case_id=case_id %}" style="text-decoration:none;"><b>Past History</b> </a> |
+                <a href="{% url 'personal_history_newone' case_id=case_id %}" style="text-decoration:none; color: brown;"><b>Personal History</b> </a>|
+                <a href="{% url 'family_medical_newone' case_id=case_id %}" style="text-decoration:none; color: red;"><b>Family Medical HO</b></a> |
+                <a href="{% url 'mental_causative_newone' case_id=case_id %}" style="text-decoration:none;"><b>Mental Causative Factor</b></a>|  
+                <a href="{% url 'mental_personality_newone' case_id=case_id %}" style="text-decoration:none; color:black;"><b>Mental Personality Character</b></a>|
+                <a href="{% url 'bms_newone' case_id=case_id %}" style="text-decoration:none; color: purple;"><b>Brief Mind Symptoms</b></a>|
+                <a href="{% url 'thermal_newone' case_id=case_id %}" style="text-decoration:none; color: orange;"><b>Thermal Reaction</b></a>|
+                <a href="{% url 'miasm_examination_newone' case_id=case_id %}" style="text-decoration:none; color: olive;"><b>Miasm</b></a>|
+               
+            </td>
+            <td style="font-size: 17px;">
+             
+            </td>
+        </tr>
+      </tfoot>
+      </table>
+    </div>
+      
+      <br><br>
+<hr>
+      <div class="header-past">Present Complaints Details : </div>
+        
+        <br>
+        <div class="table-responsive">
+        <table class='table'>
+          <thead>
+            <tr  style="height: 30px;">
+                <th  >Date</th>
+                <th  >Complain</th>
+                <th  >Duration</th>                                             
+                <th  >Remarks</th>
+                <th  >Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in table %}
+          <tr  style="font-size:14px;">
+            
+            <td  >{{t.date|date:"d F, Y"}}</td> 
+            <td  >{{t.complain.name}}</td>
+            <td  >{{t.duration}} {{t.duration_suffix}}</td>
+                                           
+            <td  >{{t.remarks}}</td>
+            <td  ><a href="{% url 'delete_present_complaints' t.id %}" onclick="confirmDelete(event)" ><img src="{% static 'images/del.png' %}" width="20" height="20"></a></td>
+            
+          </tr>
+          {% empty %}
+          <td></td>
+          <td><b style="color:blue">No Present Complaints Added. </b></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          
+          {% endfor %}
+        </table>
+    </div>
+       
+     
+     
+      
+      
+
+       
+  
+  <!-- end paginations -->
+    </div> 
+    
+  </main>
+   
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+  <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('#id_patientid').select2();
+
+    });
+
+    function confirmDelete(event) {
+      if (!window.confirm("Are you sure you want to delete this ?")) {
+        event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+      }
+    }
+</script>
+
+  </body>
+</html>

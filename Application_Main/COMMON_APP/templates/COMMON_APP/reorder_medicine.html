@@ -31,7 +31,7 @@
             {% endif %}
         </div>
         <div class="jumbotron"> 
-            <p style="color:#337ab7; font-size:16px; text-align:center;"><b>SET REORDER LEVEL - {{queryset.item}} </b></p><hr>
+            <p style="color:#337ab7; font-size:16px; text-align:center;"><b>SET REORDER LEVEL - {{queryset.medicine}} </b></p><hr>
             <form action="" method="POST">
                 {% csrf_token %}
                 {{form}}

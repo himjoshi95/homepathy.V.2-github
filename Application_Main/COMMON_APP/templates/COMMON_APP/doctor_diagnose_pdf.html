@@ -11,21 +11,32 @@
     <title>DIAGNOSE HISTORY PDF</title>
 
     <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
+      .table-pdf {
+      width: 80%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      border: 1px solid grey;
     }
-
-    table, th, td {
-        border: 1px solid black;
-        
+      /* Table cells and spacing */
+    .table-pdf th,
+    .table-pdf td {
+      padding: 5px;
+      border-bottom: 1px solid black;
+      width:200px;
     }
-
-    th, td {
-        padding: 9px; /* Add space around the content of table cells */
-        
-        font-size: 14px;
+    
+    /* Table headers */
+    .table-pdf th {
+      background-color: #f2f2f2; /* Light gray background for headers */
+      font-weight: bold;
+      text-align: left;
     }
+    
+    /* Alternating row colors */
+    .table-pdf tr:nth-child(even) {
+      background-color: #f9f9f9; /* Lighter gray for even rows */
+    }
+    
     </style>
     <!-- Custom styles for this template -->
 
@@ -38,7 +49,7 @@
      
 
    
-        <table class='table'>
+        <table class='table-pdf'>
             <thead>
               <tr>
                 <th>COUNT</th>

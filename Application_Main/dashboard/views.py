@@ -59,9 +59,9 @@ def index(request):
     mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
     unsent_mail_count = mail_count.count()
 
-    return render(request,'index_new.html',{'status':status,'user':"D",'unsend_mail_count': unsent_mail_count,'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
+    return render(request,'index_new_adjust.html',{'status':status,'user':"D",'unsend_mail_count': unsent_mail_count,'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 								'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
-								'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul})
+								'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,'date':date.today()})
 
 
 case_id = 0
@@ -77,7 +77,7 @@ def addpatient(request):
         patient = Patient.objects.get(id=p_id) 
         med_name = request.POST['med_name'] 
         obj = Diagnosis(patient=patient,diagnose=diagnose.title(),med_name=med_name.title())  
-        messages.success(request,'Patient Added Successfully') 
+        messages.success(request,'Patient Added Successfully. Click on Next to Continue') 
         obj.save()
         global case_id
         case_id = request.POST['patient']    
@@ -85,7 +85,7 @@ def addpatient(request):
        
     data = Patient.objects.all()
     
-    return render(request,'dashboard/templates/addpatient_new.html',{'status':status,'user':"D",'data':data,'case_id':case_id})
+    return render(request,'dashboard/templates/addpatient_new_adjust.html',{'status':status,'user':"D",'data':data,'case_id':case_id})
 
 @csrf_exempt
 def bills(request,id):
@@ -112,7 +112,7 @@ def bills(request,id):
     
     data = Patient.objects.all()    
     
-    return render(request,'dashboard/templates/addbills_new.html',{'status':status,'user':"D",'data':data,'id1':id})    
+    return render(request,'dashboard/templates/addbills_new_adjust.html',{'status':status,'user':"D",'data':data,'id1':id})    
 
 @csrf_exempt
 def bill_pdf(request,id):
@@ -211,7 +211,7 @@ def previous_issued_invoice(request):
     else:
         data = ""
     obj = Bill.objects.all().order_by('-date')
-    return render(request,'dashboard/templates/previous_bills_new.html',{'status':status,'user':"D",'obj':obj,'data':data})
+    return render(request,'dashboard/templates/previous_bills_new_adjust.html',{'status':status,'user':"D",'obj':obj,'data':data})
 
 @csrf_exempt
 def regen_bill_pdf(request,id):    
@@ -332,7 +332,7 @@ def addcertificate(request):
             month = 0
         patient = Patient.objects.get(id=p_id)
         obj = Certificate(patient=patient,diagnose1=diagnose1.title(),diagnose2=diagnose2.title(),diagnose3=diagnose3.title(),date1=date1,date2=date2,date3=date3,date4=date4,month=month)
-        messages.info(request,'Click below to Generate Certificate')
+        messages.info(request,'Now Please Click on Certificates above mentioned to be Generated.')
         obj.save()
         global case_id_cer
         case_id_cer = request.POST['patient']
@@ -340,7 +340,7 @@ def addcertificate(request):
 
     data = Patient.objects.all()
 
-    return render(request,'dashboard/templates/addcertificate_new.html',{'status':status,'user':"D",'data':data,'case_id':case_id_cer})
+    return render(request,'dashboard/templates/addcertificate_new_adjust.html',{'status':status,'user':"D",'data':data,'case_id':case_id_cer})
 
 @csrf_exempt
 def medical_certificate_pdf(request,id):    
@@ -577,7 +577,7 @@ def previous_issued_certificate(request):
     else:
         data = ""
     obj = Certificate.objects.all().order_by('-date1')
-    return render(request,'dashboard/templates/prev_issued_certicates_new.html',{'status':status,'user':'D','obj':obj,'data':data})
+    return render(request,'dashboard/templates/prev_issued_certicates_new_adjust.html',{'status':status,'user':'D','obj':obj,'data':data})
 
 @csrf_exempt
 def regenerate_issued_certificate(request,id):    
@@ -846,30 +846,8 @@ def pricing(request):
             return redirect('pricing')
     form = PriceForm(instance=data)
 
-                
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-
-    return render(request,'dashboard/templates/pricing_new.html',{'status':status,'user':"D",'form':form,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count,})
+    
+    return render(request,'dashboard/templates/pricing_new.html',{'status':status,'user':"D",'form':form})
 
 @csrf_exempt
 def diagnosis_history(request):
@@ -999,30 +977,10 @@ def allstaff(request):
     obj = Receptionist.objects.all()
     obj1 = HR.objects.all()
             
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
 
     return render(request,'dashboard/templates/all_staff_new.html',{'status':status,'user':"D",'data':data,
-                                                                "header":"ALL STAFF",'obj':obj,'obj1':obj1,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count,	})
+                                                                "header":"ALL STAFF",'obj':obj,'obj1':obj1,	})
 @csrf_exempt
 def dash_recep(request,id):
 
@@ -1048,30 +1006,10 @@ def dash_recep(request,id):
 
     obj = Receptionist.objects.get(id=id)
                 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
 
     return render(request,'dashboard/templates/dash_recep_new.html',{'status':status,'user':"D",'obj':obj
-                                                                 ,"header":"Receptionist Details",'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count,})
+                                                                 ,"header":"Receptionist Details"})
 @csrf_exempt
 def recep_documents(request,id):
 
@@ -1091,30 +1029,9 @@ def recep_documents(request,id):
         return HttpResponseRedirect(reverse('recep_documents',  kwargs={'id': id}))
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-
     
-    return render(request,'dashboard/templates/recep_documents_new.html',{'status':status,'user':"D",'obj':obj,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count,}) 
+    
+    return render(request,'dashboard/templates/recep_documents_new.html',{'status':status,'user':"D",'obj':obj}) 
 
 @csrf_exempt
 def recep_gallery(request,id):
@@ -1127,29 +1044,9 @@ def recep_gallery(request,id):
 
     obj = Receptionist.objects.get(id=id)
                         
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
+    
 
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-
-    return render(request,'dashboard/templates/recep_gallery_new.html',{'status':status,'user':"D",'img':img,'obj':obj,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count}) 
+    return render(request,'dashboard/templates/recep_gallery_new.html',{'status':status,'user':"D",'img':img,'obj':obj}) 
 
 @csrf_exempt
 def dash_hr(request,id):
@@ -1177,28 +1074,9 @@ def dash_hr(request,id):
 
     obj = HR.objects.get(id=id)
                             
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
+    
 
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-    return render(request,'dashboard/templates/dash_hr_new.html',{'status':status,'user':"D",'obj':obj,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count})
+    return render(request,'dashboard/templates/dash_hr_new.html',{'status':status,'user':"D",'obj':obj})
 
 @csrf_exempt
 def hr_documents(request,id):
@@ -1219,29 +1097,9 @@ def hr_documents(request,id):
         return HttpResponseRedirect(reverse('hr_documents',  kwargs={'id': id}))
     
                                 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
     
-    return render(request,'dashboard/templates/hr_documents_new.html',{'status':status,'user':"D",'obj':obj,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count})
+    
+    return render(request,'dashboard/templates/hr_documents_new.html',{'status':status,'user':"D",'obj':obj})
 
 @csrf_exempt
 def hr_gallery(request,id):
@@ -1254,28 +1112,8 @@ def hr_gallery(request,id):
 
     obj = HR.objects.get(id=id)
                                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-    return render(request,'dashboard/templates/hr_gallery_new.html',{'status':status,'user':"D",'img':img,'obj':obj,'count_general_dom':count_general_dom,
-                                                                'count_general_mul':count_general_mul,'count_repeat_dom':count_repeat_dom,
-                                                                'count_repeat_mul':count_repeat_mul,'count_courier_dom':count_courier_dom,        
-                                                                    'count_courier_mul':count_courier_mul,"unsend_mail_count":unsent_mail_count}) 
+    
+    return render(request,'dashboard/templates/hr_gallery_new.html',{'status':status,'user':"D",'img':img,'obj':obj}) 
 
 @csrf_exempt
 def editstaff(request):
@@ -1598,38 +1436,15 @@ def dombivali_collection(request):
         my_list.append(app_status)
 
                 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     hr_list = HR.objects.filter(branch="Dombivali")
     hr_payment = []
     for hr in hr_list:
         hr_payment.append(f'{hr.name} - {hr.username}')
-    return render(request,'dashboard/templates/dombivali_collection_newone.html',{'user':"D",'status':status,'sum_cash':sum_cash,
+    return render(request,'dashboard/templates/dombivali_collection_newone_mob.html',{'user':"D",'status':status,'sum_cash':sum_cash,
                                 'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                                'total':total,"balance_names":balance_names,'amount_names':amount_names,'unsend_mail_count': unsent_mail_count,
-                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Collection Details", 'count_general_dom':count_general_dom,
-            'count_general_mul':count_general_mul,
-		    'count_repeat_dom':count_repeat_dom,
-            'count_repeat_mul':count_repeat_mul,
-		    'count_courier_dom':count_courier_dom,        
-            'count_courier_mul':count_courier_mul,
+                                'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Collection Details",
             'sum_advance':sum_advance,'hr_payment':hr_payment})
 
 @csrf_exempt
@@ -1698,34 +1513,11 @@ def dombivali_collection_general(request):
         my_list.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()    
-
-    return render(request,'dashboard/templates/dombivali_collection_general.html',{'user':"D",'status':status,'sum_cash':sum_cash,
+    
+    return render(request,'dashboard/templates/dombivali_collection_general_mob.html',{'user':"D",'status':status,'sum_cash':sum_cash,
                                 'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                                'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali General Collection Details", 'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                                'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali General Collection Details"})
 
 @csrf_exempt
 def dombivali_collection_repeat(request):
@@ -1793,33 +1585,11 @@ def dombivali_collection_repeat(request):
         my_list.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
- 
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-    return render(request,'dashboard/templates/dombivali_collection_repeat.html',{'user':"D",'status':status,'sum_cash':sum_cash,
+    
+    return render(request,'dashboard/templates/dombivali_collection_repeat_mob.html',{'user':"D",'status':status,'sum_cash':sum_cash,
                                 'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                                'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali Repeat Medicine Collection Details",'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                                'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali Repeat Medicine Collection Details"})
 
 @csrf_exempt
 def dombivali_collection_courier(request):
@@ -1887,35 +1657,13 @@ def dombivali_collection_courier(request):
         my_list.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-    
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
     
     
-    return render(request,'dashboard/templates/dombivali_collection_courier.html',{'user':"D",'status':status,'sum_cash':sum_cash,
+    
+    return render(request,'dashboard/templates/dombivali_collection_courier_mob.html',{'user':"D",'status':status,'sum_cash':sum_cash,
                                 'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                                'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali Courier Medicine Collection Details",'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                                'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                                'appointment_status':my_list,"header":"Dombivali Collection","header1":"Dombivali Courier Medicine Collection Details"})
 
 @csrf_exempt
 def mulund_collection(request):
@@ -1989,40 +1737,17 @@ def mulund_collection(request):
         my_list_one.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     hr_list = HR.objects.filter(branch="Mulund")
     hr_payment = []
     for hr in hr_list:
         hr_payment.append(f'{hr.name} - {hr.username}')       
         
     print("payment_list",hr_payment)
-    return render(request,'dashboard/templates/mulund_collection_newone.html',{"user":"D",'status':status,'sum_cash':sum_cash,
+    return render(request,'dashboard/templates/mulund_collection_newone_mob.html',{"user":"D",'status':status,'sum_cash':sum_cash,
                     'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                    'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                    "header":"Mulund Collection","header1":"Collection Details",'appointment_status':my_list_one,'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,
+                    'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                    "header":"Mulund Collections","header1":"Collection Details",'appointment_status':my_list_one,
                                 'sum_advance':sum_advance,'hr_payment':hr_payment})
 
 @csrf_exempt
@@ -2092,34 +1817,11 @@ def mulund_collection_general(request):
         my_list_one.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()       
         
-    return render(request,'dashboard/templates/mulund_collection_general.html',{"user":"D",'status':status,'sum_cash':sum_cash,
+    return render(request,'dashboard/templates/mulund_collection_general_mob.html',{"user":"D",'status':status,'sum_cash':sum_cash,
                     'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                    'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                    "header":"Mulund Collection","header1":"Mulund General Collection Details",'appointment_status':my_list_one,'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                    'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                    "header":"Mulund Collection","header1":"Mulund General Collection Details",'appointment_status':my_list_one})
 
 @csrf_exempt
 def mulund_collection_repeat(request):
@@ -2188,34 +1890,11 @@ def mulund_collection_repeat(request):
         my_list_one.append(app_status)
 
                     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()       
         
-    return render(request,'dashboard/templates/mulund_collection_repeat.html',{"user":"D",'status':status,'sum_cash':sum_cash,
+    return render(request,'dashboard/templates/mulund_collection_repeat_mob.html',{"user":"D",'status':status,'sum_cash':sum_cash,
                     'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                    'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                    "header":"Mulund Collection","header1":"Mulund Repeat Medicine Collection Details",'appointment_status':my_list_one,'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                    'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                    "header":"Mulund Collection","header1":"Mulund Repeat Medicine Collection Details",'appointment_status':my_list_one})
 
 @csrf_exempt
 def mulund_collection_courier(request):
@@ -2281,37 +1960,13 @@ def mulund_collection_courier(request):
     my_list_one = [] 
     for b in balance_names:                   
         app_status = Appointment.objects.filter(patientid__case=b.patient.case).last()
-        my_list_one.append(app_status)
-
-                    
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-	
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+        my_list_one.append(app_status)                   
        
         
-    return render(request,'dashboard/templates/mulund_collection_courier.html',{"user":"D",'status':status,'sum_cash':sum_cash,
+    return render(request,'dashboard/templates/mulund_collection_courier_mob.html',{"user":"D",'status':status,'sum_cash':sum_cash,
                     'sum_online':sum_online,'sum_paid':sum_paid,'sum_balance':sum_balance,
-                    'total':total,"balance_names":balance_names,'amount_names':amount_names,"unsend_mail_count":unsent_mail_count,
-                    "header":"Mulund Collection","header1":"Mulund Courier Collection Details",'appointment_status':my_list_one,'count_general_dom':count_general_dom,
-                                'count_general_mul':count_general_mul,
-                                'count_repeat_dom':count_repeat_dom,
-                                'count_repeat_mul':count_repeat_mul,
-                                'count_courier_dom':count_courier_dom,        
-                                'count_courier_mul':count_courier_mul,})
+                    'total':total,"balance_names":balance_names,'amount_names':amount_names,
+                    "header":"Mulund Collection","header1":"Mulund Courier Collection Details",'appointment_status':my_list_one})
 # NEW CASE
 
 case_id = 0
@@ -2418,41 +2073,27 @@ def present_complaints_newone(request,case_id):
         data = Complain.objects.all().order_by(Lower('name'))
         patient_details= Patient.objects.get(id=case_id)
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
         
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
 
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
 
         context = {'user':'D',
                    'status':status,
                    'case_id':case_id,
                    'data':data,
                    'table':table_data,
-                   'patient_details':patient_details,
-                   "unsend_mail_count":unsent_mail_count,
-                   'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
+                   'patient_details':patient_details,                   
                      'form': form,
+                     'patient':patient_details,
+                     'final_token':final_token,
                    }
     
-        return render(request,'dashboard/templates/present_complaints_newone.html',context)
+        return render(request,'dashboard/templates/present_complaints_newone_adjust.html',context)
     
 def delete_present_complaints(request,id):
 
@@ -2494,23 +2135,11 @@ def complain(request,case_id,id):
     table_data = PresentComplaintsNew.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
     data = Complain.objects.all().order_by(Lower('name'))
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+    if appoint.token != 0:
+        final_token = appoint.token
+    else:
+        final_token = appoint.token1
 
     context = {'user':'D',
                'status':status,
@@ -2520,16 +2149,11 @@ def complain(request,case_id,id):
                'table':table_data,
                'patient_details':patient,
                'form':form,
-               "unsend_mail_count":unsent_mail_count,
-               'count_general_dom':count_general_dom,
-               'count_general_mul':count_general_mul,
-               'count_repeat_dom':count_repeat_dom,
-               'count_repeat_mul':count_repeat_mul,
-               'count_courier_dom':count_courier_dom,        
-               'count_courier_mul':count_courier_mul,
+               'final_token':final_token, 
+               'patient':patient          
                }
     
-    return render(request,'dashboard/templates/present_complaints_disease.html',context)
+    return render(request,'dashboard/templates/present_complaints_disease_adjust.html',context)
 
     # NEW PATIENT HISTORY (EARLIER PAST HISTORY)
 
@@ -2568,25 +2192,12 @@ def patient_history_newone(request,case_id):
         patient_details= Patient.objects.get(id=case_id)
 
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-        
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
 
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
-
-
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
     context = {'user':'D',
                'status':status,
@@ -2595,15 +2206,11 @@ def patient_history_newone(request,case_id):
                 'data':data,
                 'patient_details':patient_details,
                 'form':form,
-                "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}
+                'patient':patient,
+                'final_token':final_token
+               }
 
-    return render(request,'dashboard/templates/patient_history_newone.html',context)
+    return render(request,'dashboard/templates/patient_history_newone_adjust.html',context)
 
 
 
@@ -2644,24 +2251,12 @@ def patient_history_complain(request,case_id,id):
     table_data = PatientHistoryNEW.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
     data = Complain.objects.all().order_by(Lower('name'))
 
+    appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+    if appoint.token != 0:
+        final_token =  appoint.token
+    else:
+        final_token = appoint.token1
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
   
 
     context = {'user':'D',
@@ -2669,17 +2264,12 @@ def patient_history_complain(request,case_id,id):
                'case_id':case_id,
                'data':data,
                'complain':complain_name,
-               'patient_details':patient,
+               'patient':patient,
                'table':table_data,
                'form':form,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}   
-    return render(request,'dashboard/templates/patient_history_complain.html',context)
+               'final_token':final_token
+               }   
+    return render(request,'dashboard/templates/patient_history_complain_adjust.html',context)
 
 @csrf_exempt
 def add_mental_causative(request,case_id):
@@ -2691,7 +2281,7 @@ def add_mental_causative(request,case_id):
     if request.method == 'POST':
         obj = MentalCausativeNewone(name=request.POST['add_mental_causative'])
         obj.save()
-        messages.info(request,"Successfully added")
+        messages.info(request,"Successfully! added Mental Causative Factor.")
         return HttpResponseRedirect(reverse('add_mental_causative',kwargs={'case_id':case_id}))
     
     data = MentalCausativeNewone.objects.all().order_by(Lower('name'))
@@ -2713,35 +2303,11 @@ def add_mental_personality(request,case_id):
 
     data = MentalPersonalityNewOne.objects.all().order_by(Lower('name'))
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     context = {'user':'D',
                'status':status,
                 'case_id':case_id,
-                'data':data,
-                 "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+                'data':data,                
                 }
     return render(request,'dashboard/templates/add_mental_personality.html',context)
 
@@ -2759,38 +2325,15 @@ def add_complain(request,case_id):
        
     data = Complain.objects.all().order_by(Lower('name'))
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    
 
 
     context ={'user':'D',
               'status':status,
               'data':data,
-              'case_id':case_id,
-              "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+              'case_id':case_id,             
               }
-    return render(request,'dashboard/templates/add_complain.html',context)
+    return render(request,'dashboard/templates/add_complain_adjust.html',context)
 
 @csrf_exempt
 def delete_newcase(request,id):
@@ -2801,21 +2344,27 @@ def delete_newcase(request,id):
     print('obj',obj)
 
     if obj[3] == 'add_complain':
-        new_obj = Complain.objects.get(id=id).delete()        
+        new_obj = Complain.objects.get(id=id).delete()
+        messages.success(request,f"Deleted Successfully!")        
         return HttpResponseRedirect(reverse('add_complain',  kwargs={'case_id':int(obj[4])}))
     elif obj[3] == 'add_disease':
         new_obj = Complain.objects.get(id=id).delete()
+        messages.success(request,f"Deleted Successfully!")
         return HttpResponseRedirect(reverse('add_disease_patient_history',  kwargs={'case_id':int(obj[4])}))
     elif obj[3] == 'add_family_complain':
+        messages.success(request,f"Deleted Successfully!")
         new_obj = FamilyMedicalComplain.objects.get(id=id).delete()       
         return HttpResponseRedirect(reverse('add_family_complain',  kwargs={'case_id':int(obj[4])}))
     elif obj[3] == 'add_mental_causative':
+        messages.success(request,f"Deleted Successfully!")
         new_obj = MentalCausativeNewone.objects.get(id=id).delete()        
         return HttpResponseRedirect(reverse('add_mental_causative',  kwargs={'case_id':int(obj[4])}))
     elif obj[3] == 'add_mental_personality':
+        messages.success(request,f"Deleted Successfully!")
         new_obj = MentalPersonalityNewOne.objects.get(id=id).delete()        
         return HttpResponseRedirect(reverse('add_mental_personality',  kwargs={'case_id':int(obj[4])}))
     elif obj[3] == 'BMS_add':
+        messages.success(request,f"Deleted Successfully!")
         new_obj = Question1.objects.get(id=id).delete()              
         return HttpResponseRedirect(reverse('bms_add',  kwargs={'case_id':int(obj[4])}))
 
@@ -2833,36 +2382,12 @@ def add_disease_patient_history(request,case_id):
        
     data = Complain.objects.all().order_by(Lower('name'))
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
     context = {'user':'D',
                'status':status,
                'data':data,
                'case_id':case_id,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,} 
-    return render(request,'dashboard/templates/add_disease_patient_history.html',context)
+               } 
+    return render(request,'dashboard/templates/add_disease_patient_history_adjust.html',context)
 
 @csrf_exempt
 def add_family_complain(request,case_id):
@@ -2878,36 +2403,14 @@ def add_family_complain(request,case_id):
         return HttpResponseRedirect(reverse('add_family_complain',kwargs={'case_id':case_id}))
     
     data = FamilyMedicalComplain.objects.all().order_by(Lower('name'))
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    
 
     context = {'user':'D',
                'status':status,
                'case_id':case_id,
                'data':data,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}
-    return render(request,'dashboard/templates/add_family_complain.html',context)
+               }
+    return render(request,'dashboard/templates/add_family_complain_adjust.html',context)
 
 
 
@@ -6257,14 +5760,14 @@ class ShowCasePdf(View):
 
         else:
             patient = Patient.objects.get(id=case_id)
-            present_complaints = PresentComplaintsNew.objects.filter(patient__id=case_id).last()
+            present_complaints = PresentComplaintsNew.objects.filter(patient__id=case_id)
             obj_chief_complaints = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=7) )
-            past_history = PatientHistoryNEW.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))        
+            past_history = PatientHistoryNEW.objects.filter(Q(patient__id=case_id) )        
             question = Question1.objects.filter(category__id=9)
             obj_personal_history = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=9))
             for o in obj_personal_history:
                 print('-----',o.patient,o.category,obj_personal_history.count())
-            table_data = FamilyMedicalHistory.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+            table_data = FamilyMedicalHistory.objects.filter(Q(patient__id=case_id) )
             my_list = []
             for t in table_data:
                 x = t.list_of_disease         
@@ -6272,7 +5775,7 @@ class ShowCasePdf(View):
                 my_list.append(x)    
             zipped_list = zip(table_data,my_list)
 
-            table_data1 = MentalCausativeRecord.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+            table_data1 = MentalCausativeRecord.objects.filter(Q(patient__id=case_id) )
             my_list1 = []
             for t in table_data1:
                 x = t.factors
@@ -6280,7 +5783,7 @@ class ShowCasePdf(View):
                 my_list1.append(x)
             mental_causative = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=10))
 
-            table_data2 = MentalPersonalityRecord.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+            table_data2 = MentalPersonalityRecord.objects.filter(Q(patient__id=case_id) )
             my_list2 = []
             for t in table_data2:
                 x = t.characters
@@ -6294,14 +5797,14 @@ class ShowCasePdf(View):
             thermal_question = Question1.objects.filter(category__id=13)
             thermal_view = obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=13))
 
-            table_data3 =MiasmRecords.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+            table_data3 =MiasmRecords.objects.filter(Q(patient__id=case_id) )
             my_list3 = []
             for t in table_data3:
                 x = t.records
                 x = x.replace("[","").replace("'","").replace("]","")
                 my_list3.append(x)
 
-            table_data4 =ThermalReactionRecords.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+            table_data4 =ThermalReactionRecords.objects.filter(Q(patient__id=case_id) )
             my_list4 = []
             for t in table_data4:
                 x = t.records
@@ -6314,23 +5817,46 @@ class ShowCasePdf(View):
             data = {
                 'patient_details': patient,
                 'table1':present_complaints,
-                'table2':obj_chief_complaints,
-                'table3': past_history,
-                'question':question,
-                'personal_history':obj_personal_history,
-                'list':zipped_list,
-                'my_list1':my_list1,
-                'mental':mental_causative,
-                'my_list2':my_list2,
-                'personality':mental_personality,
-                'bms':bms_question,
-                'bms_view':bms_view,
-                'thermal':thermal_question,
-                'thermal_view':thermal_view,
-                'my_list3':my_list3,
-                'date1':date1,
-                'my_list4':my_list4,
-                
+                   'len_present_complaint': len(present_complaints),
+
+                    'table2':obj_chief_complaints,
+                    'len_obj_chief_complaints':len(obj_chief_complaints),
+
+                    'table3': past_history,
+                    'len_past_history':len( past_history),
+
+                    # 'question':question,
+                    'personal_history':obj_personal_history,
+                    'len_personal_history':len(obj_personal_history),
+
+                    'list':list(zipped_list),
+                    'len_family_medical':len(list(zipped_list)),
+
+
+                    'my_list1':my_list1,
+                    'len_my_list1':len(my_list1),
+                    'mental':mental_causative,
+                    
+
+
+                    'my_list2':my_list2,
+                    'len_my_list2':len(my_list2),
+                    'personality':mental_personality,
+
+                    #  'bms':bms_question,
+
+                     'bms_view':bms_view,
+                     'len_bms':len(bms_view),
+
+                    'my_list4':my_list4,
+                    'len_thermal_reaction': len(my_list4),
+                    #  'thermal':thermal_question,
+                    #  'thermal_view':thermal_view,
+                      
+                      'my_list3':my_list3,
+                      'len_miasm': len(my_list3),
+                      
+                      'today':date.today(),
             }
             pdf = render_to_pdf('dashboard/templates/show_case_pdf.html', data)
             return HttpResponse(pdf, content_type='application/pdf')
@@ -6346,14 +5872,16 @@ def newcase_final_report(request,case_id):
         return HttpResponse("<h1> Please Select a Patient to Generate Final Report ")
     else:
         patient_details = Patient.objects.get(id=case_id)
-        present_complaints = PresentComplaintsNew.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+        present_complaints = PresentComplaintsNew.objects.filter(Q(patient__id=case_id))
         obj_chief_complaints = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=7))
-        past_history = PatientHistoryNEW.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))        
+        past_history = PatientHistoryNEW.objects.filter(Q(patient__id=case_id) )        
         question = Question1.objects.filter(category__id=9)
         obj_personal_history = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=9))
+       
         for o in obj_personal_history:
             print('-----',o.patient,o.category,obj_personal_history.count())
-        table_data = FamilyMedicalHistory.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+       
+        table_data = FamilyMedicalHistory.objects.filter(Q(patient__id=case_id) )
         my_list = []
         for t in table_data:
             x = t.list_of_disease         
@@ -6361,7 +5889,7 @@ def newcase_final_report(request,case_id):
             my_list.append(x)    
         zipped_list = zip(table_data,my_list)
 
-        table_data1 = MentalCausativeRecord.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+        table_data1 = MentalCausativeRecord.objects.filter(Q(patient__id=case_id) )
         my_list1 = []
         for t in table_data1:
             x = t.factors
@@ -6369,7 +5897,7 @@ def newcase_final_report(request,case_id):
             my_list1.append(x)
         mental_causative = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=10))
 
-        table_data2 = MentalPersonalityRecord.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+        table_data2 = MentalPersonalityRecord.objects.filter(Q(patient__id=case_id) )
         my_list2 = []
         for t in table_data2:
             x = t.characters
@@ -6383,68 +5911,76 @@ def newcase_final_report(request,case_id):
         thermal_question = Question1.objects.filter(category__id=13)
         thermal_view = obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=13))
 
-        table_data3 =MiasmRecords.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+        table_data3 =MiasmRecords.objects.filter(Q(patient__id=case_id) )
         my_list3 = []
         for t in table_data3:
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list3.append(x)
         
-        table_data4 =ThermalReactionRecords.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
+        table_data4 =ThermalReactionRecords.objects.filter(Q(patient__id=case_id))
         my_list4 = []
         for t in table_data4:
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list4.append(x)
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-            
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
         context = {'status':status,
                    'user':'D',
                    'case_id':case_id,
                    'patient_details':patient_details,
                    'table1':present_complaints,
-                    'table2':obj_chief_complaints,
-                    'table3': past_history,
-                    'question':question,
-                    'personal_history':obj_personal_history,
-                    'list':zipped_list,
-                    'my_list1':my_list1,
-                    'mental':mental_causative,
-                    'my_list2':my_list2,
-                    'personality':mental_personality,
-                     'bms':bms_question,
-                     'bms_view':bms_view,
-                     'thermal':thermal_question,
-                     'thermal_view':thermal_view,
-                      'my_list3':my_list3,
-                      'my_list4':my_list4,
-                       "unsend_mail_count":unsent_mail_count,
-                    'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
-                      }
+                   'len_present_complaint': len(present_complaints),
 
-        return render(request,'dashboard/templates/newcase_final_report.html',context)
+                    'table2':obj_chief_complaints,
+                    'len_obj_chief_complaints':len(obj_chief_complaints),
+
+                    'table3': past_history,
+                    'len_past_history':len( past_history),
+
+                    # 'question':question,
+                    'personal_history':obj_personal_history,
+                    'len_personal_history':len(obj_personal_history),
+
+                    'list':list(zipped_list),
+                    'len_family_medical':len(list(zipped_list)),
+
+
+                    'my_list1':my_list1,
+                    'len_my_list1':len(my_list1),
+                    'mental':mental_causative,
+                    
+
+
+                    'my_list2':my_list2,
+                    'len_my_list2':len(my_list2),
+                    'personality':mental_personality,
+
+                    #  'bms':bms_question,
+
+                     'bms_view':bms_view,
+                     'len_bms':len(bms_view),
+
+                    'my_list4':my_list4,
+                    'len_thermal_reaction': len(my_list4),
+                    #  'thermal':thermal_question,
+                    #  'thermal_view':thermal_view,
+                      
+                      'my_list3':my_list3,
+                      'len_miasm': len(my_list3),
+                      
+                      'today':date.today(),
+                      'final_token':final_token
+                      
+                       }
+
+        return render(request,'dashboard/templates/newcase_final_report_adjust1.html',context)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class NewCaseCreateView(generic.CreateView):
@@ -6495,7 +6031,13 @@ class NewCaseUpdateView(generic.UpdateView):
     fields = ['signature']
 
     def get_success_url(self):
-        if str(self.object.category) == 'Chief Complaints':
+        previous_url = self.request.META.get('HTTP_REFERER')
+        obj =previous_url.split('/')
+        print("Obj",obj)
+        if str(self.object.category) == 'Chief Complaints' and str(obj[3]) == 'update-present-complaints-pad':
+            messages.add_message(self.request, messages.INFO, 'Present Complaints Update Success')
+            return reverse_lazy('update_present_complaints_pad',kwargs={'pk':self.object.id})
+        elif str(self.object.category) == 'Chief Complaints' and obj[3] != 'update-present-complaints-pad':
             messages.add_message(self.request, messages.INFO, 'Chief Complaints Update Success')
             return reverse_lazy('chief_complaints_view',kwargs={'case_id':self.object.patient_id})
         elif str(self.object.category) == 'Personal History':
@@ -6515,6 +6057,32 @@ class NewCaseUpdateView(generic.UpdateView):
             return reverse_lazy('thermal_view',kwargs= {'case_id':self.object.patient_id})      
 
 @csrf_exempt
+def update_present_complaints_pad(request,pk):    
+
+    present_complaint = NewCaseModel.objects.get(id=pk)    
+    form=NewCaseForm(instance=present_complaint)
+
+    app_token = Appointment.objects.filter(Q(patientid=present_complaint.patient) & Q(date=date.today())).last()
+    print("APpp_token",app_token.patientid.id,app_token.token,app_token.token1)
+
+
+    if app_token.token != 0:
+        final_token=app_token.token
+    else:
+        final_token=app_token.token1
+
+
+
+    context = {
+        'form':form,
+        'pk':pk,
+        'final_token':final_token,
+        'patient_id':app_token.patientid.id,
+    }
+
+    return render(request,'update_present_complaints_pad_adjust.html',context)
+
+@csrf_exempt
 def chief_complaints_newone(request,case_id):
 
     print('id',case_id)
@@ -6532,42 +6100,25 @@ def chief_complaints_newone(request,case_id):
         form = NewCaseForm(initial= {'category': instance,'patient':instance1})
         
         table_data = PresentComplaintsNew.objects.filter(Q(patient__id=case_id) & Q(date=date.today()))
-
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
         
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+        appoint = Appointment.objects.filter(Q(patientid=instance1)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
                'table':table_data,
                'form':form,
-               'patient_details':instance1,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               'patient_details':instance1,               
+                'patient':instance1,
+                'final_token':final_token
                }
     
 
-    return render(request,'dashboard/templates/chief_complaints_newone.html',context)
+    return render(request,'dashboard/templates/chief_complaints_newone_adjust.html',context)
 
 
 
@@ -6580,40 +6131,17 @@ def chief_complaints_view(request,case_id):
     obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=7))
     # print('obj',obj)
     patient_details = Patient.objects.get(id=case_id)
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-               'patient_details':patient_details,
+               'patient':patient_details,
                'obj':obj,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               
                }
 
 
-    return render(request,'dashboard/templates/chief_complaints_view.html',context)
+    return render(request,'dashboard/templates/chief_complaints_view_adjust.html',context)
 
 @csrf_exempt
 def present_complaints_view(request,case_id,token):
@@ -6625,43 +6153,34 @@ def present_complaints_view(request,case_id,token):
     obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=7))
 
     patient_details = Patient.objects.get(id=case_id)
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    
 
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
                'patient_details':patient_details,
-               'obj':obj,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               'obj':obj,               
                 'token':token,
+                'patient':patient_details,
                }
 
 
 
     
-    return render(request,'present_complaints_view.html',context)
+    return render(request,'present_complaints_view_adjust.html',context)
+
+def delete_present_complaints_pad(request,pk):
+
+    present_complaint = NewCaseModel.objects.get(id=pk)
+    app_token = Appointment.objects.filter(Q(patientid=present_complaint.patient) & Q(date=date.today())).last()
+    if app_token.token != 0:
+        final_token=app_token.token
+    else:
+        final_token=app_token.token1
+
+    present_complaint.delete()
+    messages.success(request,f"Successfully Deleted the Present Complaint")
+    return HttpResponseRedirect(reverse('present_complaints_view',kwargs={'case_id':app_token.patientid.id,'token':final_token}))
 
 @csrf_exempt
 def update_chief_complaints(request,id):
@@ -6674,23 +6193,7 @@ def update_chief_complaints(request,id):
 
     chief_complaint = NewCaseModel.objects.get(id=id)    
     form=NewCaseForm(instance=chief_complaint)
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    
 
     context = {'status':status,
                'user':'D',
@@ -6698,13 +6201,7 @@ def update_chief_complaints(request,id):
                 'form':form,
                 'id':id,
                 'patient_details':chief_complaint,
-                "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               
                 }
     return render(request,'dashboard/templates/update_chief_complaints.html',context)
 
@@ -6741,39 +6238,14 @@ def ask_delete(request,id):
         pat_id = pre_url.split("thermal_view/")
         obj = int(pat_id[1])
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-   
-
+    
     context = {'status':status,
                'user':'D',
                'id':id,
                'case_id':obj ,
-               'category':str(category.category),
-                "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               'category':str(category.category),                
                }
-    return render(request,'dashboard/templates/ask_delete.html',context)
+    return render(request,'dashboard/templates/ask_delete_adjust.html',context)
 
 def delete_chief_complaints(request,id):
     
@@ -6782,16 +6254,22 @@ def delete_chief_complaints(request,id):
     obj1 = NewCaseModel.objects.get(id=id).delete()
 
     if str(category.category) == 'Chief Complaints':
+        messages.success(request,f'Deleted Chief Complaints Successfully!')
         return HttpResponseRedirect(reverse('chief_complaints_view',kwargs={'case_id':obj}))
     elif str(category.category) == 'Personal History':
+        messages.success(request,f'Deleted Personal History Successfully!')
         return HttpResponseRedirect(reverse('personal_history_view',kwargs={'case_id':obj}))
     elif str(category.category) == 'Mental Causative Factor':
+        messages.success(request,f'Deleted Mental Causative Factor Successfully!')
         return HttpResponseRedirect(reverse('mental_causative_view',kwargs={'case_id':obj}))
     elif str(category.category) == 'Mental Personality Character':
+        messages.success(request,f'Deleted Mental Personality Successfully!')
         return HttpResponseRedirect(reverse('mental_personality_view',kwargs={'case_id':obj}))
     elif str(category.category) == 'Brief Mind Symptoms':
+        messages.success(request,f'Deleted Brief Mind Symptoms Successfully!')
         return HttpResponseRedirect(reverse('bms_view',kwargs={'case_id':obj})) 
     elif str(category.category) == 'Thermal':
+        messages.success(request,f'Deleted Thermal Reaction Successfully!')
         return HttpResponseRedirect(reverse('thermal_view',kwargs={'case_id':obj}))  
 
 @csrf_exempt
@@ -6842,26 +6320,11 @@ def family_medical_newone(request,case_id):
         
         patient_details = Patient.objects.get(id=case_id)
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-        
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
-
-
-
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
         context = {
             'status':status,
@@ -6870,18 +6333,13 @@ def family_medical_newone(request,case_id):
             'data':data,
             'complain':complain,
             'list':zipped_list,
-            'patient_details':patient_details,
+            'patient':patient_details,
             'form':form,
-            "unsend_mail_count":unsent_mail_count,
-            'count_general_dom':count_general_dom,
-            'count_general_mul':count_general_mul,
-            'count_repeat_dom':count_repeat_dom,
-            'count_repeat_mul':count_repeat_mul,
-            'count_courier_dom':count_courier_dom,        
-            'count_courier_mul':count_courier_mul,
+            'final_token':final_token,
+           
         }
 
-        return render(request,'dashboard/templates/family_medical_newone.html',context)
+        return render(request,'dashboard/templates/family_medical_newone_adjust.html',context)
 
 
 def new_case_report(request,id):
@@ -6947,15 +6405,22 @@ def new_case_report(request,id):
             x = x.replace("[","").replace("'","").replace("]","")
             my_list4.append(x)
 
+        
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
 
-    return render(request,'dashboard/templates/newcase_final_report.html',{'status':status,'user':'D','case_id':case_id,
+
+    return render(request,'dashboard/templates/newcase_final_report_adjust.html',{'status':status,'user':'D','case_id':case_id,
                                                                                'patient_details':patient_details,'table1':present_complaints,
                                                                                'table2':obj_chief_complaints,'table3': past_history,
                                                                                'question':question,'personal_history':obj_personal_history,'list':zipped_list,'my_list1':my_list1,
                                                                                'mental':mental_causative,'my_list2':my_list2,'personality':mental_personality,
                                                                                'bms':bms_question,'bms_view':bms_view,'thermal':thermal_question,'thermal_view':thermal_view,
-                                                                               'my_list3':my_list3,'my_list4':my_list4})
+                                                                               'my_list3':my_list3,'my_list4':my_list4,'id':id,'final_token':final_token})
 
 
 
@@ -6976,7 +6441,7 @@ def miasm_examination_newone(request,case_id):
             records = request.POST.getlist('Select-Mind')
             obj = MiasmRecords(patient=patient_details,records=records)
             obj.save()
-            messages.info(request,"Miasm Examination Submission Success")
+            messages.info(request,"Miasm Examination Submission Success!")
             return HttpResponseRedirect(reverse('miasm_examination_newone',kwargs={'case_id':case_id}))
         
         data = MiasmNewOne.objects.all().order_by(Lower('name'))
@@ -6987,25 +6452,7 @@ def miasm_examination_newone(request,case_id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
-    
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-            
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
-
+        
         token_check = Appointment.objects.filter(patientid_id=case_id,date=date.today()).last()
 
         if token_check.patientid.branch == 'Dombivali':
@@ -7018,18 +6465,12 @@ def miasm_examination_newone(request,case_id):
                    'case_id':case_id,
                    'mental':mental,
                    'data':data,
-                   'patient_details':patient_details,
-                   'my_list':my_list,
-                   "unsend_mail_count":unsent_mail_count,
-                    'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
-                    'token':token,
+                   'patient':patient_details,
+                   'my_list':my_list,                  
+                    'final_token':token,
+                    
                      }
-        return render(request,'dashboard/templates/miasm_newone.html',context)
+        return render(request,'dashboard/templates/miasm_newone_adjust.html',context)
 
 @csrf_exempt    
 def mental_causative_newone(request,case_id):
@@ -7047,6 +6488,7 @@ def mental_causative_newone(request,case_id):
             factors = request.POST.getlist('Select-Mind')
             obj = MentalCausativeRecord(patient=patient_details,factors=factors)
             obj.save()
+            messages.success(request,f'Mental Causative Factors added Successfully!')
             return HttpResponseRedirect(reverse('mental_causative_newone',kwargs={'case_id':case_id}))
         
         data = MentalCausativeNewone.objects.all().order_by(Lower('name'))
@@ -7058,41 +6500,23 @@ def mental_causative_newone(request,case_id):
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-            
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
-            
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()   
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
         context ={'status':status,
                   'user':'D',
                   'case_id':case_id,
                   'mental':mental,
                   'data':data,
-                  'patient_details':patient_details,
+                  'patient':patient_details,
                   'my_list':my_list,
-                  "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}
+                  'final_token':final_token,
+                  }
         
-        return render(request,'dashboard/templates/mental_causative_newone.html',context)
+        return render(request,'dashboard/templates/mental_causative_newone_adjust.html',context)
 @csrf_exempt    
 def mental_personality_newone(request,case_id):
 
@@ -7109,6 +6533,7 @@ def mental_personality_newone(request,case_id):
             characters = request.POST.getlist('Select-Mind')
             obj = MentalPersonalityRecord(patient=patient_details,characters=characters)
             obj.save()
+            messages.success(request,f'Successfully! Added Mental Personality Character.')
             return HttpResponseRedirect(reverse('mental_personality_newone',kwargs={'case_id':case_id}))
         data = MentalPersonalityNewOne.objects.all().order_by(Lower('name'))
         mental = MentalPersonalityNewOne.objects.all()
@@ -7119,40 +6544,22 @@ def mental_personality_newone(request,case_id):
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
     
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-    
+        appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+        if appoint.token != 0 :
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-               'patient_details':patient_details,
+               'patient':patient_details,
                 'mental':mental, 
                 'data':data,
                 'my_list':my_list,
-                "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}
+                'final_token':final_token,
+                }
 
-    return render(request,'dashboard/templates/mental_personality_newone.html',context)
+    return render(request,'dashboard/templates/mental_personality_newone_adjust.html',context)
 
 @csrf_exempt
 def mental_causative_jspad(request,case_id):
@@ -7172,39 +6579,22 @@ def mental_causative_jspad(request,case_id):
         x = x.replace("[","").replace("'","").replace("]","")
         my_list.append(x)
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    appoint = Appointment.objects.filter(Q(patientid=instance1)&Q(date=date.today())).last()
+    if appoint.token != 0:
+        final_token = appoint.token        
+    else:
+        final_token = appoint.token1
 
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-               'patient_details':instance1,
+               'patient':instance1,
                'form':form,
                'my_list':my_list,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,}
+               'final_token':final_token
+              }
     
-    return render(request,'dashboard/templates/mental_causative_jspad.html',context)
+    return render(request,'dashboard/templates/mental_causative_jspad_adjust.html',context)
 @csrf_exempt
 def mental_personality_jspad(request,case_id):
 
@@ -7221,42 +6611,23 @@ def mental_personality_jspad(request,case_id):
         x = t.characters
         x = x.replace("[","").replace("'","").replace("]","")
         my_list.append(x)
-
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
+    appoint = Appointment.objects.filter(Q(patientid=instance1)&Q(date=date.today())).last()
+    if appoint.token != 0:
+        final_token = appoint.token 
+    else:
+        final_token = appoint.token1
 
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-                'patient_details':instance1,
+                'patient':instance1,
                 'form':form,
-                'my_list':my_list,
-                "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+                'my_list':my_list,  
+                'final_token':final_token,              
                 }
 
     
-    return render(request,'dashboard/templates/mental_personality_jspad.html',context)
+    return render(request,'dashboard/templates/mental_personality_jspad_adjust.html',context)
 @csrf_exempt
 def mental_causative_view(request,case_id):
 
@@ -7266,8 +6637,8 @@ def mental_causative_view(request,case_id):
     obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=10)).order_by('-signature_date')
     # print('obj',obj)
     patient_details = Patient.objects.get(id=case_id)    
-    return render(request,'dashboard/templates/mental_causative_view.html',{'status':status,'user':'D','case_id':case_id,
-                                                                            'patient_details':patient_details,'obj':obj})
+    return render(request,'dashboard/templates/mental_causative_view_adjust.html',{'status':status,'user':'D','case_id':case_id,
+                                                                            'patient':patient_details,'obj':obj})
 
 @csrf_exempt
 def mental_personality_view(request,case_id):
@@ -7278,39 +6649,15 @@ def mental_personality_view(request,case_id):
     obj = NewCaseModel.objects.filter(Q(patient_id=case_id) & Q(category=11)).order_by('-signature_date')
     patient_details = Patient.objects.get(id=case_id)
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-               'patient_details':patient_details,
-               'obj':obj,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+               'patient':patient_details,
+               'obj':obj,              
                }
 
-    return render(request,'dashboard/templates/mental_personality_view.html',context)
+    return render(request,'dashboard/templates/mental_personality_view_adjust.html',context)
 
 @csrf_exempt
 def mental_causative_update(request,id):
@@ -7358,39 +6705,24 @@ def personal_history_newone(request,case_id):
         # c_id2 = Category.objects.get(id=8)    
         question = Question1.objects.filter(category=c_id)  
         patient_details = Patient.objects.get(id=case_id)
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-        
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
 
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
+        appoint = Appointment.objects.filter(Q(patientid=instance1)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1
 
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
 
         context = {'status':status,
                    'user':'D',
                    'case_id':case_id,
                    'question':question,
-                   'patient_details':patient_details,
+                   'patient':patient_details,
                     'form':form,
-                    "unsend_mail_count":unsent_mail_count,
-                   'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
+                    'final_token':final_token,
+                    
                     }
-        return render(request,'dashboard/templates/personal_history_newone.html',context)
+        return render(request,'dashboard/templates/personal_history_newone_adjust.html',context)
 @csrf_exempt
 def thermal_newone(request,case_id):
 
@@ -7406,7 +6738,7 @@ def thermal_newone(request,case_id):
             records = request.POST.getlist('Select-Mind')
             obj = ThermalReactionRecords(patient=patient_details,records=records)
             obj.save()
-            messages.info(request,"Thermal Reaction Submission Success")
+            messages.info(request,"Thermal Reaction Submission Success!")
             return HttpResponseRedirect(reverse('thermal_newone',kwargs={'case_id':case_id}))
         
         data = ThermalReactionNewOne.objects.all().order_by(Lower('name'))
@@ -7418,24 +6750,7 @@ def thermal_newone(request,case_id):
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
 
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-            
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
-
+        
         token_check = Appointment.objects.filter(patientid_id=case_id,date=date.today()).last()
 
         if token_check.patientid.branch == 'Dombivali':
@@ -7451,22 +6766,14 @@ def thermal_newone(request,case_id):
                    'case_id':case_id,
                    'mental':mental,
                    'data':data,
-                   'patient_details':patient_details,
-                   'my_list':my_list,
-                    "unsend_mail_count":unsent_mail_count,
-                    'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
+                   'patient':patient_details,
+                   'my_list':my_list,                   
                     'token':token,
-
-                
+                    'final_token':token,                
                      }
         
 
-        return render(request,'dashboard/templates/thermal_newone.html',context)
+        return render(request,'dashboard/templates/thermal_newone_adjust.html',context)
         
         # return render(request,'dashboard/templates/thermal_newone.html',{'status':status,'user':'D','case_id':case_id,
         #                                                         'question':question,'patient_details':instance1 ,'form':form})
@@ -7502,39 +6809,20 @@ def bms_newone(request,case_id):
         instance1 = Patient.objects.get(id=case_id)
         form = NewCaseForm(initial= {'category': instance,'patient':instance1})        
         question = Question1.objects.filter(category=instance)
-
-        general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_dom = str(general_dom.count())
-        general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-        count_general_mul = str(general_mul.count())
-        
-        repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_dom = str(repeat_medicine_dom.count())
-        repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-        count_repeat_mul = str(repeat_medicine_mul.count())
-
-        courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_dom = str(courier_medicine_dom.count())
-        courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-        count_courier_mul = str(courier_medicine_mul.count())
-
-        mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-        unsent_mail_count = mail_count.count()
+        appoint = Appointment.objects.filter(Q(patientid=instance1)&Q(date=date.today())).last()
+        if appoint.token != 0:
+            final_token = appoint.token
+        else:
+            final_token = appoint.token1        
         context =   {'status':status,
                      'user':'D',
                      'case_id':case_id,
                      'question':question,
-                     'patient_details':instance1 ,
+                     'patient':instance1 ,
                      'form':form,
-                     "unsend_mail_count":unsent_mail_count,
-                    'count_general_dom':count_general_dom,
-                    'count_general_mul':count_general_mul,
-                    'count_repeat_dom':count_repeat_dom,
-                    'count_repeat_mul':count_repeat_mul,
-                    'count_courier_dom':count_courier_dom,        
-                    'count_courier_mul':count_courier_mul,
+                     'final_token':final_token, 
                      }  
-        return render(request,'dashboard/templates/bms_newone.html',context)
+        return render(request,'dashboard/templates/bms_newone_adjust.html',context)
 
 @csrf_exempt
 def bms_view(request,case_id):
@@ -7546,39 +6834,15 @@ def bms_view(request,case_id):
     # print('obj',obj)
     patient_details = Patient.objects.get(id=case_id)
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
+    
     context =   {'status':status,
                  'user':'D',
                  'case_id':case_id,
-                 'patient_details':patient_details,
-                 'obj':obj,
-                 "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+                 'patient':patient_details,
+                 'obj':obj,                 
                  }
       
-    return render(request,'dashboard/templates/bms_view.html',context)
+    return render(request,'dashboard/templates/bms_view_adjust.html',context)
 
 @csrf_exempt
 def thermal_view(request,case_id):
@@ -7601,39 +6865,14 @@ def personal_history_view(request,case_id):
     # print('obj',obj)
     patient_details = Patient.objects.get(id=case_id)
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
-
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
-
-
     context = {'status':status,
                'user':'D',
                'case_id':case_id,
-               'patient_details':patient_details,
+               'patient':patient_details,
                'obj':obj,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul
+              
                 }    
-    return render(request,'dashboard/templates/personal_history_view.html',context)
+    return render(request,'dashboard/templates/personal_history_view_adjust.html',context)
 @csrf_exempt
 def thermal_update(request,id):
 
@@ -7674,23 +6913,7 @@ def update_personal_history(request,id):
     chief_complaint = NewCaseModel.objects.get(id=id)    
     form=NewCaseForm(instance=chief_complaint)
 
-    general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_dom = str(general_dom.count())
-    general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-    count_general_mul = str(general_mul.count())
-        
-    repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_dom = str(repeat_medicine_dom.count())
-    repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-    count_repeat_mul = str(repeat_medicine_mul.count())
 
-    courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_dom = str(courier_medicine_dom.count())
-    courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-    count_courier_mul = str(courier_medicine_mul.count())
-
-    mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-    unsent_mail_count = mail_count.count()
     
     context = {'status':status,
                'user':'D',
@@ -7698,15 +6921,9 @@ def update_personal_history(request,id):
                'form':form,
                'id':id,
                'patient_details':chief_complaint,
-               "unsend_mail_count":unsent_mail_count,
-                'count_general_dom':count_general_dom,
-                'count_general_mul':count_general_mul,
-                'count_repeat_dom':count_repeat_dom,
-                'count_repeat_mul':count_repeat_mul,
-                'count_courier_dom':count_courier_dom,        
-                'count_courier_mul':count_courier_mul,
+              
                }
-    return render(request,'dashboard/templates/update_personal_history.html',context)
+    return render(request,'dashboard/templates/update_personal_history_adjust.html',context)
 @csrf_exempt
 def list_medicine(request):
 

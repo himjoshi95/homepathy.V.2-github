@@ -1,0 +1,335 @@
+{% load static %}
+{% load jsignature_filters %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View - Chief Complaints</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style>   
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }    
+    
+   
+      
+      .scrolling-div::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+      .jsign-container {
+        width: 100%;
+        max-width: 900px; /* Default width for desktop */
+        margin: 0 auto;
+      }
+
+      .box {
+        width: 400px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 50px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+     
+    
+      
+    
+    
+
+    @media (max-width: 768px){
+        
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 16px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    form {
+        padding: 10px;
+        margin-left:2px;
+      }
+    
+      .jsign-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .box {
+        width: 320px;
+        height: 110px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 50px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+
+    
+      
+
+     
+  
+}  
+
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+</head>
+<body>   
+
+    
+    
+<br>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box1">
+              {% if patient.patient_images %}
+              <img src="{{patient.patient_images.url}}" class="img-pic" alt="Avatar" width="70" height="90" border="5">
+              
+        
+                {% else %}
+                <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+                {% endif %}
+            </div>
+            <div class="box2" style="color:black; font-size:20px">
+             <p style="font-size:18px;"><b> {{patient.name}} </b></p>
+             <hr style="background-color:blue;">
+             <h4>Case PaperNo. {{patient.case}}</h4>
+             <h4>Contact No. {{patient.phone}}</h4>
+              
+            </div>
+          </div>
+        
+          <br>
+     
+       
+     
+
+        <div class="jumbotron" >
+            <a href="{% url 'chief_complaints_newone' case_id=case_id %}" class="btn btn-danger btn-lg"><i class="fa fa-angle-double-left"></i> Go Back</a>
+            <hr>
+            <div class="header-past">Chief Complaints History</div>
+            <br>
+            {% if messages %}
+            <br>
+    {% for message in messages %}
+    <div class="success">
+      <i class="fa fa-bell"></i>
+       {{ message}}
+    </div>
+    {% endfor %}
+    <br>
+  {% endif %}
+  <br>
+            <table class='table'>
+                <thead>
+                <tr style="height:50px;">  
+                    <th></th>                    
+                </tr>            
+                </thead>
+            </table>
+            {% if obj %}
+                        {% for o in obj %}
+                        <dd style="margin-top:20px; ">
+                            <div class="container text-center" id="border" >
+                              <div class="row justify-content-center" >
+                               <div class="border" >
+                            <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}}<br>
+                                 <a href="{% url 'update_chief_complaints' id=o.id %}"  class="btn btn-light"><i class="fa fa-upload" style="font-size:16px;color:green"> Update</i></a>&nbsp; <a href="{% url 'ask_delete' id=o.id %}"  class="btn btn-light"><i class="fa fa-trash-o" style="font-size:16px;color:red" > Delete</i></a></p> 
+                            
+                            <img src="{{ o.signature|signature_base64 }}" alt="{{ obj }}" />
+                            <hr>   
+                            <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                               </div></div></div>           
+                           
+                          </dd>
+                          {% endfor %}
+                          {% else %}
+                          <br><br>
+                          <h1 style="text-align: center;"> No Past Record </h1>
+                          <br>
+                          {% endif %}
+                          <br>
+                          <table class='table'>
+                          <tfoot>
+                            <tr class="table-light">
+                              <td style="width: 800px; height: 50px; font-size: 17px;">
+                                <a href="{% url 'past_history_newone' case_id=case_id %}" style="margin-left: 2px; text-decoration:none; color: green; "><b>Present Complaints</b></a> |
+                                <a href="{% url 'chief_complaints_newone' case_id=case_id %}" style="text-decoration:none;"><b>Chief Complaints</b></a>  |
+                                <a href="{% url 'patient_history_newone' case_id=case_id %}" style="text-decoration:none;"><b>Past History</b> </a> |
+                                <a href="{% url 'personal_history_newone' case_id=case_id %}" style="text-decoration:none; color: brown;"><b>Personal History</b> </a>|
+                                <a href="{% url 'family_medical_newone' case_id=case_id %}" style="text-decoration:none; color: red;"><b>Family Medical HO</b></a> |
+                                <a href="{% url 'mental_causative_newone' case_id=case_id %}" style="text-decoration:none;"><b>Mental Causative Factor</b></a>|  
+                                <a href="{% url 'mental_personality_newone' case_id=case_id %}" style="text-decoration:none; color:black;"><b>Mental Personality Character</b></a>|
+                                <a href="{% url 'bms_newone' case_id=case_id %}" style="text-decoration:none; color: purple;"><b>Brief Mind Symptoms</b></a>|
+                                <a href="{% url 'thermal_newone' case_id=case_id %}" style="text-decoration:none; color: orange;"><b>Thermal Reaction</b></a>|
+                                <a href="{% url 'miasm_examination_newone' case_id=case_id %}" style="text-decoration:none; color: olive;"><b>Miasm</b></a>|
+                               
+                              </td>
+                               <td style="font-size: 17px;"> 
+                               
+                              </td> 
+                            </tr>
+                          </tfoot>
+                          </table>
+                         
+           
+         
+            
+    </div>
+          
+        
+        
+
+                
+    </main>
+    <script>
+              // JavaScript to open and close add present_complaint modal
+   var modal = document.getElementById('myModal');
+   var btn = document.getElementById("openPopup");
+   var span = document.getElementsByClassName("close")[0];
+
+   btn.onclick = function() {
+       modal.style.display = "block";
+   }
+
+   span.onclick = function() {
+       modal.style.display = "none";
+       window.parent.location.reload();
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+           window.parent.location.reload();
+       }
+   }
+
+
+    </script>
+
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+
+    function confirmDelete(event) {
+        if (!window.confirm("Are you sure you want to delete the following Chief Complaint?")) {
+          event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+        }
+      }
+
+  
+        // Assuming data.balance_amt is a JavaScript variable
+        var balanceAmt = "{{ balance.balance_amt }}";
+      
+        // Remove the negative sign
+        var absoluteAmt = Math.abs(parseFloat(balanceAmt));
+      
+        // Update the content of the span
+        document.getElementById("balance_amt").textContent = absoluteAmt;
+    
+
+    </script>
+
+    <script>
+      function openNav() {
+      document.getElementById("mySidenav").style.width = "300px";
+      }
+      
+      function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+  // new MultiSelectTag('countries')  // id
+  new MultiSelectTag('countries', {
+   rounded: true,    // default true
+   shadow: true,      // default false
+   placeholder: 'Search',  // default Search...
+   onChange: function(values) {
+       console.log(values)
+   }
+})
+</script>
+{{ form.media }} 
+      
+</body>
+</html>
+
+

@@ -1,0 +1,372 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homeo Bhagwat Gita</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style> 
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }  
+
+    .modalthree {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal content */
+    .modal-content-three {
+        background-color: #fefefe;
+        margin: 9% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 80%; /* 80% of the width */
+    }
+
+    .btn11{
+        width:230px;
+        margin-left:80px;
+      }
+
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+    
+      .form-left {
+        margin: 0; /* Remove the margin for left alignment */
+      }
+    
+      .form-left-update {
+        margin: 10px; /* Remove the margin for left alignment */
+      }
+      
+      .text-center {
+        text-align: center;
+    }
+      label {
+        font-weight: bold;
+      }
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      input[type="password"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px; /* Increase the padding for better spacing */
+        margin-top: 10px;
+        margin-bottom: 20px; /* Increase the margin for better spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px; /* Adjust the font size for better readability */
+      }
+      
+      /* Adjust the form button styles */
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px; /* Increase the padding for better button size */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* Make the text bold for better visibility */
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      
+      /* Adjust the search input styles */
+      #searchInput {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      
+      /* Adjust the table styles for better readability */
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 16px;
+        background-color: #fff;
+      }
+      
+      .table th, .table td {
+        padding: 15px; /* Increase the padding for better spacing */
+        text-align: left;
+      }
+      
+      .table th {
+        background-color: #007bff;
+        color: #fff;
+      }
+      
+      .table tr:nth-child(even), .table tr:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+      
+    
+    
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    .btn11{
+        width:230px;
+        margin-left:0px;
+      }
+
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-content-three {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 80%; /* 80% of the width */
+    }
+     
+  
+}  
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <main role="main" class="container">
+
+        <div class="jumbotron" style="margin-top:150px;">
+
+            <div class="header-past">Homeo Bhagwat Gita</div>
+            <hr>
+            <a href="{% url 'homeo_book' %}"  class="btn btn-primary btn11">Medicine Name</a>
+            <a href="{% url 'homeo_book_disease' %}"  class="btn btn-outline-primary btn11">Disease Name</a>
+            <a href="{% url 'home_book_redline_symptoms' %}"  class="btn btn-outline-primary btn11">Red Line Symptoms</a>
+            <hr>
+            <br>
+            <div class="table-responsive">
+                <form method="post" class="form-left">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p}}
+                    <div class="text-center">
+                    <button type="submit"  class="btn btn-primary btn-lg">Save</button>
+                    </div>
+                </form>
+
+            </div>
+            <br>
+            <hr>
+
+            <p style="font-size:18px; color:blue;"><b>Search <i class="fa fa-search" style="font-size:24px"></i></b></p>
+      
+            <input type="text" id="searchInput" placeholder="Search Medicine Name or Description">
+      
+            <a href="{% url 'homeo_pdf' %}" style="float:right; margin-bottom:20px; color:white;" class="btn btn-info btn-lg">Generate PDF <button><i class="fa fa-file-pdf-o" style="font-size:24px;color:red;"></i></button></a>
+            
+            <div id="searchResults"></div>
+            <div class="table-responsive">
+
+                <table id="medicineTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Medicine</th>
+                            <th style="text-align:center;">Description</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicine in page %}
+                        <tr>
+                            <td style="text-align:center;">{{forloop.counter}} .</td>
+                            <td style="font-size:18px;" ><b>{{medicine.medicine_name}}</b></td>
+                            <td style="font-size:18px;">{{medicine.description|safe}}</td>
+                            <td>
+                                <button class="openPopupthree" data-vendor-id="{{medicine.id}}"> <i class="fa fa-edit" style="font-size:24px"></i></button>
+                                <div id="myModalthree" class="modalthree">
+                                    <div class="modal-content-three">
+                                        <span class="closethree"><button style="float:right; font-size:20px;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br><br>
+                                        <iframe src="{% url 'homeo_book_update' medicine.id %}" width="100%" height="600"></iframe>
+                                    </div>
+                                </div> 
+                                
+                            </td>
+                            <td><a href="{% url 'homeo_book_delete' medicine.id %}"  onclick="confirmDelete(event)" class="btn btn-light" ><img src="{% static 'images/del.png' %}" width="25" height="25"></a></td>
+                            <td><a href="{% url 'homeo_pdf_id' medicine.id %}" class="btn btn-light"><i class="fa fa-file-pdf-o" style="font-size:30px;color:red;"></i></a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            
+                            <td></td>
+                           
+                            <td></td>
+                            <td>No data available.</td>
+                            <td></td>
+        
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        
+              
+            </div>
+            <!--End of display table-->
+            <br>
+            
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current-page">
+                        Page {{ page.number }} of {{ page.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page.has_next %}
+                        <a href="?page={{ page.next_page_number }}">next</a>
+                        <a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+        </div>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+    <script>
+        function confirmDelete(event) {
+          if (!window.confirm("Are you sure you want to delete this ?")) {
+            event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+          }
+        }   
+      
+      </script>
+      
+      <script>         
+      
+          var modalthree = document.getElementById('myModalthree');
+          var btnthree = document.getElementsByClassName("openPopupthree");
+          var spanthree = document.getElementsByClassName("closethree")[0];
+      
+          for (var i = 0; i < btnthree.length; i++) {
+              btnthree[i].onclick = function() {
+                  var vendorId = this.getAttribute("data-vendor-id");
+                  var iframe = document.querySelector("#myModalthree iframe");
+                  var url = "{% url 'homeo_book_update' 9999 %}".replace('9999', vendorId); // Replace a placeholder with the actual stock ID
+                  iframe.src = url;
+                  modalthree.style.display = "block";
+              }
+          }
+      
+          spanthree.onclick = function() {
+          modalthree.style.display = "none";
+          }
+      
+          window.onclick = function(event) {
+          if (event.target == modalthree) {
+              modalthree.style.display = "none";
+          }
+          }
+      
+          $(document).ready(function() {
+              $("#searchInput").on("keyup", function() {
+                  var value = $(this).val().toLowerCase();
+                  $("#medicineTable tbody tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                  });
+              });
+          });
+      
+         
+      
+      
+     </script>
+      
+</body>
+</html>
+
+

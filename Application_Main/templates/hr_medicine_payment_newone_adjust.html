@@ -1,0 +1,384 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Payment Details</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+
+    <style>
+
+          #box {
+            display: none;
+            background-color: white;
+            color: black;
+            width: 300px;
+            height: 32px;
+          }
+
+          .grand1 {
+            background-color: lightblue;
+            font-size: 20px;    
+        }
+
+        .box-one {
+            width: 400px;
+            height: 110px;
+            border: 1px solid white;
+            padding: 10px;
+            margin-top: 100px;
+            display: flex;
+            column-gap: 50px;
+            border-radius: 25px;
+            background: #dae5f4;
+          }
+          .box1{
+            height: 100px;
+            width:100px;
+            
+          }
+          .box2{
+            height: 100px;
+            width:500px;
+            
+          }
+          img{
+            border-radius: 58%;
+        }
+        .header-past {
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 45px;
+            text-align: center;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+        }
+        .detail  {
+            font-size: 22px;
+            margin-left: 0px;
+        }
+
+        .detail b {
+            padding: 5px;
+            border: 2px solid lightblue;
+            background: white;
+            
+           /* Adjust margin as needed */
+        }
+
+        @media (max-width: 768px){
+        .box-one {
+            width: 300px;
+            height: 110px;
+            border: 1px solid white;
+            padding: 10px;
+            margin-top: 100px;
+            display: flex;
+            column-gap: 50px;
+            border-radius: 25px;
+            background: #dae5f4;
+          }
+          .box1{
+            height: 100px;
+            width:100px;
+            
+          }
+          .box2{
+            height: 100px;
+            width:500px;
+            
+          }
+          .header-past {
+            font-family: helvetica;
+            color: #337ab7;
+            font-size: 35px;
+            text-align: center;
+            width: 100%;
+            text-shadow: 6px 6px 6px #c9c6c6;
+            display: block;
+            font-weight: bolder;
+            
+        }
+        .detail  {
+            font-size: 12px;
+            margin-left: 0px;
+        }}
+        
+       
+          
+          
+
+    </style>
+    <script>
+		function myFunction() {
+        var x = document.getElementById("total").value;
+		var y = document.getElementById("id_courier_amount").value;
+		var total = parseInt(x) + parseInt(y)
+		
+		
+
+        document.getElementById("grand").innerHTML = "<b>Grand Total Amount</b> : Rs "+total;
+		
+    }
+	</script>
+  </head>
+  <body>
+    {% include 'nav_adjust.html' %} 
+    <hr>
+   
+<main role="main" class="container">
+
+
+<div class="box-one">
+    <div class="box1">
+      {% if patient.patient_images %}
+      <img src="{{patient.patient_images.url}}" alt="Avatar" width="70" height="90" border="5">
+      
+
+        {% else %}
+        <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+        {% endif %}
+    </div>
+    <div class="box2" style="color:black; font-size:20px">
+        <p style="font-size:18px;"><b> {{patient.name}} </b></p>
+        <hr style="background-color:blue;">
+        <h4>Case PaperNo. {{patient.case}}</h4>
+        <h4>Contact No. {{patient.phone}}</h4>
+    </div>
+    
+  </div>
+<br>
+
+  <div class="jumbotron">
+
+    <td><span class="detail" ><b>TODAY : {{date|date:"d M Y"}}</b></span><span class="detail" style="float:right;"><b>Next Visit: &nbsp; {{next_visit|date:"d M , Y"}}</b></span><td>
+
+    <br><br>
+   <hr style="border: 1px solid lightblue;">
+	<div class="header-past">Payment</div><hr>
+  {% if patient.flag %}
+
+  <p style="font-size:25px;">Medicine Charges : <h1 style="margin-left:20px;"> Rs {{med_charges}} </h1></p><br>
+
+  {% if data_extra %}
+  
+  <p style="font-size:25px;">Other Medicine(Details) :
+    
+     <table style="width:40%">
+      <tr style="text-align:center;">
+        <th>Name</th>
+        <th>Value</th>
+        {% comment %} <th>Country</th> {% endcomment %}
+      </tr>
+      {% for d in data_extra %}
+      <tr style="text-align:center;">
+        <td>{{d.description}}</td>
+        <td>Rs {{d.other_price}}</td>        
+      </tr>  
+      {% endfor %} 
+      <tr style="text-align:center; background:lightblue;">
+        <td><b>Other Medicine Total: </b></td>
+        <td><b>Rs {{extra_med}}</b></td>
+      </tr> 
+    </table>    
+ 
+  {% endif %}
+
+    <br>
+
+
+  <p style="font-size:25px;">Consultation Charges <h1 style="margin-left:20px;"> Rs {{consult_charges}} </h1></p><br>
+
+  <p style="font-size:25px;">Today's Bill :</p><p style="font-size:16px;"><b> (Note: Today's Amount = Medicine Charges + Other Medicine Total + Consultation Charges  )</b> </p><h1 style="margin-left:20px;"> Rs {{x}} </h1><br>
+
+  {% else %}
+
+  <p style="font-size:25px;">Medicine Charges : <h1 style="margin-left:20px;"> Rs {{med_charges}} </h1></p><br>
+
+  {% if data_extra %}
+  
+  <p style="font-size:25px;">Other Medicine(Details) :
+    
+     <table style="width:40%">
+      <tr style="text-align:center;">
+        <th>Name</th>
+        <th>Value</th>
+        {% comment %} <th>Country</th> {% endcomment %}
+      </tr>
+      {% for d in data_extra %}
+      <tr style="text-align:center;">
+        <td>{{d.description}}</td>
+        <td>Rs {{d.other_price}}</td>        
+      </tr>  
+      {% endfor %} 
+      <tr style="text-align:center; background:lightblue;">
+        <td><b>Other Medicine Total: </b></td>
+        <td><b>Rs {{extra_med}}</b></td>
+      </tr> 
+    </table>    
+    <br>
+  {% endif %}
+
+   
+  {% if old_consult != 0 %}
+  
+  <p style="font-size:25px;">Consultation Charges <h1 style="margin-left:20px;"> Rs {{old_consult}} </h1></p><br>
+
+
+  {% endif %}
+
+
+  {% endif %}
+
+  
+
+  {% if patient.flag == False %}
+
+  {% if data_extra %}
+
+  <p style="font-size:25px;">Today's Bill : </p><h1 style="margin-left:20px;"> Rs {{med_charges|add:extra_med|add:old_consult}}</h1><br>
+
+  {% else %}
+  <p style="font-size:25px;">Today's Bill :</p><h1 style="margin-left:20px;"> Rs {{med_charges|add:old_consult}}</h1><br>
+  {% endif %}
+
+  {% endif %}
+ 
+    <p style="font-size:25px;">Balance Dues: </p><h1 style="margin-left:20px;">{% if bal >= 0 %} Rs {{bal}} {% else %}  Rs <span id="balanceAmt"> {{bal}}  </span>{% endif %}</h1><br>
+
+    <label for="total" style="margin-top:10px;"><b style="font-size:25px;">Amount to be paid:</b> <h1 style="margin-left:20px; margin-top:10px;"> {% if total_clearance >= 0 %}Rs {{ total_clearance }} {% else %} Rs <span id="clearanceAmt"> {{ total_clearance }} </span> {% endif %}</h1></label><br>
+    <input type="hidden" readonly="True" id="total" name="total" value="{{ total_clearance }}" checked />
+
+    <form action="{% url 'hr_status' id=id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+        {% if app_stat == 'Courier Medicine' %}	
+        
+        {{form.patient}}<br><br>
+        <label ><h5>Courier Amount:</h5></label><br>
+        {{form.courier_amount}}<br><br>
+        <h5 >Please Click on Grand Total to Calculate Final Amount.</h5><br>
+        <button style="width: 20%; " type="submit" class="btn btn-warning" value='True' onclick="myFunction()">Grand Total</button><br><br>
+        <label ><h5>Address:</h5></label><br>
+        {{form.address}}<br><br>
+        <label ><h5>Email:</h5></label><br>
+        {{form.email}}
+        {% endif %}
+    </div>
+    <br><br>
+    <h4 >Mode of Payment:</h4>
+    <div>
+      <input type="radio" id="hide" name="example" value="hide" checked />
+      <label for="hide">Cash</label>
+    </div>
+
+    <div>
+      <input type="radio" id="show" name="example" value="show" />
+      <label  for="show">Online</label>
+    </div>
+    <br>
+    <p style="font-size: 20px" id="grand" class="grand1"></p>
+
+
+
+
+    
+    <br>
+    <h3 >Amount Paid:</h3>
+    <input type="text" id="id_email" maxlength="75" required="True" class="required"
+    value="" name="Email" placeholder="Rs"><br><br>		
+    <div id="box">
+    <h3>Transaction Details:</h3>
+    <input type="text" id="id_email1" maxlength="75" class="required"
+    value="" name="Email1" placeholder="Enter Details">
+    </div>
+    <br>
+    
+    
+    <br><br>
+    
+        
+    <hr>
+        <div class="container">
+            <button style="width: 25%; " type="submit" class="btn btn-success" value='True'>DONE</button></div>
+
+    </form>
+
+
+    
+   
+ 
+  
+  </div>
+</main>
+
+<script>
+    let menu = document.querySelector('#menu-btn');
+let navbar = document.querySelector('.header .navbar');
+
+menu.onclick = () =>{
+    menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+}
+
+window.onscroll = () =>{
+    menu.classList.remove('fa-times');
+    navbar.classList.remove('active');
+
+}
+</script>
+<script>
+  // Get the balance amount element
+  var balanceAmtElement = document.getElementById('balanceAmt');
+
+  // Get the balance amount value as a number
+  var balanceAmtValue = Math.abs(parseFloat(balanceAmtElement.innerHTML));
+
+  // Check if the balance amount is negative and format accordingly
+  document.getElementById("balanceAmt").textContent = balanceAmtValue + "  - PREVIOUS ADVANCE";
+
+  // Get the balance amount element
+  var clearanceAmtElement = document.getElementById('clearanceAmt');
+
+  // Get the balance amount value as a number
+  var clearanceAmtValue = Math.abs(parseFloat(clearanceAmtElement.innerHTML));
+
+  // Check if the balance amount is negative and format accordingly
+  document.getElementById("clearanceAmt").textContent = clearanceAmtValue + " - ADVANCE LEFT";
+</script>
+<script>const box = document.getElementById('box');
+
+	function handleRadioClick() {
+	  if (document.getElementById('show').checked) {
+		box.style.display = 'block';
+	  } else {
+		box.style.display = 'none';
+	  }
+	}
+	
+	const radioButtons = document.querySelectorAll('input[name="example"]');
+	radioButtons.forEach(radio => {
+	  radio.addEventListener('click', handleRadioClick);
+	});</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+</body>
+</html>

@@ -275,28 +275,28 @@ padding-right: 8px;
             
                     <tr>
                     {% if data.case == 'DOM-NEW' or data.case == 'MUL-NEW' %}
-                    <td class="yellow-shadow"  >{{forloop.counter0|add:datas.start_index}}</td>
-                    <td class="yellow-shadow"  ><p style="padding: 5px; border: 2px solid orange; background:white;">{{data.case}}</p></td>
-                    <td class="yellow-shadow" >{{ data.name }}</td>
-                    <td class="yellow-shadow"  >{{ data.phone }} </td>
-                    <td class="yellow-shadow"  >{{ data.email }}</td>
-                    <td class="yellow-shadow" >{{ data.gender }}</td>
-                    <td class="yellow-shadow" >{{ data.age }}</td>
-                    <td class="yellow-shadow" >{{data.address}}</td>
+                    <td class="yellow-shadow" style="font-size: 12px;" >{{forloop.counter0|add:datas.start_index}}</td>
+                    <td class="yellow-shadow" style="font-size: 12px;" ><p style="padding: 5px; border: 2px solid orange; background:white;">{{data.case}}</p></td>
+                    <td class="yellow-shadow" style="font-size: 12px;">{{ data.name }}</td>
+                    <td class="yellow-shadow"  style="font-size: 12px;">{{ data.phone }} </td>
+                    <td class="yellow-shadow"  style="font-size: 12px;">{{ data.email }}</td>
+                    <td class="yellow-shadow" style="font-size: 12px;">{{ data.gender }}</td>
+                    <td class="yellow-shadow" style="font-size: 12px;">{{ data.age }}</td>
+                    <td class="yellow-shadow" style="font-size: 12px;">{{data.address}}</td>
                     
-                    <td class="yellow-shadow"  ><a class="btn btn-warning btn-lg btn-block" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
+                    <td class="yellow-shadow"  style="font-size: 12px;"><a class="btn btn-warning btn-lg btn-block" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
                      
                     {% else %}
-                    <td class="blue-shadow" >{{forloop.counter0|add:datas.start_index}}</td>
-                    <td class="blue-shadow"  >{{data.case}}</td>
-                    <td class="blue-shadow"  >{{ data.name }}</td>
-                    <td class="blue-shadow">{{ data.phone }} </td>
-                    <td class="blue-shadow" >{{ data.email }}</td>
-                    <td class="blue-shadow"  >{{ data.gender }}</td>
-                    <td class="blue-shadow" >{{ data.age }}</td>
-                    <td class="blue-shadow" >{{data.address}}</td>
+                    <td class="blue-shadow" style="font-size: 12px;">{{forloop.counter0|add:datas.start_index}}</td>
+                    <td class="blue-shadow"  style="font-size: 12px;">{{data.case}}</td>
+                    <td class="blue-shadow"  style="font-size: 12px;">{{ data.name }}</td>
+                    <td class="blue-shadow" style="font-size: 12px;">{{ data.phone }} </td>
+                    <td class="blue-shadow" style="font-size: 12px;" >{{ data.email }}</td>
+                    <td class="blue-shadow" style="font-size: 12px;" >{{ data.gender }}</td>
+                    <td class="blue-shadow" style="font-size: 12px;" >{{ data.age }}</td>
+                    <td class="blue-shadow" style="font-size: 12px;">{{data.address}}</td>
                     
-                    <td class="blue-shadow" ><a class="btn btn-success btn-sm" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
+                    <td class="blue-shadow" style="font-size: 12px;"><a class="btn btn-success btn-sm" href="{% url 'update_patient' id=data.id %}" >Update</a></td>
                      
                     {% endif %}
                     

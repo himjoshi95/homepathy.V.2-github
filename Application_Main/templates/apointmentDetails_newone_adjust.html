@@ -1,0 +1,1131 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Appointment Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style> 
+
+  .sidenav {
+    height:85vh;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightblue;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    margin-top:56px;
+    border-radius: 5px;
+   
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size:20px;
+    color:black;
+    display: block;
+    transition: 0.3s;
+  }
+  
+ 
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    font-size: 20px;
+    
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  /* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+padding: 6px 8px 6px 16px;
+text-decoration: none;
+font-size: 20px;
+color: 1px solid black;
+display: block;
+border: none;
+background: none;
+width:100%;
+text-align: left;
+cursor: pointer;
+outline: none;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+color: #f1f1f1;
+background-color: #20B5AD;
+
+}
+
+/* Add an active class to the active dropdown button */
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+display: none;
+background-color:  #5b5b5d;
+padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+float: right;
+padding-right: 8px;
+}
+.fa-caret-right {
+float: right;
+padding-right: 8px;
+}
+
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }    
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto; /* 15% from the top and centered */
+      padding: 5px;
+      border: 1px solid #888;
+      width: 85%; /* 80% of the width */
+    }
+  
+      .table-one {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      
+      .table-one tr{
+        height: 10px;
+      }
+    
+      .table-one td {
+        font-size:16px;
+      }   
+
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 16px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+    
+      .form-left {
+        margin: 0; /* Remove the margin for left alignment */
+      }
+    
+      .form-left-update {
+        margin: 10px; /* Remove the margin for left alignment */
+      }
+      
+      .text-center {
+        text-align: center;
+    }
+      label {
+        font-weight: bold;
+      }
+      
+
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      input[type="password"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px; /* Increase the padding for better spacing */
+        margin-top: 10px;
+        margin-bottom: 16px; /* Increase the margin for better spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px; /* Adjust the font size for better readability */
+      }
+      
+      /* Adjust the form button styles */
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px; /* Increase the padding for better button size */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* Make the text bold for better visibility */
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+          
+     
+      .scrolling-div::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+    
+      .scrolling-div {
+        margin-top: 10px;
+        max-height: 300px; /* Set the maximum height of the div */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border: 1px solid #ccc;
+        padding: 5px;
+        background-color: #B8CAE4;
+      }
+
+      .scrolling-div-two::-webkit-scrollbar{
+        width: .8rem;
+      }
+      
+      .scrolling-div-two::-webkit-scrollbar-track{
+        background: transparent;
+      }
+      
+      .scrolling-div-two::-webkit-scrollbar-thumb{
+        background: 	#6495ED;
+        border-radius: .5rem;
+      }
+    
+      .scrolling-div-two {
+        margin-top: 10px;
+        max-height: 200px; /* Set the maximum height of the div */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border: 1px solid #ccc;
+        padding: 5px;
+        background-color: #B8CAE4;
+      }
+    
+      .amount-one {
+        font-size:20px;
+        margin-top:10px;
+      }
+
+      
+      .reorder{
+        background-color: #90EE90;
+        color: white;          
+        border: 1px solid blue;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .check{
+        background-color: #FED8B1;
+        color: white;          
+        border: 1px solid blue;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+
+
+
+     
+    
+    
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 16px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    
+      form {
+        max-width: 100%; /* Increase the form width for better readability */
+        margin: 0 auto;
+        padding: 16px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-left {
+        margin: 0; /* Remove the margin for left alignment */
+      }
+    
+      .form-left-update {
+        margin: 10px; /* Remove the margin for left alignment */
+      }
+      
+      .text-center {
+        text-align: center;
+    }
+      label {
+        font-weight: bold;
+      }
+      
+
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      input[type="password"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 80%;
+        padding: 10px; /* Increase the padding for better spacing */
+        margin-top: 0px;
+        margin-bottom: 16px; /* Increase the margin for better spacing */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px; /* Adjust the font size for better readability */
+      }
+      
+      /* Adjust the form button styles */
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px; /* Increase the padding for better button size */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* Make the text bold for better visibility */
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+     
+
+     
+    .table-one {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+    .table-one tr{
+        height: 16px;
+      }
+    
+      .table-one td {
+        font-size:14px;
+      }
+
+      .amount-one {
+        font-size:15px;
+        margin-top:20px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 16% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+    
+     
+  
+}  
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <br><br><br><br><br><br> <br>
+    <div id="mySidenav" class="sidenav" style="margin-top:100px;">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'add_consultation' data.id token %}"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;  Add Consultation Charges<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'list1' pk=data.id  %}"><i class="fa fa-history" aria-hidden="true"></i>&nbsp;&nbsp;   History Details<i class="fa fa-caret-right"></i></a> 
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'create1' pk=data.id  %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Follow up  <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'present_complaint_appointment' data.id token %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Present Complaints <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>         
+      <a href="{% url 'old_images' id=data.id  %}"><i class="fa fa-image"></i>&nbsp;&nbsp; Case Paper Old Images <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'upload_case_image' id=data.id %}"><i class="fa fa-upload"></i>&nbsp;&nbsp; Upload New Case Paper Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'casepaper_new_images' id=data.id %}"><i class="fa fa-image"></i>&nbsp;&nbsp; New Case Paper Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'investigation_newone' id=data.id %}"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Investigation <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'upload_patients_image' id=data.id %}"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp; Upload Patient's Diagnose Image<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      {% comment %} <a href="{% url 'online_consultation' user=user %}">Online Consultation</a> {% endcomment %}
+      <a href="{% url 'doc_patient_images' id=data.id %}"><i class="fa fa-image" aria-hidden="true"></i>&nbsp;&nbsp; View Patient's Diagnose Images<i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'show_case_paper' data.id %}"><i class="fa-solid fa-file-pdf" style="font-size:20px;"></i>&nbsp;&nbsp; Show Case Paper PDF <i class="fa fa-caret-right"></i></a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'newcase_final_report' data.id %}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp; Show Case Paper Report <i class="fa fa-caret-right"></i></a>
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()"><p style="margin-top:10px; padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776; </b></p></span>
+
+
+   
+    
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="success">
+      <i class="fa fa-bell"></i>
+       {{ message}}
+    </div>
+    {% endfor %}
+  {% endif %}
+    
+<br>
+    <main role="main" class="container">
+     
+       
+     
+
+        <div class="jumbotron" >
+
+            <div class="header-past">Patient's Details</div>
+            {% if patient_flag %}
+            <hr  style="border: 1px solid blue;">
+            <a href="{% url 'past_history_newone' case_id=data.id %}" class="btn btn-primary btn-block"> <i class='fas fa-edit'></i> New Case</a>
+            <hr  style="border: 1px solid blue;">
+            <br><br>
+            {% endif %}
+        
+            <hr>
+           
+         
+            <br>
+            <div class="table-responsive">
+                <table class="table-one">     
+                    <tr>
+                        <td>
+                          
+                            {% if patient_details.patient_images %}
+                            <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="90" height="90" border="5">
+                            
+                      
+                              {% else %}
+                              <p style="background-color:white; text-align:center; padding: 8px;width:100px; "><b>Photo Not Uploaded</b></p>
+                              {% endif %}
+                         
+                        </td>
+                        
+                        <td style="text-align:left;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+                        
+                        
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:left;"><b>Date :</b>&nbsp;{{today|date:"d/m/Y"}}</td>
+                        
+                        
+                    </tr>   
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>     
+                    
+                    <tr>
+                        <td style="text-align:left;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+                        
+                        <td style="text-align:left;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+                       
+                        <td style="text-align:left;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+                        {% if patient_details.height %}
+                        <td  style="text-align:left;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td  style="text-align:left;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+                          {{patient_details.weight}} Kgs
+        
+                          {% else %}
+                              -
+                          {% endif %}
+                        
+                        
+                        </td>
+                        
+                        
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>  
+                    
+                    <tr >
+                      <td><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+                      <td></td>
+                      <td><b>Contact Number :</b> {{patient_details.phone}}</td>
+                    </td></td>
+                    <td></td>
+        
+        
+                    </tr>
+        
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>  
+        
+                    <tr>
+                      <td><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+                      <td><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+                      
+                      <td><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>  
+        
+                    <tr>
+                      <td><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+                      <td></td>
+                      <td><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr> 
+                    
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>
+        
+                    <tr>
+                      <td><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+        
+                    </tr>
+        
+                   
+               
+            </table>
+               
+            </div>
+        </div>
+            <br>
+        
+            <div class="jumbotron" >    
+
+            <div class="header-past">Previous Presciptions</div>
+                <hr>
+            <label style="color:#337ab7; font-size:16px; margin-top:5px;"><b>Medicine  (Search Here <i class="fa fa-search" style="font-size:16px; margin-left:5px;"></i> )</b></label><br><br>
+      
+            <form method="get" action="">
+                <input type="text" class="form-control" name="medicine" placeholder="Enter Medicine Name" required>
+                  
+                  
+                  <button type="submit" class="btn btn-primary" >Search <i class="fa fa-search" style="font-size:25px; margin-left:5px;"></i></button>
+                  <a style="margin-left:10px;" href="{% url 'apointmentDetails' id token %}" class="btn btn-dark">Refresh <i class="fa fa-refresh" ></i></a>
+                  
+              </form>
+            <div class="table-responsive">
+
+                <div class="scrolling-div">      
+                    <table class='table'>
+                      <thead>
+                        <tr>
+                          <th scope="col" style="font-size:18px; width:150px;">Date</th>
+                          <th scope="col" style="font-size:18px;">Diagnose</th>
+                              <th scope="col" style="font-size:18px;">Medicine</th>
+                              <th scope="col" style="font-size:18px;">Potency</th>
+                          <th scope="col" style="font-size:18px;">Dose</th>
+                              <th scope="col" style="font-size:18px;">Start Date</th>
+                             
+                              <th scope="col" style="font-size:18px;">Duration</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for d in previous_prescriptions %}
+                      <tr>
+                        <td style="font-size: 16px;width:150px;"> {{d.date|date:"d-M-Y"}} </td>
+                        <td style="font-size: 16px;">{{d.diagnose}}</td>
+                      <td style="font-size: 16px;">{{d.medicine}} </td>
+                
+                      <td style="font-size: 16px;">{{ d.potency}}  </td>
+                        {% if d.dose %}
+                  <td style="font-size: 16px;">{{ d.dose}}  </td>
+                        {% else %}
+                      <td style="font-size: 16px;"> -  </td>
+                        {% endif %}
+                
+                
+                      <td style="font-size: 16px;">{{d.start_date}}</td>
+                      
+                      <td style="font-size: 16px;"> {{d.durations}}</td>
+            
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+            
+                    </table>
+            
+                
+            
+              </div>     
+            </div>
+        </div>
+
+        <div class="jumbotron" >
+            <div class="header-past">Health Assessment</div>
+                <hr>
+                <form  method="post" action="{% url 'health_assessment' id token %}" >
+                    {% csrf_token %}
+                  
+                    <div class="form-group">
+                      <label for="bloodPressure">Blood Pressure (mmHg):</label>
+                      <input type="text" style="width: 280px;" required class="form-control" id="bloodPressure" placeholder=" Mention Here" name="bloodPressure" required>
+                    </div>
+                  
+                    <br>
+                  
+                    <div class="form-group">
+                      <label for="weight">Weight (kg):</label>
+                      <input type="text" style=" width: 280px;" required class="form-control" id="weight" placeholder=" Mention Here" name="weight" required>
+                    </div>
+                  
+                    <br> <br>
+                  
+                    <button type="submit" class="btn btn-primary" >Submit</button>
+                  </form>
+                  <br>
+                  <div class="scrolling-div-two">      
+                    <table class='table'>
+                      <thead>
+                        <th scope="col" style="font-size:18px;">SNo.</th>
+                        <th scope="col" style="font-size:18px;">Assessment Date</th>
+                        <th scope="col" style="font-size:18px;">Blood Pressure</th>
+                        <th scope="col" style="font-size:18px;">Weight</th>  
+                        <th scope="col" style="font-size:18px;">Delete</th>    
+                        
+                      </thead>
+                      <tbody>
+                        {% for h in health %}
+                        <tr>
+                          <td style="font-size: 16px;">{{forloop.counter}}.</td>
+                          <td style="font-size: 16px;">{{h.date|date:"d-M-Y"}}</td>
+                          <td style="font-size: 16px;">{{h.bp}} mmHg</td>
+                          <td style="font-size: 16px;">{{h.weight}} Kgs.</td>
+                          <td><a href="{% url 'delete_health_assessment' h.id token %}" class="btn btn-dark btn-sm"  title="Delete " onclick="confirmDelete(event)" >Delete </a></td>
+                          
+                        </tr>
+                        {% endfor %}
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+
+                <div class="jumbotron" >
+                  <a href="{% url 'extra_prescription' data.id token %}" class="btn btn-primary" style="float:right; font-size:20px;">+</a>
+                  <div class="header-past">Prescribe Medicine</div>
+                  <p class="amount-one" > Amount:  {% if balance.balance_amt %} {% if balance.balance_amt >= 0%}<b> Rs {{balance.balance_amt}} BALANCE </b> {%else%} <b>Rs <span id="balance_amt"></span> ADVANCE</b> {% endif %}{% else %}<b> Rs 0.</b> {% endif %}</p>
+                  <hr>
+
+                  <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+                        <iframe src="{% url 'present_complaints_add'  id  %}" width="100%" height="600"></iframe>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table-one">
+                      <button id="openPopup" class="btn btn-primary add-btn" >Diagnosis &nbsp;<i class="fa fa-plus-square" style="font-size:22px;"aria-hidden="true"></i></button>  
+                      <form  method="post" action="" >
+                        {% csrf_token %}
+                      <tr >
+                        <td>
+                         
+                           <label for="diagnose">Diagnosis :</label>
+
+                          <select class="select-width"  name="select-diagnose" placeholder="Select-Diagnose" multiple id="countries">
+                            {% for d in diagnose_dropdown %}
+                            <option  value="{{ d.complain.name }}">{{ d.complain.name }} </option>    
+                            {% endfor %}
+                          
+                          </select>
+                  
+                        </td>
+
+                        <td >                          
+                          <label for="medicine" style="margin-left:90px;">Medicine :</label>
+                          <input type="text"  required class="form-control" style="margin-left: 240px;width:290px; height:50px;"placeholder="Medicine Name" id="medicine" name="medicine">
+                        </td>
+                      </tr>
+                      <br><br>
+                      <tr>
+
+                        <td>
+                          <label for="potency" >Potency :</label>
+                          <select style="margin-left: 50px; width:395px;" required="True" id="potency" name="potency">
+                           <!-- Options for potency -->
+                         <option disabled selected value>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Potency Here </option>
+                        <option value="Q">Q</option>
+                        <option value="3X">3X</option>
+                        <option value="6X">6X</option>
+                        <option value="6">6</option>
+                        <option value="30">30</option>
+                        <option value="200">200</option>
+                        <option value="1 M">1 M</option>
+                        <option value="10 M">10 M</option>
+                        <option value="0/1">0/1</option>
+                        <option value="0/2">0/2</option>
+                        <option value="0/3">0/3</option>
+                        <option value="0/4">0/4</option>
+                        <option value="0/5">0/5</option>
+                        <option value="0/6">0/6</option>
+                        <option value="0/7">0/7</option>
+                        <option value="0/8">0/8</option>
+                        <option value="0/9">0/9</option>
+                        <option value="0/10">0/10</option>
+                        <option value="0/11">0/11</option>
+                        <option value="0/12">0/12</option>
+                        <option value="0/13">0/13</option>
+                        <option value="0/14">0/14</option>
+                        <option value="0/15">0/15</option>
+                        <option value="0/16">0/16</option>
+                      </select>
+                        </td>
+
+                        <td colspan=2>
+                          <label style="margin-left: 100px;" for="start_date">Start Date :</label>
+                          <select required="True" style="margin-left: 50px;width:290px;" id="start_date" name="start_date">
+                            <!-- Options for start date -->
+                            <option value="Today">Today</option>
+                            <!-- <option value="1 Day">1 Day</option> -->
+                            <option value="2nd Day">2nd Day</option>
+                            <option value="3rd Day">3rd Day</option>
+                            <option value="4th Day">4th Day</option>
+                            <option value="5th Day">5th Day</option>
+                            <option value="6th Day">6th Day</option>
+                            <option value="7th Day">7th Day</option>
+                            <option value="10th Day">10th Day</option>
+                            <option value="15th Day">15th Day</option>
+                            <option value="20th Days">20th Day</option>
+                            <option value="25th Day">25th Day</option>
+                            <option value="30th Day">30th Day</option>
+                            <option value="45th Day">45th Day</option>
+                            <option value="60th Day">60th Day</option>	
+                            <option value="75th Day">75th Day</option>
+                            <option value="3rd Month">3rd Month</option>
+                            <option value="4th Month">4th Month</option>
+                            <option value="5th Month">5th Month</option>
+                  
+                  
+                          </select>
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <label for="dose">Dose :</label>
+                          <select style="margin-left: 70px; width:400px;" required="True" id="dose" name="dose">
+                            <!-- Options for dose -->
+                            <option disabled selected value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Dose Here </option>				
+                            <option value="Single Dose">Single Dose</option>
+                            <!-- <option value="1 Day">1 Day</option> -->
+                            <option value="3 Dose Half-Hour Interval">3 Dose Half-Hour Interval</option>
+                            <option value="2 Dose Half-Hour Interval">2 Dose Half-Hour Interval</option>
+                            <option value="3 Dose 1 Hour Interval">3 Dose 1 Hour Interval</option>
+                            <option value="2 Dose 1 Hour Interval">2 Dose 1 Hour Interval</option>
+                            <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 1 Dose </option>
+                            <option value="Morning-Afternoon-Evening -- Per 2 Dose">Morning-Afternoon-Evening -- Per 2 Dose</option>
+                            <option value="Morning-Afternoon-Evening -- Per 1 Dose">Morning-Afternoon-Evening -- Per 3 Dose</option>
+                           
+                          </select>
+                        </td>
+                        <td>
+                          <label for="duration" style="margin-left: 100px;">Duration :</label>
+                          <select required="True"style="margin-left: 60px;width:290px;" id="duration" name="duration">
+                           <!-- Options for duration -->
+                         <option disabled selected value> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Select Duration </option>
+                        <option value="7 Days">7 Days</option>
+                        <option value="15 Days">15 Days</option>
+                        <!-- <option value="14 Days">14 Days</option> -->
+                        <option value="21 Days">21 Days</option>
+                        <option value="30 Days">30 Days</option>
+                        <!-- <option value="1 Month">1 Month</option> -->
+                        <option value="45 Days">45 Days</option>
+                        <option value="2 Months">2 Months</option>
+                        <option value="3 Months">3 Months</option>
+                        <!-- <option value="4 Months">4 Months</option> -->
+                        <!-- <option value="5 Months">5 Months</option> -->
+                        <!-- <option value="6 Months">6 Months</option> -->
+
+                      </select>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <label for="note">Note :</label>
+                          <textarea style="margin-top:5px;" id="note" name="note" rows="6" cols="35" placeholder="   mention if any "></textarea>
+                        </td>
+
+                        <td>
+                          <button  style="margin-left:100px; width:200px; height:50px;" type="submit" class="form-control btn btn-primary btn-lg">Submit</button>
+                        </td>
+                      </tr>
+                    </form>
+
+
+                    </table>
+                  </div>
+
+                  <hr>
+                  <br>
+                  <div class="header-past">TODAY'S PRESCRIPTION</div>
+                  <br><br>
+                  <div class="table-responsive">
+                    <table class='table'>
+
+                      <thead>
+                        <tr>
+                          <th>DIAGNOSIS</th>
+                          <th>MEDICINE</th> 
+                          <th>POTENCY</th>           
+                          <th>START DATE</th>
+                          <th>DOSE</th>
+                          <th>NOTE</th>
+                          <th>TODAY'S DATE</th>
+                          <th>DURATION</th>
+                          <th>NEXT VISIT</th>            
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                    
+                        </tr>
+                      </thead>
+                      {% for d in data2 %}
+                  
+                  {% if d.flag %}
+                  <tr style="color: black; font-size: 17px;">
+                    <td bgcolor=#90EE90 >{{d.diagnose}} </td>			
+                    <td bgcolor=#90EE90 >{{d.medicine}} </td>
+                  <!--  <td> {{ data.docterid.name }} </td>-->
+                    <td bgcolor=#90EE90>{{ d.potency}}  </td>
+                
+                
+                    <!-- <td> {{ data.patientid.name }}</td> -->
+                    <td bgcolor=#90EE90> {{d.start_date}} </td>
+                    <td bgcolor=#90EE90> {{d.dose}} </td>
+                    {% if d.note %}
+                    <td bgcolor=#90EE90> {{d.note}} </td>
+                    {% else %}
+                    <td bgcolor=#90EE90> - </td>
+                    {% endif %}
+                    <td bgcolor=#90EE90> {{d.date|date:"d M , Y"}} </td>
+                    <td bgcolor=#90EE90> {{d.durations}}</td>
+                    <td bgcolor=#90EE90>{{next_visit|date:"d M , Y"}}</td>
+                    <!-- <td bgcolor="green"> {{d.flag}}</td> -->
+              
+                    <td bgcolor=#90EE90>
+                    <a class="btn btn-primary" href="{% url 'update_medicine' id=data.id pk=d.id %}" title="Edit ">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    
+                  </td>
+                  <td bgcolor=#90EE90>
+                    <a class="btn btn-secondary" href="{% url 'delete_medicine' id=data.id pk=d.id %}" title="Delete " onclick="confirmDelete(event)">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>		
+                  </tr>
+                  {% else %}
+                  <tr>
+                    <td bgcolor=#FED8B1 >{{d.diagnose}} </td>			
+                    <td bgcolor=#FED8B1 >{{d.medicine}} </td>
+                    <!--  <td> {{ data.docterid.name }} </td>-->
+                    <td bgcolor=#FED8B1>{{ d.potency}}  </td>
+                  
+                  
+                    <!-- <td> {{ data.patientid.name }}</td> -->
+                    <td bgcolor=#FED8B1> {{d.start_date}} </td>
+                    <td bgcolor=#FED8B1> {{d.dose}} </td>
+                    {% if d.note %}
+                    <td bgcolor=#FED8B1> {{d.note}} </td>
+                    {% else %}
+                    <td bgcolor=#FED8B1> - </td>
+                    {% endif %}
+                    <td bgcolor=#FED8B1> {{d.date}} </td>
+                    <td bgcolor=#FED8B1> {{d.durations}}</td>
+                    <td bgcolor=#FED8B1>{{next_visit|date:"d M , Y"}}</td>
+                    <!-- <td bgcolor="yellow"> {{d.flag}}</td> -->
+                
+                    <td bgcolor=#FED8B1>
+                      <!-- <a class="btn btn-primary" href="" title="Edit ">
+                        <i class="fa fa-edit"></i>
+                      </a> -->
+                    </td>
+                    <td bgcolor=#FED8B1>
+                      <!-- <a class="btn btn-secondary" href="" title="Delete ">
+                        <i class="fa fa-trash"></i>
+                      </a> -->
+                    </td>		
+                    </tr>
+                  {% endif %}
+
+                  {% empty %}
+                  <tr>
+                      <td class="no-results"  colspan="3" style="font-size: 16px; color:blue;"><b>No Presciptions Found.</b></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  {% endfor %}
+                  
+
+
+                    </table>
+
+
+                  </div>
+
+
+                  
+            {% if data1 %}
+            <br><br>
+            <div class="header-past">Extra Presciption</div>
+            <br>
+
+            <div class="table-responsive">
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>SERIAL</th>
+                    <th>ANY OTHER MEDICINE</th>
+                    <th>PRICE</th>
+                    
+                    
+              
+                  </tr>
+                </thead>
+                {% for d in data1 %}
+                {% if data_issued.flag %}
+                <tr style="font-size:18px;">
+                    <td bgcolor=#90EE90>{{forloop.counter}}</td>
+                    <td bgcolor=#90EE90>{{d.description}}</td>
+                    <td bgcolor=#90EE90>Rs {{d.other_price}}</td>
+                </tr>
+                {% else %}
+                <tr style="font-size:18px;">
+                  <td  bgcolor=#FED8B1>{{forloop.counter}}</td>
+                  <td  bgcolor=#FED8B1>{{d.description}}</td>
+                  <td  bgcolor=#FED8B1>Rs {{d.other_price}}</td>
+                  <td  bgcolor=#FED8B1></td>
+              </tr>
+          
+          
+                {% endif %}
+                {% endfor %}
+
+              </table>
+
+            </div>
+
+             {% endif %}
+
+
+             <br><br>
+             <h5>Note :</h5>
+             <br>
+             <p style="font-size:17px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> Medicine not yet Issued</p>
+             
+             <p style="font-size:17px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Medicine Issued</p>
+            
+
+            </div>
+
+    </main>
+    <script>
+              // JavaScript to open and close add present_complaint modal
+   var modal = document.getElementById('myModal');
+   var btn = document.getElementById("openPopup");
+   var span = document.getElementsByClassName("close")[0];
+
+   btn.onclick = function() {
+       modal.style.display = "block";
+   }
+
+   span.onclick = function() {
+       modal.style.display = "none";
+       window.parent.location.reload();
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+           window.parent.location.reload();
+       }
+   }
+
+
+    </script>
+
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+
+    function confirmDelete(event) {
+        if (!window.confirm("Are you sure you want to delete?")) {
+          event.preventDefault(); // Cancel the link navigation if the user clicks "Cancel"
+        }
+      }
+
+  
+        // Assuming data.balance_amt is a JavaScript variable
+        var balanceAmt = "{{ balance.balance_amt }}";
+      
+        // Remove the negative sign
+        var absoluteAmt = Math.abs(parseFloat(balanceAmt));
+      
+        // Update the content of the span
+        document.getElementById("balance_amt").textContent = absoluteAmt;
+    
+
+    </script>
+
+    <script>
+      function openNav() {
+      document.getElementById("mySidenav").style.width = "300px";
+      }
+      
+      function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+  // new MultiSelectTag('countries')  // id
+  new MultiSelectTag('countries', {
+   rounded: true,    // default true
+   shadow: true,      // default false
+   placeholder: 'Search',  // default Search...
+   onChange: function(values) {
+       console.log(values)
+   }
+})
+</script>
+   
+      
+      
+</body>
+</html>
+
+

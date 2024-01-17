@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>General Appointment's Todays</title>
+    <title>Repeat Medicine Todays</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
 
@@ -339,7 +339,9 @@
           </tr>
         </thead>
         {% for dat1 in datas %}
+       
         {% if dat1.stat == "Repeat Medicine"%}
+        {{dat1}}
 
         {% if dat1.patientid.flag and dat1.doctor_notification == False %}   
     <tr>

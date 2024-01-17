@@ -244,35 +244,7 @@
 
     
     <script>
-      $(document).ready(function () {
-        // Check if the user agent contains "Samsung" (you might need to adjust this condition)
-        var isSamsungTablet = navigator.userAgent.match(/Samsung/i);
     
-        // Initialize jsignature if it's not a Samsung tablet
-        if (!isSamsungTablet) {
-          alert('LAPTOP');
-          var signatureField = $('.jSignature').jSignature();
-          
-          signatureField.jSignature('disable');  // Disable jsignature.js
-          signatureField.unbind();  // Remove event listeners
-          signatureField.on('touchstart', function (e) {
-            e.preventDefault();
-          });
-          document.getElementById("jsign_signature").style.border = "10px solid red";
-        } else {
-          alert('Samsung .....');
-          // Disable finger drawing or provide an alternative behavior
-          // You might want to display a message or use a different signature method
-          var signatureField = $('.jSignature').jSignature();
-          
-          signatureField.jSignature('disable');  // Disable jsignature.js
-          signatureField.unbind();  // Remove event listeners
-          signatureField.on('touchstart', function (e) {
-            e.preventDefault();
-          });
-          document.getElementById("jsign_signature").style.border = "10px solid red";
-        }
-      });
     </script>
     
   

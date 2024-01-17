@@ -54,6 +54,7 @@ from django.utils.decorators import method_decorator
 from dashboard.models import *
 from dashboard.forms import *
 from django.contrib.auth.decorators import login_required
+from Application_Main import settings
 
 
 
@@ -197,7 +198,7 @@ def recep_register_patient(request,user):
 #login Portion
 
 @csrf_exempt	
-def login1(request):
+def login(request):
 	if request.method=="POST":
 		try: 
 			uname=request.POST['username']
@@ -205,8 +206,12 @@ def login1(request):
 			
 			pwd=request.POST["pass1"]
 			print("password",pwd)
-			user_authenticate=auth.authenticate(username=uname , password=pwd)
-			print('user_auth',user_authenticate)
+			try:
+				user = User.objects.get(username=uname)
+				user_authenticate=auth.authenticate(username=uname , password=pwd)
+				print('user_auth',user_authenticate)
+			except User.DoesNotExist:
+				print('User does not exist.')
 			if user_authenticate != None:
 				user = User.objects.get(username = uname)
 				print('user is ', user)
@@ -730,7 +735,7 @@ def dash_appointment_details(request,user):
 	datas = p.get_page(page)
 	d1 = date.today()
 		
-	return render(request , 'appointment_details_new.html' , {'user':user, "status": status , "Total" : len(row) ,
+	return render(request , 'appointment_details_new_adjust.html' , {'user':user, "status": status , "Total" : len(row) ,
 															"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients,'datas':datas,'date':d1})
 
 	#return render(request,'dash_appointment_details.html')
@@ -1018,7 +1023,7 @@ def appoint_doctor(request):
 	
 	today = date.today().strftime("%Y-%m-%d")
 	
-	return render(request,'appoint_doctor_new.html',{'user':"D",'status':status,'patient_names':patient_names,'doctor_names':doctor_names,
+	return render(request,'appoint_doctor_new_adjust.html',{'user':"D",'status':status,'patient_names':patient_names,'doctor_names':doctor_names,
 					      'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,"unsend_mail_count":unsent_mail_count,
 						  'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,"today":today,
 						  'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul})
@@ -1066,7 +1071,7 @@ def doc_upload_newcase(request):
 
 
 
-	return render(request,'doc_upload_newcase.html',{'user':"D",'status':status,'form':form,
+	return render(request,'doc_upload_newcase_adjust.html',{'user':"D",'status':status,'form':form,
 						  'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,"unsend_mail_count":unsent_mail_count,
 						  'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 						  'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul})
@@ -1172,7 +1177,8 @@ def doc_courier_med_dom(request):
 	data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today()).order_by('time')
 	query = request.GET.get('query')
 	if query:
-		data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today(),patientid__case = query).order_by('time')
+		data1 = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
+		# data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today(),patientid__case = query).order_by('time')
 	
 	p = Paginator(data1 ,7)
 	page = request.GET.get('page')
@@ -1202,7 +1208,7 @@ def doc_courier_med_dom(request):
 	unsent_mail_count = mail_count.count()
 	
 	
-	return render(request , 'doc_courier_med_dom_newone.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
+	return render(request , 'doc_courier_med_dom_newone_adjust.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
 						      'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							  'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							  'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -1220,7 +1226,7 @@ def doc_repeat_med_dom(request):
 	data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today()).order_by('time')
 	query = request.GET.get('query')
 	if query:
-		data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today(),patientid__case = query).order_by('time')
+		data1 = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
 	
 	p = Paginator(data1 ,10)
 	page = request.GET.get('page')
@@ -1249,7 +1255,7 @@ def doc_repeat_med_dom(request):
 	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
 	unsent_mail_count = mail_count.count()
 
-	return render(request , 'doc_repeat_med_dom_newone.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
+	return render(request , 'doc_repeat_med_dom_newone_adjust.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
 						     'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							 'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							 'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -1267,8 +1273,10 @@ def docter_appointment_dombivali(request):
 	data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today())
 	
 	query = request.GET.get('query')
+	print("Query",query)
 	if query:
-		data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today(),patientid__case = query)
+		data1 = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
+		# data1 = Appointment.objects.filter(patientid__branch = 'Dombivali',date =date.today(),patientid__case = query)
 	
 	p = Paginator(data1 ,10)
 	page = request.GET.get('page')
@@ -1309,7 +1317,7 @@ def docter_appointment_dombivali(request):
 		"medicine_not_issued":medicine_not_issued,'medicine_issued':medicine_issued,
 		"unsend_mail_count":unsent_mail_count}	
 	
-	return render(request , 'my_appointment_dombivali_newone.html', context)
+	return render(request , 'my_appointment_dombivali_newone_adjust.html', context)
 @csrf_exempt
 def doc_repeat_med_mul(request):
 
@@ -1320,9 +1328,13 @@ def doc_repeat_med_mul(request):
 	user_id = User.objects.get(username=request.user)
 	docter= Docter.objects.get(username=user_id)	
 	data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today()).order_by('time')
+
+	print("data2---",data2)
+	print("Length",len(data2))
 	query = request.GET.get('query')	
 	if query:
-		data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query).order_by('time')
+		data2 = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
+		# data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query).order_by('time')
 	p = Paginator(data2 ,7)
 	page = request.GET.get('page')
 	datas = p.get_page(page)
@@ -1351,7 +1363,7 @@ def doc_repeat_med_mul(request):
 	unsent_mail_count = mail_count.count()
 	
 
-	return render(request , 'doc_repeat_med_mul_newone.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
+	return render(request , 'doc_repeat_med_mul_newone_adjust.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
 						     'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							 'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							  'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -1370,7 +1382,8 @@ def doc_courier_med_mul(request):
 	data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today()).order_by('time')
 	query = request.GET.get('query')	
 	if query:
-		data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query).order_by('time')
+		data2 = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
+		# data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query).order_by('time')
 	p = Paginator(data2 ,10)
 	page = request.GET.get('page')
 	datas = p.get_page(page)
@@ -1398,7 +1411,7 @@ def doc_courier_med_mul(request):
 	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
 	unsent_mail_count = mail_count.count()
 
-	return render(request , 'doc_courier_med_mul_newone.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
+	return render(request , 'doc_courier_med_mul_newone_adjust.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
 						      'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							  'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							  'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -1416,7 +1429,8 @@ def docter_appointment_mulund(request):
 	data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today())
 	query = request.GET.get('query')	
 	if query:
-		data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query)
+		data2 = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query)))
+		# data2 = Appointment.objects.filter(patientid__branch = 'Mulund',date =date.today(),patientid__case = query)
 	p = Paginator(data2 ,10)
 	page = request.GET.get('page')
 	datas = p.get_page(page)
@@ -1445,7 +1459,7 @@ def docter_appointment_mulund(request):
 	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
 	unsent_mail_count = mail_count.count()
 	
-	return render(request , 'my_appointment_mulund_newone.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
+	return render(request , 'my_appointment_mulund_newone_adjust.html', {'user' :"D" , 'status':status, "datas":datas ,'date':d1,
 							'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -1495,6 +1509,7 @@ def apointmentDetails(request,id,token):
 		note = request.POST['note']
 		p= prescription.objects.create(patientid=pa ,medicine=me.upper(),potency=po,date=da,durations=du,diagnose=list_of_disease_str_uppercase,start_date=start_date,dose=dose,note=note)
 		p.save()
+		messages.success(request,f"Successfully Added {me}-{po} for {du}.")
 		return HttpResponseRedirect(reverse('apointmentDetails',  kwargs={'id': pa.id,'token':tok}))				
 		
 	patient_details = Patient.objects.get(id=id)	
@@ -1531,11 +1546,32 @@ def apointmentDetails(request,id,token):
 	if medicine:
 		previous_prescriptions = prescription.objects.filter(Q(patientid=id) & Q(medicine__icontains=medicine)).order_by('-date')	
 
-	print("APPOINTMENT TYPE-------",app.stat)
+	# print("APPOINTMENT TYPE-------",app.stat)
 
-	health = HealthAssessment.objects.filter(patient = id)
-	print("Health",health)
-	context = {'user':"AP",
+	health = HealthAssessment.objects.filter(patient = id).order_by('-date')
+	# print("Health",health)
+	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
+	count_general_dom = str(general_dom.count())
+	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
+	count_general_mul = str(general_mul.count())
+
+	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
+	count_repeat_dom = str(repeat_medicine_dom.count())
+	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
+	count_repeat_mul = str(repeat_medicine_mul.count())
+
+	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
+	count_courier_dom = str(courier_medicine_dom.count())
+	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
+	count_courier_mul = str(courier_medicine_mul.count())
+
+	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
+	unsent_mail_count = mail_count.count()
+
+	context = {
+			# 'user':"AP",
+		
+			'user':"D",
 			'status':status,
 			'data':data,
 			'data2':data2,
@@ -1553,9 +1589,17 @@ def apointmentDetails(request,id,token):
 			'previous_prescriptions':previous_prescriptions,
 			'today':date.today(),
 			'appointment_type':app.stat,
-			'health':health}
-	return render(request,'apointmentDetails_newone.html',context ) 
+			'health':health,
+			'count_general_dom':count_general_dom,
+			'count_general_mul':count_general_mul,
+			'count_repeat_dom':count_repeat_dom,
+			'count_repeat_mul':count_repeat_mul,
+			'count_courier_dom':count_courier_dom,
+			'count_courier_mul':count_courier_mul,
+			"unsend_mail_count":unsent_mail_count}
+	return render(request,'apointmentDetails_newone_adjust.html',context ) 
 
+@csrf_exempt
 def health_assessment(request,id,token):
 
 	pat  = Patient.objects.get(id=id)
@@ -1566,7 +1610,7 @@ def health_assessment(request,id,token):
 		blood_press = request.POST['bloodPressure']
 		wt = request.POST['weight']
 		HealthAssessment.objects.create(patient = pat, bp = blood_press,weight=wt)
-		messages.success(request,f'Successfully Added Health Assessment')
+		messages.success(request,f'Successfully Added BP: {blood_press} mm/Hg , Weight : {wt} kgs.')
 		return HttpResponseRedirect(reverse('apointmentDetails',kwargs={'id':id,'token':token})) 
 	
 def delete_health_assessment(request,id,token):
@@ -1580,6 +1624,7 @@ def delete_health_assessment(request,id,token):
 
 
 @csrf_exempt
+
 def present_complaint_appointment(request,case_id,token):
 
 	status = False
@@ -1625,8 +1670,10 @@ def present_complaint_appointment(request,case_id,token):
 		'form':form,
 		'token':token,
 		'case_id':case_id,
+		'patient':patient_details,
+		
 	}
-	return render(request,'present_complaint_appointment.html',context)
+	return render(request,'present_complaint_appointment_adjust.html',context)
 @csrf_exempt
 def present_complaints_add(request,id):
 
@@ -1654,14 +1701,14 @@ def present_complaints_add(request,id):
 		form = PresentComplaintsForm()
 
 	
-	table_data = PresentComplaintsNew.objects.filter(patient__id=id)
+	table_data = PresentComplaintsNew.objects.filter(patient__id=id).order_by('-date')
 	context = {
 		'status': status,
 		'user': 'D',
 		'form': form,
 		'table_data':table_data,
 	}
-	return render(request,'COMMON_APP/present_complaints_add.html',context)
+	return render(request,'COMMON_APP/present_complaints_add_adjust.html',context)
 
 
 @csrf_exempt
@@ -1693,8 +1740,9 @@ def add_consultation(request,id,token):
 		'data':data,
 		'consult_data':consult_data,
 		'data2':data2,
+		'patient':data
 	}
-	return render(request,'add_consultation.html',context)
+	return render(request,'add_consultation_adjust.html',context)
 
 @csrf_exempt
 def delete_consultation_charges(request,id,token):
@@ -1729,17 +1777,43 @@ def extra_prescription(request,id,token):
 	data = Patient.objects.get(id=id)
 
 	data2 =prescription.objects.filter(patientid__id=id,date=date.today()).first()
+
+	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
+	count_general_dom = str(general_dom.count())
+	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
+	count_general_mul = str(general_mul.count())
+
+	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
+	count_repeat_dom = str(repeat_medicine_dom.count())
+	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
+	count_repeat_mul = str(repeat_medicine_mul.count())
+
+	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
+	count_courier_dom = str(courier_medicine_dom.count())
+	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
+	count_courier_mul = str(courier_medicine_mul.count())
+
+	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
+	unsent_mail_count = mail_count.count()
+
 	context = {
 		'status':status,
-		'user':'AP',
+		'user':'D',
 		'data': data,
 		'data1':data1,
 		'patient_details':patient_details,
 		'id':id,
 		'token':token,
 		'data2':data2,
+		'count_general_dom':count_general_dom,
+			'count_general_mul':count_general_mul,
+			'count_repeat_dom':count_repeat_dom,
+			'count_repeat_mul':count_repeat_mul,
+			'count_courier_dom':count_courier_dom,
+			'count_courier_mul':count_courier_mul,
+			"unsend_mail_count":unsent_mail_count
 	}
-	return render(request,'extra_prescription.html',context)
+	return render(request,'extra_prescription_adjust.html',context)
 
 @csrf_exempt
 def delete_extra_prescription(request,id,token):
@@ -1770,6 +1844,11 @@ def upload_patients_image(request,id):
 		messages.success(request,"Patient's Images Uploaded Successfully")
 		return HttpResponseRedirect(reverse('upload_patients_image',  kwargs={'id': id}))
 
+	appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
 
 
 
@@ -1777,11 +1856,12 @@ def upload_patients_image(request,id):
 		"patient_details":patient_details,
 		"status":status,
 		"user":"D",
+		"patient":patient_details,
+		'id':id,
+		'final_token': final_token,
 	}
-
-
-
 	return render(request,'upload_patients_image.html',context)
+
 @csrf_exempt
 def doc_patient_images(request,id):
 
@@ -1794,11 +1874,21 @@ def doc_patient_images(request,id):
 	p = Paginator(img,9)
 	page = request.GET.get('page')
 	datas = p.get_page(page)
+
+	appoint = Appointment.objects.filter(Q(patientid=patient_details)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+
+
 	context= {
 		"status":status,
 		"user": 'D',
-		"patient_details":patient_details,
+		"patient":patient_details,
 		"datas":datas,
+		'id':id,
+		'final_token':final_token,
 	}
 
 
@@ -1819,6 +1909,7 @@ def investigation_newone(request,id):
 		any_other = request.POST['any_other']
 		obj = InvestigationRecords(patient=patient,records=records,any_other=any_other)
 		obj.save()
+		messages.success(request,f"Successfully! Added Investigations to be done.")
 		return HttpResponseRedirect(reverse('investigation_newone',kwargs={'id':id}))
 	
 	table_data = InvestigationRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1827,6 +1918,14 @@ def investigation_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
+
+
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	
 	    
 	context = {
 		"status" : status,
@@ -1835,8 +1934,10 @@ def investigation_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token': final_token,
+		'patient':patient,
 	}
-	return render(request,'investigation_newone.html',context)
+	return render(request,'investigation_newone_adjust.html',context)
 
 @csrf_exempt
 def ultra_sonography_newone(request,id):
@@ -1852,6 +1953,7 @@ def ultra_sonography_newone(request,id):
 		records = request.POST.getlist('investigation-advised')		
 		obj = UltrasonographyRecords(patient=patient,records=records)
 		obj.save()
+		messages.success(request,f'Successfully Added Ultra-Sonography to done.')
 		return HttpResponseRedirect(reverse('ultra_sonography_newone',kwargs={'id':id}))
 	
 	table_data = UltrasonographyRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1860,6 +1962,12 @@ def ultra_sonography_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
+
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
 	    
 	context = {
 		"status" : status,
@@ -1868,6 +1976,8 @@ def ultra_sonography_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token': final_token,
+		'patient':patient,
 	}
 	return render(request,'ultra_sonography.html',context)
 
@@ -1885,6 +1995,7 @@ def doppler_studies_newone(request,id):
 		records = request.POST.getlist('investigation-advised')		
 		obj = DopplerRecords(patient=patient,records=records)
 		obj.save()
+		messages.success(request,f"Successfully Added Doppler Studies to done.")
 		return HttpResponseRedirect(reverse('doppler_studies_newone',kwargs={'id':id}))
 	
 	table_data = DopplerRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1893,6 +2004,12 @@ def doppler_studies_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
+
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
 	    
 	context = {
 		"status" : status,
@@ -1901,8 +2018,10 @@ def doppler_studies_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'patient':patient,
+		'final_token':final_token,
 	}
-	return render(request,'doppler_studies.html',context)
+	return render(request,'doppler_studies_adjust.html',context)
 @csrf_exempt
 def  obstetrics_newone(request,id):
 	status = False
@@ -1916,6 +2035,7 @@ def  obstetrics_newone(request,id):
 		records = request.POST.getlist('investigation-advised')		
 		obj = ObstetricRecords(patient=patient,records=records)
 		obj.save()
+		messages.success(request,f"Successfully! Added Obstetrics(Pregnancy) to be done.")
 		return HttpResponseRedirect(reverse('obstetrics_newone',kwargs={'id':id}))
 	
 	table_data = ObstetricRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1924,7 +2044,13 @@ def  obstetrics_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
-	    
+	
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+
 	context = {
 		"status" : status,
 		"user" : 'D',
@@ -1932,8 +2058,11 @@ def  obstetrics_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token': final_token,
+		'patient':patient,
 	}
-	return render(request,'obstetrics_newone.html',context)
+	return render(request,'obstetrics_newone_adjust.html',context)
+
 @csrf_exempt
 def  sonography_newone(request,id):
 	status = False
@@ -1947,6 +2076,7 @@ def  sonography_newone(request,id):
 		records = request.POST.getlist('investigation-advised')		
 		obj = SonographyTypeRecords(patient=patient,records=records)
 		obj.save()
+		messages.success(request,f"Successfully! Added Sonography to be done.")
 		return HttpResponseRedirect(reverse('sonography_newone',kwargs={'id':id}))
 	
 	table_data = SonographyTypeRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1955,6 +2085,13 @@ def  sonography_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
+
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+
 	    
 	context = {
 		"status" : status,
@@ -1963,8 +2100,10 @@ def  sonography_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token': final_token,
+		'patient':patient,
 	}
-	return render(request,'sonography_newone.html',context)
+	return render(request,'sonography_newone_adjust.html',context)
 
 @csrf_exempt
 def ct_scan_newone(request,id):
@@ -1979,6 +2118,7 @@ def ct_scan_newone(request,id):
 		records = request.POST.getlist('investigation-advised')		
 		obj = CTScanNewRecords(patient=patient,records=records)
 		obj.save()
+		messages.success(request,f'Successfully! Added CT Scan to be done ')
 		return HttpResponseRedirect(reverse('ct_scan_newone',kwargs={'id':id}))
 	
 	table_data = CTScanNewRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -1987,6 +2127,12 @@ def ct_scan_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	
 	    
 	context = {
 		"status" : status,
@@ -1995,8 +2141,10 @@ def ct_scan_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token': final_token,
+		'patient':patient,
 	}
-	return render(request,'ct_scan_newone.html',context)
+	return render(request,'ct_scan_newone_adjust.html',context)
 
 @csrf_exempt
 def mri_scan_newone(request,id):
@@ -2012,6 +2160,7 @@ def mri_scan_newone(request,id):
 		any_other = request.POST['any_other']	
 		obj = MRIScanNewRecords(patient=patient,any_other=any_other,records=records)
 		obj.save()
+		messages.success(request,f'Successfully! Added 1.5 Tesla MRI Scan to be done.')
 		return HttpResponseRedirect(reverse('mri_scan_newone',kwargs={'id':id}))
 	
 	table_data = MRIScanNewRecords.objects.filter(Q(patient__id=id) & Q(date=date.today()))
@@ -2020,7 +2169,13 @@ def mri_scan_newone(request,id):
             x = t.records
             x = x.replace("[","").replace("'","").replace("]","")
             my_list.append(x)
-	    
+
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	  
 	context = {
 		"status" : status,
 		"user" : 'D',
@@ -2028,8 +2183,11 @@ def mri_scan_newone(request,id):
 		"data": data,
 		"my_list": my_list,
 		"id":id,
+		'final_token':final_token,
+		'patient':patient,
 	}
-	return render(request,'mri_scan_newone.html',context)
+
+	return render(request,'mri_scan_newone_adjust.html',context)
 
 @csrf_exempt
 def generate_investigation_pdf(request,id):
@@ -2087,7 +2245,7 @@ def generate_investigation_pdf(request,id):
             x = x.replace("[","").replace("'","").replace("]","")
             my_list_seven.append(x)
 	    
-	    
+	patient=Patient.objects.get(id=id)    
 	
 
 	context={
@@ -2109,8 +2267,10 @@ def generate_investigation_pdf(request,id):
 		"my_list_six":my_list_six,
 		"len_seven" : len(my_list_seven),
 		"my_list_seven":my_list_seven,
+		'patient':patient,
+		'today':date.today(),
 	}
-	return render(request,'generate_investigation_pdf.html',context)
+	return render(request,'generate_investigation_pdf_adjust.html',context)
 
 from COMMON_APP.utils import render_to_pdf
 from django.http import HttpResponse
@@ -2189,6 +2349,7 @@ class Investigation_pdf(View):
 		"my_list_six":my_list_six,
 		"len_seven" : len(my_list_seven),
 		"my_list_seven":my_list_seven,
+		"today":date.today(),
 
 		}
 		pdf = render_to_pdf('investigation_pdf.html',data)
@@ -2205,9 +2366,13 @@ def add_investigation(request,pk):
 	form = InvestigationForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,"Added a New Investigation Successfully!")
 		return HttpResponseRedirect(reverse('add_investigation',  kwargs={'pk':pk})) 
 
 	data = InvestigationAdvised.objects.all()
+	patient = Patient.objects.get(id=pk)
+
+
 	context = {
 		"status":status,
 		"user": "D",
@@ -2215,10 +2380,12 @@ def add_investigation(request,pk):
 		"pk":pk,
 		"data":data,
 		"header" : "Add a New Investigation :",
-		"table_header" : "Add  (New Investigation)",
+		"table_header" : "Add  (New Investigation)",		
+		'patient':patient,
+
 	}
 
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt		
 def add_ultrasonography(request,pk):
@@ -2230,19 +2397,22 @@ def add_ultrasonography(request,pk):
 	form = UltrasonographyForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f"Added New Utra-Sonography Successfully.")
 		return HttpResponseRedirect(reverse('add_ultrasonography',  kwargs={'pk':pk})) 
 
 	data = Ultrasonography.objects.all()
+	patient = Patient.objects.get(id=pk)
 	context = {
 		"status":status,
 		"user": "D",
 		"form":form,
 		"pk":pk,
 		"data":data,
-		"header" : "Add a New Ultrasonography :",
+		"header" : "Add a New Ultra-Sonography :",
 		"table_header" : "Add  (New Ultrasonography)",
+		'patient':patient,
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def add_doppler(request,pk):
@@ -2254,6 +2424,7 @@ def add_doppler(request,pk):
 	form = DopplerForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f'Added New Doppler Study Successfully !')
 		return HttpResponseRedirect(reverse('add_doppler',  kwargs={'pk':pk})) 
 
 	data = Doppler.objects.all()
@@ -2266,7 +2437,7 @@ def add_doppler(request,pk):
 		"header" : "Add a New Doppler Studies :",
 		"table_header" : "Add  (New Doppler Studies)",
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def add_obstetrics(request,pk):
@@ -2278,9 +2449,11 @@ def add_obstetrics(request,pk):
 	form = ObstetricsForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f'Added a new Obstetrics(Pregnancy) Successfully!')
 		return HttpResponseRedirect(reverse('add_obstetrics',  kwargs={'pk':pk})) 
 
 	data = Obstetrics.objects.all()
+	patient = Patient.objects.get(id=pk)
 	context = {
 		"status":status,
 		"user": "D",
@@ -2289,8 +2462,9 @@ def add_obstetrics(request,pk):
 		"data":data,
 		"header" : "Add a New Obstetrics :",
 		"table_header" : "Add  (New Obstetrics)",
+		'patient':patient,
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def add_sonographytype(request,pk):
@@ -2302,9 +2476,11 @@ def add_sonographytype(request,pk):
 	form = SonographyTypeForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f'Added a New Sonography Successfully!')		
 		return HttpResponseRedirect(reverse('add_sonographytype',  kwargs={'pk':pk})) 
 
 	data = SonographyType.objects.all()
+	patient = Patient.objects.get(id=pk)
 	context = {
 		"status":status,
 		"user": "D",
@@ -2313,8 +2489,9 @@ def add_sonographytype(request,pk):
 		"data":data,
 		"header" : "Add a New Sonography Type :",
 		"table_header" : "Add  (New Sonography Type)",
+		'patient':patient,
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def add_ctscan(request,pk):
@@ -2326,9 +2503,11 @@ def add_ctscan(request,pk):
 	form = CTScanNewForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f'Added a new 16 Slice C.T Scan Successfully!')
 		return HttpResponseRedirect(reverse('add_ctscan',  kwargs={'pk':pk})) 
 
 	data = CTScanNew.objects.all()
+	
 	context = {
 		"status":status,
 		"user": "D",
@@ -2338,7 +2517,7 @@ def add_ctscan(request,pk):
 		"header" : "Add a New  16 Slice C.T Scan :",
 		"table_header" : "Add  (New 16 Slice C.T Scan)",
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def add_mriscan(request,pk):
@@ -2350,6 +2529,7 @@ def add_mriscan(request,pk):
 	form = MRIScanNewForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request,f'Successfully! Added a new 1.5 Tesla MRI Scan.')
 		return HttpResponseRedirect(reverse('add_mriscan',  kwargs={'pk':pk})) 
 
 	data = MRIScanNew.objects.all()
@@ -2362,7 +2542,7 @@ def add_mriscan(request,pk):
 		"header" : "Add a New  1.5 Tesla MRI Scan :",
 		"table_header" : "Add  (New 1.5 Tesla MRI Scan)",
 	}
-	return render(request,"add_investigation.html",context)
+	return render(request,"add_investigation_adjust.html",context)
 
 @csrf_exempt
 def delete_investigation(request,id):
@@ -2484,7 +2664,7 @@ def update_medicine(request,id,pk):
 	update_complain = prescription.objects.get(id=pk)
 
 	
-	context = {'user':"AP",
+	context = {'user':"D",
 			'status': status,
 			'data':patient.case,
 			'pat':patient,
@@ -2494,7 +2674,7 @@ def update_medicine(request,id,pk):
 			'diagnose_dropdown':diagnose_dropdown,
 			'update_complain':update_complain.diagnose,
 			}
-	return render(request,'update_medicine.html',context)
+	return render(request,'update_medicine_adjust.html',context)
 
 
 
@@ -2507,10 +2687,13 @@ class ExampleCreateView(generic.CreateView):
 	success_url = reverse_lazy('apointmentDetails')
 
 	def get_success_url(self):		
-		data = ExampleModel.objects.get(id=self.object.id)		
-		
-				
-		return reverse_lazy('apointmentDetails', kwargs={'id': data.patient_id,'token':10000})		
+		data = ExampleModel.objects.get(id=self.object.id)				
+		return reverse_lazy('apointmentDetails', kwargs={'id': data.patient_id,'token':10000})
+
+	def form_valid(self,form):
+		response = super().form_valid(form)
+		messages.success(self.request,f"Successfully Added Follow Up Details.")
+		return response		
 
 @method_decorator(csrf_exempt, name='dispatch')	
 class ExampleUpdateView(generic.UpdateView):	
@@ -2520,7 +2703,12 @@ class ExampleUpdateView(generic.UpdateView):
 
 	def get_success_url(self):		
 		data = ExampleModel.objects.get(id=self.object.pk)		
-		return reverse_lazy('apointmentDetails', kwargs={'id': data.patient_id,'token':10000})	
+		return reverse_lazy('apointmentDetails', kwargs={'id': data.patient_id,'token':10000})
+
+	def form_valid(self,form):
+		response = super().form_valid(form)
+		messages.success(self.request,f"Successfully Updated Follow Up Details.")
+		return response			
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ExampleListView(generic.ListView):
@@ -2535,7 +2723,13 @@ class ExampleDetailView(DetailView):
 class ExampleDeleteView(DeleteView):
 	model = ExampleModel
 	fields = '__all__'
-	success_url = reverse_lazy('docter_appointment')
+	# success_url = reverse_lazy('list1')
+	success_url = reverse_lazy('list1')
+
+	def get_success_url(self):
+		data = self.object
+		print("data",self.object)
+		return reverse_lazy('list1',kwargs={'pk':data.patient.id})
 
 ####customizing list view
 @csrf_exempt
@@ -2544,6 +2738,9 @@ def list1(request,pk):
 	global var
 	def getSubstringBetweenTwoChars(ch1,ch2,str):
 				return s[s.find(ch1)+0:s.find(ch2)] 
+	status = False
+	if request.user:
+		status =  request.user
 
 	s = request.META.get('HTTP_REFERER')
 	s2= getSubstringBetweenTwoChars('a','d',s)
@@ -2553,8 +2750,10 @@ def list1(request,pk):
 	p = Paginator(obj ,2)
 	page = request.GET.get('page')
 	datas = p.get_page(page)
+
+	patient = Patient.objects.get(id=pk)
 	
-	return render(request,'DOCTER/list1.html',{'obj':obj,'datas':datas,'s2':s2})
+	return render(request,'DOCTER/list1_adjust.html',{'patient':patient,'status':status,'user':'D','obj':obj,'datas':datas,'s2':s2})
 
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -2582,11 +2781,15 @@ def list1_pdf(request,pk):
 	return response
 @csrf_exempt
 def create1(request,pk):
+
+	status = False
+	if request.user:
+		status = request.user
 	
 	instance = Patient.objects.get(id=pk)
 	form = ExampleForm(initial = {'patient': instance})
-	id = pk
-	return render(request,'DOCTER/create1.html',{'form':form,'id':id})
+	id = pk	
+	return render(request,'DOCTER/create1_adjust.html',{'form':form,'id':id,'status':status,'user':'D','patient':instance})
 @csrf_exempt
 def old_images(request,id):
 
@@ -2596,7 +2799,18 @@ def old_images(request,id):
 	page = request.GET.get('page')
 	datas = p.get_page(page)
 
-	return render(request,'old_images.html',{'datas':datas,'patient':patient})
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	
+
+
+
+
+	return render(request,'old_images.html',{'datas':datas,'patient':patient,'id':id,'final_token':final_token})
 
 
 
@@ -2611,26 +2825,37 @@ def casepaper_new_images(request,id):
 	page = request.GET.get('page')
 	datas = p.get_page(page)
 
+	appoint = Appointment.objects.filter(Q(patientid=patient)&Q(date=date.today())).last()
+
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	
+
     
 
-	return render(request,'new_images_casepaper.html',{'datas':datas,'patient':patient})
+	return render(request,'new_images_casepaper.html',{'datas':datas,'patient':patient,'id':id,'final_token':final_token})
 @csrf_exempt
 def upload_case_image(request,id):
 
-
 	instance = Patient.objects.get(id=id)
-	print('instance',instance)
+	
 	if request.method == 'POST':
 		form = NewCasePaperUploadFormOne(request.POST,request.FILES)
 		files =request.FILES.getlist('images')
 		if form.is_valid():	
 			for i in files:
 				NewCasePaperUpload.objects.create(patient = instance ,images =i)
-			messages.info(request,"Casepaper Images Uploaded for "+ instance.name + instance.case)
+			messages.info(request,"Casepaper Images Uploaded for "+ instance.name +" " +instance.case)
 			return HttpResponseRedirect(reverse('upload_case_image', kwargs={'id':id}))
 	form = NewCasePaperUploadFormOne(initial={'patient': instance})
-
-	return render(request,'upload_case_image.html',{'form':form})
+	appoint = Appointment.objects.filter(Q(patientid=instance)&Q(date=date.today())).last()
+	if appoint.token != 0:
+		final_token = appoint.token
+	else:
+		final_token = appoint.token1
+	return render(request,'upload_case_image.html',{'form':form,'patient':instance,'id':id,'final_token':final_token})
 
 
 @csrf_exempt
@@ -2966,7 +3191,7 @@ def hr_dashboard(request):
 	task_details = AssignTask.objects.filter(Q(assign_To = status) & Q(completed = False))
 
 
-	return render(request , 'hr_dashboard_new.html' ,{"all_p":len(all_p) ,"all_d":len(all_d) ,"all_data" : all_d , "active_d":len(active_d) ,'user' : "H" , 'status' : status,
+	return render(request , 'hr_dashboard_new_adjust.html' ,{"all_p":len(all_p) ,"all_d":len(all_d) ,"all_data" : all_d , "active_d":len(active_d) ,'user' : "H" , 'status' : status,
 													"hr_branch":hr_branch,"hr_name":hr_name,'all_r':all_r,'general':count_general,'repeat': count_repeat,'courier':count_courier,
 													'unsend_mail_count': unsent_mail_count,'date':date.today(),'task_count':task_details.count()})
 
@@ -3064,9 +3289,10 @@ def hr_collections(request):
 		'sum_advance':sum_advance,
 		'appointment_status':my_list,
 		'hr_name':hr_name,
+		'hr_branch':hr_branch,
 	}
 
-	return render(request,'hr_collections.html',context)
+	return render(request,'hr_collections_adjust.html',context)
 
 
 	# return HttpResponse(f'Hr Collections {hr.branch} - {hr.name} - {hr.username}')
@@ -3127,41 +3353,15 @@ def view_courier_details(request,branch):
 
 	details = CourierDetails.objects.filter(patient__branch=branch).order_by('-date')
 
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))	
-	count_general_mul = str(general_mul.count())
-		
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = str(mail_count.count())
-
-
-
 	context = {
 		'status':status,
 		'user':'D',
 		'branch':branch,
-		'details':details,
-		'count_general_dom':count_general_dom,
-		'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-		'count_repeat_mul':count_repeat_mul,
-		"unsend_mail_count":unsent_mail_count,
-		'count_courier_dom':count_courier_dom,
-		'count_courier_mul':count_courier_mul,
+		'details':details,		
 		'date':date.today(),
 	}
 
-	return render(request,'view_courier_details.html',context)
+	return render(request,'view_courier_details_adjust.html',context)
 
 def all_courier(request,branch):
 
@@ -3197,7 +3397,7 @@ def all_courier(request,branch):
 		'unsend_mail_count': unsent_mail_count,
 		
 	}
-	return render(request,'all_courier.html',context)
+	return render(request,'all_courier_adjust.html',context)
 
 def view_payment_courier(request,pk):
 
@@ -3248,12 +3448,14 @@ def update_payment_courier(request,pk):
 		return HttpResponseRedirect(reverse('update_payment_courier', kwargs = {'pk':pk}))
 
 	context = {
+		'status':status,
+		'user':'H',
 		'pk':pk,
 		'branch':data.patient.branch,
 		'data':data,
 	}
 
-	return render(request, 'update_courier_payment.html',context)
+	return render(request, 'update_courier_payment_adjust.html',context)
 
 @csrf_exempt
 def mark_receive_courier(request,pk):
@@ -3291,7 +3493,7 @@ def update_receptionist(request,id):
 	unsent_mail_count = str(mail_count.count())
 	
 	data = Receptionist.objects.get(id=id)	
-	return render(request,'update_receptionist.html',{'userdata':data,'user' : "H",'status' : status,'general':count_general,'repeat': count_repeat,'courier':count_courier,
+	return render(request,'update_receptionist_adjust.html',{'userdata':data,'user' : "H",'status' : status,'general':count_general,'repeat': count_repeat,'courier':count_courier,
 													'unsend_mail_count': unsent_mail_count})
 
 	# => Docter Update
@@ -3328,7 +3530,7 @@ def update_docter(request , id):
 	count_courier = str(courier.count())
 	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False)  &Q(patient__branch=hr_branch))
 	unsent_mail_count = str(mail_count.count())
-	return render(request , 'update_docter_new.html' , {"userdata" : data , 'user' : "H" , 'status' : status,'general':count_general,'repeat': count_repeat,'courier':count_courier,
+	return render(request , 'update_docter_new_adjust.html' , {"userdata" : data , 'user' : "H" , 'status' : status,'general':count_general,'repeat': count_repeat,'courier':count_courier,
 													'unsend_mail_count': unsent_mail_count})
 
 
@@ -3439,7 +3641,7 @@ def hr_balance(request):
 		count_courier = str(courier.count())
 		mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False) &Q(patient__branch = recep.branch))
 		unsent_mail_count = str(mail_count.count())
-		return render(request,'hr_balance_newone.html',{'user':"H",'status':status,'data':data,'status_medicine':status_medicine,
+		return render(request,'hr_balance_newone_adjust.html',{'user':"H",'status':status,'data':data,'status_medicine':status_medicine,
 					   'general':count_general,'repeat': count_repeat,'courier':count_courier,'unsend_mail_count': unsent_mail_count,'formatted_date':formatted_date})
 	else:
 		# print("False")
@@ -3451,7 +3653,7 @@ def hr_balance(request):
 		count_courier = str(courier.count())
 		mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False)  &Q(patient__branch = recep.branch))
 		unsent_mail_count = str(mail_count.count())
-		return render(request,'hr_balance_newone.html',{'user':"H",'status':status,'data':data,'general':count_general,
+		return render(request,'hr_balance_newone_adjust.html',{'user':"H",'status':status,'data':data,'general':count_general,
 					   'repeat': count_repeat,'courier':count_courier,'unsend_mail_count': unsent_mail_count})
 		
 @csrf_exempt	
@@ -3557,7 +3759,7 @@ def pay_balance(request,id):
 	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False) &Q(patient__branch = patient.branch))
 	unsent_mail_count = str(mail_count.count())
 	
-	return render(request,'pay_balance_newone.html',{'status':status,'user':'H','bal_amt':bal_amt,'patient':patient,
+	return render(request,'pay_balance_newone_adjust.html',{'status':status,'user':'H','bal_amt':bal_amt,'patient':patient,
 						  'save_data.cash':save_data.cash,"unsend_mail_count":unsent_mail_count})
 
 # HR Accounting
@@ -3572,8 +3774,9 @@ def hr_accounting(request):
 	data = Appointment.objects.filter(patientid__branch = data_branch,date =date.today(),doctor_notification=True).order_by('time')
 	
 	query = request.GET.get('query')
+	print("Query",query)
 	if query:
-		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),patientid__case__icontains = query).order_by('time')
+		data = Appointment.objects.filter(Q(patientid__branch = data_branch) & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query))).order_by('time')
 	else:
 		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),doctor_notification=True).order_by('time')	
 	p = Paginator(data ,10)
@@ -3603,7 +3806,7 @@ def hr_accounting(request):
 
 	d1 = date.today()
 	print('---d1----',d1)
-	return render(request , 'hr_accounting_newone.html' , {'user' : 'H' , 'status' : status,'datas':datas
+	return render(request , 'hr_accounting_newone_adjust.html' , {'user' : 'H' , 'status' : status,'datas':datas
 						 ,'unsend_mail_count': unsent_mail_count,'general':count_general,'repeat': count_repeat,
 						 'courier':count_courier,'date':d1,"new_patient":new_patient,
 							"medicine_not_issued":medicine_not_issued,'medicine_issued':medicine_issued})
@@ -3620,7 +3823,7 @@ def hr_repeat_medicine(request):
 	
 	query = request.GET.get('query')
 	if query:
-		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),patientid__case__icontains = query).order_by('time')
+		data = Appointment.objects.filter(Q(patientid__branch = data_branch) & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query))).order_by('time')
 	else:
 		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),doctor_notification=True).order_by('time')	
 	p = Paginator(data ,10)
@@ -3644,7 +3847,7 @@ def hr_repeat_medicine(request):
 	medicine_issued = Appointment.objects.filter(Q(patientid__branch=data_branch) & Q(date=date.today()) & Q(doctor_notification=True) & Q(medicine_flag=True) & Q(stat="Repeat Medicine")).count()
 	
 	
-	return render(request , 'hr_repeat_medicine_newone.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,
+	return render(request , 'hr_repeat_medicine_newone_adjust.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,
 						      'courier':count_courier,'date':d1,'unsend_mail_count': unsent_mail_count,"medicine_not_issued":medicine_not_issued,"medicine_issued":medicine_issued})
 @csrf_exempt
 def hr_courier_medicine(request):
@@ -3659,7 +3862,7 @@ def hr_courier_medicine(request):
 	
 	query = request.GET.get('query')
 	if query:
-		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),patientid__case__icontains = query.upper()).order_by('time')
+		data = Appointment.objects.filter(Q(patientid__branch = data_branch) & Q(date=date.today()) & ( Q(patientid__case__icontains = query) | Q(patientid__phone__icontains = query) | Q(patientid__name__icontains = query))).order_by('time')
 	else:
 		data = Appointment.objects.filter(patientid__branch = data_branch,date=date.today(),doctor_notification=True).order_by('time')	
 	p = Paginator(data ,10)
@@ -3685,7 +3888,7 @@ def hr_courier_medicine(request):
 	# medicine_not_issued = Appointment.objects.filter(Q(patientid__branch=data_branch) &Q(date=date.today()) & Q(doctor_notification=True) & Q(medicine_flag=False) & Q(stat="Courier Medicine")).count()
 	medicine_issued = Appointment.objects.filter(Q(patientid__branch=data_branch) & Q(date=date.today()) & Q(doctor_notification=True) & Q(medicine_flag=True) & Q(stat="Courier Medicine")).count()
 	
-	return render(request , 'hr_courier_medicine_newone.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,
+	return render(request , 'hr_courier_medicine_newone_adjust.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,
 						       'courier':count_courier,'date':d1,'unsend_mail_count': unsent_mail_count,"new_patient":new_patient,
 							"old_patient":old_patient,'medicine_issued':medicine_issued})
 
@@ -3719,7 +3922,7 @@ def hr_send_mail(request):
 	unsent_mail_count = str(mail_count.count())
 	print('notification------',unsent_mail_count)	
 
-	return render(request , 'hr_send_mail_newone.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,'courier':count_courier,
+	return render(request , 'hr_send_mail_newone_adjust.html' , {'user' : 'H' , 'status' : status,'datas':datas,'general':count_general,'repeat': count_repeat,'courier':count_courier,
 						'unsend_mail_count': unsent_mail_count})
 @csrf_exempt
 def hr_medicine_prescription(request,id):
@@ -3779,7 +3982,7 @@ def hr_medicine_prescription(request,id):
 
 	data2 =prescription.objects.filter(patientid__id=id,date=date.today()).first()
 	# print("data2---",data2.medicine,data2.flag)
-	return render(request,'hr_medicine_prescription_newone.html',{'user':'H','status':status,'data':data,'data1':data1,'name':patient_name,"data2":data2,
+	return render(request,'hr_medicine_prescription_newone_adjust.html',{'user':'H','status':status,'data':data,'data1':data1,'name':patient_name,"data2":data2,
 							'case':patient_case,'id':patient_id,'balance':str(bal),'general':count_general,"pat":patient,'data_extra':data_extra,
 							'repeat': count_repeat,'courier':count_courier,"next_visit":next_visit,'unsend_mail_count': unsent_mail_count,"date":today})
 @csrf_exempt
@@ -3895,7 +4098,7 @@ def hr_medicine_payment(request,id):
 		med_charges = total_amt - price.new_case
 	else:
 		med_charges = total_amt
-	return render(request,'hr_medicine_payment_newone.html',{'user':'H','status':status ,'patient':patient,'x':x,'data_extra':data_extra,'old_consult':old_consult,
+	return render(request,'hr_medicine_payment_newone_adjust.html',{'user':'H','status':status ,'patient':patient,'x':x,'data_extra':data_extra,'old_consult':old_consult,
 						   'id':id,'bal':bal ,'total_clearance':total_clearance,'app_stat':app.stat,'form':form,"unsend_mail_count":unsent_mail_count,"extra_med":total_extra_med,
 						   'general':count_general,'repeat': count_repeat,'courier':count_courier,"next_visit":next_visit,"date":today,"med_charges":med_charges,"consult_charges":price.new_case})
 @csrf_exempt
@@ -4245,7 +4448,7 @@ def repeat_med_details(request,user):
 	row_ones = p.get_page(page)
 	# datas = p.get_page(page)
 	d1 = date.today()
-	return render(request , 'repeat_med_details_new.html' , {'user':user, "status": status , "Total" : len(row) ,
+	return render(request , 'repeat_med_details_new_adjust.html' , {'user':user, "status": status , "Total" : len(row) ,
 															"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients,'row_one':row_ones,'date':d1})
 
 @csrf_exempt
@@ -4756,7 +4959,7 @@ def doc_courier_medicine(request):
 	unsent_mail_count = mail_count.count()
 	print('notification------',unsent_mail_count)
 	
-	return render(request,'doc_courier_medicine_newone.html',{'user':'D','status':status,'datas':datas,
+	return render(request,'doc_courier_medicine_newone_adjust.html',{'user':'D','status':status,'datas':datas,
 						    'count_general_dom':count_general_dom,'count_general_mul':count_general_mul,
 							'count_repeat_dom':count_repeat_dom,'count_repeat_mul':count_repeat_mul,
 							'count_courier_dom':count_courier_dom,'count_courier_mul':count_courier_mul,
@@ -4796,7 +4999,7 @@ def courier_medicine(request,user):
 	page = request.GET.get('page')
 	row_ones = p.get_page(page)
 	d1= date.today()
-	return render(request , 'courier_medicine_new.html' , {'user':user, "status": status , "Total" : len(row) ,
+	return render(request , 'courier_medicine_new_adjust.html' , {'user':user, "status": status , "Total" : len(row) ,
 															"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients,'row_one':row_ones,
 															'date': d1})
 
@@ -4859,7 +5062,7 @@ def old_prescription(request,user):
 		
 	form = PrescriptionOldUploadForm()
 	patient_names = Patient.objects.filter(branch = recep.branch)
-	return render(request,'old_prescription_new.html',{'status':status,'user':user,'form':form,"patient_names":patient_names})
+	return render(request,'old_prescription_new_adjust.html',{'status':status,'user':user,'form':form,"patient_names":patient_names})
 
 
 """"STOCK MANAGEMENT CODE """
@@ -7647,48 +7850,23 @@ def edit_home_page(request):
 	if request.user:
 		status = request.user
 
-
 	appointmentform = ForAppointmentHomePageForm(request.POST or None, request.FILES or None)
 	if appointmentform.is_valid():
 		appointmentform.save()
-		messages.success(request,'Successfully Added')
+		messages.success(request,'Successfully Added a Branch')
 		return redirect('edit_home_page')
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_mul = str(general_mul.count())
-		
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = mail_count.count()
-
 	branches_details = ForAppointmentHomePage.objects.all()
 
 	portfolio_images = OurPortfolioImages.objects.all()
 	context = {
 		'status':status,
-		'user': 'D',
-		'count_general_dom':count_general_dom,
-		'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-		'count_repeat_mul':count_repeat_mul,
-		'count_courier_dom':count_courier_dom,
-		'count_courier_mul':count_courier_mul,
-		'unsend_mail_count': unsent_mail_count,
+		'user': 'D',		
 		'appointmentform':appointmentform,
 		'branches_details':branches_details,
 		'portfolio_images' : portfolio_images,
 	}
 		
-	return render(request,'edit_home_page.html',context)
+	return render(request,'edit_home_page_adjust.html',context)
 
 @csrf_exempt
 def update_branch_numbers(request,pk):
@@ -7771,6 +7949,7 @@ def items_inventory_home(request):
 				'search_form':search_form,
 				'branch':find_branch.branch,
 				
+				
 			}
 	except:
 		context = {
@@ -7788,7 +7967,7 @@ def items_inventory_home(request):
 
 		}
 
-	return render(request, 'COMMON_APP/items_inventory_home.html',context)
+	return render(request, 'COMMON_APP/items_inventory_home_adjust.html',context)
 
 @csrf_exempt
 def issue_items_inventory(request,id):
@@ -8119,39 +8298,17 @@ def approve_items_doctor(request,branch):
 		if item:
 			filtered_items_inventory = filtered_items_inventory.filter(item__item_name__icontains= item)
 	
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_mul = str(general_mul.count())
-		
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = mail_count.count()
+	
 
 	context = {
 		'status':status,
 		'user':'D',
 		'filtered_items_inventory':filtered_items_inventory,
-		'search_form':search_form,
-		'count_general_dom':count_general_dom,
-		'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-		'count_repeat_mul':count_repeat_mul,
-		'count_courier_dom':count_courier_dom,
-		'count_courier_mul':count_courier_mul,
-		'unsend_mail_count': unsent_mail_count,
+		'search_form':search_form,		
 		'branch':branch,
 	}
 
-	return render(request,'COMMON_APP/approve_items_doctor.html',context)
+	return render(request,'COMMON_APP/approve_items_doctor_adjust.html',context)
 
 @csrf_exempt
 def approve_flag_new_items(request,id):
@@ -8308,7 +8465,7 @@ def medicines_inventory_home(request):
 
 	
 	
-	return render(request,'COMMON_APP/medicines_inventory_home.html',context)
+	return render(request,'COMMON_APP/medicines_inventory_home_adjust.html',context)
 
 @csrf_exempt
 def add_medicines_potency(request):
@@ -8431,6 +8588,7 @@ def reorder_medicine(request,id):
 		instance.save()
 		messages.success(request, "Reorder level for " + str(instance.medicine) + " is updated to " + str(instance.reorder_level))
 		return HttpResponseRedirect(reverse('reorder_medicine',kwargs={'id':id}))
+	
 	context = {
         'form':form,
         'queryset':queryset,
@@ -8601,24 +8759,7 @@ def approve_medicines_doctor(request,branch):
 	if request.user:
 		status = request.user
 
-		
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))		
-	count_general_mul = str(general_mul.count())
-		
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = mail_count.count()
-
+	
 	medicine_stock = MedicinePotencyStock.objects.filter(branch=branch)
 	search_form = MedicinePotencyStockSearchForm(request.GET)
 	filtered_medicine_stock = medicine_stock
@@ -8634,19 +8775,12 @@ def approve_medicines_doctor(request,branch):
 	context = {
 		'status' : status,
 		'user' : 'D',
-		'branch' : branch,
-		'count_general_dom':count_general_dom,
-		'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-		'count_repeat_mul':count_repeat_mul,
-		'count_courier_dom':count_courier_dom,
-		'count_courier_mul':count_courier_mul,
-		'unsend_mail_count': unsent_mail_count,
+		'branch' : branch,		
 		'filtered_medicine_stock': filtered_medicine_stock,
         'search_form': search_form,
 	}
 
-	return render(request,'COMMON_APP/approve_medicines_doctor.html',context)
+	return render(request,'COMMON_APP/approve_medicines_doctor_adjust.html',context)
 
 @csrf_exempt
 def approve_flag_new_medicine(request,id):
@@ -8782,24 +8916,7 @@ def balance_list(request,branch):
 	if request.user:
 		status=request.user
 
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-	count_general_mul = str(general_mul.count())
-    
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-    
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
-
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = mail_count.count()
-
+	
 	patient_details = Patient.objects.filter(branch=branch)
 
 	balance_due_list = []
@@ -8866,20 +8983,13 @@ def balance_list(request,branch):
 	# zipped_list = zip(balance_due_list, [balance.appointment_type for balance in balance_due_list])
 	context = {
 		'status':status,
-		'user':'D',
-		'unsend_mail_count': unsent_mail_count,
-		'count_general_dom':count_general_dom,
-		'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-		'count_repeat_mul':count_repeat_mul,
-		'count_courier_dom':count_courier_dom,
-		'count_courier_mul':count_courier_mul,
+		'user':'D',		
 		'branch':branch,
 		# 'balance_due_list':balance_due_list,
 		'zipped_list':zipped_list,
 	}
 
-	return render(request,'COMMON_APP/balance_list.html',context)
+	return render(request,'COMMON_APP/balance_list_adjust.html',context)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class Balance_list_pdf(View):
@@ -9048,7 +9158,7 @@ def homeo_book(request):
 	}
 
 
-	return render(request,'COMMON_APP/homeo_book.html',context)
+	return render(request,'COMMON_APP/homeo_book_adjust.html',context)
 
 @csrf_exempt
 def homeo_book_update(request,id):
@@ -9121,7 +9231,7 @@ def homeo_book_disease(request):
 		'disease_detail':disease_detail,
 	}
 
-	return render(request,'COMMON_APP/homeo_book_disease.html',context)
+	return render(request,'COMMON_APP/homeo_book_disease_adjust.html',context)
 
 @csrf_exempt
 def homeo_book_update_disease(request,id):
@@ -9194,7 +9304,7 @@ def home_book_redline_symptoms(request):
 		'disease_detail':disease_detail,
 	}
 
-	return render(request,'COMMON_APP/redline_symptoms.html',context)
+	return render(request,'COMMON_APP/redline_symptoms_adjust.html',context)
 
 @csrf_exempt
 def homeo_book_update_redline(request,id):
@@ -9530,25 +9640,7 @@ def doctor_diagnose_history(request):
 	status = False
 	if request.user:
 		status =  request.user
-
-	general_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-	count_general_dom = str(general_dom.count())
-	general_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = False))
-	count_general_mul = str(general_mul.count())
-
-	repeat_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_dom = str(repeat_medicine_dom.count())
-	repeat_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = False))
-	count_repeat_mul = str(repeat_medicine_mul.count())
-
-	courier_medicine_dom = Appointment.objects.filter(Q(patientid__branch = 'Dombivali') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_dom = str(courier_medicine_dom.count())
-	courier_medicine_mul = Appointment.objects.filter(Q(patientid__branch = 'Mulund') & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = False))
-	count_courier_mul = str(courier_medicine_mul.count())
 	
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False))
-	unsent_mail_count = mail_count.count()
-
 	query = request.GET.get('query')
 
 	if query:    
@@ -9557,23 +9649,14 @@ def doctor_diagnose_history(request):
 	else:
 		data = ""
 
-	
-
 	context = {
 		'status':status,
-		'user':'D',
-		'count_general_dom':count_general_dom,
-        'count_general_mul':count_general_mul,
-		'count_repeat_dom':count_repeat_dom,
-        'count_repeat_mul':count_repeat_mul,
-		'count_courier_dom':count_courier_dom,        
-        'count_courier_mul':count_courier_mul,
-		'unsend_mail_count':unsent_mail_count,
+		'user':'D',		
 		'data':data,
 		
 	}
 
-	return render(request,'COMMON_APP/doctor_diagnose_history.html',context)
+	return render(request,'COMMON_APP/doctor_diagnose_history_adjust.html',context)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class Doctor_diagnose_pdf(View):

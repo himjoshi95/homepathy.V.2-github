@@ -11,22 +11,46 @@
     <meta name="generator" content="Jekyll v3.8.6">
     <title>Balance List PDF</title>
     <style>
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+      .header-past {
+        font-family: helvetica;
+        color: black;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+        text-decoration:underline;        
+    }
+               
+    .table-pdf {
+      width: 80%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      border: 1px solid black;
+      font-size:10px;
+    }
     
-        table, th, td {
-            border: 1px solid black;
-            
-        }
+    /* Table cells and spacing */
+    .table-pdf th,
+    .table-pdf td {
+      padding: 5px;
+      border-bottom: 1px solid black;
+      width:200px;
+    }
     
-        th, td {
-            padding: 9px; /* Add space around the content of table cells */
-            
-            font-size: 14px;
-        }
+    /* Table headers */
+    .table-pdf th {
+      background-color: #f2f2f2; /* Light gray background for headers */
+      font-weight: bold;
+      text-align: left;
+    }
+    
+    /* Alternating row colors */
+    .table-pdf tr:nth-child(even) {
+      background-color: #f9f9f9; /* Lighter gray for even rows */
+    }
+    
     </style>
    
 
@@ -40,9 +64,9 @@
   <div class="jumbotron">
     
 
-    <span style="font-size:40px; text-align:center;">Balance List {{branch}}</span>
+    <div class="header-past">Balance List {{branch}}</div>
 
-    <table class="table" >    
+    <table class="table-pdf" >    
         <thead>       
             <tr  >
             <th>COUNT</th>
@@ -61,7 +85,7 @@
             <td >{{balance.patient.case}}</td>
             <td > {{balance.patient.phone}}</td>
             <td >{{appointment.stat}}</td>
-            <td >{{appointment.date}}</td>
+            <td class="dateElement" >{{appointment.date}}</td>
             <td style="text-align:center;"><b>Rs {{balance.balance_amt}}</b></td>
            
 
@@ -73,6 +97,29 @@
   </div>
 	
 </main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // Get all elements with the specified class
+      var dateElements = document.getElementsByClassName("dateElement");
+  
+      // Iterate through each element
+      for (var i = 0; i < dateElements.length; i++) {
+          // Get the current date value
+          var currentDate = dateElements[i].innerText;
+  
+          // Split the date into parts
+          var parts = currentDate.split("-");
+  
+          // Rearrange the parts into the DD-MM-YY format
+          var formattedDate = parts[2] + "/" + parts[1] + "/" + parts[0].substring(2);
+  
+          // Update the element with the new format
+          dateElements[i].innerText = formattedDate;
+      }
+  });
+  </script>
+
 
 </body>
 </html>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>Medicine Stock Details</title>
+    <title>Investigations PDF</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
 
@@ -33,10 +33,7 @@
           font-size: 3.5rem;
         }
       }
-      body {
-        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
-        background-size: 100%;
-        } 
+      
     </style>
     <!-- Custom styles for this template -->
     <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
@@ -49,23 +46,142 @@
 
 
 <main role="main" class="container">
-    <img style="width:1000px;" src="./dashboard/document/header_pdf.jpg" />
+    <img style="width:1000px; margin-bottom:30px;" src="./dashboard/document/header_pdf.jpg" />
   
   <div class="jumbotron">
     
-	<h1 style="font-size:25px; text-align:center;">{{header}}</h1>
-    <hr>
-    <p style="font-size:18px"> <b>Name:</b> {{patient_details.name}}</p>
-            
-            
-    <p style="font-size:18px"><b>Case Paper Number:</b> {{patient_details.case}}</p><hr>
+	
+ 
+    <table class="table-one" style ="margin-top:20px;">     
+      <tr>
+         
+          
+          <td style="text-align:left; font-size:14px; width:200px;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+          
+          
+          <td></td>
+          <td></td>
+          <td style="text-align:left;font-size:14px;"><b>Date :</b>&nbsp;{{today|date:"d/m/Y"}}</td>
+          
+          
+      </tr>   
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
 
-    
+      </tr>     
+      
+      <tr style="margin-top:20px;">
+          <td style="text-align:left;font-size:14px;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+          
+          <td style="text-align:left;font-size:14px;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+         
+          <td style="text-align:left;font-size:14px;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+          {% if patient_details.height %}
+          <td  style="text-align:left;font-size:14px;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+          {% else %}
+          <td></td>
+          {% endif %}
+          <td  style="text-align:left;font-size:14px;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+            {{patient_details.weight}} Kgs
+
+            {% else %}
+                -
+            {% endif %}
+          
+          
+          </td>
+          
+          
+      </tr>
+      <tr style="margin-top:20px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>  
+      
+      <tr style="margin-top:20px;" >
+        <td style="text-align:left;font-size:14px;"><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+        <td></td>
+        <td style="text-align:left;font-size:14px;"><b>Contact Number :</b> {{patient_details.phone}}</td>
+      </td></td>
+      <td></td>
+
+
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>  
+
+      <tr style="margin-top:20px;">
+        <td style="text-align:left;font-size:14px;"><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+        <td style="text-align:left;font-size:14px;"><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+        
+        <td style="text-align:left;font-size:14px;"><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+        <td></td>
+        <td></td>
+
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>  
+
+      <tr style="margin-top:20px;">
+        <td style="text-align:left;font-size:14px;"><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+        <td></td>
+        <td style="text-align:left;font-size:14px;"><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+        <td></td>
+        <td></td>
+
+      </tr> 
+      
+      <tr style="margin-top:20px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>
+
+      <tr style="margin-top:20px;">
+        <td style="text-align:left;font-size:14px;"><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+      </tr>
+
+     
+ 
+</table>
+     
+  </div>
+  <hr style="border: 0.3px solid black;">
+  
 	    
         <div class="pdf">
             {% if len_one != 0 %}
 
-                <h3 style="font-size: 17px;">INVESTIGATION ADVISED</h3>
+                <h3 style="font-size: 17px;margin-top:30px;"><u>INVESTIGATION ADVISED</u></h3>
                 {% for m in my_list_one %}
                 <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
                 {% endfor %}
@@ -73,50 +189,50 @@
             
             {% endif %}
 
-        <br>
+     
         
             {% if len_two != 0 %}
 
-                <h3 style="font-size: 17px;">ULTRA-SONOGRAPHY</h3>
+                <h3 style="font-size: 17px;margin-top:30px;"><u>ULTRA-SONOGRAPHY</u></h3>
                 {% for m in my_list_two %}
                 <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
                 {% endfor %}
        
             {% endif %}
 
-        <br>
+       
         {% if len_three != 0 %}
 
-            <h3 style="font-size: 17px;">DOPPLER STUDIES</h3>
+            <h3 style="font-size: 17px;margin-top:30px;"><u>DOPPLER STUDIES</u></h3>
             {% for m in my_list_three %}
             <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
             {% endfor %}
         
         {% endif %}
 
-        <br>
+      
         {% if len_four != 0 %}
 
-            <h3 style="font-size: 17px;">OBSTETRICS (PREGNANCY)</h3>
+            <h3 style="font-size: 17px;margin-top:30px;"><u>OBSTETRICS (PREGNANCY)</u></h3>
             {% for m in my_list_four %}
             <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
             {% endfor %}       
         {% endif %}
-        <br>
+        
 
         {% if len_five != 0 %}
 
-            <h3 style="font-size: 17px;">SONOGRAPHY</h3>
+            <h3 style="font-size: 17px;margin-top:30px;"><u>SONOGRAPHY</u></h3>
             {% for m in my_list_five %}
             <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
             {% endfor %}
         
           {% endif %}
 
-          <br><br><br>
+         
           {% if len_six != 0 %}
 
-            <h3 style="font-size: 17px;">16 Slice C.T. Scan</h3>
+            <h3 style="font-size: 17px;margin-top:30px;"><u>16 Slice C.T. Scan</u></h3>
                 {% for m in my_list_six %}
                 <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
                 {% endfor %}
@@ -124,10 +240,10 @@
           {% endif %}
 
 
-          <br>
+          
           {% if len_seven != 0 %}
 
-            <h3 style="font-size: 17px;">1.5 Tesla MRI Scan</h3>
+            <h3 style="font-size: 17px;margin-top:30px;"><u>1.5 Tesla MRI Scan</u></h3>
             {% for m in my_list_seven %}
             <p style = "font-size:15px; margin:left:20px;"> {{m}} <p>
             {% endfor %}

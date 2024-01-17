@@ -1,0 +1,144 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Case Paper Images</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">  
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+       
+        
+        .form-label:after {
+            content:" *";
+            color: red;
+          }
+          button{
+                width: 200px;
+                height:40px;
+                border-radius: 10px!important;
+                margin-left: 0px;
+                color:white;
+                font-weight:bolder;
+                background:#3498db;
+                font-size:15px;
+                margin-left: 110px;
+                }
+            .already{
+              margin-left:80px;
+              font-size:12px;
+        
+            }
+            
+        
+            select{
+                height:30px;
+                width: 460px!important;
+                border-radius: 5px!important;
+                border: 1px solid black;
+            }
+        
+            @media (max-width: 768px){
+                select{
+                    height:30px;
+                    width: 330px!important;
+                    border-radius: 5px!important;
+                    border: 1px solid black;
+                }
+                button{
+                    width: 200px;
+                    height:40px;
+                    border-radius: 10px!important;
+                    margin-left: 0px;
+                    color:white;
+                    font-weight:bolder;
+                    background:#3498db;
+                    font-size:15px;
+                    margin-left: 50px;
+                    }
+                .already{
+                  margin-left:20px;
+                  font-size:12px;
+            
+                }
+            
+        
+            }
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        
+</head>
+
+<body>
+    {% include 'nav_adjust.html' %}
+    <br><br><br><br><br><br><br><br><br>
+   
+    <div class=container>
+      {% if messages %}
+		{% for message in messages %}
+		<div class="success">
+			<i class="fa fa-bell"></i>
+		   {{ message}}
+		</div>
+		{% endfor %}
+	{% endif %}
+    </div>
+  <br>
+  <section class="home" id="home">
+  <div class="card-app" >
+    
+    <span class="heading-new" >Upload New Case Paper Images</span>
+    <div class="line-new"></div>
+    <br><br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+       
+        <label>{{field.label}}</label>    
+        <div class="col-sm-8">
+            {{ field }}
+        </div>
+    </div>           
+        {% endfor %}    
+        <br>
+        <button type="submit">Upload</button>     
+        <!-- <input type="Submit" class="btn btn-danger btn-lg" value = "Upload"> -->
+    </form>
+  </div>
+
+</section>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+<script>
+    $(document).ready(function () {
+        $('#id_patient').select2();
+
+    });
+</script>
+  
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+   
+</body>
+</html>

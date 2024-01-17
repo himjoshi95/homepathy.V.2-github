@@ -63,7 +63,7 @@
     <br>
     <a href= "{% url 'investigation_newone' id %}" class="btn btn-primary btn-lg" >Go Back</a>
     {% if len_one != 0 or len_two != 0 or len_three != 0 and len_four != 0 and len_five != 0 and len_six != 0 and len_seven != 0  %}
-    <a href= "{% url 'investigation_pdf' id %}" style="margin-left:880px;" class="btn btn-success btn-lg" >Generate PDF</a>
+    <a href= "{% url 'investigation_pdf' id %}" style="margin-left:880px;" class="btn btn-success btn-lg" ><i class="fa-solid fa-file-pdf"></i> Generate PDF</a>
     {% else %}
     <br><br>
     <h3 style="text-align:center; color:brown;"> No Records Found<h3>

@@ -1,212 +1,155 @@
-
 {% load static %}
-{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.6">
-    <title>View Patient's Images</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>Patient's Uploaded Image</title>
+   <style>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-fixed/">
-
-    <!-- Bootstrap core CSS -->
-<link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
-<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-   
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      body {
-        background: url("/static/images/home_img.jpg") 10% 0 no-repeat fixed;
-        background-size: 100%;
-        }
+    .box {
+      width: 400px;
+      height: 110px;
+      border: 1px solid white;
+      padding: 10px;
+      margin-top: 50px;
+      display: flex;
+      column-gap: 50px;
+      border-radius: 25px;
+      background: #dae5f4;
+    }
+    .box1{
+      height: 100px;
+      width:100px;
       
-        .anch{
-          background-color: white;
-          color: darkblue;          
-          border: 1px solid blue;
-          padding: 2px 60px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-        }
-        .anch:hover, .anch:active {
-          background-color: lightblue;
-          color: white;
-        }
-        .anch1{
-          background-color: orange;
-          color: white;          
-          border: 1px solid blue;
-          padding: 2px 65px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-        }
-        .anch1:hover, .anch1:active {
-          background-color: white;
-          color:orange;
-        }
-        .reorder{
-          background-color: #90EE90;
-          color: white;          
-          border: 1px solid blue;
-          padding: 10px 10px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-        }
-        .check{
-          background-color: #FED8B1;
-          color: white;          
-          border: 1px solid blue;
-          padding: 10px 10px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-        }
-
-        .header1{
-            font-family: helvetica;
-            color: #337ab7;
-            font-size: 30px;
-            text-align: center;
-            width: 100%;
-            text-shadow: 6px 6px 6px #c9c6c6;
-            display: block;
-            font-weight: bolder;
-        }
-        .header2{
-            font-family: helvetica;
-            color: #337ab7;
-            font-size: 30px;
-            margin-left:320px;
-            width: 100%;
-            text-shadow: 6px 6px 6px #c9c6c6;
-            display: block;
-            font-weight: bolder;
-        }
-        
-        .box {
-            width: 300px;
-            height: 110px;
-            border: 1px solid white;
-            padding: 10px;
-            margin: 10px;
-            display: flex;
-            column-gap: 50px;
-            border-radius: 25px;
-            background: #dae5f4;
-          }
-          .box1{
-            height: 100px;
-            width:100px;
-            
-          }
-          .box2{
-            height: 100px;
-            width:500px;
-            
-          }
-          .img1{
-            border-radius: 58%;
-        }
-
-        .dropbtn {
-            background-color:#6495ED;
-            color: white;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-          }
-          
-          .dropdown {
-            position: relative;
-            display: inline-block;
-          }
-          
-          .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #f9f9f9;
-            min-width: 250px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-          }
-          
-          .dropdown-content a {
-            color: black;
-            padding: 5px 8px;
-            text-decoration: none;
-            display: block;
-          }
-          
-          .dropdown-content a:hover {background-color: #6495ED;}
-          .dropdown:hover .dropdown-content {display: block;}
-          .dropdown:hover .dropbtn {background-color: #0047AB;}
+    }
+    .box2{
+      height: 100px;
+      width:500px;
       
-          .btn1{
-            width: 516px
-          }
-          
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="{% static 'css/navbar-top-fixed.css' %}" rel="stylesheet">
+    }
+    .img-pic{
+      border-radius: 58%;
+  }
+ 
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 35px;
+      text-align: center;
+      width: 100%;
+      margin-top: 0px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;
+  }   
+ 
+    
+    .scrolling-div::-webkit-scrollbar{
+      width: .8rem;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-thumb{
+      background: 	#6495ED;
+      border-radius: .5rem;
+    }
+     
+  
+
+  @media (max-width: 768px){
+      
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 30px;
+      text-align: center;
+      width: 100%;
+      margin-top: 16px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;        
+  }  
+  
+  .box {
+    width: 320px;
+    height: 110px;
+    border: 1px solid white;
+    padding: 10px;
+    margin-top: 50px;
+    display: flex;
+    column-gap: 50px;
+    border-radius: 25px;
+    background: #dae5f4;
+  }
+  .box1{
+    height: 100px;
+    width:100px;
+    
+  }
+  .box2{
+    height: 100px;
+    width:500px;
+    
+  }
+
+
+}  
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
   </head>
+
   <body>
-    {% comment %} {% include 'nav.html' %}      {% endcomment %}
+    
+   
+    
 
-<main role="main" class="container">
-  {% if messages %}
-  <ul class="messages">
-         {% for message in messages %}
-               <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-         {% endfor %}
- </ul>
-{% endif %}
-<br>
-<div class="box">
-    <div class="box1">
-      {% if patient_details.patient_images %}
-      <img src="{{patient_details.patient_images.url}}" class="img1" alt="Avatar" width="70" height="90" border="5">
+        
+    <main role="main" class="container">
+
+      <div class="box">
+        <div class="box1">
+          {% if patient.patient_images %}
+          <img src="{{patient.patient_images.url}}" class="img-pic" alt="Avatar" width="70" height="90" border="5">
+          
+    
+            {% else %}
+            <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
+            {% endif %}
+        </div>
+        <div class="box2" style="color:black; font-size:20px">
+         <p style="font-size:18px;"><b> {{patient.name}} </b></p>
+         <hr style="background-color:blue;">
+         <h4>Case PaperNo. {{patient.case}}</h4>
+         <h4>Contact No. {{patient.phone}}</h4>
+          
+        </div>
+      </div>
+
+      <br>
+      <div class="jumbotron" style="margin-top:0px;">
+
+        <a href="{% url 'apointmentDetails' id final_token %}" class="btn btn-primary" > <i class="fa fa-angle-double-left"></i> Go Back</a><hr>
+          
+      <div class="header-past">Patient's Image </div>
+     <br>
+     
       
-
-        {% else %}
-        <p style="background-color:white; text-align:center;"><b>Photo Not Uploaded</b></p>
-        {% endif %}
-    </div>
-    <div class="box2" style="color:black; font-size:20px">
-     <h5> {{patient_details.name}}</h5>
-     <hr style="background-color:blue;">
-     <h5> {{patient_details.case}}</h5>
       
-    </div>
-  </div>
-  <br>
-  <div class="jumbotron">
-    <div class="header">Patient's Images</div>
-    <hr>
-
     <div class="row">
         {% for x in datas %}
         <div class="col-sm-4">

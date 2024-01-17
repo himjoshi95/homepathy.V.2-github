@@ -1,0 +1,472 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>General Medicine Today</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+<style> 
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+     /* SEND MAIL BUTTON  */
+.cssbuttons-io-button {
+    background:#f08080	;
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em #f08080	;
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+  }
+  
+  .cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #f08080	;
+    right: 0.3em;
+    transition: all 0.3s;
+  }
+  
+  .cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+  }
+  
+  .cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #f08080	;
+  }
+  
+  .cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+  }
+  
+  .cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+  }
+  
+  /* MAIL SENT BUTTON  */
+  .cssbuttons-io-button1 {
+    background: 	#008000;
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em  #b22222;
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+  }
+  .cssbuttons-io-button1 .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #b22222;
+    right: 0.3em;
+    transition: all 0.3s;
+  }
+  
+  .cssbuttons-io-button1:hover .icon {
+    width: calc(100% - 0.6em);
+  }
+  
+  .cssbuttons-io-button1 .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color:#b22222;
+  }
+  
+  .cssbuttons-io-button1:hover .icon svg {
+    transform: translateX(0.1em);
+  }
+  
+  .cssbuttons-io-button1:active .icon {
+    transform: scale(0.95);
+  }
+  .reorder{
+    background-color: #FFE87C;
+    color: white;          
+    border: 1px solid blue;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .check{
+    background-color:#AAFF00;
+    color: white;          
+    border: 1px solid blue;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+    .complete{
+      background-color: #FED8B1;
+      color: white;          
+      border: 1px solid blue;
+      padding: 10px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn11{
+      width:230px;
+      margin-left:80px;
+    }
+
+  
+
+    
+
+    @media (max-width: 768px){
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+
+    .btn11{
+      width:230px;
+      margin-left:0px;
+    }
+
+     
+    
+}
+
+  
+    
+    
+  
+
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+    <main role="main" class="container">
+
+        <div class="jumbotron" style="margin-top:150px;">
+
+          <hr  style="border:  1px solid lightblue;">
+          {% if general == '0' %}
+          <a href="{% url 'hr_accounting'  %}" class="btn btn-primary btn11" >General</a>
+          {% else %}
+          <a href="{% url 'hr_accounting'  %}" class="btn btn-primary btn11" >General<span class="total-two"><b>{{general}}</b></span></a>
+          {% endif %}
+      
+          {% if repeat == '0' %}
+          <a href="{% url 'hr_repeat_medicine' %}" class="btn btn-primary btn11" > Repeat Medicine</a>
+          {% else %}
+          <a href="{% url 'hr_repeat_medicine' %}" class="btn btn-primary btn11"> Repeat Medicine<span class="total-two"><b>{{repeat}}</b></span></a>
+          {% endif %}
+      
+          {% if courier == '0' %}
+          <a href="{% url 'hr_courier_medicine' %}" class="btn btn-primary btn11" > Courier Medicine</a>  
+          {% else %}
+          <a href="{% url 'hr_courier_medicine' %}" class="btn btn-primary btn11" > Courier Medicine<span class="total-two"><b>{{courier}}</b></span></a>  
+          {% endif %}
+          <hr style="border:1 px solid lightblue;">
+
+            <div class="header-past">General Medicine Details</div>
+            <hr>
+            <form>
+                <input name="query" type="text" style="height:50px;" class="form-control" placeholder="Search for Patient's Name/Case Paper No./Mobile No." value="{{request.GET.query}}">
+                <br>
+                <button class="btn btn-secondary" style="height:45px;">Search <i class="fa fa-search"></i></button>
+                <a href="{% url 'hr_accounting'  %}" class="btn btn-dark btn-sm" style="margin-left:9px; height:45px;"><span placeholder="Refresh"> Refresh <i class="fa fa-refresh fa-spin" ></i></span></a>
+        </form>
+        <hr>
+        <p style="font-size:20px; margin-left:5px;"><b>DATE : {{date|date:"d M Y"}} </b></p>
+        <br>
+            <div class="table-responsive">
+
+                <table class='table'>
+                    <thead>
+                      <tr>
+                        
+                         
+                        <th style="font-size:16px;">CASE PAPER NO.</th>
+                        <th style="font-size:16px;">DATE</th>           
+                        <th style="font-size:16px;">PHONE</th>
+                        <th style="font-size:16px;">PATIENT'S NAME</th>
+                        <th style="font-size:16px;">STATUS</th>
+                        <th style="font-size:16px;">BRANCH</th>
+                        <th style="font-size:16px;">DETAILS</th>
+                  <th style="font-size:16px;">MAIL STATUS</th>
+                        
+                        
+                      </tr>
+                    </thead>
+                    {% for data in datas %}  
+            
+                    {% if data.stat == 'General' %}
+                                                                {% comment %} NEW PATIENT {% endcomment %}
+                    {% if data.patientid.flag %}       
+                <tr>  
+            
+                 
+                  <td bgcolor="#FFE87C" style="color: black; font-size: 17px;">{{ data.patientid.case }}</td>
+            
+                  <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.date }}</td>
+                  
+                  <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.patientid.phone }}</td>
+                 
+                  <td  bgcolor=#FFE87C style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+                  
+                  {% if data.stat == 'General' %}
+                    <td scope="row"  bgcolor="#FFE87C" style="color: black; font-size: 17px;" >{{ data.stat }}</td>
+                    {% elif data.stat == 'Repeat Medicine' %}
+                    <td scope="row" >{{ data.stat }}</td>
+                    {% else %}
+                    <td scope="row">{{ data.stat }}</td>
+                    {% endif %}      
+            
+                  <td style="color: black; font-size: 17px;" bgcolor=#FFE87C>{{ data.patientid.branch }}</td>
+                  
+            
+                  <td  bgcolor=#FFE87C><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-warning btn-lg">Details</a></td>
+                  
+                  <td bgcolor=#FFE87C><p style="padding: 5px; border: 2px solid orange; background:white; color:orange;"><b> NOT ACTIVE </b></p></td> 
+                 
+                </tr>
+                {% else %}
+            
+                {% if data.doctor_notification == True and data.notification_flag ==  False %}
+            
+                <tr>    
+                
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;" scope="row">{{ data.patientid.case }}</td>
+                  <!-- <td scope="row">{{ data.date }}</td> -->
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.date }}</td>
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.patientid.phone }}</td>
+                  
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+                  
+            
+                  {% if data.stat == 'General' %}
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;" scope="row" >{{ data.stat }}</td>
+                  {% elif data.stat == 'Repeat Medicine' %}
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+                  {% else %}
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+                  {% endif %}
+            
+                  
+            
+                  <td bgcolor=#00ff7f; style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+                  
+                  <td bgcolor=#00ff7f;><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-primary">Details</a></td>
+                  
+                  <td bgcolor=#00ff7f;><p style="padding: 5px; border: 2px solid darkgreen; background:white; color:darkgreen;"><b> NOT ACTIVE </b></p></td>
+            
+                </tr>
+            
+                {% elif data.doctor_notification == True and data.notification_flag == True %}
+            
+                <tr>
+                 
+                
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;" scope="row">{{ data.patientid.case }}</td>
+                  <!-- <td scope="row">{{ data.date }}</td> -->
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"> {{ data.date }}</td>
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"> {{ data.patientid.phone}}</td>
+                 
+                  <td bgcolor="#FED8B1"  style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+                  
+            
+                  {% if data.stat == 'General' %}
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;" scope="row" >{{ data.stat }}</td>
+                  {% elif data.stat == 'Repeat Medicine' %}
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+                  {% else %}
+                  <td bgcolor="#FED8B1"  style="color: black; font-size: 17px;"scope="row" >{{ data.stat }}</td>
+                  {% endif %}
+            
+                  
+            
+                  <td bgcolor="#FED8B1" style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+                  
+                  <td bgcolor="#FED8B1" ><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-primary">Details</a></td>
+                   
+                  {% if data.email_flag %}
+            
+                  <td bgcolor=#FED8B1><a href="{% url 'send_mail_general_repeat' id=data.id %}"> <button class="cssbuttons-io-button1"> Mail Sent
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    </div>
+                  </button> </a></td>
+            
+                  {% else %}
+            
+                  <td bgcolor=#FED8B1><a href="{% url 'send_mail_general_repeat' id=data.id %}"> <button class="cssbuttons-io-button">Send Mail
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    </div>
+                  </button> </a></td>
+            
+                {% endif %}
+            
+                  
+                </tr>
+                
+                {% else %}
+            
+                <tr>
+                 
+               
+                  <td scope="row"  style="color: black; font-size: 17px;">{{ data.patientid.case }}</td>
+                  <!-- <td scope="row">{{ data.date }}</td> -->
+                  <td  style="color: black; font-size: 17px;"> {{ data.date }}</td>
+                  <td  style="color: black; font-size: 17px;"> {{ data.patientid.phone}}</td>
+                  {% if user == 'P' %}
+                  <td  style="color: black; font-size: 17px;"> {{ data.docterid.name }} </td>
+                  {% else %}
+                  <td  style="color: black; font-size: 17px;"> {{ data.patientid.name }} </td>
+                  {% endif %}
+            
+                  {% if data.stat == 'General' %}
+                  <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+                  {% elif data.stat == 'Repeat Medicine' %}
+                  <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+                  {% else %}
+                  <td scope="row"  style="color: black; font-size: 17px;">{{ data.stat }}</td>
+                  {% endif %}
+                 
+            
+                  <td  style="color: black; font-size: 17px;">{{ data.patientid.branch }}</td>
+                 
+                  <td  ><a href="{% url 'hr_medicine_prescription' id=data.patientid.id %}" class="btn btn-success btn-lg" style="color: antiquewhite;">Details</a></td>
+                    
+                </tr>
+            
+                {% endif %}
+                {% endif %}
+                
+                {% endif %}
+                {% endfor %}
+                </table>
+
+
+            </div>
+            <!--End of display table-->
+            <br><br>
+ <h2>Note :</h2>
+ <br>
+ <p style="font-size:18px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> New Patient  <b style="margin-left:124px">({{new_patient}})</b></p>
+ 
+ {% comment %} <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Appointment Due &nbsp;  <b style="margin-left:38px">({{appointment_due}})</b> </p> {% endcomment %}
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a>   Medicine Not Issued &nbsp;  <b style="margin-left:43px">({{medicine_not_issued}})</b></p>
+
+ <p style="font-size:18px; margin-top:5px;"> <a style="margin-right:10px;" class="complete" href="#"></a>   Medicine Issued &nbsp;  <b style="margin-left:77px">({{medicine_issued}})</b></p>
+
+            
+             <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  {% if datas.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+                  {% endif %}
+                  {% for i in datas.paginator.page_range %}
+                  {% if datas.number == i %}
+                  <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                  {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+                  {% endif %}       
+                  {% endfor%}    
+                  {% if datas.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+
+
+        </div>
+
+    </main>
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+
+</body>
+</html>

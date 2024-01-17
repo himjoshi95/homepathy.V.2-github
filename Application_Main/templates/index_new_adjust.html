@@ -1,0 +1,648 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor's Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+    
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 88%; /* 80% of the width */
+  }
+  
+  .modalone {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content-one {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 88%; /* 80% of the width */
+  }
+  
+  .notification-badge {
+    background-color: #0CAFFF; /* Set your desired background color */
+    color: white;
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 8px 15px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+    
+    .box {
+        width: 400px;
+        height: 100px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 40px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box-new {
+        width: 400px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      img{
+        border-radius: 58%;
+    }
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 45px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+    .sidenav {
+        height:85vh;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 50px;
+        left: 0;
+        background-color: lightblue;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        margin-top:56px;
+        border-radius: 5px;
+       
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size:20px;
+        color:black;
+        display: block;
+        transition: 0.3s;
+      }
+      
+     
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 2px;
+        font-size: 20px;
+        
+      }
+      
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+      /* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+padding: 6px 8px 6px 16px;
+text-decoration: none;
+font-size: 20px;
+color: 1px solid black;
+display: block;
+border: none;
+background: none;
+width:100%;
+text-align: left;
+cursor: pointer;
+outline: none;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+color: #f1f1f1;
+background-color: #20B5AD;
+
+}
+
+/* Add an active class to the active dropdown button */
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+display: none;
+background-color:  #C0C0C0;
+padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+float: right;
+padding-right: 8px;
+}
+.fa-caret-right {
+float: right;
+padding-right: 8px;
+}
+
+.ifr {
+    margin-left:10px;
+    
+}
+
+.card-margins {
+    margin-left:70px;
+}
+
+
+.bg-c-blue {
+    background: linear-gradient(50deg,#2099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    
+}
+
+
+.card .card-block {
+    padding: 20px;
+}
+
+.card .card-block-one {
+  padding: 8px;
+  width: 500px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.mr1 {
+    margin-left:100px;
+}
+
+.mr2 {
+    margin-left:250px;
+}
+
+
+    @media (max-width: 768px){
+    .box {
+        width: 300px;
+        height: 90px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 40px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      
+      .box-new {
+        width: 300px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 80px;
+        width:300px;
+        
+      }
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+    .ifr {
+        margin-left:10px;
+        
+        text-align:left;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Modal content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 20% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+      
+      .modalone {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      
+      /* Modal content */
+      .modal-content-one {
+        background-color: #fefefe;
+        margin: 20% auto; /* 15% from the top and centered */
+        padding: 5px;
+        border: 1px solid #888;
+        width: 85%; /* 80% of the width */
+      }
+      
+      .notification-badge {
+        background-color: #0CAFFF; /* Set your desired background color */
+        color: white;
+        border-radius: 50%;
+        font-size: 20px;
+        padding: 8px 15px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .card-margins {
+        margin-left:0px;
+    }
+
+    
+.mr1 {
+    margin-left:0px;
+}
+
+.mr2 {
+    margin-left:0px;
+}
+     
+    
+}
+
+    .f-left {
+        float: left;
+    }
+    
+    .f-right {
+        float: right;
+    }   
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+    <br><br><br><br><br><br><br><br>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><hr>
+        <!-- <a href="{% url 'create_patient'  %}">Create Patients</a> -->
+  
+        <a href="{% url 'dashboard'  %}"> <i class="fa fa-database" aria-hidden="true"></i> &nbsp;&nbsp;Dashboard<i class="fa fa-caret-right"></i></a>
+  <div class="dropdown-divider"></div>
+
+  {% comment %} <button class="dropdown-btn">Medicine<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-container">
+    <a href="/list_medicine/">Medicine List</a>
+    <div class="dropdown-divider"></div>
+    <a href="/add_medicine/">Add Medicine</a>        
+  </div> {% endcomment %}
+  {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
+
+  <button class="dropdown-btn"><i class='fas fa-user-friends'></i> &nbsp;&nbsp;Staff<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-container">
+    <a href="{% url 'allstaff' %}"><i class='fas fa-address-card'></i> All Staff</a>            
+  </div>
+  <div class="dropdown-divider"></div>	
+  
+  <button class="dropdown-btn"><i class="fas fa-file-invoice"></i> &nbsp;&nbsp;Certificates<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-container" style="text-align:center;">
+    <a href="{% url 'addpatient' %}"><i class="fa-solid fa-arrow-right"></i> Bill Invoice</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'previous_issued_invoice' %}"><i class="fa-solid fa-arrow-right"></i> Previous Issued Invoices</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'addcertificate' %}"><i class="fa-solid fa-arrow-right"></i> Other Certificates</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'previous_issued_certificate' %}"><i class="fa-solid fa-arrow-right"></i> Previous Issued Certificates</a>             
+  </div>	
+  <div class="dropdown-divider"></div>    
+        
+        <a href="{% url 'pricing' %}"><i class='fas fa-user-md'></i> &nbsp;&nbsp;Doctor Fees<i class="fa fa-caret-right"></i></a>
+  <div class="dropdown-divider"></div>
+
+  <button class="dropdown-btn"><i class="fa fa-suitcase" aria-hidden="true"></i> &nbsp;&nbsp;Today's Collection<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-container">
+    <a href="{% url 'dombivali_collection' %}"><i class="fa fa-map-marker" aria-hidden="true"></i> Dombivali Branch</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'mulund_collection' %}"><i class="fa fa-map-marker" aria-hidden="true"></i> Mulund Branch</a>                   
+  </div>	
+  {% comment %} <div class="dropdown-divider"></div>		
+        <a href="{% url 'diagnosis_history' %}">Diagnosis History</a> {% endcomment %}
+
+    </div>
+      <span style="font-size:30px;cursor:pointer;"  onclick="openNav()"><p style="padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776;</b></p></span>
+
+
+  
+
+    <main role="main" class="container">
+
+       
+    
+      <br>
+      <div class="jumbotron" style="margin-top:0px;"> 
+
+        <div class="header-past">Dashboard</div>
+        <p style="font-size:15px; margin-left:5px; color:#337ab7;"><b>DATE : {{date|date:"d-M-Y"}} </b></p><hr>
+        
+        <a href="{% url 'edit_home_page' %}" class="btn btn-primary" style="width:300px; text-align:left;" ><i class="fa fa-edit" style="font-size:20px;"></i> &nbsp;&nbsp;&nbsp;&nbsp;Edit Home Page</a>
+        <a href="{% url 'balance_list' 'Dombivali' %}" class="btn btn-primary" style="font-size:15px;margin-top;3px;width:300px;  text-align:left;" > <i class='fas fa-file-invoice' style="font-size:20px;"></i> &nbsp;&nbsp;&nbsp;&nbsp;Balance List Dombivali</a>
+        <a href="{% url 'balance_list' 'Mulund' %}" class="btn btn-primary" style="width:300px; text-align:left;" ><i class='fas fa-file-invoice' style="font-size:20px;"></i> &nbsp;&nbsp;&nbsp;&nbsp;Balance List Mulund</a>
+        <button id="openPopup" class="btn btn-primary" style="width:300px; text-align:left;" ><a href="#" style="text-decoration:none; color:white; "><i class="fa fa-tasks" style="font-size:20px"></i> &nbsp;&nbsp;&nbsp;&nbsp;Assign Task</a></button>
+
+    <button id="openPopupone" class="btn btn-primary"  style="width:300px; text-align:left;"><a href="#" style="text-decoration:none; color:white;"><i class="fa fa-calendar" style="font-size:20x"></i> &nbsp;&nbsp;&nbsp;&nbsp;Leave Reports</a></button>
+
+    <a href="{% url 'doctor_diagnose_history'%}" class="btn btn-primary"  style="width:300px; text-align:left;"><i class="fa fa-history" style="font-size:20px"></i> &nbsp;&nbsp;&nbsp;&nbsp;Diagnose History</a>
+
+     <a href="{% url 'view_courier_details' 'Dombivali' %}" class="btn btn-primary"  style="width:300px; text-align:left;" ><i class="fa-solid fa-list"></i> &nbsp;&nbsp;&nbsp;&nbsp;Courier List Dombivali</a>
+     
+     <a href="{% url 'view_courier_details' 'Mulund' %}" class="btn btn-primary"  style="width:300px;text-align:left;"  ><i class="fa-solid fa-list"></i> &nbsp;&nbsp;&nbsp;&nbsp;Courier List Mulund</a>
+
+   
+   <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+        <iframe src="{% url 'assign_tasks'%}" width="100%" height="550"></iframe>
+    </div>
+  </div>
+  
+  <div id="myModalone" class="modalone">
+    <div class="modal-content-one">
+        <span class="closeone"><button style="float:right;"><i class="fa fa-window-close" style="font-size:20px;" aria-hidden="true"></i></button></span><br>
+        <iframe src="{% url 'approve_leaves' %}" width="100%" height="550"></iframe>
+    </div>
+  </div>
+  
+    
+    <br>
+   
+
+    <hr >
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-4 col-xl-3 mr1" >
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20" style="color:white;">Approve Items</h3>
+                    <hr style="border : 1px solid white;">
+                    <br>
+                   
+                    <h2 class="text-center"><i style="font-size:50px;color:white;" class="fa fa-cart-plus f-left"></i><span><a href="{% url 'approve_items_doctor' 'Dombivali' %}" style="text-decoration: none; color:white;"> Dombivali <img src="{% static 'images/plus_new.png' %}" width="45" height="45"></a></span></h2>
+                    <p class="m-b-0"><span class="f-right"></span></p>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3 mr2" >
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20" style="color:white;">Approve Items</h3>
+                    <hr style="border : 1px solid white;">
+                    <br>
+                    <h2 class="text-center"><i style="font-size:50px;color:white;" class="fa fa-cart-plus f-left"></i><span><a href="{% url 'approve_items_doctor' 'Mulund' %}" style="text-decoration: none; color:white;">Mulund <img src="{% static 'images/plus_new.png' %}" width="50" height="50"></a></span></h2>
+                    <p class="m-b-0"><span  class="f-right"></span></p>
+                   
+                </div>
+            </div>
+        </div>
+    
+        
+    
+    </div>
+    <hr>
+    <div class="row">
+    
+      <div class="col-md-4 col-xl-3 mr1" >
+        <div class="card bg-c-green order-card">
+            <div class="card-block">
+                <h3 class="m-b-20" style="color:white;">Approve Medicine</h3>
+                <hr style="border : 1px solid white;">
+                <br>
+               
+                <h2 class="text-center"><i style="font-size:40px;color:white;" class="fa fa-medkit f-left"></i><span><a href="{% url 'approve_medicines_doctor' 'Dombivali' %}" style="text-decoration: none; color:white;">Dombivali <img src="{% static 'images/plus_new.png' %}" width="45" height="45"></a></span></h2>
+                <p class="m-b-0"><span class="f-right"></span></p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 col-xl-3 mr2" >
+      <div class="card bg-c-yellow order-card">
+          <div class="card-block">
+              <h3 class="m-b-20" style="color:white;">Approve Medicine</h3>
+              <hr style="border : 1px solid white;">
+              <br>
+              <h2 class="text-center"><i style="font-size:40px;color:white;" class="fa fa-medkit f-left"></i><span><a href="{% url 'approve_medicines_doctor' 'Mulund' %}" style="text-decoration: none; color:white;">Mulund <img src="{% static 'images/plus_new.png' %}" width="50" height="50"></a></span></h2>
+              <p class="m-b-0"><span  class="f-right"></span></p>
+             
+          </div>
+      </div>
+    </div>
+    
+
+
+
+      </div>
+
+    </main>
+    <script>
+        let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "330px";
+        }
+        
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+        <script>
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            
+            for (i = 0; i < dropdown.length; i++) {
+              dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                  dropdownContent.style.display = "none";
+                } else {
+                  dropdownContent.style.display = "block";
+                }
+              });
+            }
+        
+             // JavaScript to open and close the ASSIGN TASK modal
+   var modal = document.getElementById('myModal');
+   var btn = document.getElementById("openPopup");
+   var span = document.getElementsByClassName("close")[0];
+
+   btn.onclick = function() {
+       modal.style.display = "block";
+   }
+
+   span.onclick = function() {
+       modal.style.display = "none";
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+
+   // JavaScript to open and close the LEAVE REPORTS modal
+   var modalone = document.getElementById('myModalone');
+   var btnone = document.getElementById("openPopupone");
+   var spanone = document.getElementsByClassName("closeone")[0];
+
+   btnone.onclick = function() {
+       modalone.style.display = "block";
+   }
+
+   spanone.onclick = function() {
+       modalone.style.display = "none";
+   }
+
+   window.onclick = function(event) {
+       if (event.target == modalone) {
+           modalone.style.display = "none";
+       }
+   }
+
+          </script>
+        
+      
+
+
+</body>
+</html>

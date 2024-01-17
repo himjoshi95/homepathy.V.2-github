@@ -1,0 +1,411 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{header}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+    
+    
+    .box {
+        width: 400px;
+        height: 100px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 110px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box-new {
+        width: 400px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 100px;
+        width:500px;
+        
+      }
+      img{
+        border-radius: 58%;
+    }
+    .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 45px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+    }
+
+   
+
+.ifr {
+    margin-left:30px;
+    
+}
+
+
+
+    @media (max-width: 768px){
+    .box {
+        width: 300px;
+        height: 90px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      
+      .box-new {
+        width: 300px;
+        height: 80px;
+        border: 1px solid white;
+        padding: 10px;
+        margin-top: 10px;
+        display: flex;
+        column-gap: 50px;
+        border-radius: 25px;
+        background: #dae5f4;
+      }
+      .box1{
+        height: 100px;
+        width:100px;
+        
+      }
+      .box2{
+        height: 80px;
+        width:300px;
+        
+      }
+      .header-past {
+        font-family: helvetica;
+        color: #337ab7;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;        
+    }
+    .ifr {
+        margin-left:10px;
+        width:250px;
+        text-align:left;
+    }
+
+    
+     
+    
+}
+
+    .f-left {
+        float: left;
+    }
+    
+    .f-right {
+        float: right;
+    }   
+    
+    
+    
+   
+
+</style>
+</head>
+<body>
+    {% include 'nav_adjust.html' %}
+
+   
+
+    <main role="main" class="container">
+    
+    <div class="box">
+       
+        <div class="box2" style="color:black; font-size:20px">
+         <p style="font-size:18px;"><b>PHARMACIST BRANCH NAME </b></p>
+         <hr style="background-color:blue;">
+         <h2><span class="f-right"> {{hr_branch}}&nbsp;&nbsp;<i class="fa fa-map-marker"></i> </span></h2>
+         
+          
+        </div>
+      </div>
+      
+    
+    
+      <br>
+      <div class="jumbotron" style="margin-top:30px;">  
+    
+    <div class="header-past">{{header}}</div>   
+    <hr>  
+    
+    <div class="table-responsive">
+        <table class='table'>
+            <thead>
+              <tr style="font-size:17px;">
+                {% comment %} <th>TOTAL COLLECTION</th> {% endcomment %}
+                <th>AMOUNT COLLECTED TODAY</th> 
+                <th>CASH PAYMENT</th>           
+                <th>ONLINE PAYMENT</th>
+                <th>BALANCE(DUES TODAY)</th>
+                <th>ADVANCE (TODAY)</th>
+                
+                
+              </tr>
+            </thead>
+          
+              <tr style="font-size:20px;">
+                
+                {% comment %} <td>Rs {{ total }}</td> {% endcomment %}
+                <td>Rs {{ sum_paid }}</td>
+                <td>Rs {{ sum_cash }}</td>
+                <td>Rs {{ sum_online }}</td>
+                <td>Rs {{ sum_balance }}</td>  
+                <td>Rs {{sum_advance}}</td>      
+                
+              </tr>
+          
+        </table>
+    </div>
+
+    <br><br>
+<hr>
+    <div class="header-past">Details</div>
+
+    <div class="table-responsive">
+        <table class='table'>
+            <thead>
+              <tr style="font-size:17px;">
+             
+                <th>CASE PAPER NO.</th>
+                <th>NAME</th> 
+                <th>TOTAL AMOUNT</th>           
+                <th>AMOUNT PAID</th>
+                <th>CASH</th>
+                <th>ONLINE</th>
+                <th>TRANSACTION DETAILS</th>
+                <th>STATUS</th>
+                <th>TYPE</th>
+                <th>BALANCE(DUES TODAY)</th> 
+                <th>PAYMENT COLLECTED BY</th>          
+                
+              </tr>
+            </thead>
+    
+            {% for d in amount_names %}
+            
+            {% for b in balance_names %}      
+            
+           {% for a in appointment_status %}
+              <tr style="font-size:17px;" >
+                {% if d.collected_by == hr_name and b.collected_by == hr_name%}
+                
+                {% if d.patient.case == a.patientid.case %}
+                {% if d.patient.case == b.patient.case %}
+                
+               
+                <td style="text-align:center">{{d.patient.case}}</td>
+                <td style="text-align:center">{{d.patient.name}}</td>    
+                <td style="text-align:center">Rs {{d.paid_amount|add:b.balance_amt}}</td>           
+                <td style="text-align:center">Rs {{d.paid_amount}}</td>            
+                {% if d.cash %}
+                <td style="text-align:center">Rs {{d.cash_amount}}</td>
+                {% else %}
+                <td style="text-align:center">Rs {{d.cash_amount}}</td> 
+                {% endif %}  
+                {% if d.online %}       
+                <td style="text-align:center">Rs {{d.online_amount}}</td>
+                {% else %}
+                <td style="text-align:center">Rs {{d.online_amount}}</td>
+                {% endif %}
+                {% if d.online %}
+                <td style="text-align:center">{{d.transac_id}}</td>
+                {% else %}
+                <td style="text-align:center">{{d.transac_id}}</td>
+                {% endif %}
+    
+                {% if d.balance_flag %}
+                <td style="text-align:center">Paid Balance Today</td>
+                {% else %}
+                <td style="text-align:center">_</td>
+                {% endif %}
+                <td style="text-align:center">{{a.stat}}</td>
+                {% if b.balance_amt == 0 %}
+                <td style="text-align:center" >No Dues</td>
+                {% else %}
+                  {% if b.balance_amt >= 0 or b.balance_amt >= '0' %}
+                <td style="text-align:center;color:#AA0000;"> <b>Rs {{ b.balance_amt }}  &nbsp; BALANCE</b></td>
+                  {% else %}
+                  <td style="text-align:center"><b> Rs <span class="balanceAmt">{{ b.balance_amt }} </span>   ADVANCE</b></td>
+                  {% endif %}
+                {% endif %} 
+                <td style="text-align:center">{{d.collected_by}}</td>
+               
+                
+                
+                {% endif %}                        
+                {% endif %}
+                {% endif %}
+                
+            </tr>
+           
+            
+            {% endfor %}
+            {% endfor %}
+            {% empty %}
+           
+            <tr>
+                <br>
+            </tr>        
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="width:200px;"><p style="font-size:20px; font-weight:bolder;font-family: helvetica;">No Collections Today.</p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>    
+        {% endfor %}
+          
+        </table>
+    </div>
+
+
+    
+
+
+    </div>
+
+    </main>
+
+    <script>
+    let menu = document.querySelector('#menu-btn');
+    let navbar = document.querySelector('.header .navbar');
+    
+    menu.onclick = () =>{
+        menu.classList.toggle('fa-times');
+        navbar.classList.toggle('active');
+    }
+    
+    window.onscroll = () =>{
+        menu.classList.remove('fa-times');
+        navbar.classList.remove('active');
+    
+    }
+    </script>
+
+    <script>
+        // Get all elements with the class "balanceAmt"
+        var balanceAmtElements = document.getElementsByClassName('balanceAmt');
+     
+        // Loop through each element and update its content
+        for (var i = 0; i < balanceAmtElements.length; i++) {
+          var balanceAmtElement = balanceAmtElements[i];
+      
+          // Get the balance amount value as a number
+          var balanceAmtValue = Math.abs(parseFloat(balanceAmtElement.innerHTML));
+      
+          // Check if the balance amount is negative and format accordingly
+          balanceAmtElement.textContent = balanceAmtValue;
+     
+          console.log(balanceAmtValue);
+        }
+     </script>
+
+    
+
+        <script>
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            
+            for (i = 0; i < dropdown.length; i++) {
+              dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                  dropdownContent.style.display = "none";
+                } else {
+                  dropdownContent.style.display = "block";
+                }
+              });
+            }
+        
+             // JavaScript to open and close the TASK DETAILS modal
+            var modal = document.getElementById('myModal');
+            var btn = document.getElementById("openPopup");
+            var span = document.getElementsByClassName("close")[0];
+         
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+         
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+         
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        
+             // JavaScript to open and close the Apply Leave modal
+             var modalone = document.getElementById('myModalone');
+             var btnone = document.getElementById("openPopupone");
+             var spanone = document.getElementsByClassName("closeone")[0];
+          
+             btnone.onclick = function() {
+                 modalone.style.display = "block";
+             }
+          
+             spanone.onclick = function() {
+                 modalone.style.display = "none";
+             }
+          
+             window.onclick = function(event) {
+                 if (event.target == modalone) {
+                     modalone.style.display = "none";
+                 }
+             }
+          </script>
+        
+      
+
+
+</body>
+</html>

@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/additemsunit.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -96,7 +96,7 @@
                     </form>  
                     <hr>
                     <br><br>
-                    <label style="color:#337ab7;">Unit List (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label>  <br><br>
+                    <label style="color:#337ab7;">Unit List  (Search Here <i class="fa fa-search" style="font-size:20px; margin-left:5px;"></i> )</label>  <br><br>
                     
                     <form method="get" action="">
                         {{ search_form_two }}
@@ -135,6 +135,17 @@
         </div>
 
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>	
+    <script>
+        $(document).ready(function () {
+            $('#id_item').select2();
+            $('#id_unit').select2();
+            
+    
+        });
+    </script>
   
 
 

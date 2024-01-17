@@ -8,29 +8,50 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>DIAGNOSE HISTORY PDF</title>
+    <title>DIAGNOSE HISTORY {{data.0.patientid.name}} PDF</title>
 
     <style>
-      table {
-        border-collapse: collapse;
+
+      .header-new {
+        font-family: helvetica;
+        color: black;
+        font-size: 30px;
+        text-align: left;
         width: 100%;
+        margin-top: 0px;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: bolder;
+        text-decoration:underline;
+    } 
+    .table-pdf {
+      width: 80%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      border: 1px solid grey;
+      font-size:15px;
     }
-
-    table, th, td {
-        border: 1px solid black;
-        
+    
+    /* Table cells and spacing */
+    .table-pdf th,
+    .table-pdf td {
+      padding: 2px;
+      border-bottom: 1px solid black;
+      width:200px;
     }
-
-    th, td {
-        padding: 9px; /* Add space around the content of table cells */
-        
-        font-size: 14px;
+    
+    /* Table headers */
+    .table-pdf th {
+      background-color: #f2f2f2; /* Light gray background for headers */
+      font-weight: bold;
+      text-align: left;
     }
-
-    .image-container {
-        border: 1px solid black; /* You can adjust border styles as needed */
-        padding: 10px; /* Add padding for spacing around the image */
-      }
+    
+    /* Alternating row colors */
+    .table-pdf tr:nth-child(even) {
+      background-color: #f9f9f9; /* Lighter gray for even rows */
+    }
+    
     </style>
     <!-- Custom styles for this template -->
 
@@ -39,11 +60,11 @@
 
 
     <br>
-    <span style="font-size:20px; text-align:center; text-decoration:underline;"> DIAGNOSE HISTORY - <span style="text-transform:uppercase;">{{data.0.patientid.name}}</span></span>
+    <div class="header-new"> DIAGNOSE HISTORY - <span style="text-transform:uppercase;">{{data.0.patientid.name}}</span></div>
      
     <p style="font-size:20px; text-decoration:underline;">Previous Prescriptions</b>
    
-        <table class='table'>
+        <table class='table-pdf'>
             <thead>
               <tr>
                 <th>COUNT</th>
@@ -99,7 +120,7 @@
                 <h2 style="margin-top: 10px; font-size:20px">Present Complaints :</h2>
                   
                   
-                  <table class='table'>
+                  <table class='table-pdf'>
                     <thead>
                        <tr>                       
                            <th>Complain</th>
@@ -120,7 +141,7 @@
                  <br>
     
                   <h2 style="margin-top: 10px; font-size:20px ">Past History :</h2>
-                  <table style="width:1050px">
+                  <table class='table-pdf'>
                       <tr class="bg-primary" style="height: 60px;" >
                        <th   style=" width: 300px; text-align:center; font-size:17px ">Serial No.</th>
                           <th  style=" width: 300px; text-align:center; font-size:17px ">Complain</th>
@@ -144,7 +165,7 @@
                  <br>
                  <h2 style="margin-top: 20px; font-size:20px ">Family Medical History :</h2>             
                 
-                  <table style="width:1050px">
+                  <table class='table-pdf'>
                        <tr class="bg-primary" style="height: 50px;" >
                         <th style=" width: 300px; text-align: center; font-size:17px ">Serial No.</th>
                           
@@ -208,7 +229,7 @@
                   
                       <h2 style="margin-top: 20px; font-size:20px; ">Mental Causative Factor :</h2>
                       
-                      <table style="width: 1050px;">
+                      <table class='table-pdf'>
                         <thead>
                           
                         </thead>
@@ -243,7 +264,7 @@
     
                     <h2 style="margin-top: 20px; font-size:20px; ">Mental Personality Character :</h2>
     
-                    <table style="width: 1050px;">
+                    <table class='table-pdf'>
                         <thead>
                           
                         </thead>
@@ -277,7 +298,7 @@
                         <br><br>
                     <h2 style="margin-top: 20px; font-size:20px; ">Brief Mind Symptoms :</h2>
     
-                    <table style="width: 1050px;">
+                    <table class='table-pdf'>
                       <thead>
                         
                       </thead>
@@ -314,7 +335,7 @@
                
                    <h2 style="margin-top: 20px; font-size:20px  ">Personal History :</h2>
                   
-                   <table style="width: 1050px;">
+                   <table class='table-pdf'>
                     <thead>
                       <tr class="bg-primary">
                       <th style="text-align: center; font-size: 20px;" scope="col">Frequently Asked Questions(FAQs) </th>

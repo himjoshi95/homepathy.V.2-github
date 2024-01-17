@@ -17,37 +17,79 @@ class InvestigationForm(ModelForm):
     class Meta:
         model = InvestigationAdvised
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 class UltrasonographyForm(ModelForm):
     class Meta:
         model = Ultrasonography
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 class DopplerForm(ModelForm):
     class Meta:
         model = Doppler
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 class ObstetricsForm(ModelForm):
     class Meta:
         model = Obstetrics
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 
 class SonographyTypeForm(ModelForm):
     class Meta:
         model = SonographyType
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 class CTScanNewForm(ModelForm):
     class Meta:
         model = CTScanNew
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 class MRIScanNewForm(ModelForm):
     class Meta:
         model = MRIScanNew
         fields = '__all__'
+        labels = {
+            'name': 'Mention Here',  # Change the label for the 'name' field
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Type here...', 'style': 'height: 30px;'}),  # Adjust width as needed
+        }
 
 
 class StockCreateForm(forms.ModelForm):
@@ -406,7 +448,7 @@ class ItemUnitInventorySearchForm(forms.Form):
      
     item = forms.ModelChoiceField(label="Item",
         queryset=AddItems.objects.all(),  # Queryset to include all medicines
-        empty_label="Select Item",    # Optional: Display a default empty label
+        empty_label="Search for Items Here",    # Optional: Display a default empty label
         required=False 
     )
 

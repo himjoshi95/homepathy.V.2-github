@@ -1,8 +1,184 @@
 
 {% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<style>
+
+    .dropdown-hr {
+        display: inline-block;
+        position: relative;
+    }
+
+    /* Style for the anchor tag */
+    .dropdown-hr a {
+        text-decoration: none;
+        color: black;
+        padding: 10px 10px;
+        display: inline-block;
+        background-color:#404858;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    /* Style for the dropdown content */
+    .dropdown-content-hr {
+        display: none;
+        position: absolute;
+        background-color: #404858;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        width:220px;
+    }
+
+    /* Style for individual items in the dropdown */
+    .dropdown-content-hr a {
+        display: block;
+        padding: 10px 30px;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s;
+    }
+
+    /* Hover effect for the anchor tag and dropdown items */
+    .dropdown-hr:hover a,
+    .dropdown-content-hr a:hover {
+        background-color: #404858;
+    }
+
+    /* Show the dropdown content when hovering over the container */
+    .dropdown-hr:hover .dropdown-content-hr {
+        display: block;
+    }
+
+    .total, .pending, .total-one {
+        position: absolute;
+        border-radius: 70%;
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        margin-top: -32px;
+    }
+
+    @keyframes shake {
+        0% { transform: rotate(20deg) scale(1.2); }
+        25% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(-20deg) scale(1); }
+        75% { transform: rotate(0deg) scale(1); }
+        100% { transform: rotate(20deg) scale(1.2); }
+    }
+    
+    .total-one {
+        position: absolute;
+        border-radius: 70%;
+        font-size: 20px;
+        width: 22px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        margin-top: -40px;
+        animation: shake 1.2s infinite;
+    }
+
+    .total-one {
+        margin-left: 95px;
+        background-color: #FFA07A
+  
+
+    }
+
+    .total-three {
+        position: absolute;
+        border-radius: 70%;
+        font-size: 20px;
+        width: 22px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        margin-top: -35px;
+        animation: shake 1.2s infinite;
+    }
+
+    .total-three {
+        margin-left: 133px;
+        background-color: #FFA07A
+  
+
+    }
+
+    .total-four {
+        position: absolute;
+        border-radius: 70%;
+        font-size: 20px;
+        width: 22px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        margin-top: -35px;
+        animation: shake 1.2s infinite;
+    }
+
+    .total-four {
+        margin-left: 153px;
+        background-color: #FFA07A
+  
+
+    }
+    @keyframes shake1 {
+        0% { transform: rotate(0deg) scale(1.2); }
+        25% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(0deg) scale(1.2); }
+        75% { transform: rotate(0deg) scale(1); }
+        100% { transform: rotate(0deg) scale(1.2); }
+    }
+
+    .total-two {
+        position: absolute;
+        border-radius: 70%;
+        font-size: 20px;
+        width: 25px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        margin-top: -30px;
+        animation: shake1 3.0s infinite;
+    }
+
+    .total-two {
+        margin-left: 160px;
+        background-color: #FF7F50;
+
+    }
+    .total {
+        margin-left: 150px;
+        background-color: #FFA07A;
+  
+    }
+    .pending{
+        margin-left: 150px;
+        background-color: #FFA07A;
+    }
+
+    @media (max-width: 768px){
+    .total {
+        margin-left: 140px;
+        background-color: #FFA07A;
+  
+    }
+    .pending{
+        margin-left: 140px;
+        background-color: #FFA07A;
+    }
+
+}
+
+
+</style>
+
 
 <header class="header">
-    <a href="#" class="logo"><i class="fa fa-hotel"></i> Wings Classical Homeopathy</a>
+    <a href="#" class="logo"><i class='fas fa-clinic-medical' style="font-size:25px;"></i> Wings Classical Homeopathy</a>
 
     <nav class="navbar">
         {% if user == None %}
@@ -35,6 +211,98 @@
     <a  href="/logout">Logout </a>
 
     {% endif %}
+
+    {% if status and user == "H" %}
+
+    <a  href="{% url 'hr_dashboard' %}">Dashboard  </a>
+    <a  href="{% url 'hr_balance' %}">Balance History  </a>
+    <div class="dropdown-hr">
+        
+        {% if general != '0'  or  repeat != '0' or courier != '0'  %} 
+        <a href="#">Medicine &nbsp; <span class="total-one"><i class="fa fa-bell-o" style="color:white; margin-top:3px;"></i></span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+
+        {% else %}
+        <a href="#">Medicine &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% endif %}
+       
+        <div class="dropdown-content-hr">
+            <a href="{% url 'hr_accounting'  %}">General <span class="pending"><b>{{general}}</b></span></a>
+            <a href="{% url 'hr_repeat_medicine' %}">Repeat Medicine <span class="total"><b>{{repeat}}</b></span></a>
+            <a href="{% url 'hr_courier_medicine' %}">Courier Medicine <span class="total"><b>{{courier}}</b></span></a>
+        </div>
+    </div>
+    {% if unsend_mail_count == 0 or unsend_mail_count == '0' %}
+
+    <a  href="{% url 'hr_send_mail' %}">&nbsp;Courier Mail</a>
+
+    {% else %}
+
+    <a  href="{% url 'hr_send_mail' %}">&nbsp;Courier Mail<span class="total-one"><b>{{unsend_mail_count}}</b></span></a>
+
+    {% endif %}
+
+    <a  href="/logout"> &nbsp;&nbsp;&nbsp;Logout </a>
+
+    {% endif %}
+
+    {% if status and user == "D" %}
+
+    <div class="dropdown-hr">
+
+        {% if count_general_dom != '0'  or  count_general_mul != '0' %} 
+        <a href="#"> Appointments &nbsp;<span class="total-three"><i class="fa fa-bell-o" style="color:white; margin-top:3px;"></i></span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% else %}
+        <a href="#"> Appointments &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+
+        {% endif %}
+        <div class="dropdown-content-hr">
+            <a href="{% url 'docter_appointment_dombivali' %}">Dombivali<span class="pending"><b>{{count_general_dom}}</b></span></a>
+            <a href="{% url 'docter_appointment_mulund' %}">Mulund  <span class="total"><b>{{count_general_mul}}</b></span></a>
+        </div>
+    </div>
+
+    <div class="dropdown-hr">
+        {% if count_repeat_dom != '0'  or  count_repeat_mul != '0' %} 
+        <a href="#"> Repeat Medicine &nbsp;<span class="total-four"><i class="fa fa-bell-o" style="color:white; margin-top:3px;"></i></span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% else %}
+        <a href="#"> Repeat Medicine &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% endif %}
+        <div class="dropdown-content-hr">
+            <a href="{% url 'doc_repeat_med_dom' %}">Dombivali<span class="pending"><b>{{count_repeat_dom}}</b></span></a>
+            <a href="{% url 'doc_repeat_med_mul' %}">Mulund  <span class="total"><b>{{count_repeat_mul}}</b></span></a>
+        </div>
+    </div>
+
+    <div class="dropdown-hr">
+
+        {% if count_courier_dom != '0'  or  count_courier_mul != '0' %} 
+        <a href="#"> Courier Medicine &nbsp;<span class="total-four"><i class="fa fa-bell-o" style="color:white; margin-top:3px;"></i></span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% else %}
+        <a href="#"> Courier Medicine &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        {% endif %}
+        <div class="dropdown-content-hr">
+            <a href="{% url 'doc_courier_med_dom' %}">Dombivali<span class="pending"><b>{{count_courier_dom}}</b></span></a>
+            <a href="{% url 'doc_courier_med_mul' %}">Mulund  <span class="total"><b>{{count_courier_mul}}</b></span></a>
+        </div>
+    </div>
+    
+    {% if unsend_mail_count == 0  %}
+   
+      <a  href="{% url 'doc_courier_medicicne'  %}">Courier Mail</a>
+ 
+    {% else %}
+    
+      <a  href="{% url 'doc_courier_medicicne'  %}">Courier Mail <span class="total-one"><b>{{unsend_mail_count}}</b></span></a>
+   
+    {% endif %} 
+    <br><br>
+    <a  href="{% url 'dashboard'  %}">DashBoard</a>
+    <a  href="{% url 'homeo_book'  %}">Homeo Bhagwat Gita</a>
+    <a  href="/logout">Logout </a>
+
+    {% endif %}
+
+
 
 
     

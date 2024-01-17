@@ -1,0 +1,610 @@
+{% load static %}
+{% load jsignature_filters %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />   
+    <link rel="stylesheet" href="{% static 'css/style_new_adjust.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    
+    <title>New Case - Final Report</title>
+   <style>
+
+    
+    .img-pic{
+      border-radius: 58%;
+  }
+ 
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 35px;
+      text-align: center;
+      width: 100%;
+      margin-top: 0px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;
+  } 
+  
+  .header-new {
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 25px;
+    text-align: left;
+    width: 100%;
+    margin-top: 0px;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+    text-decoration:underline;
+} 
+  div.ex3 {
+    background-color: whitesmoke;
+    width: 110px;
+    height: 500px;
+    overflow: auto;
+    }
+    
+    .scrolling-div::-webkit-scrollbar{
+      width: .8rem;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    
+    .scrolling-div::-webkit-scrollbar-thumb{
+      background: 	#6495ED;
+      border-radius: .5rem;
+    }
+
+    .table-one {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      
+      .table-one tr{
+        height: 10px;
+      }
+    
+      .table-one td {
+        font-size:16px;
+      }   
+
+
+    
+
+    
+     
+  
+
+  @media (max-width: 768px){
+      
+    .header-past {
+      font-family: helvetica;
+      color: #337ab7;
+      font-size: 30px;
+      text-align: center;
+      width: 100%;
+      margin-top: 16px;
+      text-shadow: 6px 6px 6px #c9c6c6;
+      display: block;
+      font-weight: bolder;        
+  }  
+
+  .header-new {
+    font-family: helvetica;
+    color: #337ab7;
+    font-size: 20px;
+    text-align: left;
+    width: 100%;
+    margin-top: 0px;
+    text-shadow: 6px 6px 6px #c9c6c6;
+    display: block;
+    font-weight: bolder;
+    text-decoration:underline;
+} 
+  
+  
+  
+  .table-one {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+.table-one tr{
+    height: 16px;
+  }
+
+  .table-one td {
+    font-size:14px;
+  }
+
+
+
+}  
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+  </head>
+
+  <body>       
+    <main role="main" class="container">
+
+        
+        <div class="jumbotron">
+            <div class="header-past">Patient's Details</div>
+            <hr>
+        <div class="table-responsive">
+            <table class="table-one">     
+                <tr>
+                    <td>
+                      
+                        {% if patient_details.patient_images %}
+                        <img src="{{patient_details.patient_images.url}}" alt="Avatar" width="90" height="90" border="5">
+                        
+                  
+                          {% else %}
+                          <p style="background-color:white; text-align:center; padding: 8px;width:100px; "><b>Photo Not Uploaded</b></p>
+                          {% endif %}
+                     
+                    </td>
+                    
+                    <td style="text-align:left;"><b> Case Paper No :</b> &nbsp;{{ patient_details.case }}</td>
+                    
+                    
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:left;"><b>Date :</b>&nbsp;{{table1.0.date|date:"d/m/y"}}</td>
+                    
+                    
+                </tr>   
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>     
+                
+                <tr>
+                    <td style="text-align:left;"><b>Name :</b>&nbsp;&nbsp; {{ patient_details.name }}</td>
+                    
+                    <td style="text-align:left;"><b>Age :</b>&nbsp;&nbsp; {{ patient_details.age}} Yrs</td>
+                   
+                    <td style="text-align:left;"><b>Gender :</b>&nbsp;&nbsp; {{ patient_details.gender }}</td>
+                    {% if patient_details.height %}
+                    <td  style="text-align:left;"><b>Height :</b>&nbsp;&nbsp; {{patient_details.height}}  </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td  style="text-align:left;"><b>Weight :</b>&nbsp;&nbsp; {% if patient_details.weight %}
+                      {{patient_details.weight}} Kgs
+    
+                      {% else %}
+                          -
+                      {% endif %}
+                    
+                    
+                    </td>
+                    
+                    
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>  
+                
+                <tr >
+                  <td><b>Address :</b>&nbsp; {{patient_details.address}}</td>
+                  <td></td>
+                  <td><b>Contact Number :</b> {{patient_details.phone}}</td>
+                </td></td>
+                <td></td>
+    
+    
+                </tr>
+    
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>  
+    
+                <tr>
+                  <td><b>Email :</b>&nbsp;&nbsp; {% if patient_details.email %} {{patient_details.email}} {% else %} - {% endif %}</td>
+                  <td><b>Qualification :</b> &nbsp;&nbsp;{% if patient_details.qualification %} {{patient_details.qualification}} {% else %} - {% endif %} </td>
+                  
+                  <td><b>Occupation :</b>&nbsp;&nbsp;{% if patient_details.occupation%} {{patient_details.occupation}} {% else %} - {% endif %}</td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>  
+    
+                <tr>
+                  <td><b>Dietry Preference :</b>{% if patient_details.dietry_preference %} &nbsp;&nbsp;{{patient_details.dietry_preference}} {% else %} - {% endif %}</td>
+                  <td></td>
+                  <td><b>Marital Status :</b>&nbsp;&nbsp; {% if patient_details.marital_status %} {{ patient_details.marital_status }} {% else %} - {% endif %}</td>
+                  <td></td>
+                  <td></td>
+    
+                </tr> 
+                
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>
+    
+                <tr>
+                  <td><b>Referred by :</b> {% if patient_details.referred_by %} &nbsp; {{patient_details.referred_by}} {% else %} - {% endif %}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+    
+                </tr>
+    
+               
+           
+        </table>
+           
+        </div>
+    </div>
+
+           <div class="jumbotron" >
+        {% if patient_details.flag %}    
+        <a href= "{% url 'past_history_newone' case_id=case_id %}" class="btn btn-primary btn-lg" ><i class="fa fa-angle-double-left"style="font-size:20px;" ></i>New Case</a>
+
+        {% else %}
+        <a href= "{% url 'apointmentDetails' case_id final_token %}" class="btn btn-primary btn-lg" ><i class="fa fa-angle-double-left"style="font-size:20px;" ></i> Go Back</a>
+        {% endif %}
+        {% if len_present_complaint != 0 or len_obj_chief_complaints != 0 or len_past_history != 0 or len_personal_history != 0 or len_family_medical != 0 or len_family_medical != '0' or len_my_list1 != 0 or len_my_list2 != 0 or len_bms != 0 or len_thermal_reaction != 0 or  len_miasm != 0 %}
+        <a href= "{% url 'show_case_paper' case_id %}" style="float:right;" class="btn btn-success btn-lg" ><i class="fa-solid fa-file-pdf" style="font-size:20px;"></i> Generate PDF</a>
+        {% else %}
+        <br><br>
+        <h3 style="text-align:center; color:brown;"> No Records Found<h3>
+        {% endif %}
+            <br><br>
+        <hr>
+
+        <div class="header-past">New Case - Final Report</div>
+        <p style="font-size:18px; margin-top:20px;"><b>Date: &nbsp;&nbsp;{{today|date:"d-M-Y"}} </b></p>   
+        
+        
+        <br>
+        {% if len_present_complaint != 0 %}
+        <div class="header-new">Present Complaints</div>
+        <hr>
+        <div class="table-responsive">
+            <table class='table'>
+              <thead>
+                <tr>
+                  
+                  <th style="font-size:17px;">Complain</th>
+                  <th style="font-size:17px;">Duration</th>
+                                                 
+                  <th style="font-size:17px;">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for t in table1 %}
+                <tr>                            
+                          <td style="font-size:16px;">{{t.complain.name}}</td>
+                          <td style="font-size:16px;">{{t.duration}} {{t.duration_suffix}}</td>
+                                                                               
+                          <td style="font-size:16px;">{% if t.remarks %} {{t.remarks}} {% else %} <b><i class="fa-solid fa-dash"></i><b> {% endif %}</td>
+    
+                </tr>
+                {% endfor %}
+              </tbody>
+    
+            </table>
+          </div>
+          {% endif %}
+        
+       
+       
+        {% if len_obj_chief_complaints != 0 %}
+        <br><br>
+        <div class="header-new">Chief Complaints</div>
+        <hr>
+        
+        {% for o in table2 %}
+              <dd>
+                  <div class="container text-center" id="border">
+                    <div class="row justify-content-center">
+                     <div class="border" style="background:white;">
+                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> <hr>
+                  
+                  <img src="{{ o.signature|signature_base64 }}" alt="{{ table2 }}" />
+                  <hr>   
+                            <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                 
+                     </div></div></div>           
+                  
+                </dd>
+                {% endfor %}
+
+        {% endif %} 
+        
+        
+        {% if len_past_history != 0 %}
+        <br><br>
+        <div class="header-new">Past History</div>
+        <hr>
+        
+        <div class="table-responsive">
+        <table class='table'>
+            <tr  >
+                <th style="font-size:17px;">Complain</th>
+                <th style="font-size:17px;">Last Diagnosed</th> 
+                <th style="font-size:17px;">Duration</th>                                
+                <th style="font-size:17px;">Remarks</th>
+            </tr>
+            {% for t in table3 %}
+            <tr  >
+
+               <td  style="font-size:16px;" >{{t.complain.name}}</td>
+               <td  style="font-size:16px;">{{t.last_diagnosed}} {{t.last_suffix}}</td>
+               <td  style="font-size:16px;">{{t.duration}} {{t.duration_suffix}}</td>                                
+               <td  style="font-size:16px;">{{t.remarks}}</td>
+                
+            </tr>
+            {% endfor %}
+       </table>
+       </div> <!-- /.table-responsive -->
+
+        {% endif %}
+
+
+        {% if len_personal_history != 0 %}
+
+        <br><br>
+        <div class="header-new">Personal History</div>
+        <hr>
+        
+        {% for o in personal_history %}
+              <dd>
+                  <div class="container text-center" id="border">
+                    <div class="row justify-content-center">
+                     <div class="border" style="background:white;">
+                  <p style="font-size: 20px;">Date : {{o.signature_date|date:"d M Y"}} </p> <hr>
+                  
+                  <img src="{{ o.signature|signature_base64 }}" alt="{{ table2 }}" />
+                  <hr>   
+                            <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                 
+                     </div></div></div>           
+                  
+                </dd>
+                {% endfor %}
+
+        {% endif %}
+
+
+        {% if len_family_medical != 0 or len_family_medical != '0' %}
+        <br><br>
+        <div class="header-new">Family Medical History</div><hr>
+
+        <div class="table-responsive">
+
+            <table class='table'>
+                <tr style="font-size:17px;">              
+                   <th >Relation</th>
+                   <th>Age</th>
+                    <th>Diseases</th>   
+                    <th>Any Other</th>                             
+                    <th>Dead/Alive</th>                 
+                </tr>
+                {% for item1,item2 in list %}
+                <tr >
+                    <td style="font-size:16px;"  >{{item1.relation}}</td> 
+                    <td style="font-size:16px;" >{{item1.age}} Years</td>                                                           
+                    <td style="font-size:16px;" >{{item2}}</td>
+                    <td style="font-size:16px;" >{{item1.any_other}}</td>                                 
+                    <td style="font-size:16px;" >{{item1.dead_alive}}</td>                    
+                </tr>
+                {% endfor %}         
+             </table>
+        </div>
+        {% endif %}
+
+
+        {% if len_my_list1 != 0 %}
+        <br><br>
+        <div class="header-new">Mental Causative Factor</div><hr>
+        <div class="table-responsive">
+
+            <table class='table'>
+                <tr style="height:40px;">              
+                    <th>Factors</th>                                 
+                 </tr>
+                 {% for m in my_list1 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+        </div>
+        {% endif %}
+        <br>
+        {% for o in mental %}
+                  <dd>
+                      <div class="container text-center" id="border">
+                        <div class="row justify-content-center">
+                         <div class="border" style="background:white;">
+                      <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                      
+                      <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                      <hr>   
+                      <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+           
+                     
+                         </div></div></div>           
+                      
+                    </dd>
+                    {% endfor %}
+
+
+                    {% if len_my_list2 != 0 %}
+                    <br><br>
+                    <div class="header-new">Mental Personality Character</div><hr>
+                    <div class="table-responsive">
+            
+                        <table class='table'>
+                            <tr style="height:40px;">              
+                                <th>Personality Character</th>                                 
+                             </tr>
+                             {% for m in my_list2 %}
+                             <tr>
+                                <td>{{m}}</td>
+                             </tr>
+                             {% endfor  %}
+            
+                        </table>
+            
+                    </div>
+                    {% endif %}
+                    <br>
+                    {% for o in personality %}
+                              <dd>
+                                  <div class="container text-center" id="border">
+                                    <div class="row justify-content-center">
+                                     <div class="border" style="background:white;">
+                                  <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                                  
+                                  <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                                  <hr>   
+                                  <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                       
+                                 
+                                     </div></div></div>           
+                                  
+                                </dd>
+                                {% endfor %}
+
+
+        {% if len_bms != 0 %}
+        <br><br>
+
+        <div class="header-new">Brief Mind Symptoms</div><hr>
+        {% for o in bms_view %}
+                              <dd>
+                                  <div class="container text-center" id="border">
+                                    <div class="row justify-content-center">
+                                     <div class="border" style="background:white;">
+                                  <p style="font-size: 30px;">Date : {{o.signature_date|date:"d M Y"}} </p> 
+                                  
+                                  <img src="{{ o.signature|signature_base64 }}" alt="{{ mental }}" />
+                                  <hr>   
+                                  <p style="font-size:12px;"><b>{{forloop.counter}}.</b></p>
+                       
+                                 
+                                     </div></div></div>           
+                                  
+                                </dd>
+                                {% endfor %}
+
+
+
+
+        {% endif %}
+
+
+        {% if len_thermal_reaction != 0 %}
+        <br><br>
+        <div class="header-new">Thermal Reaction</div><hr>
+        <div class="table-responsive">
+
+            <table class='table'>
+                <tr style="height:40px;">               
+                    <th></th>                                 
+                 </tr>
+                 {% for m in my_list4 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+        </div>
+
+
+
+        {% endif %}
+
+
+        {% if len_miasm != 0 %}
+        <br><br>
+        <div class="header-new">Miasm Examination</div><hr>
+        <div class="table-responsive">
+
+            <table class='table'>
+                <tr style="height:40px;">              
+                    <th></th>                                 
+                 </tr>
+                 {% for m in my_list3 %}
+                 <tr style="font-size:16px;">
+                    <td>{{m}}</td>
+                 </tr>
+                 {% endfor  %}
+
+            </table>
+
+        </div>
+
+
+
+        {% endif %}
+
+
+
+
+
+
+      
+    </div> 
+    
+  </main>
+   
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+  {{ form.media }}
+  </body>
+</html>
