@@ -99,7 +99,7 @@
         <select name="patient" required id="id_patientid" class="form-control">
             <option selected disabled="true" name="Selectbranch" default="">Select Case Paper No.</option>
             {% for d in data %}
-            <option  value="{{ d.pk }}">{{ d.case }} </option>    
+            <option  value="{{ d.pk }}">{{ d.name}}/ {{ d.case }}/ {{d.phone}}(M) </option>    
             {% endfor %}    
         </select>
         <br><br><br>

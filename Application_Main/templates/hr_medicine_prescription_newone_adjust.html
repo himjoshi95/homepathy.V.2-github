@@ -116,6 +116,12 @@
     <p style="font-size:18px; margin-left:5px;"><b>DATE : {{date|date:"d M Y"}} </b></p>
     <br>
     <div class="header-past">Prescription Today</div>
+
+    <!---Generate Invoice to be uncommented  when invoice is ready--->
+    {% comment %} {% if prescription_duration != None and amount_paid_today != None%}
+    <a href="{% url 'dummy_case_pdf' id %}" class="btn btn-primary">Generate Invoice</a>
+
+    {% endif %} {% endcomment %}
     <hr>
     <br>
     <div class="table-responsive">

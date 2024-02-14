@@ -113,8 +113,13 @@
 
       <br>
   <div class="jumbotron" style="margin-top:30px;">
+    {% if pat_branch == 'Dombivali' %}
+    <p style="color:red; font-size:15px; background:white;"> <b style="margin-left:10px;">For Appointments Contact Us at Dombivli Branch - 8080899990 </b></p>
+    {% else %}
+    <p style="color:red; font-size:15px; background:white;"> <b style="margin-left:10px;">For Appointments Contact Us at Mulund Branch - 8080848403</b></p>
+    {% endif %}
 
-    <br>
+    <hr>
     <div class="header-past">Past Visits</div>
     <p style="text-align:center; font-size:15px;"><b>( Last Two Visits to the Clinic)</b></p>
 

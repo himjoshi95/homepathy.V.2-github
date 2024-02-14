@@ -109,7 +109,7 @@
             
        
         <div> 
-            <button  id="openPopup" style="margin-left:20px;margin-bottom:20px; font-size:18px;">Place New Order</button>
+            {% comment %} <button  id="openPopup" style="margin-left:20px;margin-bottom:20px; font-size:18px;">Place New Order</button> {% endcomment %}
             
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -387,6 +387,7 @@
                 success: function(response) {
                     row.remove();
                     alert(response.message);
+                    location.reload();
                 },
                 error: function(response) {
                     alert(response.responseJSON.message);

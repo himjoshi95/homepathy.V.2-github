@@ -160,6 +160,29 @@ padding-right: 8px;
     display: inline-block;
   }
 
+  .reorder-blue{
+    background-color: #7CB9E8;
+    color: white;          
+    border: 1px solid #7CB9E8;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
+
+  .reorder-red{
+    background-color: #FBCEB1;
+    color: white;          
+    border: 1px solid  #FFA07A;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
 
 
     @media (max-width: 768px){
@@ -310,22 +333,22 @@ padding-right: 8px;
         
                           <tr >
                             {% if data.patientid.branch == "Dombivali" %}
-                            <td class="yellow-shadow" style="font-size: 12px;"> {{ data.token }}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;"> {{ data.token }}</td>
                             {% else %}
-                            <td class="yellow-shadow" style="font-size: 12px;">{{ data.token1 }}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;">{{ data.token1 }}</td>
                             {% endif %}
-                            <td class="yellow-shadow" style="font-size: 12px;">{{ data.patientid.case}}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;">{{ data.patientid.case}}</td>
                             
                             {% if data.time == '' %}
-                            <td class="yellow-shadow" style="font-size: 12px;" ><b>- </b></td>
+                            <td class="yellow-shadow" style="font-size: 17px;" ><b>- </b></td>
                             {% else %}
-                            <td class="yellow-shadow" style="font-size: 12px;" > {{ data.time }}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;" > {{ data.time }}</td>
                             {% endif %}
-                            <td class="yellow-shadow" style="font-size: 12px;"> {{ data.patientid.name }}</td>
-                            <td class="yellow-shadow" style="font-size: 12px;"> {{ data.docterid.name }} </td>
+                            <td class="yellow-shadow" style="font-size: 17px;"> {{ data.patientid.name }}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;"> {{ data.docterid.name }} </td>
         
-                            <td class="yellow-shadow" style="font-size: 12px;">{{ data.patientid.phone}}</td>
-                            <td class="yellow-shadow" style="font-size: 12px;">{{ data.stat}}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;">{{ data.patientid.phone}}</td>
+                            <td class="yellow-shadow" style="font-size: 17px;">{{ data.stat}}</td>
                           
                       
                           </tr>
@@ -336,22 +359,22 @@ padding-right: 8px;
         
                         <tr  >
                           {% if data.patientid.branch == "Dombivali" %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;"> {{ data.token }}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;"> {{ data.token }}</td>
                           {% else %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;">{{ data.token1 }}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;">{{ data.token1 }}</td>
                           {% endif %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;">{{ data.patientid.case}}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;">{{ data.patientid.case}}</td>
                           
                           {% if data.time == '' %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;" ><b>- </b></td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;" ><b>- </b></td>
                           {% else %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;" > {{ data.time }}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;" > {{ data.time }}</td>
                           {% endif %}
-                          <td bgcolor=#FED8B1 style="font-size: 12px;"> {{ data.patientid.name }}</td>
-                          <td bgcolor=#FED8B1 style="font-size: 12px;"> {{ data.docterid.name }} </td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;"> {{ data.patientid.name }}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;"> {{ data.docterid.name }} </td>
         
-                          <td bgcolor=#FED8B1 style="font-size: 12px;">{{ data.patientid.phone}}</td>
-                          <td bgcolor=#FED8B1 style="font-size: 12px;">{{ data.stat}}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;">{{ data.patientid.phone}}</td>
+                          <td bgcolor=#FED8B1 style="font-size: 17px;">{{ data.stat}}</td>
                         
                     
                         </tr>
@@ -360,22 +383,22 @@ padding-right: 8px;
         
                         <tr>
                           {% if data.patientid.branch == "Dombivali" %}
-                          <td class="blue-shadow" style="font-size: 12px;"> {{ data.token }}</td>
+                          <td class="blue-shadow" style="font-size: 17px;"> {{ data.token }}</td>
                           {% else %}
-                          <td class="blue-shadow" style="font-size: 12px;">{{ data.token1 }}</td>
+                          <td class="blue-shadow" style="font-size: 17px;">{{ data.token1 }}</td>
                           {% endif %}
-                          <td class="blue-shadow" style="font-size: 12px;">{{ data.patientid.case}}</td>
+                          <td class="blue-shadow" style="font-size: 17px;">{{ data.patientid.case}}</td>
                           
                           {% if data.time == '' %}
-                          <td class="blue-shadow" style="font-size: 12px;" ><b>- </b></td>
+                          <td class="blue-shadow" style="font-size: 17px;" ><b>- </b></td>
                           {% else %}
-                          <td class="blue-shadow" style="font-size: 12px;" > {{ data.time }}</td>
+                          <td class="blue-shadow" style="font-size: 17px;" > {{ data.time }}</td>
                           {% endif %}
-                          <td class="blue-shadow" style="font-size: 12px;"> {{ data.patientid.name }}</td>
-                          <td class="blue-shadow"  style="font-size: 12px;"> {{ data.docterid.name }} </td>
+                          <td class="blue-shadow" style="font-size: 17px;"> {{ data.patientid.name }}</td>
+                          <td class="blue-shadow"  style="font-size: 17px;"> {{ data.docterid.name }} </td>
         
-                          <td class="blue-shadow" style="font-size: 12px;">{{ data.patientid.phone}}</td>
-                          <td class="blue-shadow" style="font-size: 12px;">{{ data.stat}}</td>
+                          <td class="blue-shadow" style="font-size: 17px;">{{ data.patientid.phone}}</td>
+                          <td class="blue-shadow" style="font-size: 17px;">{{ data.stat}}</td>
                         
                     
                         </tr>
@@ -383,22 +406,22 @@ padding-right: 8px;
                       {% else %}
                       <tr>
                         {% if data.patientid.branch == "Dombivali" %}
-                        <td class="green-shadow" style="font-size: 12px;"> {{ data.token }}</td>
+                        <td class="green-shadow" style="font-size: 17px;"> {{ data.token }}</td>
                         {% else %}
-                        <td class="green-shadow"  style="font-size: 12px;">{{ data.token1 }}</td>
+                        <td class="green-shadow"  style="font-size: 17px;">{{ data.token1 }}</td>
                         {% endif %}
-                        <td class="green-shadow" style="font-size: 12px;">{{ data.patientid.case}}</td>
+                        <td class="green-shadow" style="font-size: 17px;">{{ data.patientid.case}}</td>
                         
                         {% if data.time == '' %}
-                        <td class="green-shadow" style="font-size: 12px;" ><b>- </b></td>
+                        <td class="green-shadow" style="font-size: 17px;" ><b>- </b></td>
                         {% else %}
-                        <td class="green-shadow" style="font-size: 12px;" > {{ data.time }}</td>
+                        <td class="green-shadow" style="font-size: 17px;" > {{ data.time }}</td>
                         {% endif %}
-                        <td class="green-shadow" style="font-size: 12px;"> {{ data.patientid.name }}</td>
-                        <td class="green-shadow"  style="font-size: 12px;"> {{ data.docterid.name }} </td>
+                        <td class="green-shadow" style="font-size: 17px;"> {{ data.patientid.name }}</td>
+                        <td class="green-shadow"  style="font-size: 17px;"> {{ data.docterid.name }} </td>
         
-                        <td class="green-shadow"  style="font-size: 12px;">{{ data.patientid.phone}}</td>
-                        <td class="green-shadow"  style="font-size: 12px;">{{ data.stat}}</td>
+                        <td class="green-shadow"  style="font-size: 17px;">{{ data.patientid.phone}}</td>
+                        <td class="green-shadow"  style="font-size: 17px;">{{ data.stat}}</td>
                       
                   
                       </tr>
@@ -408,6 +431,18 @@ padding-right: 8px;
         
         
                 {% endif %}
+                {% empty %}
+
+                <tr style="height: 100px;">
+                  <td></td>
+                  <td style="color:blue; font-weight:bolder; font-size:16px; text-decoration:underline;"> No General Appointments Booked For Today</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
         
                  {% endfor %}
             </table>
@@ -416,31 +451,36 @@ padding-right: 8px;
 
         <!--End of display table-->
 <br><br>
-<br><hr>
+<br>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for i in datas.paginator.page_range %}
+    {% if datas.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+    {% endif %}       
+    {% endfor%}    
+    {% if datas.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav><hr>
 <h5>Note :</h5>
  <br>
  <p style="font-size:21px;"> <a style="margin-right:10px;" class="reorder" href="#"></a> New Patient Appointment  </p>
  
  <p style="font-size:21px; margin-top:5px;"> <a style="margin-right:10px;" class="check" href="#"></a> Follow Up Appointment   </p>
 
+ <p style="font-size:21px;"> <a style="margin-right:10px;" class="reorder-blue" href="#"></a> Medicine Not Issued</p>
 
- <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      {% if datas.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
-      {% endif %}
-      {% for i in datas.paginator.page_range %}
-      {% if datas.number == i %}
-      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-      {% else %}
-      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
-      {% endif %}       
-      {% endfor%}    
-      {% if datas.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
-      {% endif %}
-    </ul>
-  </nav>
+ <p style="font-size:21px;"> <a style="margin-right:10px;" class="reorder-red" href="#"></a> Medicine Issued </p>
+
+
+
 </div>
 
         

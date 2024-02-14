@@ -53,3 +53,5 @@ class BillAdmin(admin.ModelAdmin):
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
     list_display = ['id','patient','diagnose1','diagnose2','diagnose3','date1','date2','date3','date4','month']
+
+admin.site.register(DiagnosisNew)

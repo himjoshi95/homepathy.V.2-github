@@ -395,6 +395,7 @@ footer .line {
     list-style: none;
     background-color: #2e6da4;
     color: white;
+    font-size: 16px;
     box-shadow: 8px 8px 8px #e61c66;
     text-align: center;
   }

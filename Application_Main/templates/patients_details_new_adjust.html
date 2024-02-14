@@ -258,6 +258,7 @@ padding-right: 8px;
                       <tr>
                         <th>SERIAL NO.</th>
                         <th>CASE PAPER NO.</th>
+                        <th>USERNAME</th>
                         <th>NAME</th> 
                         <th>PHONE NUMBER</th>           
                         
@@ -277,6 +278,7 @@ padding-right: 8px;
                     {% if data.case == 'DOM-NEW' or data.case == 'MUL-NEW' %}
                     <td class="yellow-shadow" style="font-size: 12px;" >{{forloop.counter0|add:datas.start_index}}</td>
                     <td class="yellow-shadow" style="font-size: 12px;" ><p style="padding: 5px; border: 2px solid orange; background:white;">{{data.case}}</p></td>
+                    <td class="yellow-shadow" style="font-size: 12px;">{{data.usern}}</td>
                     <td class="yellow-shadow" style="font-size: 12px;">{{ data.name }}</td>
                     <td class="yellow-shadow"  style="font-size: 12px;">{{ data.phone }} </td>
                     <td class="yellow-shadow"  style="font-size: 12px;">{{ data.email }}</td>
@@ -289,6 +291,7 @@ padding-right: 8px;
                     {% else %}
                     <td class="blue-shadow" style="font-size: 12px;">{{forloop.counter0|add:datas.start_index}}</td>
                     <td class="blue-shadow"  style="font-size: 12px;">{{data.case}}</td>
+                    <td class="blue-shadow" style="font-size: 12px;">{{data.usern}}</td>
                     <td class="blue-shadow"  style="font-size: 12px;">{{ data.name }}</td>
                     <td class="blue-shadow" style="font-size: 12px;">{{ data.phone }} </td>
                     <td class="blue-shadow" style="font-size: 12px;" >{{ data.email }}</td>
@@ -303,6 +306,18 @@ padding-right: 8px;
               
               
                        
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td class="no-results"  colspan="3" style="font-size: 16px; color:blue;"><b>No Patient Found.</b></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      
                   </tr>
               
                     

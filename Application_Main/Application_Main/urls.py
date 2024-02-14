@@ -39,6 +39,8 @@ urlpatterns = [
 
     path('logout', logout , name = 'logout' ),
     path('profile/(?P<user>.*)', profile , name = 'profile' ),
+    path('editProfile/(?P<user>.*)', editProfile , name = 'editProfile' ),
+    path('add-case-paper/<int:id>',add_case_paper, name='add_case_paper'),
     path('patient_appointment/(?P<user>.*)',patient_appointment,name='patient_appointment'),
     path('display_home/(?P<user>.*)',display_home,name='display_home'),
     path('dashboard/(?P<user>.*)', dashboard , name = 'dashboard'),
@@ -96,6 +98,8 @@ urlpatterns = [
     path('get_pdf/(?P<id>\d+)', get_pdf , name = 'get_pdf'),
     path('send_reminder/(?P<id>\d+)', send_reminder , name = 'send_reminder'),
     path('apointmentDetails/<int:id>/<int:token>', apointmentDetails , name = 'apointmentDetails'),
+    path("search-prescriptions/", search_prescriptions, name="search_prescriptions"),
+
     path('health-assessment/<int:id>/<int:token>',health_assessment,name='health_assessment'),
     path('delete-health/<int:id>/<int:token>',delete_health_assessment,name="delete_health_assessment"),
 
@@ -289,6 +293,8 @@ urlpatterns = [
     path('gen_pdf/<int:case_id>',gen_pdf,name='gen_pdf'),
     path('past_history_patient_old/<int:case_id>',past_history_patient,name='past_history_patient'),
     path('present_complaints_patient/<int:case_id>',present_complaints_newone,name='past_history_newone'),
+    path('add_health_assessment/<int:case_id>',add_health_assessment,name='add_health_assessment'),
+    path('delete_health_newcase/<int:id>',delete_health_newcase,name='delete_health_newcase'),
 
     path('present-complaints-add/<int:id>/',present_complaints_add,name='present_complaints_add'),
     path('present_complaints_patient/<int:case_id>/complain/<int:id>',complain,name='complain'),
@@ -349,6 +355,8 @@ urlpatterns = [
     path('gen_pdf_new/<int:pk>',GeneratePdf.as_view(),name='gen_pdf_new'),
 
     path('show_case_paper/<int:pk>',ShowCasePdf.as_view(),name='show_case_paper'),
+
+    path('dummy_pdf/<int:pk>',DummyCasePdf.as_view(),name='dummy_case_pdf'),
 
     path('personal_appetite/<int:id>/patient/<int:case_id>',personal_appetite,name='personal_appetite'),
     path('next1/<int:id>/patient/<int:case_id>',next1,name="next1"),

@@ -59,28 +59,31 @@
 
 <body>
     {% include 'nav_adjust.html' %}
-
-    <div class=container>
-      {% if messages %}
-		{% for message in messages %}
-		<div class="success">
-			<i class="fa fa-bell"></i>
-		   {{ message}}
-		</div>
-		{% endfor %}
-	{% endif %}
-    </div>
+  
+    
+      
   <br>
 
     <section class="home" id="home">
         
-      
+    
+
 
         <div class="card-login" >
             <img src="{% static '/images/login_page.jpg' %}" class="vdo-login" alt="Sample photo">
             <br><br><br>
             <span class="heading" >LOGIN</span>
             <div class="line"></div>
+            <br>
+            {% if messages %}     
+      
+            {% for message in messages %}
+            <div class="success" >
+              <i class="fa fa-bell"></i>
+               {{ message}}
+            </div>
+            {% endfor %}
+          {% endif %}
             <br><br>
             <form class="px-md-2"  action="/login1" method="POST">
                 {% csrf_token %}

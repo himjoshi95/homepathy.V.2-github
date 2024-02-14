@@ -398,8 +398,20 @@ padding-right: 8px;
         <div class="dropdown-divider"></div>
         <a href="{% url 'courier_medicicne' user=user %}">Courier Medicine<i class="fa fa-caret-right"></i></a>
         <div class="dropdown-divider"></div>
+        <button class="dropdown-btn">Certificates<i class="fa fa-caret-down"></i></button>
+        {% comment %} <div class="dropdown-container" style="text-align:center;">
+    <a href="{% url 'addpatient' %}"><i class="fa-solid fa-arrow-right"></i> Bill Invoice</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'previous_issued_invoice' %}"><i class="fa-solid fa-arrow-right"></i> Previous Issued Invoices</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'addcertificate' %}"><i class="fa-solid fa-arrow-right"></i> Other Certificates</a>
+    <div class="dropdown-divider"></div>
+    <a href="{% url 'previous_issued_certificate' %}"><i class="fa-solid fa-arrow-right"></i> Previous Issued Certificates</a>             
+  </div>	 {% endcomment %}
         {% comment %} <a href="{% url 'online_consultation' user=user %}">Online Consultation</a> {% endcomment %}
         <a href="{% url 'old_prescription' user=user %}">Upload Old Case Paper<i class="fa fa-caret-right"></i></a>
+        <div class="dropdown-divider"></div>
+       
     </div>
       <span style="font-size:20px;cursor:pointer" onclick="openNav()"><p style="margin-top:10px; padding: 2px; border: 2px solid darkblue; background:white; color:darkblue; width:50px;"><b> &#9776; </b></p></span>
 
@@ -441,6 +453,10 @@ padding-right: 8px;
   </button>
 
   <button  id="openPopupone" class="btn btn-primary btn-lg ifr"><i class="fa fa-bank" style=" font-size:18px;"></i> LEAVE REPORTS</button>
+
+  <a href="{% url 'all_courier' recep_branch %}" class="btn btn-primary btn-lg ifr"  style="margin-left:18px;" ><i class='fas fa-shipping-fast'></i> COURIER LIST</a>
+
+  
 
   <div id="myModal" class="modal">
     <div class="modal-content">

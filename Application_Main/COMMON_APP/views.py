@@ -69,11 +69,14 @@ def home(request):
 
 	data = OurPortfolioImages.objects.all()
 
+	print(f"request.user main home {request.user}")
 	branch = ForAppointmentHomePage.objects.all()
 	return render(request , 'home_new_adjust.html',{"user":None,"data":data,"branch":branch})
 
 @csrf_exempt
 def register(request) :
+
+	print(f"request.user register {request.user}")
 	if request.method == 'POST':
 		# print(request.POST['name'])
 		# print(request.POST['post'])
@@ -81,7 +84,7 @@ def register(request) :
 			user = User.objects.get(username=request.POST['username'])
 			if user:
 				messages.info(request,'Username already Exists')
-				return render(request,'register_new_adjust.html')
+				return render(request,'register_new_adjust.html',{'user':None})
 			
 		except User.DoesNotExist:
 			user = User.objects.create_user(username=request.POST['username'],password=request.POST['pass1'])
@@ -91,7 +94,7 @@ def register(request) :
 			#branch=request.POST['post']
 			#print(branch)	
 			new.save()
-			messages.info(request,'Registration Sucessfully Done. Please login to Continue')	
+			messages.info(request,'Your Registration is complete only when you login and update your Profile.')	
             
 			# c_patient = Invoice(patient = new , outstanding = 0 , paid = 0)
 			# c_patient.save()
@@ -99,7 +102,7 @@ def register(request) :
 
 			return redirect('login1')
 	else:
-		return render(request , 'register_new_adjust.html')
+		return render(request , 'register_new_adjust.html',{'user':None})
 
 @csrf_exempt
 def recep_register_patient(request,user):
@@ -126,7 +129,8 @@ def recep_register_patient(request,user):
 			user = User.objects.get(username=auto_gen_username)
 			if user:
 				messages.success(request,'Username already Exists')
-				return render(request,"recep_register_patient.html",context)
+				return render(request,"recep_register_patient_adjust.html",context)
+				# return render(request,"recep_register_patient.html",context)
 			
 		except User.DoesNotExist:
 			first_name = request.POST['name'].lower().split(' ')[0]
@@ -211,6 +215,7 @@ def login(request):
 				user_authenticate=auth.authenticate(username=uname , password=pwd)
 				print('user_auth',user_authenticate)
 			except User.DoesNotExist:
+				
 				print('User does not exist.')
 			if user_authenticate != None:
 				user = User.objects.get(username = uname)
@@ -253,13 +258,14 @@ def login(request):
 			else:
 				print("True","Invalid")
 				messages.success(request,'Username or Password is incorrect')
-				return render(request,'login_new_adjust.html')
+				return render(request,'login_new_adjust.html',{'user':None})
 
 		except:
-			messages.success(request, 'Form submission successful')
-			return render(request,'login_new_adjust.html')
+			messages.success(request,'Username or Password is incorrect')
+			# messages.success(request, 'Form submission successful')
+			return render(request,'login_new_adjust.html',{'user':None})
 			
-	return render(request , 'login_new_adjust.html')
+	return render(request , 'login_new_adjust.html',{'user':None})
 
 import uuid
 @csrf_exempt
@@ -329,7 +335,7 @@ def forgetPassword(request):
 	
 	except Exception as e:
 		print(e)
-	return render(request,'forgot-password-adjust.html')
+	return render(request,'forgot-password-adjust.html',{'user':None})
 
 @csrf_exempt
 def changePassword(request,token):
@@ -513,6 +519,76 @@ def profile(request, user):
 
 
 	# return redirect('/')
+
+@csrf_exempt
+def editProfile(request,user):
+
+	print("user",request.user)
+	if request.user:
+		status = request.user
+
+
+	userid = User.objects.get(username=status)
+	data = Patient.objects.get(usern=userid)
+
+	if request.method == "POST":
+		update = Patient.objects.get(usern=userid)
+		update.name = request.POST['name']
+		update.usern = request.POST['username']
+		update.phone = request.POST['phone']
+		update.alternative_number = request.POST['alt_number']
+		update.email = request.POST['email']
+		update.gender = request.POST['gender']
+		update.age = request.POST['age']
+		update.address = request.POST['address']
+		update.case = request.POST['case']
+		update.qualification = request.POST['qualification']
+		update.occupation =  request.POST['occupation']
+		update.dietry_preference = request.POST['dietry']
+		update.marital_status = request.POST['marital']
+		if 'patient_images' in request.FILES:
+			update.patient_images = request.FILES['patient_images']
+			update.save()
+		else:
+			pass
+		update.save()
+		messages.info(request,f'You have Successfully Updated your Profile !')
+		return HttpResponseRedirect(reverse('editProfile', kwargs={'user':user})) 
+
+
+	context = {
+		'status':status,
+		'user':user,
+		'data':data,
+	}
+	return render(request,'editProfile_new_adjust.html',context)
+
+@csrf_exempt
+def add_case_paper(request,id):
+	
+	data = Patient.objects.get(id=id)
+
+	if data.branch == "Dombivali":
+		key_branch = "DOM-"
+	elif data.branch == "Mulund":
+		key_branch = "MUL-"
+
+	if request.method == 'POST':
+		old_case = f'{key_branch}{request.POST['case']}'
+		# print("Old case", old_case, type(old_case))
+		update = Patient.objects.get(id=id)
+		update.case= old_case
+		update.save()
+		messages.success(request,"Successfully Added Case Paper Number")
+		return HttpResponseRedirect(reverse('add_case_paper',kwargs={'id':id}))	
+
+	obj_case = data.case.split('-')	
+	context = {
+		'data':obj_case[1]
+	}
+	return render(request, 'add_case_paper_new_adjust.html',context)
+
+
 @csrf_exempt
 # @login_required
 def dashboard(request , user):
@@ -520,7 +596,7 @@ def dashboard(request , user):
 	status = False
 	if request.user:
 		status = request.user
-	print('---------------------------')
+	print('-------Dashboard--------------------')
 	print('user',user,type(user),status)	
 	print('---------------------------')
 	if user == "AnonymousUser":
@@ -638,9 +714,9 @@ def dash_patients_details(request,user):
 
 	#query1=Patient.objects.get(case=query) 
 	#print(query1.id)
-
+	print("Branch Recep",recep.branch)
 	if query:		
-		branch1 = Patient.objects.filter(Q(case__icontains=query.upper())|Q(phone__icontains=query)|Q(email__icontains=query)|Q(name__icontains=query))
+		branch1 = Patient.objects.filter(Q(case__icontains=query.upper())|Q(phone__icontains=query)|Q(email__icontains=query)|Q(name__icontains=query) ,branch=recep.branch)
 		
 		# appointment_list=Appointment.objects.filter(Q(patientid=query))
 		#print(appointment_list)
@@ -750,7 +826,7 @@ def create_appointment(request , user):
 		
 		p_id = request.POST.get('patient')
 		stat = request.POST.get('status')		
-
+		appoint_stat = request.POST.get('status')
 		if p_id is None:
 			messages.info(request,"Please Select Patient's CasePaper No. to create an Appointment Type.")
 			return redirect('create_appointment',user = "R")
@@ -775,7 +851,7 @@ def create_appointment(request , user):
 				new_appointment = Appointment(docterid = docter , patientid = patient ,time = request.POST['time'] ,  date = request.POST['date'] , stat  = stat,patient_new_old=str_pat_flag )
 				new_appointment.save(pat_branch,stat,notification,doctor_notification,status,email_flag)
 				# return redirect('receptionist_dashboard', user = "R")
-				messages.success(request,'Created Appointment for '+ patient.name +" "+patient.case) 
+				messages.success(request,f'Created {appoint_stat} Appointment  for Patient - {patient.name}/{patient.case}/{patient.phone}(M)') 
 				return redirect('create_appointment', user = "R")
 
 	patient_names = Patient.objects.filter(branch = recep.branch)
@@ -896,8 +972,8 @@ def update_patient(request , id ):
 			# update.blood = request.POST['blood']
 			update.address = request.POST['address']
 			update.case = request.POST['case']
-			update.height = request.POST['height']
-			update.weight = request.POST['weight']
+			# update.height = request.POST['height']
+			# update.weight = request.POST['weight']
 			update.qualification = request.POST['qualification']
 			update.occupation =  request.POST['occupation']
 			update.dietry_preference = request.POST['dietry']
@@ -1529,7 +1605,7 @@ def apointmentDetails(request,id,token):
 		next_visit = " "
 
 	patient_balance = Balance.objects.filter(patient_id=id).last()
-	status_medicine = Appointment.objects.filter(patientid_id =id ).last()
+	# status_medicine = Appointment.objects.filter(patientid_id =id ).last()
 	
 	data1 = OtherPrescription.objects.filter(patient__id = id, date=date.today())
 	data_issued =prescription.objects.filter(patientid__id=id,date=date.today()).first()
@@ -1541,6 +1617,7 @@ def apointmentDetails(request,id,token):
 
 	previous_prescriptions = prescription.objects.all().filter(patientid=id).order_by('-date')
 
+	
 	medicine = request.GET.get('medicine')
 
 	if medicine:
@@ -1599,14 +1676,30 @@ def apointmentDetails(request,id,token):
 			"unsend_mail_count":unsent_mail_count}
 	return render(request,'apointmentDetails_newone_adjust.html',context ) 
 
+
+def search_prescriptions(request):
+	if request.method == 'GET' and  request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+		query = request.GET.get('query', '')
+		# print("Queryyyy--",query)
+		patient_id = request.GET.get('patient_id', None)
+		# print("Patient__id",patient_id)
+		if patient_id is not None:
+			prescriptions = prescription.objects.filter(patientid_id=patient_id, medicine__icontains=query).order_by('-date')
+			data = [{'patient': prescription.patientid.name, 'medicine': prescription.medicine, 'potency': prescription.potency ,'date':prescription.date} for prescription in prescriptions]
+			return JsonResponse(data, safe=False)
+	return JsonResponse({}, status=400)
+
+
+
+
 @csrf_exempt
 def health_assessment(request,id,token):
 
 	pat  = Patient.objects.get(id=id)
 
 	if request.method == 'POST':
-		print("BP",request.POST['bloodPressure'])
-		print("weight",request.POST['weight'])
+		# print("BP",request.POST['bloodPressure'])
+		# print("weight",request.POST['weight'])
 		blood_press = request.POST['bloodPressure']
 		wt = request.POST['weight']
 		HealthAssessment.objects.create(patient = pat, bp = blood_press,weight=wt)
@@ -3080,7 +3173,7 @@ def images(request):
 		for image in images:
 			photo = ImagesUpload.objects.create(case=patient,images=image)		
 						
-		messages.success(request,"Patient's Images Uploaded Successfully")			
+		messages.success(request,"Successfully Uploaded the Image!")			
 		return redirect('images')
 	
 	
@@ -3369,34 +3462,63 @@ def all_courier(request,branch):
 	if request.user:
 		status = request.user
 
-	hr = HR.objects.get(username=status)
-	hr_branch = hr.branch
+	try:
+		hr = HR.objects.get(username=status)
+		hr_branch = hr.branch
+		details = CourierDetails.objects.filter(patient__branch=branch).order_by('-date')
 
-	details = CourierDetails.objects.filter(patient__branch=branch).order_by('-date')
-
-	general = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = True) & Q(notification_flag = False))	
-	count_general = str(general.count())
-	repeat_medicine = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
-	count_repeat = str(repeat_medicine.count())
-	courier = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
-	count_courier = str(courier.count())
-	mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False)  &Q(patient__branch=hr_branch))
-	unsent_mail_count = str(mail_count.count())
-		
+		general = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = True) & Q(notification_flag = False))	
+		count_general = str(general.count())
+		repeat_medicine = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
+		count_repeat = str(repeat_medicine.count())
+		courier = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
+		count_courier = str(courier.count())
+		mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False)  &Q(patient__branch=hr_branch))
+		unsent_mail_count = str(mail_count.count())	
 
 	# print("details",details)
-	context = {
-		'status':status,
-		'user':'H',
-		'hr_branch':hr_branch,
-		'details':details,
-		'date':date.today(),
-		'general':count_general,
-		'repeat': count_repeat,
-		'courier':count_courier,
-		'unsend_mail_count': unsent_mail_count,
-		
-	}
+		context = {
+			'status':status,
+			'user':'H',
+			'hr_branch':hr_branch,
+			'details':details,
+			'date':date.today(),
+			'general':count_general,
+			'repeat': count_repeat,
+			'courier':count_courier,
+			'unsend_mail_count': unsent_mail_count,
+			
+		}
+	except:
+		recep = Receptionist.objects.get(username=status)
+		hr_branch = recep.branch
+		details = CourierDetails.objects.filter(patient__branch=branch).order_by('-date')
+
+		general = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="General") & Q(doctor_notification = True) & Q(notification_flag = False))	
+		count_general = str(general.count())
+		repeat_medicine = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Repeat Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
+		count_repeat = str(repeat_medicine.count())
+		courier = Appointment.objects.filter(Q(patientid__branch = hr_branch) & Q(date=date.today()) & Q(stat="Courier Medicine") & Q(doctor_notification = True) & Q(notification_flag = False))
+		count_courier = str(courier.count())
+		mail_count = CourierDetails.objects.filter(Q(date=date.today()) & Q(email_flag=False)  &Q(patient__branch=hr_branch))
+		unsent_mail_count = str(mail_count.count())
+			
+
+	# print("details",details)
+		context = {
+			'status':status,
+			'user':'R',
+			'hr_branch':hr_branch,
+			'details':details,
+			'date':date.today(),
+			'general':count_general,
+			'repeat': count_repeat,
+			'courier':count_courier,
+			'unsend_mail_count': unsent_mail_count,
+			
+		}
+
+	
 	return render(request,'all_courier_adjust.html',context)
 
 def view_payment_courier(request,pk):
@@ -3410,50 +3532,92 @@ def view_payment_courier(request,pk):
 
 	return render(request,'view_payment_courier.html',context)
 
+@csrf_exempt
 def update_payment_courier(request,pk):
 
 	status = False
 	if request.user:
 		status = request.user
 
-	hr = HR.objects.get(username=status)
-	hr_name = f'{hr.name} - {hr.username}'
+	try:
+		hr = HR.objects.get(username=status)
+		hr_name = f'{hr.name} - {hr.username}'
 
-	data = CourierDetails.objects.get(id=pk)
+		data = CourierDetails.objects.get(id=pk)
 
-	if request.method == 'POST':
-		data.paid_amount = request.POST['paid_amount']
-		data.transaction_id = request.POST['transaction']
-		data.balance_amount -= int(request.POST['paid_amount'])
-		data.collected_by = hr_name
-		last_balance = Balance.objects.filter(patient=data.patient).last()
-		last_amount = Amount.objects.filter(patient=data.patient).last()
-		if last_amount is not None:
-			last_amount.paid_amount = int(request.POST['paid_amount'])
-			last_amount.transac_id = request.POST['transaction']
-			last_amount.cash = False
-			last_amount.online=True
-			last_amount.balance_flag = True
-			last_amount.online_amount = int(request.POST['paid_amount'])
-			last_amount.collected_by = hr_name
-			last_amount.save()
+		if request.method == 'POST':
+			data.paid_amount = request.POST['paid_amount']
+			data.transaction_id = request.POST['transaction']
+			data.balance_amount -= int(request.POST['paid_amount'])
+			data.collected_by = hr_name
+			last_balance = Balance.objects.filter(patient=data.patient).last()
+			last_amount = Amount.objects.filter(patient=data.patient).last()
+			if last_amount is not None:
+				last_amount.paid_amount = int(request.POST['paid_amount'])
+				last_amount.transac_id = request.POST['transaction']
+				last_amount.cash = False
+				last_amount.online=True
+				last_amount.balance_flag = True
+				last_amount.online_amount = int(request.POST['paid_amount'])
+				last_amount.collected_by = hr_name
+				last_amount.save()
 
 
-		if last_balance is not None:
-			last_balance.balance_amt -= int(request.POST['paid_amount'])
-			last_balance.collected_by = hr_name
-			last_balance.save()
-		data.save()
-		messages.success(request,"Payment Updated Successfully")
-		return HttpResponseRedirect(reverse('update_payment_courier', kwargs = {'pk':pk}))
+			if last_balance is not None:
+				last_balance.balance_amt -= int(request.POST['paid_amount'])
+				last_balance.collected_by = hr_name
+				last_balance.save()
+			data.save()
+			messages.success(request,"Payment Updated Successfully")
+			return HttpResponseRedirect(reverse('update_payment_courier', kwargs = {'pk':pk}))
 
-	context = {
-		'status':status,
-		'user':'H',
-		'pk':pk,
-		'branch':data.patient.branch,
-		'data':data,
-	}
+		context = {
+			'status':status,
+			'user':'H',
+			'pk':pk,
+			'branch':data.patient.branch,
+			'data':data,
+		}
+	except:
+		hr = Receptionist.objects.get(username=status)
+		hr_name = f'{hr.name} - {hr.username}'
+
+		data = CourierDetails.objects.get(id=pk)
+
+		if request.method == 'POST':
+			data.paid_amount = request.POST['paid_amount']
+			data.transaction_id = request.POST['transaction']
+			data.balance_amount -= int(request.POST['paid_amount'])
+			data.collected_by = hr_name
+			last_balance = Balance.objects.filter(patient=data.patient).last()
+			last_amount = Amount.objects.filter(patient=data.patient).last()
+			if last_amount is not None:
+				last_amount.paid_amount = int(request.POST['paid_amount'])
+				last_amount.transac_id = request.POST['transaction']
+				last_amount.cash = False
+				last_amount.online=True
+				last_amount.balance_flag = True
+				last_amount.online_amount = int(request.POST['paid_amount'])
+				last_amount.collected_by = hr_name
+				last_amount.save()
+
+
+			if last_balance is not None:
+				last_balance.balance_amt -= int(request.POST['paid_amount'])
+				last_balance.collected_by = hr_name
+				last_balance.save()
+			data.save()
+			messages.success(request,"Payment Updated Successfully")
+			return HttpResponseRedirect(reverse('update_payment_courier', kwargs = {'pk':pk}))
+
+		context = {
+			'status':status,
+			'user':'R',
+			'pk':pk,
+			'branch':data.patient.branch,
+			'data':data,
+		}
+
 
 	return render(request, 'update_courier_payment_adjust.html',context)
 
@@ -3926,6 +4090,15 @@ def hr_send_mail(request):
 						'unsend_mail_count': unsent_mail_count})
 @csrf_exempt
 def hr_medicine_prescription(request,id):
+
+	try:
+		amount_paid_today = Amount.objects.filter(Q(patient=id) & Q(date__date=date.today())).first()
+		print("Amount Paid",amount_paid_today.patient.name, amount_paid_today.paid_amount)
+		prescription_duration = prescription.objects.filter(Q(patientid=id) & Q(date=date.today())).first()
+		print("Prescription Durations",prescription_duration.durations)
+	except:
+		amount_paid_today = None
+		prescription_duration = None
 	
 	global bal	
 	status = False
@@ -3978,17 +4151,18 @@ def hr_medicine_prescription(request,id):
 	# print("unsend--",unsent_mail_count,type(unsent_mail_count))
 
 	data_extra = OtherPrescription.objects.filter(patient__id=id,date=date.today())
-	print("data",data_extra)
+	# print("data",data_extra)
 
 	data2 =prescription.objects.filter(patientid__id=id,date=date.today()).first()
 	# print("data2---",data2.medicine,data2.flag)
 	return render(request,'hr_medicine_prescription_newone_adjust.html',{'user':'H','status':status,'data':data,'data1':data1,'name':patient_name,"data2":data2,
 							'case':patient_case,'id':patient_id,'balance':str(bal),'general':count_general,"pat":patient,'data_extra':data_extra,
-							'repeat': count_repeat,'courier':count_courier,"next_visit":next_visit,'unsend_mail_count': unsent_mail_count,"date":today})
+							'repeat': count_repeat,'courier':count_courier,"next_visit":next_visit,'unsend_mail_count': unsent_mail_count,"date":today,'amount_paid_today':amount_paid_today,'prescription_duration':prescription_duration})
 @csrf_exempt
 def hr_medicine_payment(request,id):
 
 	# global total_amt
+	
 	global total_clearance
 	status = False
 	if request.user:
@@ -4443,13 +4617,13 @@ def repeat_med_details(request,user):
 		# print(appointment_list)
 		# return render(request , 'repeat_med_details.html' , {'user':user, "status": status , "Total" : len(row) ,
 		# 													"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients})
-	p = Paginator(row_one ,3)
+	p = Paginator(row_one ,10)
 	page = request.GET.get('page')
-	row_ones = p.get_page(page)
+	datas = p.get_page(page)
 	# datas = p.get_page(page)
 	d1 = date.today()
 	return render(request , 'repeat_med_details_new_adjust.html' , {'user':user, "status": status , "Total" : len(row) ,
-															"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients,'row_one':row_ones,'date':d1})
+															"Done" : status_done , "Pending" : status_pending , 'all_data' : row ,  'last_patients' : last_patients,'datas':datas,'date':d1})
 
 @csrf_exempt
 def send_mail(request,id):
@@ -8924,10 +9098,13 @@ def balance_list(request,branch):
 	for p in patient_details:
 		appoint = Appointment.objects.filter(Q(patientid=p)).last()
 		if appoint is not None:
-			balance_amount = Balance.objects.filter(patient=appoint.patientid).last()
-			if balance_amount is not None and balance_amount.balance_amt > 0:
-				balance_due_list.append(balance_amount)
-				appointment_type.append(appoint)
+			try:
+				balance_amount = Balance.objects.filter(patient=appoint.patientid).last()
+				if balance_amount is not None and balance_amount.balance_amt > 0:
+					balance_due_list.append(balance_amount)
+					appointment_type.append(appoint)
+			except:
+				pass
 
 
 

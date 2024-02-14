@@ -745,11 +745,13 @@ padding-right: 8px;
 
         span.onclick = function() {
             modal.style.display = "none";
+            window.parent.location.reload();
         }
 
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+               
             }
         }
 
@@ -764,6 +766,7 @@ padding-right: 8px;
 
     spanone.onclick = function() {
         modalone.style.display = "none";
+        window.parent.location.reload();
     }
 
     window.onclick = function(event) {
@@ -779,10 +782,12 @@ padding-right: 8px;
  
      btntwo.onclick = function() {
          modaltwo.style.display = "block";
+         
      }
  
      spantwo.onclick = function() {
          modaltwo.style.display = "none";
+         window.parent.location.reload();
      }
  
      window.onclick = function(event) {
@@ -809,6 +814,7 @@ padding-right: 8px;
 
      spanthree.onclick = function() {
      modalthree.style.display = "none";
+     window.parent.location.reload();
      }
 
      window.onclick = function(event) {
@@ -834,6 +840,7 @@ padding-right: 8px;
 
     spanfour.onclick = function() {
         modalfour.style.display = "none";
+        window.parent.location.reload();
     }
 
     window.onclick = function(event) {
@@ -857,6 +864,7 @@ padding-right: 8px;
     spanfive.onclick = function() {
         console.log("Close button clicked");
         modalfive.style.display = "none";
+        window.parent.location.reload();
     }
     
     window.onclick = function(event) {

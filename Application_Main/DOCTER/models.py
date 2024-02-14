@@ -7,6 +7,7 @@ from COMMON_APP.models import *
 from jsignature.fields import JSignatureField
 from django.contrib.auth.models import User
 from jsignature.mixins import JSignatureFieldsMixin
+from dashboard.models import *
 
 
 
@@ -190,6 +191,19 @@ class Diagnosis(models.Model):
 	diagnose = models.CharField(max_length=100)
 	med_name = models.CharField(max_length=100,null=True,blank=True)
 	date = models.DateField(auto_now=True)
+
+	def __str__(self):
+		return f"{self.patient}-{self.diagnose}-{self.date}"
+	
+class DiagnosisNew(models.Model):
+	patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
+	diagnose = models.ForeignKey(PresentComplaintsNew,on_delete=models.CASCADE)
+	med_name = models.CharField(max_length=100,null=True,blank=True)
+	date = models.DateField(auto_now=True)
+
+	def __str__(self):
+		return f"{self.patient}-{self.diagnose}-{self.date}"
+
 
 class Bill(models.Model):
 	patient = models.ForeignKey(Patient,on_delete=models.CASCADE)

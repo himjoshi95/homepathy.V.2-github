@@ -253,20 +253,20 @@
                  </select><br>
       </div>
       <br> 
-      <label  for="form3Example1q">Height</label>
+      {% comment %} <label  for="form3Example1q">Height</label>
       {% if data.height %}
         <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control" value="{{ data.height }}" />
        {% else %}
        <input type="text" id="form3Example1q" name="height" placeholder="Mention Height" required="" class="form-control"  />
        {% endif %}
-        <br>
-        <label  for="form3Example1q">Weight (kgs)</label>
+        <br> {% endcomment %}
+        {% comment %} <label  for="form3Example1q">Weight (kgs)</label>
         {% if data.weight == 'None' or not data.weight %} 
         <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control"  />
         {% else %}
         <input type="text" id="form3Example1q" name="weight" placeholder="Mention Weight" required="" class="form-control" value="{{ data.weight }}"  />
-        {% endif %}
-        <br>
+        {% endif %} {% endcomment %}
+      
         <label class="form-label1" for="form3Example1q">Address</label>
         <textarea class="form-control" name="address"  placeholder="Address" value="{{ data.address }}" placeholder="Address">{{ data.address }}</textarea>
         <br>                  

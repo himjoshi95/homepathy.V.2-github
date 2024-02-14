@@ -247,7 +247,36 @@
        
         <div class="header-past">New Case - Final Report</div>      
         
-        
+        <br>
+        <br><br>
+        <div class="header-new">Health Assessment</div>
+
+        <div class="table-responsive">
+          <table class="table-pdf" >
+            <thead>
+              <tr>
+                
+                <th style="font-size:17px;">Assessment Date</th>
+                <th style="font-size:17px;">Blood Pressure</th>                                               
+                <th style="font-size:17px;">Weight</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in health %}
+              <tr>
+                <td style="font-size: 16px;">{{h.date|date:"d-M-Y"}}</td>
+                <td style="font-size: 16px;">{{h.bp}} mmHg</td>
+                <td style="font-size: 16px;">{{h.weight}} Kgs.</td>
+                <td></td>
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+  
+          </table>
+        </div>
+
         <br>
         {% if len_present_complaint != 0 %}
         <div class="header-new">Present Complaints</div>
@@ -361,7 +390,7 @@
         {% endif %}
 
 
-        {% if len_family_medical != 0 or len_family_medical != '0' %}
+        {% if len_family_medical != 0  %}
         <br><br>
         <div class="header-new">Family Medical History</div><hr>
 

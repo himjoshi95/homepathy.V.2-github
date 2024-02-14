@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from DOCTER.forms import PriceForm
 from django.contrib import messages
-from DOCTER.models import Diagnosis,Bill,Certificate,AddMedicine,AddStaff,Amount,Balance,CourierDetails,ExampleModel,Price
+from DOCTER.models import Diagnosis,DiagnosisNew,Bill,Certificate,AddMedicine,AddStaff,Amount,Balance,CourierDetails,ExampleModel,Price
 from django.db.models import Q
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -24,7 +24,7 @@ from  .utils import *
 from jsignature.utils import draw_signature
 from django.db.models.functions import Lower
 from django.views.decorators.csrf import csrf_exempt
-from COMMON_APP.models import Receptionist,HR,ReceptionistDocs,HRDocs
+from COMMON_APP.models import Receptionist,HR,ReceptionistDocs,HRDocs,HealthAssessment
 from django.utils.decorators import method_decorator
 from datetime import date
 
@@ -74,9 +74,11 @@ def addpatient(request):
     if request.method == 'POST':        
         p_id = request.POST['patient']
         diagnose = request.POST['diagnose']
-        patient = Patient.objects.get(id=p_id) 
-        med_name = request.POST['med_name'] 
-        obj = Diagnosis(patient=patient,diagnose=diagnose.title(),med_name=med_name.title())  
+        patient = Patient.objects.get(id=p_id)
+        present_complaint = PresentComplaintsNew.objects.get(id=diagnose) 
+        med_name = request.POST['med_name']
+        obj = DiagnosisNew(patient=patient,diagnose=present_complaint,med_name=med_name.title())   
+        # obj = Diagnosis(patient=patient,diagnose=diagnose.title(),med_name=med_name.title())  
         messages.success(request,'Patient Added Successfully. Click on Next to Continue') 
         obj.save()
         global case_id
@@ -84,11 +86,17 @@ def addpatient(request):
         return redirect('addpatient')
        
     data = Patient.objects.all()
-    
-    return render(request,'dashboard/templates/addpatient_new_adjust.html',{'status':status,'user':"D",'data':data,'case_id':case_id})
 
+    data_diagnose = PresentComplaintsNew.objects.all()
+    
+    return render(request,'dashboard/templates/addpatient_new_adjust_drop.html',{'status':status,'user':"D",'data':data,'case_id':case_id,'data_diagnose':data_diagnose})
+from dateutil.relativedelta import relativedelta
 @csrf_exempt
 def bills(request,id):
+
+    if id == 0:
+        return HttpResponse(f'<h1 style="text-align:center; color:blue;">&nbsp; <br>Go Back...Select Patient !</h1>')
+    
     status = False
     if request.user:
         status=request.user
@@ -110,9 +118,57 @@ def bills(request,id):
         return HttpResponseRedirect(reverse('bills',  kwargs={'id': p_id}))  
        
     
-    data = Patient.objects.all()    
+    data = Patient.objects.all()
+
+    # data_diagnose = DiagnosisNew.objects.filter(Q(patient=id) & Q(date=date.today())).first()
+
+    # print("data_diagnose",data_diagnose.diagnose.date)
+
+    # pres = prescription.objects.filter(Q(patientid__id=id) & Q(date=data_diagnose.diagnose.date)).first()
+
+
+
+    # print("Prescriptions : ",pres.medicine,pres.patientid,pres.date,pres.durations)
+
+    # if pres:
+    #     obj_new = pres.durations.split(' ')
+    #     print("OBJ NEW",obj_new)
+    #     if obj_new[1] == "Days":
+    #         next_visit = pres.date + relativedelta(days=int(obj_new[0]))
+    #     else:
+    #         next_visit = pres.date + relativedelta(months=int(obj_new[0]))
     
-    return render(request,'dashboard/templates/addbills_new_adjust.html',{'status':status,'user':"D",'data':data,'id1':id})    
+    # price_list = Price.objects.get(id=2)
+    # if pres.durations == "7 Days":
+    #     med_fees = price_list.seven_days
+    # elif pres.durations == "15 Days":
+    #     med_fees = price_list.fifteen_days    
+    # elif pres.durations == "21 Days":
+    #     med_fees = price_list.twentyone_days
+    # elif pres.durations == "30 Days":
+    #     med_fees = price_list.thirty_days
+    # elif pres.durations == "45 Days":
+    #     med_fees = price_list.fortyfive_days
+    # elif pres.durations == "2 Months":
+    #     med_fees = price_list.two_months
+    # elif pres.durations == "3 Months":
+    #     med_fees = price_list.three_months 
+
+    # form_date = pres.date.strftime("%Y-%m-%d")
+    # print("form_date",form_date)
+    # print("End date",next_visit)
+    # end_date = next_visit.strftime("%Y-%m-%d")
+    # print("mEDICUBES feeess",med_fees)
+
+    # consult  = Patient.objects.get(id=id)
+    # if consult.flag:
+    #     consult_fees = price_list.new_case
+    # else:
+    #     consult_fees = 0
+    
+    return render(request,'dashboard/templates/addbills_new_adjust.html',{'status':status,'user':"D",'data':data,'id1':id, }) 
+
+    # return render(request,'dashboard/templates/addbills_new_adjust.html',{'status':status,'user':"D",'data':data,'id1':id,'form_date':form_date,'end_date':end_date,'med_fees':med_fees,'consult_fees':consult_fees })    
 
 @csrf_exempt
 def bill_pdf(request,id):
@@ -121,7 +177,7 @@ def bill_pdf(request,id):
         return HttpResponse("Please select Case ID")
     else:
         date1 = date.today()    
-        obj = Diagnosis.objects.filter(patient_id=id,date=date1)    
+        obj = DiagnosisNew.objects.filter(patient_id=id,date=date1)    
         obj_diagnose = [o.diagnose for o in obj]
         obj_med_name = [m.med_name for m in obj]
         print("obj_med------",obj_med_name)    
@@ -166,7 +222,7 @@ def bill_pdf(request,id):
         p.setFont("Helvetica", 13)
         y = 330
         for diagnose in obj_diagnose:
-            p.drawString(100, y, diagnose)
+            p.drawString(100, y, diagnose.complain.name)
             y = y - 18
         
         y1 = 250
@@ -339,6 +395,9 @@ def addcertificate(request):
         return redirect('addcertificate')  
 
     data = Patient.objects.all()
+
+    print("request.user",request.user)
+    
 
     return render(request,'dashboard/templates/addcertificate_new_adjust.html',{'status':status,'user':"D",'data':data,'case_id':case_id_cer})
 
@@ -2094,7 +2153,29 @@ def present_complaints_newone(request,case_id):
                    }
     
         return render(request,'dashboard/templates/present_complaints_newone_adjust.html',context)
+
+@csrf_exempt
+def add_health_assessment(request,case_id):
+    pat  = Patient.objects.get(id=case_id)
+
+    if request.method == 'POST':		
+        blood_press = request.POST['bloodPressure']
+        wt = request.POST['weight']
+        HealthAssessment.objects.create(patient = pat, bp = blood_press,weight=wt)
+        messages.success(request,f'Successfully Added BP: {blood_press} mm/Hg , Weight : {wt} kgs.')
+        return HttpResponseRedirect(reverse('add_health_assessment',kwargs={'case_id':case_id}))
     
+    health = HealthAssessment.objects.filter(patient = case_id).order_by('-date')
+
+    return render(request,"add_health_assessment.html",{'case_id':case_id,'health':health})
+
+def delete_health_newcase(request,id):
+
+	data = HealthAssessment.objects.get(id=id)
+	data.delete()
+	messages.success(request,'Successfully Deleted the Health Assessment')
+	return HttpResponseRedirect(reverse('add_health_assessment',kwargs={'case_id':data.patient.id}))
+   
 def delete_present_complaints(request,id):
 
     obj = PresentComplaintsNew.objects.get(id=id)
@@ -5814,8 +5895,11 @@ class ShowCasePdf(View):
 
             date1 = date.today()
 
+            health = HealthAssessment.objects.filter(patient = case_id).order_by('-date') 
+
             data = {
                 'patient_details': patient,
+                'health':health,
                 'table1':present_complaints,
                    'len_present_complaint': len(present_complaints),
 
@@ -5861,6 +5945,49 @@ class ShowCasePdf(View):
             pdf = render_to_pdf('dashboard/templates/show_case_pdf.html', data)
             return HttpResponse(pdf, content_type='application/pdf')
 
+
+class DummyCasePdf(View):
+    def get(self, request, *args, **kwargs):
+
+        case_id = self.kwargs['pk']
+        amount_paid_today = Amount.objects.filter(Q(patient=case_id) & Q(date__date=date.today())).first()
+        prescription_duration = prescription.objects.filter(Q(patientid=case_id) & Q(date=date.today())).first()
+        today = date.today()
+        if prescription_duration:
+            obj_new = prescription_duration.durations.split(' ')
+            if obj_new[1] == "Days":
+                rem_days = int(obj_new[0]) % 7
+                num_days = int(obj_new[0]) - rem_days
+                next_visit = today + relativedelta(days=num_days)
+            else:
+                next_visit = today + relativedelta(months=int(obj_new[0]))
+        else:
+            next_visit =  " "
+
+        balance= Balance.objects.filter(patient_id=case_id).last()
+
+        print('Balance Amount', balance.balance_amt)
+
+        if balance.balance_amt == 0:
+            bal = 0
+        elif balance.balance_amt < 0:
+            bal = abs(balance.balance_amt)
+            print("Bal true-----",bal)
+        else:
+            bal = balance.balance_amt
+        
+        data = {
+                'name': amount_paid_today.patient.name,
+                'date' : date.today(),
+                'prescription':prescription_duration.durations,
+                'Amount' : amount_paid_today.paid_amount,
+                'next_visit':next_visit,
+                'balance': balance.balance_amt,
+                'bal':bal,
+                }
+
+        pdf = render_to_pdf('dashboard/templates/dummy_case_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 def newcase_final_report(request,case_id):
 
@@ -5930,11 +6057,16 @@ def newcase_final_report(request,case_id):
             final_token = appoint.token
         else:
             final_token = appoint.token1
+        
+        health = HealthAssessment.objects.filter(patient = case_id).order_by('-date')
 
         context = {'status':status,
                    'user':'D',
                    'case_id':case_id,
                    'patient_details':patient_details,
+
+                    'health':health,
+
                    'table1':present_complaints,
                    'len_present_complaint': len(present_complaints),
 

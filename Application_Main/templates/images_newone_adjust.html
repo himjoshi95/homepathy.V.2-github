@@ -54,6 +54,8 @@
         margin-left: 400px;
         margin-top:20px;
     }
+
+    
     @media (max-width: 768px){
     .box {
         width: 300px;
@@ -124,6 +126,16 @@
         
       <div class="jumbotron" style="margin-top:30px;">
         <div class="header-past">Upload Images</div>
+        {% if messages %}     
+        <br>
+        {% for message in messages %}
+        <div class="success" >
+          <i class="fa fa-bell"></i>
+           {{ message}}
+        </div>
+        {% endfor %}
+        <br>
+      {% endif %}
         <hr style="border: 1px solid lightblue">
 
         <form method='POST' action="" enctype="multipart/form-data">
@@ -134,10 +146,10 @@
             <div class="upload-image">
                 <label style ="font-size:18px; color:red;">(Please <b>Choose Files</b> to be Uploaded)</label>
                 <br><br>
-                <input required name="images" type="file" multiple class="form-control-file">
+                <input required name="images" style="border: 2px solid #555; width:200px; padding:8px;" type="file" multiple class="form-control-file">
             </div>
             <br>
-            <button type='submit' class="btn btn-danger btn-lg upload-image">Upload Images</button>
+            <button type='submit' class="btn btn-primary btn-lg upload-image">Upload Images</button>
     
     
         </form>

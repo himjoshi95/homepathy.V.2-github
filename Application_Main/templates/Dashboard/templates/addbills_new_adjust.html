@@ -84,17 +84,17 @@
             {% csrf_token %}       
                    
             <label ><h4>From</h4><p>(Medicine Start Date)</p></label><br>
-            <input type="date"  class="form-control" name="date1">
+            <input type="date"  class="form-control" name="date1" value="{{form_date}}">
             <br><br>
             <label><h4>To</h4><p>(Medicine End Date)</p></label><br>
-            <input type="date"  class="form-control"  name="date2">
+            <input type="date"  class="form-control"  name="date2" value="{{end_date}}">
             
             <br><br>
             <label for="diagnose"><h4>Consulting Fees</h4></label><br>
-            <input type="text"   class="form-control" placeholder="Rs" id="consulting_fees" name="consulting_fees">
+            <input type="text"   class="form-control" placeholder="Rs" id="consulting_fees" name="consulting_fees" value="{{consult_fees}}">
             <br><br>
             <label for="diagnose"><h4>Medicine Fees</h4></label><br>
-            <input type="text" required="True" class="form-control" placeholder="Rs" id="medicine_fees" name="medicine_fees">
+            <input type="text" required="True" class="form-control" placeholder="Rs" id="medicine_fees" name="medicine_fees" value="{{med_fees}}">
             <br><br><br>
             <button type="submit" class="btn btn-success" > <i class="fa fa-check-square-o"></i> Submit</button>
         </form>

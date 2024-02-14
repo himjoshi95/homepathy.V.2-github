@@ -131,6 +131,13 @@
     font-size:14px;
   }
 
+  dd {
+    margin-top:20px;
+    margin-left:400px;
+
+  }
+
+
 
 
 }  
@@ -302,6 +309,33 @@
         <div class="header-past">New Case - Final Report</div>
         <p style="font-size:18px; margin-top:20px;"><b>Date: &nbsp;&nbsp;{{today|date:"d-M-Y"}} </b></p>   
         
+        <br>
+        <div class="header-new">Health Assessment</div>
+        <hr>
+        <div class="table-responsive">
+          <table class='table'>
+            <thead>
+              <tr>
+                
+                <th style="font-size:17px;">Assessment Date</th>
+                <th style="font-size:17px;">Blood Pressure</th>                                               
+                <th style="font-size:17px;">Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in health %}
+                        <tr>
+                          <td style="font-size: 16px;">{{h.date|date:"d-M-Y"}}</td>
+                          <td style="font-size: 16px;">{{h.bp}} mmHg</td>
+                          <td style="font-size: 16px;">{{h.weight}} Kgs.</td>
+                          
+                        </tr>
+                        {% endfor %}
+            </tbody>
+  
+          </table>
+        </div>
+
         
         <br>
         {% if len_present_complaint != 0 %}
@@ -340,7 +374,7 @@
         <br><br>
         <div class="header-new">Chief Complaints</div>
         <hr>
-        
+        <div class="table-responsive">
         {% for o in table2 %}
               <dd>
                   <div class="container text-center" id="border">
@@ -356,6 +390,7 @@
                   
                 </dd>
                 {% endfor %}
+              </div>
 
         {% endif %} 
         
@@ -394,7 +429,7 @@
         <br><br>
         <div class="header-new">Personal History</div>
         <hr>
-        
+        <div class="table-responsive">
         {% for o in personal_history %}
               <dd>
                   <div class="container text-center" id="border">
@@ -410,11 +445,12 @@
                   
                 </dd>
                 {% endfor %}
+              </div>
 
         {% endif %}
 
 
-        {% if len_family_medical != 0 or len_family_medical != '0' %}
+        {% if len_family_medical != 0  %}
         <br><br>
         <div class="header-new">Family Medical History</div><hr>
 
@@ -462,7 +498,9 @@
         </div>
         {% endif %}
         <br>
+        
         {% for o in mental %}
+        <div class="table-responsive">
                   <dd>
                       <div class="container text-center" id="border">
                         <div class="row justify-content-center">
@@ -477,7 +515,9 @@
                          </div></div></div>           
                       
                     </dd>
+                  </div>
                     {% endfor %}
+                  
 
 
                     {% if len_my_list2 != 0 %}
@@ -501,6 +541,7 @@
                     {% endif %}
                     <br>
                     {% for o in personality %}
+                    <div class="table-responsive">
                               <dd>
                                   <div class="container text-center" id="border">
                                     <div class="row justify-content-center">
@@ -515,6 +556,7 @@
                                      </div></div></div>           
                                   
                                 </dd>
+                              </div>
                                 {% endfor %}
 
 
@@ -523,6 +565,7 @@
 
         <div class="header-new">Brief Mind Symptoms</div><hr>
         {% for o in bms_view %}
+        <div class="table-responsive">
                               <dd>
                                   <div class="container text-center" id="border">
                                     <div class="row justify-content-center">
@@ -537,6 +580,7 @@
                                      </div></div></div>           
                                   
                                 </dd>
+                              </div>
                                 {% endfor %}
 
 

@@ -121,6 +121,12 @@
         
       }
 
+      dd {
+        margin-top:20px;
+        margin-left:400px;
+
+      }
+
     
       
 
@@ -179,16 +185,18 @@
     <br>
   {% endif %}
   <br>
-            <table class='table'>
+            
+            <table class=''>
                 <thead>
                 <tr style="height:50px;">  
                     <th></th>                    
                 </tr>            
                 </thead>
             </table>
+            <div class="table-responsive">
             {% if obj %}
                         {% for o in obj %}
-                        <dd style="margin-top:20px; ">
+                        <dd>
                             <div class="container text-center" id="border" >
                               <div class="row justify-content-center" >
                                <div class="border" >
@@ -207,6 +215,7 @@
                           <h1 style="text-align: center;"> No Past Record </h1>
                           <br>
                           {% endif %}
+                        </div>
                           <br>
                           <table class='table'>
                           <tfoot>
@@ -230,6 +239,8 @@
                             </tr>
                           </tfoot>
                           </table>
+
+                        
                          
            
          

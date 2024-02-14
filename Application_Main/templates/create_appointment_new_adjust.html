@@ -199,10 +199,10 @@
     <span class="heading-new" >Create Appointment</span>
     <div class="line-new"></div>
     <br><br>
-    <form class="px-md-2" action="{% url 'create_appointment' user=user %}" method="POST">
+    <form class="px-md-2" style="font-size:13px;" action="{% url 'create_appointment' user=user %}" method="POST">
         {% csrf_token %}
-        <div class="form-outline mb-4">
-        <label class="form-label" for="form3Example1q">Date</label>
+        <div class="form-outline mb-4" >
+        <label class="form-label" for="form3Example1q" >Date</label>
         <input id="form3Example1q" type="date" name="date" placeholder="Date" required="" class="form-control"  value="{{today}}" />
         <br>
         <label class="form-label1" for="form3Example1q">Time</label>
@@ -235,14 +235,15 @@
 
             <div class="form-group">
                 <p  class="form-label" align="left">Appointment Type</p>
+                  <p style="color:red; font-size:12px; font-weight:bolder;">(Click on dropdown to change Appointment Type)<p>
                 <select name="status" required >
                             <option  disabled="true">Please Select the Type</option>
-                            <option default value="General">General</option>
+                            <option default value="General" >General</option>
                             <option  value="Repeat Medicine">Repeat Medicine</option>
                             <option  value="Courier Medicine">Courier Medicine</option>
                             </select>
             </div>
-        <br>
+        <br> <br> <br> <br> 
        
       
 

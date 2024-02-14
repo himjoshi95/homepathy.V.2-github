@@ -181,9 +181,10 @@
     <a href="#" class="logo"><i class='fas fa-clinic-medical' style="font-size:25px;"></i> Wings Classical Homeopathy</a>
 
     <nav class="navbar">
-        {% if user == None %}
+        {% if user == None  %}
         
         <a href="/">Home</a>
+        
 
         {% else %}
         {% if status and user == 'DASH'%}
@@ -193,6 +194,7 @@
         {% endif %}
      {% endif %}
      {% if not status %}
+   
         <a href="/register">Register</a>
         <a href="/login1">Login</a>
     {% endif %}
@@ -204,9 +206,10 @@
     {% endif %}
 
     {% if status and user == "P" %}
-
+    
+    <a href="{% url 'editProfile' user=user %}">Update Profile </a>
     <a  href="{% url 'patient_appointment' user=user %}">Appointments </a>
-    <a href="{% url 'profile' user=user %}">Profile </a>
+    {% comment %} <a href="{% url 'editProfile' user=user %}">Update Profile </a> {% endcomment %}
     <a  href="{% url 'images'  %}">Upload Records </a>
     <a  href="/logout">Logout </a>
 

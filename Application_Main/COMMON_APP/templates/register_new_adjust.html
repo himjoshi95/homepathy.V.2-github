@@ -121,6 +121,7 @@
                 <input type="text" id="form3Example1q"  name="email" placeholder="e.g: 'abc@example.com'" class="form-control" />
                 <br>
                 <label class="form-label" style="font-size:15px;" for="form3Example1q">Username</label>
+                <p style="font-size:11px;color:red;font-weight:bolder;">Username should contain First Name followed by Birth Year<br><br>e.g: aman1975</p>
                 <input type="text" id="form3Example1q" name="username" placeholder="Username" required="" class="form-control" />
 
                 <br>
@@ -152,9 +153,8 @@
               </form>
               <br>
               <p class="already"><b>Already have an Account ? </b><a href="{% url 'login1' %}">Click here to login</a></p>
-        </div>
-
-
+              <br>
+              <p style="color:red;font-size:12px;font-weight:bolder;">Note : Your Registration is complete only when you login and update your Profile.</p>
     </section>
 
     <br><br>
@@ -164,6 +164,15 @@
     <script>
       function myFunction() {
           var x = document.getElementById("myInput");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+        }
+
+        function myFunction1() {
+          var x = document.getElementById("myInput1");
           if (x.type === "password") {
             x.type = "text";
           } else {

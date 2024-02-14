@@ -160,6 +160,29 @@ padding-right: 8px;
     display: inline-block;
   }
 
+  .reorder-blue{
+    background-color: #7CB9E8;
+    color: white;          
+    border: 1px solid #7CB9E8;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
+
+  .reorder-red{
+    background-color: #FBCEB1;
+    color: white;          
+    border: 1px solid  #FFA07A;
+    padding: 12px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
 
 
     @media (max-width: 768px){
@@ -304,7 +327,7 @@ padding-right: 8px;
         
                 </tr>
                 </thead>
-                {% for data in row_one %} 
+                {% for data in datas %} 
         
                 {% if data.stat == "Repeat Medicine"%}
         
@@ -365,30 +388,35 @@ padding-right: 8px;
         </div>
 
         <!--End of display table-->
-        <br><br>
-        <br><hr>
+        <br><br><br><br>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if datas.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
+            {% endif %}
+            {% for i in datas.paginator.page_range %}
+            {% if datas.number == i %}
+            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
+            {% endif %}       
+            {% endfor%}    
+            {% if datas.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        <hr>
         <h5>Note :</h5>
          <br>
          <p style="font-size:21px;"> <a style="margin-right:10px;" class="check" href="#"></a> Follow Up Repeat Medicine  </p>
+         <p style="font-size:21px;"> <a style="margin-right:10px;" class="reorder-blue" href="#"></a> Repeat Medicine Not Issued</p>
+
+         <p style="font-size:21px;"> <a style="margin-right:10px;" class="reorder-red" href="#"></a> Repeat Medicine Issued </p>
 
 
- <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      {% if datas.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{datas.previous_page_number}}">Previous</a></li>
-      {% endif %}
-      {% for i in datas.paginator.page_range %}
-      {% if datas.number == i %}
-      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-      {% else %}
-      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li> 
-      {% endif %}       
-      {% endfor%}    
-      {% if datas.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{datas.next_page_number}}">Next</a></li>
-      {% endif %}
-    </ul>
-  </nav>
+        
+       
 </div>
 
         
